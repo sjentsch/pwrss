@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   examples: examples.html
-last_built: 2025-10-16T04:50Z
+last_built: 2025-10-16T05:34Z
 urls:
   reference: metinbulus.github.io/pwrss/reference
   article: metinbulus.github.io/pwrss/articles
