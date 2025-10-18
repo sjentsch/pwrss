@@ -5009,8 +5009,8 @@ power.z.mediation(beta.a = 0.25,
 #> ---------------------------------------------------
 #>   Sample Size          = 300
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error         = 0.421
-#>   Statistical Power    = 0.579  <<
+#>   Type 2 Error         = 0.410
+#>   Statistical Power    = 0.59  <<
 ```
 
 ## Covariate Adjustment
