@@ -9,3 +9,5 @@
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^codemeta\.json$
+^doc$
+^Meta$

@@ -11,8 +11,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
   # names.old.args <- names(old.args)
   # user.parms.names <- names(as.list(match.call()))
 
-  check.positive(w)
-  check.sample.size(df)
+  check.positive(w, df)
   check.proportion(alpha)
   check.logical(ceiling)
   if (!is.null(power)) check.proportion(power)

@@ -13,8 +13,7 @@ power.f.ancova <- function(eta.squared,
 
   check.proportion(alpha)
   check.logical(ceiling)
-  check.nonnegative(eta.squared, null.eta.squared)
-  check.sample.size(k.covariates)
+  check.nonnegative(eta.squared, null.eta.squared, k.covariates)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n.total)) check.sample.size(n.total)
   for (i in seq_along(factor.levels)) {
