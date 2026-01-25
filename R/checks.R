@@ -7,7 +7,7 @@ check.proportion <- function(...) {
   arg.names <- vapply(dots, function(expr) paste0("`", deparse(expr, nlines = 1), "`"), character(1))
 
   check <- vapply(args, function(x) {
-    is.numeric(x) && length(x) == 1 && x >= 0 && x < 1
+    is.numeric(x) && length(x) == 1 && x > 1 && x < 1
   }, logical(1))
 
   bad.names <- arg.names[!check]
