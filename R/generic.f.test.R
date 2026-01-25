@@ -2,7 +2,7 @@
 power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
                          plot = TRUE, verbose = TRUE, pretty = FALSE) {
 
-  check.sample.size(df1, df2)
+  check.positive(df1, df2)
   check.proportion(alpha)
 
   ifelse(is.numeric(ncp) || length(ncp) == 1 || ncp >= 0,

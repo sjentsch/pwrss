@@ -51,7 +51,7 @@ power.f.regression <- function(r.squared.change = NULL,
 
   check.proportion(alpha)
   check.logical(ceiling)
-  check.sample.size(k.total, k.tested)
+  check.positive(k.total, k.tested)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
@@ -249,7 +249,6 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   check.numeric(beta, null.beta)
   check.proportion(alpha)
   check.logical(ceiling)
-  check.sample.size(k.total)
   check.positive(sd.predictor, sd.outcome, k.total)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)

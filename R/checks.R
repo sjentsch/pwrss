@@ -7,7 +7,7 @@ check.proportion <- function(...) {
   arg.names <- vapply(dots, function(expr) paste0("`", deparse(expr, nlines = 1), "`"), character(1))
 
   check <- vapply(args, function(x) {
-    is.numeric(x) && length(x) == 1 && x >= 0 && x < 1
+    is.numeric(x) && length(x) == 1 && x >= 0 && x <= 1
   }, logical(1))
 
   bad.names <- arg.names[!check]
@@ -15,7 +15,7 @@ check.proportion <- function(...) {
   if (length(bad.names) > 0) {
     stop(
       sprintf(
-        "Argument%s %s %s not have valid value%s (must be numeric, length 1, > 0 and < 1)",
+        "Argument%s %s %s not have valid value%s (must be numeric, length 1, >= 0 and <= 1)",
         if (length(bad.names) > 1) "s" else "",
         paste(bad.names, collapse = if (length(bad.names) > 2) ", " else " and "),
         if (length(bad.names) > 1) "do" else "does",
@@ -36,7 +36,7 @@ check.correlation <- function(...) {
   arg.names <- vapply(dots, function(expr) paste0("`", deparse(expr, nlines = 1), "`"), character(1))
 
   check <- vapply(args, function(x) {
-    is.numeric(x) && length(x) == 1 && x > -1 && x < 1
+    is.numeric(x) && length(x) == 1 && x >= -1 && x <= 1
   }, logical(1))
 
   bad.names <- arg.names[!check]
@@ -44,7 +44,7 @@ check.correlation <- function(...) {
   if (length(bad.names) > 0) {
     stop(
       sprintf(
-        "Argument%s %s %s not have valid value%s (must be numeric, length 1, > -1 and < 1)",
+        "Argument%s %s %s not have valid value%s (must be numeric, length 1, >= -1 and <= 1)",
         if (length(bad.names) > 1) "s" else "",
         paste(bad.names, collapse = if (length(bad.names) > 2) ", " else " and "),
         if (length(bad.names) > 1) "do" else "does",
@@ -94,7 +94,7 @@ check.sample.size <- function(...) {
   arg.names <- vapply(dots, function(expr) paste0("`", deparse(expr, nlines = 1), "`"), character(1))
 
   check <- vapply(args, function(x) {
-    is.numeric(x) && length(x) == 1 && is.finite(x) && x >= 0 && abs(x - round(x)) < .Machine$double.eps^0.5
+    is.numeric(x) && length(x) == 1 && is.finite(x) && x > 1 && abs(x - round(x)) < .Machine$double.eps^0.5
   }, logical(1))
 
   bad.names <- arg.names[!check]
@@ -210,6 +210,7 @@ check.correlation.matrix <- function(x) {
 
 # check.logical(correct, paired)
 # check.proportions(p1, p2, alpha, r2, eta2)
-# check.sample.size(n2, n2, k.covariates)
+# check.sample.size(n2, n2)
 # check.nonnegative(sd1, sd2, f2)
+# check.positive(k.covariates)
 # check.numeric(mu1, mu2, beta0, beta1)

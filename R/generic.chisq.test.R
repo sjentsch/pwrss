@@ -2,7 +2,7 @@
 power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
                              plot = TRUE, verbose = TRUE, pretty = FALSE) {
 
-  check.sample.size(df)
+  check.positive(df)
   check.proportion(alpha)
 
   ifelse(is.numeric(ncp) || length(ncp) == 1 || ncp >= 0,
