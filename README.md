@@ -27,34 +27,6 @@ issue](https://img.shields.io/github/issues/metinbulus/pwrss?color=%23fa251e&log
 <!---
 [//]: [![Build Status](https://app.travis-ci.com/metinbulus/pwrss.svg?branch=main)](https://app.travis-ci.com/metinbulus/pwrss)
 --->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-&#10;  gtag('config', 'G-047X5R7P7R');
-</script>
-<style type="text/css">
-div.tocify {
-  width: 30%;
-  max-width: 260px;
-  max-height: 100%;
-}
-&#10;.tocify ul, .tocify li {
-  line-height: 20px;
-}
-&#10;.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 35px;
-  text-indent: 0;
-}
-&#10;.tocify-subheader .tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 70px;
-  text-indent: 0;
-}
-</style>
-
-<div style="background-color:rgb(255, 165, 90); padding: 20px 20px 1px; border-radius:5px;">
 
 <p>
 The original tutorial was published on CRAN and can be accessed at:
