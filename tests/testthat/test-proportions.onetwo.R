@@ -1,4 +1,4 @@
-test_that(proportions.onetwo.R works, {
+test_that("proportions.onetwo.R works", {
     # power.exact.oneprop ----------------------------------------------------------------------------------------------
 
     # power.z.oneprop (= pwrss.z.prop) ---------------------------------------------------------------------------------
