@@ -189,27 +189,7 @@ power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
                    sd.predictor = sqrt(p*(1-p)),
                    alpha = 0.05, power = 0.80)
-#> Warning: `r.squared` is possibly larger.
-#> +--------------------------------------------------+
-#> |             SAMPLE SIZE CALCULATION              |
-#> +--------------------------------------------------+
-#> 
-#> Linear Regression Coefficient (T-Test)
-#> 
-#> ---------------------------------------------------
-#> Hypotheses
-#> ---------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
-#> 
-#> ---------------------------------------------------
-#> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 128  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.199
-#>   Statistical Power      = 0.801
-#> 
+#> Error: Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.
 
 # estimate sample size using t test approach
 power.t.student(d = 0.50, alpha = 0.05, power = 0.80)

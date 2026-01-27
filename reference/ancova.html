@@ -197,27 +197,7 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-in"><span>                   k.total <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                   sd.predictor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                   alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`r.squared` is possibly larger.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta != 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 128  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate sample size using t test approach</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.50</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
