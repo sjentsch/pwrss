@@ -281,8 +281,6 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = TRUE) {
   } else {
     if (any(null.prob.matrix < 0) || any(null.prob.matrix > 1))
       stop("Matrix elements outside of [0, 1] range.", call. = FALSE)
-    if (isFALSE(all(dim(prob.matrix) == dim(null.prob.matrix))))
-      stop("Dimensions should match `prob.matrix`.", call. = FALSE)
   }
 
   if (is.vector(prob.matrix)) {
@@ -294,7 +292,7 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = TRUE) {
     if (any(dim(prob.matrix) != dim(null.prob.matrix)))
       stop("Dimensions for 'prob.matrix' and 'null.prob.matrix' do not match.", call. = FALSE)
   } else {
-    stop("Not a valid 'prob.matrix'.", call. = FALSE)
+    stop("'prob.matrix' must be either a vector or a matrix.", call. = FALSE)
   }
 
   ifelse(is.vector(prob.matrix),
