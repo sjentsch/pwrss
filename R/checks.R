@@ -129,7 +129,7 @@ check.nonnegative <- function(...) {
 
   if (length(bad.names) > 0) {
     stop(sprintf(
-      "Argument%s %s %s not have valid non-negative value%s (must be numeric, >= 0, finite)",
+      "Argument%s %s %s not have valid non-negative value%s (must be numeric, >= 0, and finite)",
       if (length(bad.names) > 1) "s" else "",
       paste(bad.names, collapse = if (length(bad.names) > 2) ", " else " and "),
       if (length(bad.names) > 1) "do" else "does",
@@ -154,7 +154,7 @@ check.positive <- function(...) {
 
   if (length(bad.names) > 0) {
     stop(sprintf(
-      "Argument%s %s %s not have valid non-negative value%s (must be numeric, > 0, finite)",
+      "Argument%s %s %s not have valid positive value%s (must be numeric, > 0, and finite)",
       if (length(bad.names) > 1) "s" else "",
       paste(bad.names, collapse = if (length(bad.names) > 2) ", " else " and "),
       if (length(bad.names) > 1) "do" else "does",
@@ -196,6 +196,15 @@ check.correlation.matrix <- function(x) {
 
   is.symmetric <- isSymmetric.matrix(x)
   if (!is.symmetric) stop("Correlation matrix is not symmetric", call. = FALSE)
+
+  # check that all values (only the upper triangular, as the matrix is symmetric) are valid correlations, runs until an error is thrown
+  # (or all values are valid)
+  for (v in x[upper.tri(x)]) {
+      tryCatch(check.correlation(v), error = function(e) stop("The values in the correlation matrix must be numeric, >= -1 and <= 1", call. = FALSE))
+  }
+
+  correct.diagonal <- all(diag(x) == 1)
+  if (!correct.diagonal) stop("All values in the main diagonal of the correlation matrix must be 1", call. = FALSE)
 
   is.positive.definite <- all(eigen(x, symmetric = TRUE)$values > 0)
   if (!is.positive.definite) stop("Correlation matrix is not positive definite", call. = FALSE)
