@@ -56,8 +56,8 @@ power.f.regression <- function(r.squared.change = NULL,
   if (!is.null(power)) check.proportion(power)
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
-  if (k.tested >  k.total) stop("'m.tested' cannot be greater than 'k.total'", call. = FALSE)
-  if (!is.numeric(r.squared.change) || r.squared.change > 1 || r.squared.change < 0) stop("Incorrect value for `r.squared.change`.", call. = FALSE)
+  if (k.tested >  k.total) stop("`k.tested` cannot be greater than `k.total`.", call. = FALSE)
+  if (!is.numeric(r.squared.change) || r.squared.change >= 1 || r.squared.change <= 0) stop("Incorrect value for `r.squared.change`.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -213,7 +213,7 @@ pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
   if (all(c("r2", "f2") %in% names.user.parms)) {
     stop("Specify either `r2` or `f2`.", call. = FALSE)
   } else {
-    if ("f2" %in% names.user.parms) r2 <- f.to.rsq(f = sqrt(f2))$r.squared.full
+    if ("f2" %in% names.user.parms) r2 <- f.to.rsq(f = sqrt(f2), verbose = verbose)$r.squared.full
   }
 
   pwrss.f.reg.obj <- power.f.regression(r.squared.change = r2, margin = 0,
@@ -257,7 +257,8 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
-  if (!is.numeric(r.squared) || r.squared > 1 || r.squared < 0) stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
+  if (!is.numeric(r.squared) || r.squared >= 1 || r.squared <= 0)
+    stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
   if (r.squared < (beta * sd.predictor / sd.outcome) ^ 2) warning("`r.squared` is possibly larger.", call. = FALSE)
 
   if (alternative == "two.one.sided") {
