@@ -10,12 +10,14 @@ test_that("utils.R works", {
     expect_equal(etasq.to.f(0.009900990, verbose = FALSE), list(f.squared = 0.0100, f = 0.10, eta.squared = 0.009900990))
     expect_equal(etasq.to.f(0.058823530, verbose = FALSE), list(f.squared = 0.0625, f = 0.25, eta.squared = 0.058823530))
     expect_equal(etasq.to.f(0.137931034, verbose = FALSE), list(f.squared = 0.1600, f = 0.40, eta.squared = 0.137931034))
+    expect_equal(capture.output(etasq.to.f(0.009900990)), c("  f.squared           f eta.squared ", " 0.01000000  0.10000000  0.00990099 "))
 
     # f.to.etasq -------------------------------------------------------------------------------------------------------
-    expect_equal(f.to.etasq(0.10,     verbose = FALSE), list(eta.squared = 0.009900990, f.squared = 0.0100, f = 0.10))
-    expect_equal(f.to.etasq(0.25,     verbose = FALSE), list(eta.squared = 0.058823530, f.squared = 0.0625, f = 0.25))
-    expect_equal(f.to.etasq(0.40,     verbose = FALSE), list(eta.squared = 0.137931034, f.squared = 0.1600, f = 0.40))
-
+    expect_equal(f.to.etasq(0.10, verbose = FALSE), list(eta.squared = 0.009900990, f.squared = 0.0100, f = 0.10))
+    expect_equal(f.to.etasq(0.25, verbose = FALSE), list(eta.squared = 0.058823530, f.squared = 0.0625, f = 0.25))
+    expect_equal(f.to.etasq(0.40, verbose = FALSE), list(eta.squared = 0.137931034, f.squared = 0.1600, f = 0.40))
+    expect_equal(capture.output(f.to.etasq(0.10)), c("eta.squared   f.squared           f ", " 0.00990099  0.01000000  0.10000000 "))
+    
     # cor.to.z ---------------------------------------------------------------------------------------------------------
     expect_equal(cor.to.z(1.000,  verbose = FALSE), list(z =  Inf,         rho =  1.000))
     expect_equal(cor.to.z(-1.000, verbose = FALSE), list(z = -Inf,         rho = -1.000))
@@ -34,7 +36,8 @@ test_that("utils.R works", {
     expect_equal(cor.to.z(0.100,  verbose = FALSE), list(z =  0.100335348, rho =  0.100))
     expect_equal(cor.to.z(-0.100, verbose = FALSE), list(z = -0.100335348, rho = -0.100))
     expect_equal(cor.to.z(0.000,  verbose = FALSE), list(z =  0.000000000, rho =  0.000))
-
+    expect_equal(capture.output(cor.to.z(1.000)), c("  z rho ", "Inf   1 "))
+    
     # z.to.cor ---------------------------------------------------------------------------------------------------------
     expect_equal(z.to.cor(0.1,  verbose = FALSE), list(rho =  0.099667995, z =  0.1))
     expect_equal(z.to.cor(-0.1, verbose = FALSE), list(rho = -0.099667995, z = -0.1))
@@ -44,35 +47,63 @@ test_that("utils.R works", {
     expect_equal(z.to.cor(-2.0, verbose = FALSE), list(rho = -0.964027580, z = -2.0))
     expect_equal(z.to.cor(4.0,  verbose = FALSE), list(rho =  0.999329300, z =  4.0))
     expect_equal(z.to.cor(-4.0, verbose = FALSE), list(rho = -0.999329300, z = -4.0))
+    expect_equal(capture.output(z.to.cor(0.1)), c("       rho          z ", "0.09966799 0.10000000 "))
+    expect_error(z.to.cor(Inf, verbose = FALSE), "Incorrect value for z")
 
     # cors.to.q --------------------------------------------------------------------------------------------------------
-    expect_equal(q.to.cors(q = 0.10,         rho1 = 0.5, verbose = FALSE),
-                 list(q =  0.1, delta = -0.071202682, rho1 = 0.5, rho2 = 0.571202682))
-    expect_equal(q.to.cors(q = 0.30,         rho1 = 0.5, verbose = FALSE),
-                 list(q =  0.3, delta = -0.190706810, rho1 = 0.5, rho2 = 0.690706810))
-    expect_equal(q.to.cors(q = 0.50,         rho1 = 0.5, verbose = FALSE),
-                 list(q =  0.5, delta = -0.281536455, rho1 = 0.5, rho2 = 0.781536455))
-
-    # q.to.cors --------------------------------------------------------------------------------------------------------
     expect_equal(cors.to.q(rho2 = 0.571202682, rho1 = 0.5, verbose = FALSE),
                  list(q = -0.1, delta = -0.071202682, rho1 = 0.5, rho2 = 0.571202682))
     expect_equal(cors.to.q(rho2 = 0.690706810, rho1 = 0.5, verbose = FALSE),
                  list(q = -0.3, delta = -0.190706810, rho1 = 0.5, rho2 = 0.690706810))
     expect_equal(cors.to.q(rho2 = 0.781536455, rho1 = 0.5, verbose = FALSE),
                  list(q = -0.5, delta = -0.281536455, rho1 = 0.5, rho2 = 0.781536455))
+    expect_equal(capture.output(cors.to.q(rho2 = 0.571202682, rho1 = 0.5)),
+                 c("          q       delta        rho1        rho2 ", "-0.10000000 -0.07120268  0.50000000  0.57120268 "))
+
+    # q.to.cors --------------------------------------------------------------------------------------------------------
+    expect_equal(q.to.cors(q = 0.10, rho1 = 0.5, verbose = FALSE),
+                 list(q =  0.1, delta = -0.071202682, rho1 = 0.5, rho2 = 0.571202682))
+    expect_equal(q.to.cors(q = 0.30, rho1 = 0.5, verbose = FALSE),
+                 list(q =  0.3, delta = -0.190706810, rho1 = 0.5, rho2 = 0.690706810))
+    expect_equal(q.to.cors(q = 0.50, rho1 = 0.5, verbose = FALSE),
+                 list(q =  0.5, delta = -0.281536455, rho1 = 0.5, rho2 = 0.781536455))
+    expect_equal(q.to.cors(q = 0.10, rho2 = 0.5, verbose = FALSE),
+                 list(q =  0.1, delta = -0.078671512, rho1 = 0.421328488, rho2 = 0.5))
+    expect_equal(q.to.cors(q = 0.30, rho2 = 0.5, verbose = FALSE),
+                 list(q =  0.3, delta = -0.255733683, rho1 = 0.244266317, rho2 = 0.5))
+    expect_equal(q.to.cors(q = 0.50, rho2 = 0.5, verbose = FALSE),
+                 list(q =  0.5, delta = -0.450733773, rho1 = 0.049266227, rho2 = 0.5))
+    expect_equal(capture.output(q.to.cors(q = 0.10, rho1 = 0.5)),
+                 c( "          q       delta        rho1        rho2 ", " 0.10000000 -0.07120268  0.50000000  0.57120268 "))
+    expect_equal(capture.output(q.to.cors(q = 0.10, rho2 = 0.5)),
+                 c( "          q       delta        rho1        rho2 ", " 0.10000000 -0.07867151  0.42132849  0.50000000 "))
+    expect_error(q.to.cors(q = 0.10, verbose = FALSE), "Both `rho1` and `rho2` cannot be NULL.")
+    expect_error(q.to.cors(q = 0.10, rho1 = 0.5, rho2 = 0.3, verbose = FALSE), "Exactly one of the `rho1` or `rho2` should be NULL.")
 
     # d.to.cles --------------------------------------------------------------------------------------------------------
-    expect_equal(d.to.cles(0.2,       verbose = FALSE), list(cles = 0.556231458, d = 0.2))
-    expect_equal(d.to.cles(0.5,       verbose = FALSE), list(cles = 0.638163195, d = 0.5))
-    expect_equal(d.to.cles(0.8,       verbose = FALSE), list(cles = 0.714196178, d = 0.8))
-    expect_equal(capture.output(d.to.cles(0.2,       verbose = TRUE)), c("     cles         d ", "0.5562315 0.2000000 "))
-    expect_equal(capture.output(d.to.cles(0.5,       verbose = TRUE)), c("     cles         d ", "0.6381632 0.5000000 "))
-    expect_equal(capture.output(d.to.cles(0.8,       verbose = TRUE)), c("     cles         d ", "0.7141962 0.8000000 "))
+    expect_equal(d.to.cles(0.2,                           verbose = FALSE), list(cles = 0.556231458, d = 0.2))
+    expect_equal(d.to.cles(0.5,                           verbose = FALSE), list(cles = 0.638163195, d = 0.5))
+    expect_equal(d.to.cles(0.8,                           verbose = FALSE), list(cles = 0.714196178, d = 0.8))
+    expect_equal(d.to.cles(0.2, design = c("paired"),     verbose = FALSE), list(cles = 0.579259710, d = 0.2))
+    expect_equal(d.to.cles(0.5, design = c("paired"),     verbose = FALSE), list(cles = 0.691462461, d = 0.5))
+    expect_equal(d.to.cles(0.8, design = c("paired"),     verbose = FALSE), list(cles = 0.788144600, d = 0.8))
+    expect_equal(d.to.cles(0.2, design = c("one.sample"), verbose = FALSE), list(cles = 0.579259710, d = 0.2))
+    expect_equal(d.to.cles(0.5, design = c("one.sample"), verbose = FALSE), list(cles = 0.691462461, d = 0.5))
+    expect_equal(d.to.cles(0.8, design = c("one.sample"), verbose = FALSE), list(cles = 0.788144600, d = 0.8))
+    expect_equal(capture.output(d.to.cles(0.2, verbose = TRUE)), c("     cles         d ", "0.5562315 0.2000000 "))
+    expect_equal(capture.output(d.to.cles(0.5, verbose = TRUE)), c("     cles         d ", "0.6381632 0.5000000 "))
+    expect_equal(capture.output(d.to.cles(0.8, verbose = TRUE)), c("     cles         d ", "0.7141962 0.8000000 "))
 
     # cles.to.d --------------------------------------------------------------------------------------------------------
-    expect_equal(cles.to.d(0.556231458, verbose = FALSE), list(d = 0.2, cles = 0.556231458))
-    expect_equal(cles.to.d(0.638163195, verbose = FALSE), list(d = 0.5, cles = 0.638163195))
-    expect_equal(cles.to.d(0.714196178, verbose = FALSE), list(d = 0.8, cles = 0.714196178))
+    expect_equal(cles.to.d(0.556231458,                           verbose = FALSE), list(d = 0.2, cles = 0.556231458))
+    expect_equal(cles.to.d(0.638163195,                           verbose = FALSE), list(d = 0.5, cles = 0.638163195))
+    expect_equal(cles.to.d(0.714196178,                           verbose = FALSE), list(d = 0.8, cles = 0.714196178))
+    expect_equal(cles.to.d(0.579259710, design = c("paired"),     verbose = FALSE), list(d = 0.2, cles = 0.579259710))
+    expect_equal(cles.to.d(0.691462461, design = c("paired"),     verbose = FALSE), list(d = 0.5, cles = 0.691462461))
+    expect_equal(cles.to.d(0.788144600, design = c("paired"),     verbose = FALSE), list(d = 0.8, cles = 0.788144600))
+    expect_equal(cles.to.d(0.579259710, design = c("one.sample"), verbose = FALSE), list(d = 0.2, cles = 0.579259710))
+    expect_equal(cles.to.d(0.691462461, design = c("one.sample"), verbose = FALSE), list(d = 0.5, cles = 0.691462461))
+    expect_equal(cles.to.d(0.788144600, design = c("one.sample"), verbose = FALSE), list(d = 0.8, cles = 0.788144600))
     expect_equal(capture.output(cles.to.d(0.5562315, verbose = TRUE)), c("        d      cles ", "0.2000002 0.5562315 "))
     expect_equal(capture.output(cles.to.d(0.6381632, verbose = TRUE)), c("        d      cles ", "0.5000000 0.6381632 "))
     expect_equal(capture.output(cles.to.d(0.7141962, verbose = TRUE)), c("        d      cles ", "0.8000001 0.7141962 "))
@@ -94,6 +125,8 @@ test_that("utils.R works", {
     expect_equal(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, n2 = 30, paired = TRUE, verbose = FALSE),
                  list(d = 0.449013255, mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, pooled.sd =  5.56776436, var.ratio = 0.694444444,
                       n1 = 30, n2 = 30, n.ratio = 1, paired = TRUE, rho.paired = 0.5, verbose = FALSE))
+    expect_equal(capture.output(suppressWarnings(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30))),
+                 c("        d ", "0.2236068 "))
 
     # probs.to.h -------------------------------------------------------------------------------------------------------
     expect_equal(probs.to.h(prob1 = 0.56,   prob2 = 0.50, verbose = FALSE), list(h = 0.120289882, prob1 = 0.56,   prob2 = 0.50))
@@ -106,8 +139,50 @@ test_that("utils.R works", {
     expect_equal(capture.output(probs.to.h(prob1 = 8 / 15, prob2 = 0.40)), c("        h     prob1     prob2 ", "0.2680741 0.5333333 0.4000000 "))
 
     # joint.probs.2x2 --------------------------------------------------------------------------------------------------
+    expect_equal(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414, verbose = FALSE),
+                 list(parms = list(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414, rho.min = -1, rho.max = 0.49 / 0.51),
+                      prob11 = 0.353393936, prob10 = 0.156606064, prob01 = 0.136606064, prob00 = 0.353393936))
+    expect_equal(joint.probs.2x2(prob1 = 0.55, prob2 = 0.45, rho = 0.4141414, verbose = FALSE),
+                 list(parms = list(prob1 = 0.55, prob2 = 0.45, rho = 0.4141414, rho.min = -1, rho.max = 0.45 / 0.55),
+                      prob11 = 0.35, prob10 = 0.200000004, prob01 = 0.100000003, prob00 = 0.35))
+    expect_equal(joint.probs.2x2(prob1 = 0.60, prob2 = 0.40, rho = 0.4141414, verbose = FALSE),
+                 list(parms = list(prob1 = 0.60, prob2 = 0.40, rho = 0.4141414, rho.min = -1, rho.max = 0.40 / 0.60),
+                      prob11 = 0.339393936, prob10 = 0.260606064, prob01 = 0.060606064, prob00 = 0.339393936))
+    expect_equal(joint.probs.2x2(prob1 = 2/3, prob2 = 1/3, rho = 0.4141414, verbose = FALSE),
+                 list(parms = list(prob1 = 2/3, prob2 = 1/3, rho = 0.4141414, rho.min = -1, rho.max = 0.5),
+                      prob11 = 0.314253644, prob10 = 0.352413022, prob01 = 0.019079689, prob00 = 0.314253644))
+    expect_equal(joint.probs.2x2(prob1 = 0.90, prob2 = 0.10, rho = 0.1, verbose = FALSE),
+                 list(parms = list(prob1 = 0.90, prob2 = 0.10, rho = 0.1, rho.min = -1, rho.max = 0.10 / 0.90),
+                      prob11 = 0.0990, prob10 = 0.8010, prob01 = 0.0010, prob00 = 0.0990))
+    expect_equal(capture.output(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414)),
+                 c("   prob11    prob10    prob01    prob00 ", "0.3533939 0.1566061 0.1366061 0.3533939 "))
+    expect_error(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 2, verbose = FALSE),
+                 "Incorrect value for `rho`")
+    expect_error(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 1, verbose = FALSE),
+                 "Combination of `prob1`, `prob2` and `rho` is not feasible.\n`rho` should be between -1 and 0.961")
 
     # marginal.probs.2x2 -----------------------------------------------------------------------------------------------
+    expect_equal(marginal.probs.2x2(prob11 = 0.3534, prob10 = 0.1566, prob01 = 0.1366, prob00 = 0.3534, verbose = FALSE),
+                 list(parms = list(prob11 = 0.3534, prob10 = 0.1566, prob01 = 0.1366, prob00 = 0.3534, rho = 0.414165666),
+                      prob1 = 0.51, prob2 = 0.49, rho = 0.414165666))
+    expect_equal(marginal.probs.2x2(prob11 = 0.3500, prob10 = 0.2000, prob01 = 0.1000, prob00 = 0.3500, verbose = FALSE),
+                 list(parms = list(prob11 = 0.3500, prob10 = 0.2000, prob01 = 0.1000, prob00 = 0.3500, rho = 0.414141414),
+                      prob1 = 0.55, prob2 = 0.45, rho = 0.414141414))
+    expect_equal(marginal.probs.2x2(prob11 = 0.3394, prob10 = 0.2606, prob01 = 0.0606, prob00 = 0.3394, verbose = FALSE),
+                 list(parms = list(prob11 = 0.3394, prob10 = 0.2606, prob01 = 0.0606, prob00 = 0.3394, rho = 0.41416667),
+                      prob1 = 0.60, prob2 = 0.40, rho = 0.41416667))
+    expect_equal(marginal.probs.2x2(prob11 = 0.3143, prob10 = 0.3524, prob01 = 0.0190, prob00 = 0.3143, verbose = FALSE),
+                 list(parms = list(prob11 = 0.3143, prob10 = 0.3524, prob01 = 0.0190, prob00 = 0.3143, rho = 0.41442073),
+                      prob1 = round(2/3, 4), prob2 = round(1/3, 4), rho = 0.41442073))
+    expect_equal(marginal.probs.2x2(prob11 = 0.0990, prob10 = 0.8010, prob01 = 0.0010, prob00 = 0.0990, verbose = FALSE),
+                 list(parms = list(prob11 = 0.0990, prob10 = 0.8010, prob01 = 0.0010, prob00 = 0.0990, rho = 0.1),
+                      prob1 = 0.90, prob2 = 0.10, rho = 0.1))
+    expect_equal(capture.output(marginal.probs.2x2(prob11 = 0.3534, prob10 = 0.1566, prob01 = 0.1366, prob00 = 0.3534)),
+                 c("    prob1     prob2       rho ", "0.5100000 0.4900000 0.4141657 "))
+    expect_error(marginal.probs.2x2(prob11 = 0.35, prob10 = 0.21, prob01 = 0.10, prob00 = 0.35, verbose = FALSE),
+                 "Joint probabilities must sum to 1.")
+    expect_warning(marginal.probs.2x2(prob11 = 0.35, prob10 = 0.65, prob01 = 0.0, prob00 = 0.0, verbose = FALSE),
+                   "Undefined correlation: division by zero in denominator.")
 
     # probs.to.w -------------------------------------------------------------------------------------------------------
     expect_equal(probs.to.w(c(0.28, 0.72), rep(0.5, 2), verbose = FALSE),
