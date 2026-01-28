@@ -183,7 +183,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
                     rho.within = NA,
                     effect = "within",
                     alpha = 0.05, power = 0.80)
-#> Warning: Assuming that 'eta.squared' and 'null.eta.squared' are already adjusted for within-subject correlation.
+#> Warning: Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
