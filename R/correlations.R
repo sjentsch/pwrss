@@ -131,7 +131,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
     check.correlation(rho14, rho24, rho34)
 
-    if (alternative == "two.sided" && rho12 == rho34) stop("alternative = 'two.sided' but rho12 = rho34.", call. = FALSE)
+    if (alternative == "two.sided" && rho12 == rho34) stop("`alternative` = 'two.sided' but `rho12` = `rho34`.", call. = FALSE)
 
     cor.mat <- matrix(c(1, rho12, rho13, rho14,
                              rho12, 1, rho23, rho24,

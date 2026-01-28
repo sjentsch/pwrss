@@ -43,7 +43,8 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
          paired <- FALSE,
          paired <- TRUE)
 
-  if (method == "noether" && isTRUE(paired)) stop("Specify method = 'guenther' to request Wilcoxon signed-rank test for matched pairs.", call. = FALSE)
+  if (method == "noether" && isTRUE(paired))
+    stop("Specify `method` = 'guenther' to request Wilcoxon signed-rank test for matched pairs.", call. = FALSE)
 
   pwr.wilcox <- function(d, null.d, margin,
                          n2, n.ratio, alpha,

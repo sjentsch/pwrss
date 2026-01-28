@@ -98,7 +98,7 @@ power.exact.fisher <- function(prob1, prob2,
 
       n.total <- 2000 + ceiling(n.ratio * 2000)
 
-      stop(paste(" Consider method = 'approximate' for total sample size >", n.total), call. = FALSE)
+      stop(paste(" Consider `method` = 'approximate' for total sample size >", n.total), call. = FALSE)
 
     } else {
 
@@ -174,7 +174,7 @@ power.exact.fisher <- function(prob1, prob2,
 
       n.total <- 500 + ceiling(n.ratio * 500)
 
-      stop(paste(" Consider method = 'approximate' for total sample size >", n.total), call. = FALSE)
+      stop(paste(" Consider `method` = 'approximate' for total sample size >", n.total), call. = FALSE)
 
     } else {
 

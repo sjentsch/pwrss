@@ -3,7 +3,7 @@
 ####################
 
 ## 'cp = 0' by default, implying complete mediation (it increases explanatory power of the covariate
-# use 'r.squared.mediator' and 'r.squared.outcome' to adjust standard error for other predictors in mediation and outcome model
+# use `r.squared.mediator` and `r.squared.outcome` to adjust standard error for other predictors in mediation and outcome model
 power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                                sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                                r.squared.mediator = beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2,
@@ -34,11 +34,11 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
     stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
 
   if (r.squared.outcome == 0 && "beta.cp" %in% user.parms.names)
-    warning("Ignoring any specification to 'beta.cp'.", call. = FALSE)
+    warning("Ignoring any specification to `beta.cp`.", call. = FALSE)
   if (r.squared.mediator < beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2)
-    warning("Specified 'r.squared.mediator' is smaller than the base 'r.squared.mediator'.", call. = FALSE)
+    warning("Specified `r.squared.mediator` is smaller than the base `r.squared.mediator`.", call. = FALSE)
   if (r.squared.outcome < (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2)
-    warning("Specified 'r.squared.outcome' is smaller than the base 'r.squared.outcome'.", call. = FALSE)
+    warning("Specified `r.squared.outcome` is smaller than the base `r.squared.outcome`.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",

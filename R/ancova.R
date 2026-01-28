@@ -124,7 +124,7 @@ power.f.ancova <- function(eta.squared,
 
   } else {
 
-    stop("Invalid 'n.total' or 'power'.", call. = FALSE)
+    stop("Invalid `n.total` or `power`.", call. = FALSE)
 
   }
 
@@ -1049,7 +1049,7 @@ power.t.contrast <- function(mu.vector,
     if (psi == 0) {
 
       n.total <- as.integer(.Machine$integer.max)
-      warning("Using infinity (maximum integer number as defined in R) for 'n.total' because psi = 0", call. = FALSE)
+      warning("Using infinity (maximum integer number as defined in R) for `n.total` because psi = 0", call. = FALSE)
 
     } else {
 
@@ -1220,18 +1220,18 @@ power.t.contrasts <- function(x = NULL,
 
     } else {
 
-      stop("This function only works with an object of type 'pwrss', 'ancova', and 'shieh'.", call. = FALSE)
+      stop("This function only works with an object of type `pwrss`, `ancova`, and `shieh`.", call. = FALSE)
 
     }
 
-    if ("mu.vector" %in%  names.user.parms) warning("Specification to 'mu.vector' is ignored.", call. = FALSE)
-    if ("sd.vector" %in%  names.user.parms) warning("Specification to 'sd.vector' is ignored.", call. = FALSE)
-    if ("n.vector" %in%  names.user.parms) warning("Specification to 'n.vector' is ignored.", call. = FALSE)
-    if ("p.vector" %in%  names.user.parms) warning("Specification to 'p.vector' is ignored.", call. = FALSE)
-    if ("r.squared" %in%  names.user.parms) warning("Specification to 'r.squared' is ignored.", call. = FALSE)
-    if ("k.covariates" %in%  names.user.parms) warning("Specification to 'k.covariates' is ignored.", call. = FALSE)
-    if ("contrast.matrix" %in%  names.user.parms) warning("Specification to 'contrast.matrix' is ignored.", call. = FALSE)
-    if ("power" %in%  names.user.parms) warning("Specification to 'power' is ignored.", call. = FALSE)
+    if ("mu.vector" %in%  names.user.parms) warning("Specification to `mu.vector` is ignored.", call. = FALSE)
+    if ("sd.vector" %in%  names.user.parms) warning("Specification to `sd.vector` is ignored.", call. = FALSE)
+    if ("n.vector" %in%  names.user.parms) warning("Specification to `n.vector` is ignored.", call. = FALSE)
+    if ("p.vector" %in%  names.user.parms) warning("Specification to `p.vector` is ignored.", call. = FALSE)
+    if ("r.squared" %in%  names.user.parms) warning("Specification to `r.squared` is ignored.", call. = FALSE)
+    if ("k.covariates" %in%  names.user.parms) warning("Specification to `k.covariates` is ignored.", call. = FALSE)
+    if ("contrast.matrix" %in%  names.user.parms) warning("Specification to `contrast.matrix` is ignored.", call. = FALSE)
+    if ("power" %in%  names.user.parms) warning("Specification to `power` is ignored.", call. = FALSE)
 
     requested <- "power"
 

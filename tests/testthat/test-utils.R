@@ -126,9 +126,9 @@ test_that("utils.R works", {
                  c("         w         df ", "0.03022008 4.00000000 "))
     expect_error(probs.to.w(c(0, 1.1)), "Matrix elements outside of \\[0, 1\\] range.")
     expect_error(probs.to.w(c(0.2, 0.8), c(0, 1.1)), "Matrix elements outside of \\[0, 1\\] range.")
-    expect_error(probs.to.w(c(0.1, 0.2, 0.3, 0.4), c(0.5, 0.5)), "Length of 'prob.matrix' and 'null.prob.matrix' should match.")
+    expect_error(probs.to.w(c(0.1, 0.2, 0.3, 0.4), c(0.5, 0.5)), "Length of `prob.matrix` and `null.prob.matrix` should match.")
     expect_error(probs.to.w(c(0.2, 0.3, 0.4, 0.5)), "Cell probabilities should sum to 1.")
     expect_error(probs.to.w(matrix(c(0.2, 0.3, 0.4, 0.5), nrow = 2), matrix(c(0.2, 0.3, 0.4, 0.5), nrow = 1)),
-                 "Dimensions for 'prob.matrix' and 'null.prob.matrix' do not match.")
-    expect_error(probs.to.w(data.frame(A = c(0.2, 0.3, 0.4, 0.5))), "'prob.matrix' must be either a vector or a matrix.")
+                 "Dimensions for `prob.matrix` and `null.prob.matrix` do not match.")
+    expect_error(probs.to.w(data.frame(A = c(0.2, 0.3, 0.4, 0.5))), "`prob.matrix` must be either a vector or a matrix.")
 })

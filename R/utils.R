@@ -209,7 +209,7 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = TRUE) {
 
   if (rho < rho.min || rho > rho.max) {
 
-    stop(paste("Combination of 'prob1', 'prob2' and 'rho' is not feasible. \n 'rho' should be between", round(rho.min, 3), "and", round(rho.max, 3)), call. = FALSE)
+    stop(paste("Combination of `prob1`, `prob2` and `rho` is not feasible. \n `rho` should be between", round(rho.min, 3), "and", round(rho.max, 3)), call. = FALSE)
 
   }
 
@@ -285,14 +285,14 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = TRUE) {
 
   if (is.vector(prob.matrix)) {
     if (length(prob.matrix) != length(null.prob.matrix))
-      stop("Length of 'prob.matrix' and 'null.prob.matrix' should match.", call. = FALSE)
+      stop("Length of `prob.matrix` and `null.prob.matrix` should match.", call. = FALSE)
     if (sum(prob.matrix) != 1 || sum(null.prob.matrix) != 1)
       stop("Cell probabilities should sum to 1.", call. = FALSE)
   } else if (is.matrix(prob.matrix)) {
     if (any(dim(prob.matrix) != dim(null.prob.matrix)))
-      stop("Dimensions for 'prob.matrix' and 'null.prob.matrix' do not match.", call. = FALSE)
+      stop("Dimensions for `prob.matrix` and `null.prob.matrix` do not match.", call. = FALSE)
   } else {
-    stop("'prob.matrix' must be either a vector or a matrix.", call. = FALSE)
+    stop("`prob.matrix` must be either a vector or a matrix.", call. = FALSE)
   }
 
   ifelse(is.vector(prob.matrix),

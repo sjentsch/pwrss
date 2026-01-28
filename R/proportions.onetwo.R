@@ -19,7 +19,8 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
     if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
     if (length(null.prob) != 2) stop("Provide null margins in the form of null.prob = c(lower, upper).", call. = FALSE)
   } else {
-    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
+    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1))
+      stop("Incorrect value for `null.prob`.", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -226,12 +227,15 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   if (alternative == "two.one.sided") {
     if (std.error == "null") {
       std.error <- "alternative"
-      warning("std.error = 'null' is ignored. Using 'alternative' for equivalence or minimal effect testing.", call. = FALSE)
+      warning("`std.error` = 'null' is ignored. Using 'alternative' for equivalence or minimal effect testing.", call. = FALSE)
     }
-    if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1)) stop(" Incorrect value for `null.prob`.", call. = FALSE)
-    if (length(null.prob) != 2) stop("Provide null margins in the form of null.prob = c(lower, upper).", call. = FALSE)
+    if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1))
+      stop(" Incorrect value for `null.prob`.", call. = FALSE)
+    if (length(null.prob) != 2)
+      stop("Provide null margins in the form of null.prob = c(lower, upper).", call. = FALSE)
   } else {
-    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
+    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1))
+      stop("Incorrect value for `null.prob`.", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -537,7 +541,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
   check.numeric(margin)
   check.logical(arcsin.trans)
 
-  if (margin > 0.99 || margin < -0.99) stop("Provide a reasonable margin consistent with 'p - p0'.", call. = FALSE)
+  if (margin > 0.99 || margin < -0.99) stop("Provide a reasonable margin consistent with `p` - `p0`.", call. = FALSE)
 
   if (alternative == "two.one.sided") margin <- c(-margin, margin)
   null.prob <- p0 + margin
@@ -628,9 +632,11 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   if (!is.numeric(rho.paired) || rho.paired > 1 || rho.paired < -1) stop("Incorrect value for `rho.paired`.", call. = FALSE)
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time.", call. = FALSE)
   if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`.", call. = FALSE)
-  if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99)) stop("Provide a reasonable `margin` consistent with 'prob1 - prob2'.", call. = FALSE)
+  if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
+    stop("Provide a reasonable `margin` consistent with `prob1` - `prob2`.", call. = FALSE)
   if (correct && paired) stop("Continuity correction is currently not available for paired proportions.", call. = FALSE)
-  if (any(prob1 - prob2 == margin)) stop("The value of margin should be different from the prob1 - prob2 difference.", call. = FALSE)
+  if (any(prob1 - prob2 == margin))
+    stop("The value of margin should be different from the prob1 - prob2 difference.", call. = FALSE)
 
   if (arcsine) {
     if (correct) stop("Continuity correction does not apply to arcsine transformation approach.", call. = FALSE)
@@ -644,7 +650,8 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     if (isFALSE(all(is.numeric(margin))) || any(margin < -1) || any(margin > 1)) stop("Incorrect value for `margin`.", call. = FALSE)
     if (length(margin) != 2) stop("Provide margins in the form of margin = c(lower, upper).", call. = FALSE)
   } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1 || any(margin < -1) || any(margin > 1)) stop("Incorrect value for `margin`.", call. = FALSE)
+    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1 || any(margin < -1) || any(margin > 1))
+      stop("Incorrect value for `margin`.", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -1002,7 +1009,7 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
   if (alternative == "not equal") alternative <- "two.sided"
   if (alternative == "equivalent") alternative <- "two.one.sided"
 
-  if (margin > 0.99 || margin < -0.99) stop("Provide a reasonable margin consistent with 'p1 - p2'", call. = FALSE)
+  if (margin > 0.99 || margin < -0.99) stop("Provide a reasonable margin consistent with `p1` - `p2`", call. = FALSE)
 
   if (alternative == "two.one.sided") margin <- c(-margin, margin)
 

@@ -13,8 +13,10 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
          valid.null.ncp <- TRUE,
          valid.null.ncp <- FALSE)
 
-  if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp)) stop("'ncp' or 'null.ncp' must be numeric, positive, and of length one.", call. = FALSE)
-  if (ncp < null.ncp) stop("'ncp' should be greater than or equal to 'null.ncp'.")
+  if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
+    stop("`ncp` or `null.ncp` must be numeric, positive, and of length one.", call. = FALSE)
+  if (ncp < null.ncp)
+    stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
   chisq.alpha <- qchisq(alpha, df = df, ncp = null.ncp, lower.tail = FALSE)
 

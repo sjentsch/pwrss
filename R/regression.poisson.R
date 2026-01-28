@@ -39,7 +39,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
     if (any(c("base.rate", "rate.ratio") %in% user.parms.names))
-      message("Ignoring any specifications to 'base.rate' or 'rate.ratio'.")
+      message("Ignoring any specifications to `base.rate` or `rate.ratio`.")
   }
 
   if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
@@ -47,11 +47,11 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
     beta0 <- log(base.rate)
     beta1 <- log(rate.ratio)
     if (any(c("beta0", "beta1") %in% user.parms.names))
-      message("Ignoring any specifications to 'beta0' or 'beta1'.")
+      message("Ignoring any specifications to `beta0` or `beta1`.")
   }
 
   if (all(c("base.rate", "rate.ratio", "beta0", "beta1") %in% user.parms.names)) {
-    stop("Specify 'base.rate' & 'rate.ratio' or 'beta0' & 'beta1'.", call. = FALSE)
+    stop("Specify `base.rate` & `rate.ratio` or `beta0` & `beta1`.", call. = FALSE)
   }
 
   if (beta0 == beta1) stop("`beta0` = `beta1`?", call. = FALSE)
@@ -72,7 +72,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                             `bernoulli` = list(dist = "bernoulli", size = 1, prob = 0.50),
                             `lognormal` = list(dist = "lognormal", meanlog = 0, sdlog = 1))
   } else if (is.list(distribution)) {
-    if (length(distribution) > 3) stop("unknown input type for 'distribution' argument", call. = FALSE)
+    if (length(distribution) > 3) stop("unknown input type for `distribution` argument", call. = FALSE)
     dist.list.names <- names(distribution)
     dist.attrib <- c(dist.list.names, tolower(distribution$dist))
     dist.invalid <- c(any(is.na(match(dist.attrib, c("dist", "normal", "mean", "sd")))),
@@ -81,9 +81,9 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                       any(is.na(match(dist.attrib, c("dist", "exponential", "rate")))),
                       any(is.na(match(dist.attrib, c("dist", "poisson", "lambda")))),
                       any(is.na(match(dist.attrib, c("dist", "binomial", "bernoulli", "size", "prob")))))
-    if (all(dist.invalid == TRUE)) stop("unknown input type for 'distribution' argument", call. = FALSE)
+    if (all(dist.invalid == TRUE)) stop("unknown input type for `distribution` argument", call. = FALSE)
   } else {
-    stop("Unknown input type for 'distribution'.", call. = FALSE)
+    stop("Unknown input type for `distribution`.", call. = FALSE)
   }
 
   # asymptotic variances

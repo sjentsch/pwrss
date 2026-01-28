@@ -20,8 +20,9 @@ power.t.test <- function(ncp, null.ncp = 0,
            valid.null.ncp <- TRUE,
            valid.null.ncp <- FALSE)
 
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp)) stop("'ncp' or 'null.ncp' must be numeric and of length one for the two-sided test.", call. = FALSE)
-    # if (ncp < null.ncp) stop("'ncp' must be equal or greater than 'null.ncp' for the two-sided test.", .call = FALSE)
+    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
+      stop("`ncp` or `null.ncp` must be numeric and of length one for the two-sided test.", call. = FALSE)
+    # if (ncp < null.ncp) stop("`ncp` must be equal or greater than `null.ncp` for the two-sided test.", .call = FALSE)
 
     t.alpha.upper <- qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
     t.alpha.lower <- qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
@@ -39,9 +40,10 @@ power.t.test <- function(ncp, null.ncp = 0,
            valid.null.ncp <- TRUE,
            valid.null.ncp <- FALSE)
 
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp)) stop("'ncp' or 'null.ncp' must be numeric and of length one for the one-sided test.", call. = FALSE)
-    # if (any(ncp < null.ncp) && alternative == "greater") stop("alternative = 'greater' but ncp < null.ncp.", call. = FALSE)
-    # if (any(ncp > null.ncp) && alternative == "less") stop("alternative = 'less' but ncp > null.ncp.", call. = FALSE)
+    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
+      stop("`ncp` or `null.ncp` must be numeric and of length one for the one-sided test.", call. = FALSE)
+    # if (any(ncp < null.ncp) && alternative == "greater") stop("`alternative` = 'greater' but `ncp` < `null.ncp`.", call. = FALSE)
+    # if (any(ncp > null.ncp) && alternative == "less") stop("`alternative` = 'less' but `ncp` > `null.ncp`.", call. = FALSE)
 
     ifelse(ncp > null.ncp,
            lower.tail <- FALSE,
@@ -59,8 +61,10 @@ power.t.test <- function(ncp, null.ncp = 0,
            valid.null.ncp <- TRUE,
            valid.null.ncp <- FALSE)
 
-    if (isFALSE(valid.ncp)) stop("'ncp' must be numeric and of length one for equivalence tests.", call. = FALSE)
-    if (isFALSE(valid.null.ncp)) stop("'null.ncp' must be numeric and of length one (absolute value) or length two (with lower and upper bounds) for the equivalence test.", call. = FALSE)
+    if (isFALSE(valid.ncp)) stop("`ncp` must be numeric and of length one for equivalence tests.", call. = FALSE)
+    if (isFALSE(valid.null.ncp))
+      stop(paste("`null.ncp` must be numeric and of length one (absolute value) or length two (with lower and upper",
+                 "bounds) for the equivalence test."), call. = FALSE)
 
     if (length(null.ncp) == 1) null.ncp <- c(min(c(-null.ncp, null.ncp)), max(-null.ncp, null.ncp))
 

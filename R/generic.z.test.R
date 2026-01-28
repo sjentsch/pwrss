@@ -31,9 +31,10 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
            valid.null.mean <- TRUE,
            valid.null.mean <- FALSE)
 
-    if (isFALSE(valid.mean) || isFALSE(valid.null.mean)) stop("'mean' or 'null.mean' must be numeric and of length one for the two-sided test.", call. = FALSE)
+    if (isFALSE(valid.mean) || isFALSE(valid.null.mean))
+      stop("`mean` or `null.mean` must be numeric and of length one for the two-sided test.", call. = FALSE)
 
-    # if (mean < null.mean) stop("'mean' must be equal or greater than 'null.mean' for the two-sided test.", .call = FALSE)
+    # if (mean < null.mean) stop("`mean` must be equal or greater than `null.mean` for the two-sided test.", .call = FALSE)
 
     z.alpha.upper <- qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = FALSE)
     z.alpha.lower <- qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = TRUE)
@@ -53,9 +54,10 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
            valid.null.mean <- TRUE,
            valid.null.mean <- FALSE)
 
-    if (isFALSE(valid.mean) || isFALSE(valid.null.mean)) stop("'mean' or 'null.mean' must be numeric and of length one for the one-sided test.", call. = FALSE)
-    # if (any(mean < null.mean) && alternative == "greater") stop("alternative = 'greater' but mean < null.mean.", call. = FALSE)
-    # if (any(mean > null.mean) && alternative == "less") stop("alternative = 'less' but mean > null.mean.", call. = FALSE)
+    if (isFALSE(valid.mean) || isFALSE(valid.null.mean))
+      stop("`mean` or `null.mean` must be numeric and of length one for the one-sided test.", call. = FALSE)
+    # if (any(mean < null.mean) && alternative == "greater") stop("`alternative` = 'greater' but `mean` < `null.mean`.", call. = FALSE)
+    # if (any(mean > null.mean) && alternative == "less") stop("`alternative` = 'less' but `mean` > `null.mean.", call. = FALSE)
 
     ifelse(mean > null.mean,
            lower.tail <- FALSE,
@@ -73,8 +75,11 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
            valid.null.mean <- TRUE,
            valid.null.mean <- FALSE)
 
-    if (isFALSE(valid.mean)) stop("'mean' must be numeric and of length one for equivalence tests.", call. = FALSE)
-    if (isFALSE(valid.null.mean)) stop("'null.mean' must be numeric and of length one (absolute value) or length two (with lower and upper bounds) for the equivalence test.", call. = FALSE)
+    if (isFALSE(valid.mean))
+      stop("`mean` must be numeric and of length one for equivalence tests.", call. = FALSE)
+    if (isFALSE(valid.null.mean))
+      stop(paste("`null.mean` must be numeric and of length one (absolute value) or length two (with lower and upper",
+                 "bounds) for the equivalence test."), call. = FALSE)
 
     if (length(null.mean) == 1) null.mean <- c(min(c(-null.mean, null.mean)), max(-null.mean, null.mean))
 
@@ -111,7 +116,8 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
   }
 
   if (plot) {
-    # if (sd != 1 || null.sd != 1) stop("Plotting is currently not available when standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
+    # if (sd != 1 || null.sd != 1)
+    #   stop("Plotting is currently not available when standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
 
     try(silent = TRUE,
         suppressWarnings({

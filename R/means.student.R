@@ -26,7 +26,8 @@ power.t.student <- function(d, null.d = 0, margin = 0,
     if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
   } else {
     if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `margin`", call. = FALSE)
-    # if (alternative %in% c("two.sided", "one.sided") && d == null.d) stop("alternative = 'two.sided' or 'one.sided' but d = null.d", call. = FALSE)
+    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
+    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -232,7 +233,8 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
     if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
   } else {
     if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `null.d`", call. = FALSE)
-    # if (alternative %in% c("two.sided", "one.sided") && d == null.d) stop("alternative = 'two.sided' or 'one.sided' but d = null.d", call. = FALSE)
+    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
+    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
   }
 
   ifelse(is.null(power),
