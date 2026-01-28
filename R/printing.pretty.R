@@ -47,21 +47,24 @@
     cat(sprintf("  \u03C3 (Alternative)   = %.*f\n", digits, x$sd.alternative))
     cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %.*f \n", digits, x$mean.null))
     cat(sprintf("  \u03C3\u2080 (Null)         \u2009= %.*f \n", digits, x$sd.null))
-    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n",
+                paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Sample Size       = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Sample Size       = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Sample Size       = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -132,21 +135,24 @@
     cat(sprintf("  \u03C3 (Alternative)   = %.*f\n", digits, x$sd.alternative))
     cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %.*f \n", digits, x$mean.null))
     cat(sprintf("  \u03C3\u2080 (Null)         \u2009= %.*f \n", digits, x$sd.null))
-    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n",
+                paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Sample Size       = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Sample Size       = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Sample Size       = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -226,25 +232,28 @@
     cat(line)
     cat(sprintf("  Std. \u03B2            = %.*f \n", digits, x$std.beta))
     cat(sprintf("  Std. \u03B2\u2080           \u2009= %.*f \n", digits, x$std.null.beta))
-    cat(sprintf("  Std. \u03B4            = %s \n", paste(round(x$std.margin, digits),  collapse = " and ")))
+    cat(sprintf("  Std. \u03B4            = %s \n", paste(round(x$std.margin, digits), collapse = " and ")))
     cat(sprintf("  df                = %.*f \n", 0, x$df))
     cat(sprintf("  \u03BB (Alternative)   = %.*f\n", digits, x$ncp.alternative))
-    cat(sprintf("  \u03BB\u2080 (Null)         \u2009= %s \n", paste(round(x$ncp.null, digits),  collapse = " and ")))
-    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$t.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  \u03BB\u2080 (Null)         \u2009= %s \n", paste(round(x$ncp.null, digits), collapse = " and ")))
+    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Sample Size       = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Sample Size       = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Sample Size       = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error      = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -326,21 +335,24 @@
     cat(sprintf("  df2               = %.*f\n", 0, x$df2))
     cat(sprintf("  \u03BB                 = %.*f\n", digits, x$ncp.alternative))
     cat(sprintf("  \u03BB\u2080                \u2009= %.*f\n", digits, x$ncp.null))
-    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$f.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Sample Size       = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Sample Size       = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Sample Size       = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -423,11 +435,12 @@
     cat(line)
     cat(sprintf("  d                 = %.*f\n", digits, x$d))
     cat(sprintf("  d\u2080                \u2009= %.*f\n", digits, x$null.d))
-    cat(sprintf("  \u03B4                 = %s \n", paste(round(x$margin, digits),  collapse = " and ")))
+    cat(sprintf("  \u03B4                 = %s \n", paste(round(x$margin, digits), collapse = " and ")))
     cat(sprintf("  df                = %.*f\n", 0, x$df))
     cat(sprintf("  \u03BB                 = %.*f\n", digits, x$ncp.alternative))
-    cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$ncp.null, digits),  collapse = " and ")))
-    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$t.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$ncp.null, digits), collapse = " and ")))
+    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -437,12 +450,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Sample Size       = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  n.text), "\n")
+    cat(paste0("  Sample Size       = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -548,16 +562,18 @@
     cat(line)
     cat(sprintf("  d                 = %.*f\n", digits, x$d))
     cat(sprintf("  d\u2080                \u2009= %.*f\n", digits, x$null.d))
-    cat(sprintf("  \u03B4                 = %s \n", paste(round(x$margin, digits),  collapse = " and ")))
+    cat(sprintf("  \u03B4                 = %s \n", paste(round(x$margin, digits), collapse = " and ")))
     if (x$method == "guenther") {
       cat(sprintf("  \u03BB                 = %.*f\n", digits, x$ncp))
       cat(sprintf("  df                = %.*f\n", 0, x$df))
-      cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$null.ncp, digits),  collapse = " and ")))
-      cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$t.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$null.ncp, digits), collapse = " and ")))
+      cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                  paste(round(x$t.alpha, digits), collapse = " and ")))
     } else {
       cat(sprintf("  \u03BC                 = %.*f\n", digits, x$mean))
-      cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$null.mean, digits),  collapse = " and ")))
-      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$null.mean, digits), collapse = " and ")))
+      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n",
+                  paste(round(x$z.alpha, digits), collapse = " and ")))
     }
   }
 
@@ -568,12 +584,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Sample Size       = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  n.text), "\n")
+    cat(paste0("  Sample Size       = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -650,8 +667,8 @@
     if (x$method %in% c("sobel", "aorian", "goodman")) {
       cat(sprintf("  Std. \u03B2[a*b]       = %.*f \n", digits, x$std.beta.indirect))
       cat(sprintf("  \u03BC (Alternative)   = %.*f\n", digits, x$mean.alternative))
-      cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %s \n", paste(round(x$mean.null, digits),  collapse = " and ")))
-      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %s \n", paste(round(x$mean.null, digits), collapse = " and ")))
+      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits), collapse = " and ")))
     } else {
       cat(sprintf("  Std. \u03B2[a*b]       = %.*f \n\n", digits, x$std.beta.indirect))
     }
@@ -661,14 +678,15 @@
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Sample Size       = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Sample Size       = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Sample Size       = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error      = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -735,14 +753,16 @@
   cat("Results\n")
   cat(line)
   if (x$requested == "n") {
-    cat(paste0(" \033[34m Total Sample Size = ",  round(x$n, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0(" \033[34m Total Sample Size = ", round(x$n, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Total Sample Size = ",  round(x$n, digits = digits)), "\n")
+    cat(paste0("  Total Sample Size = ", round(x$n, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -802,7 +822,8 @@
     cat(sprintf("  df                = %.*f\n", 0, x$df))
     cat(sprintf("  \u03BB                 = %.*f \n", digits, x$ncp.alternative))
     cat(sprintf("  \u03BB\u2080                \u2009= %.*f \n", digits, x$ncp.null))
-    cat(sprintf("  Inv-\u03C7\u00B2(\u03B1, \u03BB\u2080)     \u2009= %s \n\n", paste(round(x$chisq.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  Inv-\u03C7\u00B2(\u03B1, \u03BB\u2080)     \u2009= %s \n\n",
+                paste(round(x$chisq.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -811,7 +832,8 @@
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -825,8 +847,6 @@
   }
 
 } # .print.pwrss.chisq()
-
-
 
 
 .print.pwrss.t <- function(x, digits = 3, verbose = 1, ...) {
@@ -882,8 +902,9 @@
       cat(sprintf("  df                = %.*f \n", 0, x$df))
     }
     cat(sprintf("  \u03BB                 = %.*f \n", digits, x$ncp.alternative))
-    cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$ncp.null, digits),  collapse = " and ")))
-    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$t.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  \u03BB\u2080                \u2009= %s \n", paste(round(x$ncp.null, digits), collapse = " and ")))
+    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -892,7 +913,8 @@
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -959,8 +981,9 @@
     cat("Key Parameters \n")
     cat(line)
     cat(sprintf("  \u03BC                 = %.*f \n", digits, x$mean.alternative))
-    cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$mean.null, digits),  collapse = " and ")))
-    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$mean.null, digits), collapse = " and ")))
+    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -969,7 +992,8 @@
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1037,8 +1061,9 @@
     cat(line)
     cat(sprintf("  Size              = %.*f \n", 0, x$size))
     cat(sprintf("  P                 = %.*f \n", digits, x$prob.alternative))
-    cat(sprintf("  P\u2080                \u2009= %s \n", paste(round(x$prob.null, digits),  collapse = " and ")))
-    cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)      \u2009\u2009= %s \n\n", paste(round(x$binom.alpha, 0),  collapse = " and ")))
+    cat(sprintf("  P\u2080                \u2009= %s \n", paste(round(x$prob.null, digits), collapse = " and ")))
+    cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)      \u2009\u2009= %s \n\n",
+                paste(round(x$binom.alpha, 0), collapse = " and ")))
   }
 
   cat(line)
@@ -1047,7 +1072,8 @@
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1103,7 +1129,8 @@
     cat(sprintf("  df2               = %.*f\n", 0, x$df2))
     cat(sprintf("  \u03BB                 = %.*f\n", digits, x$ncp.alternative))
     cat(sprintf("  \u03BB\u2080                \u2009= %.*f\n", digits, x$ncp.null))
-    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n", paste(round(x$f.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)        \u2009\u2009= %s \n\n",
+                paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -1112,7 +1139,8 @@
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m",
+               "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1166,21 +1194,24 @@
     cat(sprintf("  df2                   = %.*f\n", 0, x$df2))
     cat(sprintf("  \u03BB                     = %.*f\n", digits, x$ncp))
     cat(sprintf("  \u03BB\u2080                    \u2009= %.*f\n", digits, x$null.ncp))
-    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)            \u2009\u2009= %s \n\n", paste(round(x$f.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  F\u207B\u00B9(\u03B1, \u03BB\u2080)            \u2009\u2009= %s \n\n",
+                paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n.total") {
-    cat(paste0("\033[34m  Total Sample Size     = ",  round(x$n.total, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0("\033[34m  Total Sample Size     = ", round(x$n.total, digits = digits), "\033[0m",
+               "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Total Sample Size     = ",  round(x$n.total, digits = digits)), "\n")
+    cat(paste0("  Total Sample Size     = ", round(x$n.total, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)      = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)      = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power     = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power     = ", round(x$power, digits = digits), "\033[0m",
+               "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power     = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1234,21 +1265,24 @@
     cat(sprintf("  df                    = %.*f\n", 0, x$df))
     cat(sprintf("  \u03BB                     = %.*f\n", digits, x$ncp))
     cat(sprintf("  \u03BB\u2080                    \u2009= %.*f\n", digits, x$null.ncp))
-    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)            \u2009\u2009= %s \n\n", paste(round(x$t.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  T\u207B\u00B9(\u03B1, \u03BB\u2080)            \u2009\u2009= %s \n\n",
+                paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
   cat("Results\n")
   cat(line)
   if (x$requested == "n.total") {
-    cat(paste0("\033[34m  Total Sample Size     = ",  round(x$n.total, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
+    cat(paste0("\033[34m  Total Sample Size     = ", round(x$n.total, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Total Sample Size     = ",  round(x$n.total, digits = digits)), "\n")
+    cat(paste0("  Total Sample Size     = ", round(x$n.total, digits = digits)), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)      = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)      = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power     = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power     = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power     = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1403,8 +1437,9 @@
       cat(sprintf("  P\u2081 - P\u2082           \u2009\u2009= %.*f \n", digits, x$delta))
       cat(sprintf("  Odds Ratio (OR)   = %.*f \n", digits, x$odds.ratio))
       cat(sprintf("  \u03BC                 = %.*f \n", digits, x$mean.alternative))
-      cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$mean.null, digits),  collapse = " and ")))
-      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BC\u2080                \u2009= %s \n", paste(round(x$mean.null, digits), collapse = " and ")))
+      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)        \u2009\u2009= %s \n\n",
+                  paste(round(x$z.alpha, digits), collapse = " and ")))
     } else {
       cat(sprintf("  P\u2081 - P\u2082           \u2009\u2009= %.*f \n", digits, x$delta))
       cat(sprintf("  Odds Ratio (OR)   = %.*f \n\n", digits, x$odds.ratio))
@@ -1418,12 +1453,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Sample Size       = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  n.text), "\n")
+    cat(paste0("  Sample Size       = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1500,12 +1536,14 @@
     if (x$method == "exact") {
       cat(sprintf("  Size (Discordant)  = %.*f \n", 0, x$size))
       cat(sprintf("  P\u2081                 \u2009= %.*f \n", digits, x$prob.alternative))
-      cat(sprintf("  P\u2080                 \u2009= %s \n", paste(round(x$prob.null, digits),  collapse = " and ")))
-      cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)       \u2009\u2009= %s \n\n", paste(round(x$binom.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  P\u2080                 \u2009= %s \n", paste(round(x$prob.null, digits), collapse = " and ")))
+      cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)       \u2009\u2009= %s \n\n",
+                  paste(round(x$binom.alpha, digits), collapse = " and ")))
     } else {
       cat(sprintf("  \u03BC\u2081                 \u2009= %.*f \n", digits, x$mean.alternative))
-      cat(sprintf("  \u03BC\u2080                 \u2009= %s \n", paste(round(x$mean.null, digits),  collapse = " and ")))
-      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)         \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BC\u2080                 \u2009= %s \n", paste(round(x$mean.null, digits), collapse = " and ")))
+      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)         \u2009\u2009= %s \n\n",
+                  paste(round(x$z.alpha, digits), collapse = " and ")))
     }
   }
 
@@ -1516,12 +1554,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Paired Sample Size = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Paired Sample Size = ",  n.text), "\n")
+    cat(paste0("  Paired Sample Size = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)   = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)   = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power  = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power  = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power  = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1615,12 +1654,14 @@
     if (x$method == "exact") {
       cat(sprintf("  Size               = %.*f \n", 0, x$size))
       cat(sprintf("  P                  = %.*f \n", digits, x$prob.alternative))
-      cat(sprintf("  P\u2080                 \u2009= %s \n", paste(round(x$prob.null, digits),  collapse = " and ")))
-      cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)       \u2009\u2009= %s \n\n", paste(round(x$binom.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  P\u2080                 \u2009= %s \n", paste(round(x$prob.null, digits), collapse = " and ")))
+      cat(sprintf("  Bin\u207B\u00B9(\u03B1, P\u2080)       \u2009\u2009= %s \n\n",
+                  paste(round(x$binom.alpha, digits), collapse = " and ")))
     } else {
       cat(sprintf("  \u03BC\u2081                 \u2009= %.*f \n", digits, x$mean.alternative))
-      cat(sprintf("  \u03BC\u2080                 \u2009= %s \n", paste(round(x$mean.null, digits),  collapse = " and ")))
-      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)         \u2009\u2009= %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+      cat(sprintf("  \u03BC\u2080                 \u2009= %s \n", paste(round(x$mean.null, digits), collapse = " and ")))
+      cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080)         \u2009\u2009= %s \n\n",
+                  paste(round(x$z.alpha, digits), collapse = " and ")))
     }
   }
 
@@ -1631,12 +1672,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Paired Sample Size = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size        = ",  n.text), "\n")
+    cat(paste0("  Sample Size        = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)   = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)   = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power  = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power  = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power  = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1730,7 +1772,8 @@
     cat(sprintf("  \u03C3 (Alternative)   = %.*f\n", digits, x$sd.alternative))
     cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %.*f \n", digits, x$mean.null))
     cat(sprintf("  \u03C3\u2080 (Null)         \u2009= %.*f \n", digits, x$sd.null))
-    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n",
+                paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -1740,12 +1783,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Sample Size       = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  n.text), "\n")
+    cat(paste0("  Sample Size       = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }
@@ -1834,7 +1878,8 @@
     cat(sprintf("  \u03C3 (Alternative)   = %.*f\n", digits, x$sd.alternative))
     cat(sprintf("  \u03BC\u2080 (Null)         \u2009= %.*f \n", digits, x$mean.null))
     cat(sprintf("  \u03C3\u2080 (Null)         \u2009= %.*f \n", digits, x$sd.null))
-    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n", paste(round(x$z.alpha, digits),  collapse = " and ")))
+    cat(sprintf("  Z\u207B\u00B9(\u03B1, \u03BC\u2080, \u03C3\u2080)     = %s \n\n",
+                paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
   cat(line)
@@ -1844,12 +1889,13 @@
   if (x$requested == "n") {
     cat(paste0("\033[34m  Sample Size       = ", n.text, "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n", "\033[0m"))
   } else {
-    cat(paste0("  Sample Size       = ",  n.text), "\n")
+    cat(paste0("  Sample Size       = ", n.text), "\n")
   }
   cat(sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha))
   cat(sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power))
   if (x$requested == "power") {
-    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m", "  \U00025C4\U00025C4 \n\n", "\033[0m"))
+    cat(paste0(" \033[34m Statistical Power = ", round(x$power, digits = digits), "\033[0m", "\033[1;35m",
+               "  \U00025C4\U00025C4 \n\n", "\033[0m"))
   } else {
     cat(paste0("  Statistical Power = ", round(x$power, digits = digits), "\n\n"))
   }

@@ -245,9 +245,9 @@ test_that("regression.logistic.R works", {
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = FALSE),
                  "`prob` can not have the same value as `base.prob`.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, distribution = "normal", verbose = FALSE),
-                 "`n` and `power` cannot be `NULL` at the same time.")
+                 "`n` and `power` cannot be NULL at the same time.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.8, n = 50, distribution = "normal", verbose = FALSE),
-                 "Exactly one of the `n` or `power` should be `NULL`.")
+                 "Exactly one of the `n` or `power` should be NULL.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.8,
                                   distribution = list(dist = "normal", mean = 0, sd = 1, err = 1), verbose = FALSE),
                  "Unknown input type for `distribution`")

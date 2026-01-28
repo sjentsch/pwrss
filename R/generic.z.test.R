@@ -56,8 +56,10 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
     if (isFALSE(valid.mean) || isFALSE(valid.null.mean))
       stop("`mean` or `null.mean` must be numeric and of length one for the one-sided test.", call. = FALSE)
-    # if (any(mean < null.mean) && alternative == "greater") stop("`alternative` = 'greater' but `mean` < `null.mean`.", call. = FALSE)
-    # if (any(mean > null.mean) && alternative == "less") stop("`alternative` = 'less' but `mean` > `null.mean.", call. = FALSE)
+    # if (any(mean < null.mean) && alternative == "greater")
+    #   stop("`alternative` = 'greater' but `mean` < `null.mean`.", call. = FALSE)
+    # if (any(mean > null.mean) && alternative == "less")
+    #   stop("`alternative` = 'less' but `mean` > `null.mean.", call. = FALSE)
 
     ifelse(mean > null.mean,
            lower.tail <- FALSE,
@@ -117,7 +119,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   if (plot) {
     # if (sd != 1 || null.sd != 1)
-    #   stop("Plotting is currently not available when standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
+    #   stop("Plotting is not available when the standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
 
     try(silent = TRUE,
         suppressWarnings({

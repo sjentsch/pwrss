@@ -17,7 +17,8 @@ power.chisq.gof <- function(w, null.w = 0, df,
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
 
-  if (w < null.w) stop("`w` should be greater than or equal to `null.w`.", call. = FALSE)
+  if (w < null.w)
+    stop("`w` should be greater than or equal to `null.w`.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -51,7 +52,8 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
     ) # try
 
-    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
+    if (inherits(n, "try-error") || n == 1e10)
+      stop("Design is not feasible.", call. = FALSE)
 
     n
 
@@ -155,13 +157,18 @@ pwrss.chisq.gofit <- function(p1 = c(0.50, 0.50),
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
 
-  if ("p1" %in% user.parms.names && "w" %in% user.parms.names) warning("Ignoring any specifications to `p1`, or `p0`.")
-  if ("w" %in% user.parms.names && !("df" %in% user.parms.names)) stop("Specify `df`.", call. = FALSE)
+  if ("p1" %in% user.parms.names && "w" %in% user.parms.names)
+    warning("Ignoring any specifications to `p1`, or `p0`.", call. = FALSE)
+  if ("w" %in% user.parms.names && !("df" %in% user.parms.names))
+    stop("Specify `df`.", call. = FALSE)
   if (is.vector(p1)) {
-    if (length(p1) != length(p0)) stop("Length of `p1` and `p0` should match.", call. = FALSE)
-    if (sum(p1) != 1 || sum(p0) != 1) stop("Cell probabilities should sum to 1.", call. = FALSE)
+    if (length(p1) != length(p0))
+      stop("Length of `p1` and `p0` should match.", call. = FALSE)
+    if (sum(p1) != 1 || sum(p0) != 1)
+      stop("Cell probabilities should sum to 1.", call. = FALSE)
   } else if (is.matrix(p1)) {
-    if (any(dim(p1) != dim(p0))) stop("Dimensions of `p1` and `p0` differ.", call. = FALSE)
+    if (any(dim(p1) != dim(p0)))
+      stop("Dimensions of `p1` and `p0` differ.", call. = FALSE)
   } else {
     stop("Incorrect value for `p1`.", call. = FALSE)
   }

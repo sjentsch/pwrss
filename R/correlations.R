@@ -19,8 +19,8 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -326,8 +326,8 @@ power.z.twocors <- function(rho1, rho2,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -496,8 +496,8 @@ power.z.onecor <- function(rho, null.rho = 0,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",

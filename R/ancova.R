@@ -28,8 +28,8 @@ power.f.ancova <- function(eta.squared,
   f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
 
-  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -284,9 +284,9 @@ power.f.ancova.keppel <- function(mu.vector,
   if (length(factor.levels) > 1)
     stop("Factorial designs are not allowed in Keppel's approach.", call. = FALSE)
   if (is.null(n.vector) && is.null(power))
-    stop("`n.vector` and `power` cannot be `NULL` at the same time.", call. = FALSE)
+    stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n.vector) && !is.null(power))
-    stop("Exactly one of the `n.vector` or `power` should be `NULL`.", call. = FALSE)
+    stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
 
 requested <- ifelse(is.null(power), "power", "n.total")
 
@@ -611,8 +611,9 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 
   }
 
-  if (length(factor.levels) > 1) message("Elements of `mu.vector`, `sd.vector`, `n.vector` or `p.vector` should follow this specific order:\n",
-                                        paste(means.cell.names, " "), "\n")
+  if (length(factor.levels) > 1)
+    message("Elements of `mu.vector`, `sd.vector`, `n.vector` or `p.vector` should follow this specific order:\n",
+            paste(means.cell.names, " "), "\n")
 
   if (isFALSE(intercept)) contrast.mat <- contrast.mat[-1, ]
 
@@ -675,15 +676,21 @@ power.f.ancova.shieh <- function(mu.vector,
     check.sample.size(factor.level.check)
   } # factor.levels check
 
-  if (!is.vector(mu.vector) || !is.numeric(mu.vector)) stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
-  if (!is.vector(sd.vector) || !is.numeric(sd.vector)) stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
-  if (length(mu.vector) != length(sd.vector)) stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
-  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1) stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
-  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1) stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
-  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1) stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
+  if (!is.vector(mu.vector) || !is.numeric(mu.vector))
+    stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
+  if (!is.vector(sd.vector) || !is.numeric(sd.vector))
+    stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
+  if (length(mu.vector) != length(sd.vector))
+    stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
+  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
+    stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
+  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1)
+    stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
+  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
+    stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
 
-  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -700,9 +707,12 @@ power.f.ancova.shieh <- function(mu.vector,
   } else {
 
     if (is.vector(contrast.matrix)) contrast.matrix <- matrix(contrast.matrix, nrow = 1, ncol = length(contrast.matrix))
-    if (!is.matrix(contrast.matrix))  stop("Contrast coefficients are not provided in the form of a matrix.", call. = FALSE)
-    if (dim(contrast.matrix)[2] != length(mu.vector)) stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
-    if (dim(contrast.matrix)[1] > length(mu.vector) - 1) stop("Number of rows in the contrast matrix should be less than or equal to number of groups minus one.", call. = FALSE)
+    if (!is.matrix(contrast.matrix))
+      stop("Contrast coefficients are not provided in the form of a matrix.", call. = FALSE)
+    if (dim(contrast.matrix)[2] != length(mu.vector))
+      stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
+    if (dim(contrast.matrix)[1] > length(mu.vector) - 1)
+      stop("Number of rows in the contrast matrix should be less than or equal to number of groups minus one.", call. = FALSE)
     C.mat <- contrast.matrix
 
   }
@@ -732,7 +742,8 @@ power.f.ancova.shieh <- function(mu.vector,
       sd.beta <- sqrt((shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1)))
       lower.beta <- max(0, mean.beta - 10 * sd.beta)
 
-      integrand <- function(x) dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) * pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE)
+      integrand <- function(x) dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
+                               pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE)
       power <- integrate(integrand, lower = lower.beta, upper = 1)$value
 
       ifelse(calculate.lambda,
@@ -771,9 +782,12 @@ power.f.ancova.shieh <- function(mu.vector,
 
   if (is.null(power)) {
 
-    if (!is.vector(n.vector) || length(n.vector) != prod(factor.levels)) stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
-    if (length(mu.vector) != length(n.vector)) stop("Number of elements in the vector of means should match those in the vector of sample size", call. = FALSE)
-    if (length(n.vector) != length(sd.vector)) stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations", call. = FALSE)
+    if (!is.vector(n.vector) || length(n.vector) != prod(factor.levels))
+      stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
+    if (length(mu.vector) != length(n.vector))
+      stop("Number of elements in the vector of means should match those in the vector of sample size", call. = FALSE)
+    if (length(n.vector) != length(sd.vector))
+      stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations", call. = FALSE)
 
     pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                          n.vector = n.vector, k.covariates = k.covariates,
@@ -952,20 +966,30 @@ power.t.contrast <- function(mu.vector,
     }
   } # n.vector check
 
-  if (!is.vector(mu.vector) || !is.numeric(mu.vector)) stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
-  if (!is.vector(sd.vector) || !is.numeric(sd.vector)) stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
+  if (!is.vector(mu.vector) || !is.numeric(mu.vector))
+    stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
+  if (!is.vector(sd.vector) || !is.numeric(sd.vector))
+    stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
   if (is.vector(contrast.vector)) contrast.vector <- matrix(contrast.vector, nrow = 1, ncol = length(contrast.vector))
-  if (dim(contrast.vector)[2] != length(mu.vector)) stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
-  if (dim(contrast.vector)[1] > 1) stop("Number of rows in the contrast matrix should be one.", call. = FALSE)
+  if (dim(contrast.vector)[2] != length(mu.vector))
+    stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
+  if (dim(contrast.vector)[1] > 1)
+    stop("Number of rows in the contrast matrix should be one.", call. = FALSE)
   C.mat <- contrast.vector
 
-  if (length(mu.vector) != length(sd.vector)) stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
-  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1) stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
-  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1) stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
-  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1) stop("Type 1 error rate (alpha) take a value between 0 and 1.", call. = FALSE)
+  if (length(mu.vector) != length(sd.vector))
+    stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
+  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
+    stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
+  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1)
+    stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
+  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
+    stop("Type 1 error rate (alpha) take a value between 0 and 1.", call. = FALSE)
 
-  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n.vector) && is.null(power))
+    stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n.vector) && !is.null(power))
+    stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -1028,7 +1052,8 @@ power.t.contrast <- function(mu.vector,
 
       lambda <- numeric(1)
       ifelse(calculate.lambda,
-             lambda <- integrate(function(x) dbeta(x, (v + 1) / 2, k.covariates / 2) * (sqrt(x) * psi / sqrt(sigma2_error * a)), lower.beta, 1)$value,
+             lambda <- integrate(function(x) dbeta(x, (v + 1) / 2, k.covariates / 2) *
+                                             (sqrt(x) * psi / sqrt(sigma2_error * a)), lower.beta, 1)$value,
              lambda <- NA)
 
     } else {
@@ -1070,9 +1095,12 @@ power.t.contrast <- function(mu.vector,
 
   if (is.null(power)) {
 
-    if (!is.vector(n.vector) || !is.numeric(n.vector)) stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
-    if (length(mu.vector) != length(n.vector)) stop("Number of elements in the vector of means should match those in the vector of sample size.", call. = FALSE)
-    if (length(n.vector) != length(sd.vector)) stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations.", call. = FALSE)
+    if (!is.vector(n.vector) || !is.numeric(n.vector))
+      stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
+    if (length(mu.vector) != length(n.vector))
+      stop("Number of elements in the vector of means should match those in the vector of sample size.", call. = FALSE)
+    if (length(n.vector) != length(sd.vector))
+      stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations.", call. = FALSE)
 
     pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
                               n.vector = n.vector, k.covariates = k.covariates,
@@ -1272,8 +1300,8 @@ power.t.contrasts <- function(x = NULL,
 
   } # if data is null
 
-  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
 
   if (is.vector(contrast.matrix)) {
 

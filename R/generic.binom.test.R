@@ -13,13 +13,17 @@ power.binom.test <- function(size,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (any(!is.numeric(size)) || any(size < 0) || any(!(abs(size - round(size)) < .Machine$double.eps^0.5))) stop("Incorrect value for `size`.", call. = FALSE)
+  if (any(!is.numeric(size)) || any(size < 0) || any(!(abs(size - round(size)) < .Machine$double.eps ^ 0.5)))
+    stop("Incorrect value for `size`.", call. = FALSE)
 
   if (alternative == "two.one.sided") {
-    if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
-    if (length(null.prob) != 2) stop("Provide null margins in the form of null.prob = c(lower, upper)", call. = FALSE)
+    if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1))
+      stop("Incorrect value for `null.prob`.", call. = FALSE)
+    if (length(null.prob) != 2)
+      stop("Provide null margins in the form of null.prob = c(lower, upper)", call. = FALSE)
   } else {
-    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
+    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1))
+      stop("Incorrect value for `null.prob`.", call. = FALSE)
   }
 
   if (alternative == "two.one.sided") {

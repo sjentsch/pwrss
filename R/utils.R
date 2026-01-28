@@ -41,7 +41,7 @@ z.to.cor <- function(z, verbose = TRUE) {
 
   rho <- numeric(length = length(z))
   for (i in seq_along(z)) {
-    if (!is.numeric(z) && !is.finite(z))
+    if (!is.numeric(z) || !is.finite(z))
       stop("Incorrect value for z", call. = FALSE)
     rho[i] <- (exp(2 * z[i]) - 1) / (exp(2 * z[i]) + 1)
   }
@@ -195,7 +195,7 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = TRUE) {
   check.proportion(prob1, prob2)
   check.logical(verbose)
 
-  if (!is.numeric(rho) && rho < -1 && rho > 1) stop("Incorrect value for `rho`", call. = FALSE)
+  if (!is.numeric(rho) || rho < -1 || rho > 1) stop("Incorrect value for `rho`", call. = FALSE)
 
   rho.min <- max(
     -sqrt(prob1 * prob2 / ((1 - prob1) * (1 - prob2))),
@@ -209,7 +209,8 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = TRUE) {
 
   if (rho < rho.min || rho > rho.max) {
 
-    stop(paste("Combination of `prob1`, `prob2` and `rho` is not feasible. \n `rho` should be between", round(rho.min, 3), "and", round(rho.max, 3)), call. = FALSE)
+    stop(paste("Combination of `prob1`, `prob2` and `rho` is not feasible.\n`rho` should be between",
+               round(rho.min, 3), "and", round(rho.max, 3)), call. = FALSE)
 
   }
 
@@ -248,7 +249,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = TRUE) {
   if (prob1 == 1 || prob1 == 0 || prob2 == 1 || prob2 == 0) {
 
     rho <- NA
-    warning("Undefined correlation: division by zero in denominator.")
+    warning("Undefined correlation: division by zero in denominator.", call. = FALSE)
 
   } else {
 

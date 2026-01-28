@@ -127,9 +127,9 @@ test_that("regression.linear.R works", {
                  list(test = "F", df1 = 2, df2 = 84, ncp = 10, null.ncp = 0, f.alpha = 3.10515661, power = 0.8005579, n = 90))
 
     expect_error(power.f.regression(r.squared.change = 0.10, k.total = 5, k.tested = 2, verbose = FALSE),
-                 "`n` and `power` cannot be `NULL` at the same time.")
+                 "`n` and `power` cannot be NULL at the same time.")
     expect_error(power.f.regression(r.squared.change = 0.10, k.total = 5, k.tested = 2, power = 0.8, n = 90, verbose = FALSE),
-                 "Exactly one of the `n` or `power` should be `NULL`.")
+                 "Exactly one of the `n` or `power` should be NULL.")
     expect_error(power.f.regression(r.squared.change = 0.10, k.total = 2, k.tested = 5, power = 0.8, verbose = FALSE),
                  "`k.tested` cannot be greater than `k.total`.")
     expect_error(power.f.regression(r.squared.change = 0, k.total = 5, k.tested = 2, power = 0.8, verbose = FALSE),
@@ -307,9 +307,9 @@ test_that("regression.linear.R works", {
                       power = 0.800034768, n = 10792))
 
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, verbose = FALSE),
-                 "`n` and `power` cannot be `NULL` at the same time.")
+                 "`n` and `power` cannot be NULL at the same time.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, power = 0.80, n = 140, verbose = FALSE),
-                 "Exactly one of the `n` or `power` should be `NULL`.")
+                 "Exactly one of the `n` or `power` should be NULL.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.00, power = 0.80, verbose = FALSE),
                  "Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.")
     expect_error(power.t.regression(beta = 0, margin = 0.05, alternative = "two.one.sided", sd.predictor = 0.5, k.total = 5,

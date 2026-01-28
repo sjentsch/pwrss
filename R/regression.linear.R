@@ -54,10 +54,11 @@ power.f.regression <- function(r.squared.change = NULL,
   check.positive(k.total, k.tested)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
   if (k.tested >  k.total) stop("`k.tested` cannot be greater than `k.total`.", call. = FALSE)
-  if (!is.numeric(r.squared.change) || r.squared.change >= 1 || r.squared.change <= 0) stop("Incorrect value for `r.squared.change`.", call. = FALSE)
+  if (!is.numeric(r.squared.change) || r.squared.change >= 1 || r.squared.change <= 0)
+    stop("Incorrect value for `r.squared.change`.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -255,8 +256,8 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
   if (!is.numeric(r.squared) || r.squared >= 1 || r.squared <= 0)
     stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
   if (r.squared < (beta * sd.predictor / sd.outcome) ^ 2) warning("`r.squared` is possibly larger.", call. = FALSE)
@@ -265,7 +266,8 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
     if (length(margin) != 2) stop("Specify `margin` in the form of margin = c(lower, upper).", call. = FALSE)
   } else {
     if (length(margin) != 1) stop("Specify only one value for the `margin`.", call. = FALSE)
-    # if (beta == null.beta) stop("`beta` takes a value different from `null.beta` for 'one.sided' or 'two.sided' tests.", call. = FALSE)
+    # if (beta == null.beta)
+    #   stop("`beta` takes a value different from `null.beta` for 'one.sided' or 'two.sided' tests.", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -443,6 +445,9 @@ pwrss.t.reg <- pwrss.t.regression
 
 
 # defunct
-pwrss.z.mean   <- function(...) stop("This function is no longer available. Please use `power.t.student()`.", call. = FALSE)
-pwrss.z.2means <- function(...) stop("This function is no longer available. Please use `power.t.student()` or `power.t.welch()`.", call. = FALSE)
-pwrss.z.regression <- pwrss.z.reg <- function(...) stop("This function is no longer available. Please use `power.t.regression()`.", call. = FALSE)
+pwrss.z.mean   <- function(...)
+  stop("This function is no longer available. Please use `power.t.student()`.", call. = FALSE)
+pwrss.z.2means <- function(...)
+  stop("This function is no longer available. Please use `power.t.student()` or `power.t.welch()`.", call. = FALSE)
+pwrss.z.regression <- pwrss.z.reg <- function(...)
+  stop("This function is no longer available. Please use `power.t.regression()`.", call. = FALSE)

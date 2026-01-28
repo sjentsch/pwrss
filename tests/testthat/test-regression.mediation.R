@@ -237,9 +237,9 @@ test_that("regression.mediation.R works", {
                       mean = 2.80658531, sd = 1, null.mean = 0, null.sd = 1, z.alpha = c(-1.959964, 1.959964), power = 0.801397824, n = 279))
 
     expect_error(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, verbose = FALSE),
-                 "`n` and `power` cannot be `NULL` at the same time.")
+                 "`n` and `power` cannot be NULL at the same time.")
     expect_error(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, n = 200, power = 0.8, verbose = FALSE),
-                 "Exactly one of the `n` or `power` should be `NULL`.")
+                 "Exactly one of the `n` or `power` should be NULL.")
     expect_error(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, power = 0.8, method = "joint", verbose = FALSE),
                  "Sample size calculation not supported by this method")
     crrWrn <- capture_warnings(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, r.squared.outcome = 0, n = 200, verbose = FALSE))

@@ -70,8 +70,8 @@ power.z.logistic <- function(prob = NULL,
   }
 
   if (prob == base.prob) stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
 
   ifelse(is.null(power),
          requested <- "power",
@@ -146,18 +146,25 @@ power.z.logistic <- function(prob = NULL,
       max.pois <- qpois(.9999999, lambda = lambda)
 
       # variance under null
-      mu <- sum(sapply(0:max.pois, function(x)  dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x))), na.rm = TRUE)
+      mu  <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) /
+                                                        (1 + exp(beta0 + beta1 * x))), na.rm = TRUE)
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- sum(sapply(0:max.pois, function(x)  dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, function(x) x * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i00 <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) /
+                                                        (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i01 <- sum(sapply(0:max.pois, function(x) x ^ 1 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) /
+                                                        (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x) /
+                                                        (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- sum(sapply(0:max.pois, function(x) dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, function(x) x * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i00 <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) /
+                                                        (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i01 <- sum(sapply(0:max.pois, function(x) x ^ 1 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) /
+                                                        (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x) /
+                                                        (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # poisson
@@ -168,18 +175,25 @@ power.z.logistic <- function(prob = NULL,
       max <- distribution$max
 
       # variance under null
-      mu <- integrate(function(x)  dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), min, max)$value
+      mu  <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)), min, max)$value
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- integrate(function(x)  dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
-      i01 <- integrate(function(x) x * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
-      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
+      i00 <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
+      i01 <- integrate(function(x) x ^ 1 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
+      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min, max)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x)  dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
-      i01 <- integrate(function(x) x * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
-      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
+      i00 <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
+      i01 <- integrate(function(x) x ^ 1 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
+      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min, max)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # uniform
@@ -193,15 +207,21 @@ power.z.logistic <- function(prob = NULL,
       mu <- integrate(function(x)  dexp(x, rate = rate) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), 0, max.exp)$value
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- integrate(function(x)  dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
-      i01 <- integrate(function(x) x * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
-      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
+      i00 <- integrate(function(x) x ^ 0 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
+      i01 <- integrate(function(x) x ^ 1 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
+      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, 0, max.exp)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x)  dexp(x, rate = rate) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
-      i01 <- integrate(function(x) x * dexp(x, rate = rate) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
-      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
+      i00 <- integrate(function(x) x ^ 0 * dexp(x, rate = rate) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
+      i01 <- integrate(function(x) x ^ 1 * dexp(x, rate = rate) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
+      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, 0, max.exp)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # exponential
@@ -212,18 +232,25 @@ power.z.logistic <- function(prob = NULL,
       prob <- distribution$prob
 
       # variance under null
-      mu <- sum(sapply(0:size, function(x) dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x))), na.rm = TRUE)
+      mu  <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) /
+                                                    (1 + exp(beta0 + beta1 * x))), na.rm = TRUE)
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- sum(sapply(0:size, function(x) dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
-      i01 <- sum(sapply(0:size, function(x) x * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
-      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i00 <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) /
+                                                    (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i01 <- sum(sapply(0:size, function(x) x ^ 1 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) /
+                                                    (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
+      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x) /
+                                                    (1 + exp(beta0.star + beta1.star * x)) ^ 2), na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- sum(sapply(0:size, function(x) dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
-      i01 <- sum(sapply(0:size, function(x) x * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
-      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i00 <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) /
+                                                    (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i01 <- sum(sapply(0:size, function(x) x ^ 1 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) /
+                                                    (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
+      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x) /
+                                                    (1 + exp(beta0 + beta1 * x)) ^ 2), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # binomial
@@ -236,18 +263,25 @@ power.z.logistic <- function(prob = NULL,
       max.lnorm <- qlnorm(.9999999, meanlog = meanlog, sdlog = sdlog)
 
       # variance under null
-      mu <- integrate(function(x)  dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), min.lnorm, max.lnorm)$value
+      mu  <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)), min.lnorm, max.lnorm)$value
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- integrate(function(x)  dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) x * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i00 <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i01 <- integrate(function(x) x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0.star + beta1.star * x) /
+                                           (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.lnorm, max.lnorm)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x)  dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) x * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i00 <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i01 <- integrate(function(x) x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
+      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x) /
+                                           (1 + exp(beta0 + beta1 * x)) ^ 2, min.lnorm, max.lnorm)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # log-normal
@@ -323,7 +357,8 @@ power.z.logistic <- function(prob = NULL,
     if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
 
       if (tolower(distribution$dist) == "binomial" && distribution$size > 1)
-        stop("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal distribution.", call. = FALSE)
+        stop(paste("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal",
+                   "distribution."), call. = FALSE)
       prob <- distribution$prob
       beta <- 1 - power
       ifelse(alternative == "two.sided",

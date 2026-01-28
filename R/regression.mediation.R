@@ -29,9 +29,9 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   if (is.null(n) && is.null(power))
-    stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
+    stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power))
-    stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+    stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
 
   if (r.squared.outcome == 0 && "beta.cp" %in% user.parms.names)
     warning("Ignoring any specification to `beta.cp`.", call. = FALSE)
@@ -429,13 +429,17 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
 
 
   if (is.null(power)) {
-    ncp.vec <- c(sobel = power.out$mean[1], aroian = power.out$mean[2], goodman = power.out$mean[3], joint = power.out$mean[4], mc = power.out$mean[5])
+    ncp.vec <- c(sobel = power.out$mean[1], aroian = power.out$mean[2], goodman = power.out$mean[3], joint = power.out$mean[4],
+                 mc = power.out$mean[5])
     n.vec <- c(sobel = power.out$n[1], aroian = power.out$n[2], goodman = power.out$n[3], joint = power.out$n[4], mc = power.out$n[5])
-    power.vec <- c(sobel = power.out$power[1], aroian = power.out$power[2], goodman = power.out$power[3], joint = power.out$power[4], mc = power.out$power[5])
+    power.vec <- c(sobel = power.out$power[1], aroian = power.out$power[2], goodman = power.out$power[3], joint = power.out$power[4],
+                   mc = power.out$power[5])
   } else {
-    ncp.vec <- c(sobel = power.out$mean[1], aroian = power.out$mean[2], goodman = power.out$mean[3], joint = power.out$mean[4], mc = power.out$mean[5])
+    ncp.vec <- c(sobel = power.out$mean[1], aroian = power.out$mean[2], goodman = power.out$mean[3], joint = power.out$mean[4],
+                 mc = power.out$mean[5])
     n.vec <- c(sobel = power.out$n[1], aroian = power.out$n[2], goodman = power.out$n[3], joint = power.out$n[4], mc = power.out$n[5])
-    power.vec <- c(sobel = power.out$power[1], aroian = power.out$power[2], goodman = power.out$power[3], joint = power.out$power[4], mc = power.out$power[5])
+    power.vec <- c(sobel = power.out$power[1], aroian = power.out$power[2], goodman = power.out$power[3], joint = power.out$power[4],
+                   mc = power.out$power[5])
   }
 
   if (verbose) {

@@ -13,8 +13,8 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 
   alternative <- tolower(match.arg(alternative))
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
   if (alternative == "two.one.sided") {
     if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1)) stop("Incorrect value for `null.prob`.", call. = FALSE)
     if (length(null.prob) != 2) stop("Provide null margins in the form of null.prob = c(lower, upper).", call. = FALSE)
@@ -220,8 +220,8 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   alternative <- tolower(match.arg(alternative))
   std.error <- tolower(match.arg(std.error))
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
   if (arcsine && correct) warning("Continuity correction does not apply to arcsine transformation approach.", call. = FALSE)
 
   if (alternative == "two.one.sided") {
@@ -578,8 +578,8 @@ power.exact.twoprops <- function(prob1, prob2, n2 = NULL, n.ratio = 1,
   method <- tolower(match.arg(method))
 
   if (!is.numeric(rho.paired) || rho.paired > 1 || rho.paired < -1) stop("Incorrect value for `rho.paired`.", call. = FALSE)
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
 
   if (paired) {
 
@@ -630,8 +630,8 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   std.error <- tolower(match.arg(std.error))
 
   if (!is.numeric(rho.paired) || rho.paired > 1 || rho.paired < -1) stop("Incorrect value for `rho.paired`.", call. = FALSE)
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
   if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
     stop("Provide a reasonable `margin` consistent with `prob1` - `prob2`.", call. = FALSE)
   if (correct && paired) stop("Continuity correction is currently not available for paired proportions.", call. = FALSE)

@@ -18,8 +18,8 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   design <- tolower(match.arg(design))
   claim.basis <- tolower(match.arg(claim.basis))
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
 
   if (alternative == "two.one.sided") {
     if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
@@ -225,8 +225,8 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   alternative <- tolower(match.arg(alternative))
   claim.basis <- tolower(match.arg(claim.basis))
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
 
   if (alternative == "two.one.sided") {
     if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))

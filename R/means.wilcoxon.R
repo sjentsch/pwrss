@@ -24,15 +24,19 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   method <- tolower(match.arg(method))
   design <- tolower(match.arg(design))
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
 
   if (alternative == "two.one.sided") {
-    if (isFALSE(all(is.numeric(margin))) || any(margin < -10) || any(margin > 10)) stop("Possibly incorrect value for `margin`.", call. = FALSE)
-    if (length(margin) != 2) stop("Provide null margins in the form of margin = c(lower, upper).", call. = FALSE)
-    # if (prob - null.prob < margin[1] ||  prob - null.prob > margin[2]) stop("`prob` should be between lower and upper null margins)", call. = FALSE)
+    if (isFALSE(all(is.numeric(margin))) || any(margin < -10) || any(margin > 10))
+      stop("Possibly incorrect value for `margin`.", call. = FALSE)
+    if (length(margin) != 2)
+      stop("Provide null margins in the form of margin = c(lower, upper).", call. = FALSE)
+    # if (prob - null.prob < margin[1] ||  prob - null.prob > margin[2])
+    #   stop("`prob` should be between lower and upper null margins)", call. = FALSE)
   } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1 || any(margin < -10) || any(margin > 10)) stop("Possibly incorrect value for `margin`.", call. = FALSE)
+    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1 || any(margin < -10) || any(margin > 10))
+      stop("Possibly incorrect value for `margin`.", call. = FALSE)
   }
 
   ifelse(is.null(power),
@@ -371,4 +375,5 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
 
 } # end of pwrss.np.2groups()
 
-pwrss.np.2means <- function(...) stop("This function is no longer available. Please use `power.np.wilcox()`.", call. = FALSE)
+pwrss.np.2means <- function(...)
+  stop("This function is no longer available. Please use `power.np.wilcox()`.", call. = FALSE)

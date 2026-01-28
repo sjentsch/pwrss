@@ -197,10 +197,11 @@ check.correlation.matrix <- function(x) {
   is.symmetric <- isSymmetric.matrix(x)
   if (!is.symmetric) stop("Correlation matrix is not symmetric", call. = FALSE)
 
-  # check that all values (only the upper triangular, as the matrix is symmetric) are valid correlations, runs until an error is thrown
-  # (or all values are valid)
+  # check that all values (only the upper triangular, as the matrix is symmetric) are valid correlations, runs until an
+  # error is thrown (or all values are valid)
   for (v in x[upper.tri(x)]) {
-      tryCatch(check.correlation(v), error = function(e) stop("The values in the correlation matrix must be numeric, >= -1 and <= 1", call. = FALSE))
+      tryCatch(check.correlation(v),
+               error = function(e) stop("The values in the correlation matrix must be numeric, >= -1 and <= 1", call. = FALSE))
   }
 
   correct.diagonal <- all(diag(x) == 1)

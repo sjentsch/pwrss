@@ -18,20 +18,25 @@ power.f.mixed.anova <- function(eta.squared,
   for (i in 1:2) {
     factor.type.check <- factor.type[i]
     if (!is.character(factor.type.check) || !(factor.type.check %in% c("between", "within")))
-      stop("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'), indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically, which factor is treated as between-subjects and which as within-subjects.")
+      stop(paste("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'),",
+                 "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
+                 "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
   }
 
   effect <- tolower(match.arg(effect))
 
-  if (length(factor.levels) != 2 || length(factor.type) != 2) stop("Excatly two factors are allowed in this procedure.", call. = FALSE)
-  if (all(factor.type == "within") || all(factor.type == "between")) stop("Two `within` or two `between` factors are not allowed in this procedure.", call. = FALSE)
+  if (length(factor.levels) != 2 || length(factor.type) != 2)
+    stop("Excatly two factors are allowed in this procedure.", call. = FALSE)
+  if (all(factor.type == "within") || all(factor.type == "between"))
+    stop("Two `within` or two `between` factors are not allowed in this procedure.", call. = FALSE)
 
   n.levels.between <- factor.levels[which(tolower(factor.type) == "between")]
   n.levels.within <- factor.levels[which(tolower(factor.type) == "within")]
-  if (n.levels.within > 1 && epsilon <  1 / (n.levels.within - 1)) stop("Incorrect value for the non-sphericity correction factor (epsilon).", call. = FALSE)
+  if (n.levels.within > 1 && epsilon <  1 / (n.levels.within - 1))
+    stop("Incorrect value for the non-sphericity correction factor (epsilon).", call. = FALSE)
 
-  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be `NULL` at the same time.", call. = FALSE)
-  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be `NULL`.", call. = FALSE)
+  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be NULL.", call. = FALSE)
 
   f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
@@ -232,9 +237,12 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
                              n = NULL, power = NULL, verbose = TRUE) {
 
   user.parms.names <- names(as.list(match.call()))
-  if ("repmeasures.r" %in% user.parms.names) stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
-  if ("n.measurements" %in% user.parms.names) stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
-  if (all(c("eta2", "f2") %in% user.parms.names)) warning("`eta2` and `f2` cannot be specified at the same time \n Using `f2` as the effect size")
+  if ("repmeasures.r" %in% user.parms.names)
+    stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
+  if ("n.measurements" %in% user.parms.names)
+    stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
+  if (all(c("eta2", "f2") %in% user.parms.names))
+    warning("`eta2` and `f2` cannot be specified at the same time \n Using `f2` as the effect size", call. = FALSE)
   if ("f2" %in% user.parms.names) eta.squared <- f.to.etasq(f = sqrt(f2), verbose = FALSE)$eta.squared
   if ("eta2" %in% user.parms.names) eta.squared <- eta2
 
