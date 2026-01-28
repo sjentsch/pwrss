@@ -13,7 +13,7 @@
 
 power.z.logistic <- function(prob = NULL,
                              base.prob = NULL,
-                             odds.ratio  = (prob / (1 - prob)) / (base.prob / (1 - base.prob)),
+                             odds.ratio = (prob / (1 - prob)) / (base.prob / (1 - base.prob)),
                              beta0 = log(base.prob / (1 - base.prob)),
                              beta1 = log(odds.ratio),
                              n = NULL, power = NULL,
@@ -35,46 +35,41 @@ power.z.logistic <- function(prob = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
 
-  if (all(c("base.prob", "odds.ratio", "beta0", "beta1") %in% user.parms.names)) {
-    stop("Specify 'base.prob' & 'prob' \n  or 'base.prob' & 'odds.ratio' \n  or 'beta0' & 'beta1'.", call. = FALSE)
-  }
-
   if (all(c("base.prob", "prob") %in% user.parms.names)) {
     check.proportion(prob, base.prob)
     if (any(c("odds.ratio", "beta0", "beta1") %in% user.parms.names))
-      stop("Specify 'base.prob' & 'prob' \n  or 'base.prob' & 'odds.ratio' \n  or 'beta0' & 'beta1'.", call. = FALSE)
-  }
-
-  if (all(c("base.prob", "odds.ratio") %in% user.parms.names)) {
+      message("Using `base.prob` and `prob`, ignoring any specifications to `odds.ratio`, `beta0`, or `beta1`.")
+    odds.ratio = (prob / (1 - prob)) / (base.prob / (1 - base.prob))
+    beta0 <- log(base.prob / (1 - base.prob))
+    beta1 <- log(odds.ratio)
+  } else if (all(c("base.prob", "odds.ratio") %in% user.parms.names)) {
     check.proportion(base.prob)
     check.positive(odds.ratio)
     if (any(c("prob", "beta0", "beta1") %in% user.parms.names))
-      message("Ignoring any specifications to 'prob', 'beta0', or 'beta1'.")
+      message("Using `base.prob` and `odds.ratio`, ignoring any specifications to `prob`, `beta0`, or `beta1`.")
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
-  }
-
-  if (all(c("base.prob", "beta1") %in% user.parms.names)) {
+  } else if (all(c("base.prob", "beta1") %in% user.parms.names)) {
     check.proportion(base.prob)
     check.numeric(beta1)
     if (any(c("prob", "beta0", "odds.ratio") %in% user.parms.names))
-      message("Ignoring any specifications to 'prob', 'beta0', or 'odds.ratio'.")
+      message("Using `base.prob` and `beta1`, ignoring any specifications to `prob`, `beta0`, or `odds.ratio`.")
     beta0 <- log(base.prob / (1 - base.prob))
     odds.ratio <- exp(beta1)
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
-  }
-
-  if (all(c("beta0", "beta1") %in% user.parms.names)) {
+  } else if (all(c("beta0", "beta1") %in% user.parms.names)) {
     check.numeric(beta0, beta1)
     if (any(c("base.prob", "prob", "odds.ratio") %in% user.parms.names))
-      message("Ignoring any specifications to 'base.prob', 'prob', or 'odds.ratio'.")
+      message("Using `beta0` and `beta1`, ignoring any specifications to `base.prob`, `prob`, or `odds.ratio`.")
     base.prob <- exp(beta0) / (1 + exp(beta0))
     odds.ratio <- exp(beta1)
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
+  } else {
+    stop("Specify `base.prob` & `prob` \n  or `base.prob` & `odds.ratio` \n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.", call. = FALSE)
   }
 
-  if (prob == base.prob) stop("`prob` = `base.prob`?", call. = FALSE)
+  if (prob == base.prob) stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be `NULL` at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be `NULL`.", call. = FALSE)
 
@@ -90,21 +85,22 @@ power.z.logistic <- function(prob = NULL,
                            `uniform` = list(dist = "uniform", min = 0, max = 1),
                            `exponential` = list(dist = "exponential", rate = 1),
                            `binomial` = list(dist = "binomial", size = 1, prob = 0.50),
-                           `bernoulli` = list(dist = "bernoulli", size = 1, prob = 0.50),
+                           `bernoulli` = list(dist = "bernoulli", prob = 0.50),
                            `lognormal` = list(dist = "lognormal", meanlog = 0, sdlog = 1))
   } else if (is.list(distribution)) {
-    if (length(distribution) > 3) stop("Unknown input type for 'distribution'.", call. = FALSE)
+    if (length(distribution) > 3) stop("Unknown input type for `distribution`.", call. = FALSE)
     dist.list.names <- names(distribution)
     dist.attrib <- c(dist.list.names, tolower(distribution$dist))
     dist.invalid <- c(any(is.na(match(dist.attrib, c("dist", "normal", "mean", "sd")))),
-                      any(is.na(match(dist.attrib, c("dist", "lognormal", "meanlog", "sdlog")))),
+                      any(is.na(match(dist.attrib, c("dist", "poisson", "lambda")))),
                       any(is.na(match(dist.attrib, c("dist", "uniform", "min", "max")))),
                       any(is.na(match(dist.attrib, c("dist", "exponential", "rate")))),
-                      any(is.na(match(dist.attrib, c("dist", "poisson", "lambda")))),
-                      any(is.na(match(dist.attrib, c("dist", "binomial", "bernoulli", "size", "prob")))))
-    if (all(dist.invalid == TRUE)) stop("Unknown input type for 'distribution'.", call. = FALSE)
+                      any(is.na(match(dist.attrib, c("dist", "binomial", "size", "prob")))),
+                      any(is.na(match(dist.attrib, c("dist", "bernoulli", "prob")))),
+                      any(is.na(match(dist.attrib, c("dist", "lognormal", "meanlog", "sdlog")))))
+    if (all(dist.invalid == TRUE)) stop("Unknown input type for `distribution`.", call. = FALSE)
   } else {
-    stop("Unknown input type for 'distribution'.", call. = FALSE)
+    stop("Unknown input type for `distribution`.", call. = FALSE)
   }
 
   # asymptotic variances
@@ -120,18 +116,25 @@ power.z.logistic <- function(prob = NULL,
       max.norm <- qnorm(.9999999, mean = mean, sd = sd)
 
       # variance under null
-      mu <- integrate(function(x)  dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), min.norm, max.norm)$value
+      mu <- integrate(function(x)  dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) /
+                                   (1 + exp(beta0 + beta1 * x)), min.norm, max.norm)$value
       beta0.star <- log(mu / (1 - mu))
       beta1.star <- 0
-      i00 <- integrate(function(x)  dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
-      i01 <- integrate(function(x) x * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
-      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) / (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
+      i00 <- integrate(function(x) x ^ 0 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) /
+                                   (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
+      i01 <- integrate(function(x) x ^ 1 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) /
+                                   (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
+      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x) /
+                                   (1 + exp(beta0.star + beta1.star * x)) ^ 2, min.norm, max.norm)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x)  dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
-      i01 <- integrate(function(x) x * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
-      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
+      i00 <- integrate(function(x) x ^ 0 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) /
+                                   (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
+      i01 <- integrate(function(x) x ^ 1 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) /
+                                   (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
+      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x) /
+                                   (1 + exp(beta0 + beta1 * x)) ^ 2, min.norm, max.norm)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } # normal
@@ -320,7 +323,7 @@ power.z.logistic <- function(prob = NULL,
     if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
 
       if (tolower(distribution$dist) == "binomial" && distribution$size > 1)
-        stop("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal distribution.")
+        stop("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal distribution.", call. = FALSE)
       prob <- distribution$prob
       beta <- 1 - power
       ifelse(alternative == "two.sided",
@@ -328,7 +331,8 @@ power.z.logistic <- function(prob = NULL,
              z.alpha <- qnorm(alpha, lower.tail = FALSE))
       z.beta <- qnorm(beta, lower.tail = FALSE)
       p.bar <- (1 - prob) * base.prob + prob * prob
-      n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / prob) + z.beta * sqrt(base.prob * (1 - base.prob) + prob * (1 - prob) * (1 - prob) / prob)) ^ 2 / ((base.prob - prob) ^ 2 * (1 - prob))
+      n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / prob) + z.beta *
+            sqrt(base.prob * (1 - base.prob) + prob * (1 - prob) * (1 - prob) / prob)) ^ 2 / ((base.prob - prob) ^ 2 * (1 - prob))
       n <- n / (1 - r.squared.predictor)
 
     } else if (tolower(distribution$dist) == "normal") {
@@ -345,7 +349,7 @@ power.z.logistic <- function(prob = NULL,
 
     } else {
 
-      stop("Not a valid distribution for Hsieh et al. (1998) procedure.", call. = FALSE)
+      stop("Not a valid distribution for the Hsieh et al. (1998) procedure.", call. = FALSE)
 
     }
 
@@ -457,11 +461,6 @@ power.z.logistic <- function(prob = NULL,
       vcf <- ss.obj$vcf
 
     }
-
-  } else {
-
-    stop("Unknown method.", call. = FALSE)
-
   } # method
 
   # verbose check
