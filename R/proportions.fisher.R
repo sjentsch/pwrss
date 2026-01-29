@@ -98,7 +98,7 @@ power.exact.fisher <- function(prob1, prob2,
 
       n.total <- 2000 + ceiling(n.ratio * 2000)
 
-      stop(paste(" Consider `method` = 'approximate' for total sample size >", n.total), call. = FALSE)
+      stop(sprintf("Consider `method` = 'approximate' for total sample size > %d.", n.total), call. = FALSE)
 
     } else {
 
@@ -119,7 +119,7 @@ power.exact.fisher <- function(prob1, prob2,
 
         joint.probs <- dbinom(x1.seq, n1, prob1) * dbinom(x2.seq, n2, prob2)
         p.values <- phyper(x1.seq - ifelse(one.sided.less, 0, 1), m, n.total - m, k, lower.tail = one.sided.less)
-        reject <- !any(is.na(p.values)) && any(p.values <= alpha)
+        reject <- !is.na(p.values) & p.values <= alpha
         power <- sum(joint.probs[reject])
 
       } else if (alternative == "two.sided") {
@@ -146,14 +146,10 @@ power.exact.fisher <- function(prob1, prob2,
           lookup <- pmf.lookup[[key]]
           p.obs <- dhyper(x1, m, n.total - m, n1)
           p.value <- sum(lookup$probs[lookup$probs <= (p.obs + eps)])
-          !any(is.na(p.value)) && any(p.value <= alpha)
+          !is.na(p.value) && p.value <= alpha
         }, logical(1))
 
         power <- sum(joint.probs[passed])
-
-      } else {
-
-        stop("Hypothesis type not supported.", call. = FALSE)
 
       }
 
@@ -161,7 +157,7 @@ power.exact.fisher <- function(prob1, prob2,
 
     power
 
-  } # pwr()
+  } # pwr.exact()
 
 
   ss.exact <- function(prob1, prob2, power, n.ratio, alpha, alternative) {
@@ -171,68 +167,25 @@ power.exact.fisher <- function(prob1, prob2,
     n2 <- ceiling(n2)
 
     if (n2 > 500) {
-
       n.total <- 500 + ceiling(n.ratio * 500)
-
       stop(paste(" Consider `method` = 'approximate' for total sample size >", n.total), call. = FALSE)
+    }
 
-    } else {
-
-
-      if (n2 > 200) {
-
-        steprob20 <- 20
-        achieved.power <- 0
-
-        while (achieved.power < power) {
-
-          achieved.power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                                      alpha = alpha, alternative = alternative)
-
-          if (achieved.power < power) n2 <- n2 + steprob20
-
-        } # while
-
-        n2 <- n2 - steprob20
-
-      } # n2 > 200
-
-      if (n2 > 50) {
-
-        step5 <- 5
-        achieved.power <- 0
-
-        while (achieved.power < power) {
-
-          achieved.power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                                      alpha = alpha, alternative = alternative)
-
-          if (achieved.power < power) n2 <- n2 + step5
-
-        } # while
-
-        n2 <- n2 - step5
-
-      } # n2 > 50
-
-      steprob1 <- 1
+    # power is approached in successively smaller steps (pwr.exact is time-consuming to calculate):
+    # 30 (if n2 > 300), 10 (if n2 > 100), 3 (if n2 > 30), and 1 (in any case; for the exact n2)
+    for (step in c(30, 10, 3, 1)[c(n2 >= 300, n2 >= 100, n2 >= 30, TRUE)]) {
       achieved.power <- 0
-
       while (achieved.power < power) {
-
         achieved.power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
                                     alpha = alpha, alternative = alternative)
-
-        if (achieved.power < power) n2 <- n2 + steprob1
-
-      } # n2 < 50
-
-    } # if (n2 > 1000)
-
+        if (achieved.power < power) n2 <- n2 + step
+      } # while
+      # step is subtracted from n2 (for the larger steps), so that n2 can be approached with smaller steps
+      n2 <- n2 - ifelse(step > 1, step, 0)
+    }
+    
     n2
-
   } #  ss.exact()
-
 
 
   # method
@@ -336,21 +289,7 @@ power.exact.fisher <- function(prob1, prob2,
          class <- c("pwrss", "exact", "fisher"),
          class <- c("pwrss", "z", "twoprops"))
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(requested = requested,
@@ -378,8 +317,7 @@ power.exact.fisher <- function(prob1, prob2,
 
   } # verbose
 
-
-  invisible(structure(list(parms = list(prob1 = prob1, prob2 = prob2,
+  invisible(structure(list(parms = list(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio,
                                         alpha = alpha, method = method,
                                         alternative = alternative, ceiling = ceiling,
                                         verbose = verbose),
