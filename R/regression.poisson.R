@@ -34,27 +34,23 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
 
-  if (all(c("beta0", "beta1") %in% user.parms.names)) {
-    check.numeric(beta0, beta1)
-    base.rate <- exp(beta0)
-    rate.ratio <- exp(beta1)
-    if (any(c("base.rate", "rate.ratio") %in% user.parms.names))
-      message("Ignoring any specifications to `base.rate` or `rate.ratio`.")
-  }
-
   if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
     check.nonnegative(base.rate, rate.ratio)
     beta0 <- log(base.rate)
     beta1 <- log(rate.ratio)
     if (any(c("beta0", "beta1") %in% user.parms.names))
-      message("Ignoring any specifications to `beta0` or `beta1`.")
+      message("Using `base.rate` and `rate.ratio`, ignoring any specifications to `beta0` or `beta1`.")
+  } else if (all(c("beta0", "beta1") %in% user.parms.names)) {
+    check.numeric(beta0, beta1)
+    base.rate <- exp(beta0)
+    rate.ratio <- exp(beta1)
+    if (any(c("base.rate", "rate.ratio") %in% user.parms.names))
+      message("Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
+  } else {
+    stop("Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`.", call. = FALSE)
   }
 
-  if (all(c("base.rate", "rate.ratio", "beta0", "beta1") %in% user.parms.names)) {
-    stop("Specify `base.rate` & `rate.ratio` or `beta0` & `beta1`.", call. = FALSE)
-  }
-
-  if (beta0 == beta1) stop("`beta0` = `beta1`?", call. = FALSE)
+  if (beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
 
@@ -69,10 +65,10 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                             `uniform` = list(dist = "uniform", min = 0, max = 1),
                             `exponential` = list(dist = "exponential", rate = 1),
                             `binomial` = list(dist = "binomial", size = 1, prob = 0.50),
-                            `bernoulli` = list(dist = "bernoulli", size = 1, prob = 0.50),
+                            `bernoulli` = list(dist = "bernoulli", prob = 0.50),
                             `lognormal` = list(dist = "lognormal", meanlog = 0, sdlog = 1))
   } else if (is.list(distribution)) {
-    if (length(distribution) > 3) stop("unknown input type for `distribution` argument", call. = FALSE)
+    if (length(distribution) > 3) stop("Unknown input type for `distribution` argument", call. = FALSE)
     dist.list.names <- names(distribution)
     dist.attrib <- c(dist.list.names, tolower(distribution$dist))
     dist.invalid <- c(any(is.na(match(dist.attrib, c("dist", "normal", "mean", "sd")))),
@@ -80,8 +76,9 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                       any(is.na(match(dist.attrib, c("dist", "uniform", "min", "max")))),
                       any(is.na(match(dist.attrib, c("dist", "exponential", "rate")))),
                       any(is.na(match(dist.attrib, c("dist", "poisson", "lambda")))),
-                      any(is.na(match(dist.attrib, c("dist", "binomial", "bernoulli", "size", "prob")))))
-    if (all(dist.invalid == TRUE)) stop("unknown input type for `distribution` argument", call. = FALSE)
+                      any(is.na(match(dist.attrib, c("dist", "binomial", "size", "prob")))),
+                      any(is.na(match(dist.attrib, c("dist", "bernoulli", "prob")))))
+    if (all(dist.invalid == TRUE)) stop("Unknown input type for `distribution` argument", call. = FALSE)
   } else {
     stop("Unknown input type for `distribution`.", call. = FALSE)
   }
@@ -387,15 +384,10 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
   } # verbose
 
-  invisible(structure(list(parms = list(base.rate = base.rate,
-                                        rate.ratio = rate.ratio,
-                                        beta0 = beta0, beta1 = beta1,
-                                        r.squared.predictor = r.squared.predictor,
-                                        mean.exposure = mean.exposure,
-                                        alpha = alpha, alternative = alternative,
-                                        method = method, distribution =  distribution,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = list(base.rate = base.rate, rate.ratio = rate.ratio, beta0 = beta0, beta1 = beta1,
+                                        r.squared.predictor = r.squared.predictor, mean.exposure = mean.exposure,
+                                        alpha = alpha, alternative = alternative, method = method,
+                                        distribution =  distribution, ceiling = ceiling, verbose = verbose, pretty = pretty),
                            test = "z",
                            base.rate = base.rate,
                            rate.ratio = rate.ratio,
