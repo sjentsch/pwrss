@@ -262,21 +262,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
          class <- c("pwrss", "exact", "mcnemar"),
          class <- c("pwrss", "z", "twoprops"))
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(requested = requested,

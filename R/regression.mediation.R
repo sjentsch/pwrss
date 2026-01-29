@@ -230,21 +230,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   std.beta.cp <- beta.cp * sd.predictor / sd.outcome
   std.beta.indirect <-  std.beta.a * std.beta.b
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(test = "Indirect Effect in a Mediation Model",

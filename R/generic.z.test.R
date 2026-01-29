@@ -129,21 +129,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   }
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(test = "Generic Z-Test",

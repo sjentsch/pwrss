@@ -252,21 +252,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   ifelse(design %in% c("paired", "one.sample"), n <- n2.star, n <- c(n1 = n1.star, n2 = n2.star))
   # ifelse(design %in% c("paired", "one.sample"), n <- n2, n <- c(n1 = n1, n2 = n2))
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     ifelse(design == "independent",

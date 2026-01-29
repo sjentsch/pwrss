@@ -170,21 +170,7 @@ power.f.mixed.anova <- function(eta.squared,
   if (effect == "within")      effect_bw <- paste0(c("W", "B"), "(", c(n.levels.within, n.levels.between), ")", collapse = "|")
   if (effect == "interaction") effect_bw <- paste0(c("B", "W"), "(", c(n.levels.between, n.levels.within), ")", collapse = ":")
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     if (n.levels.between == 1) test <- "Repeated Measures Analysis of Variance (F-Test)"

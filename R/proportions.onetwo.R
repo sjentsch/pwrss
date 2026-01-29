@@ -140,21 +140,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   delta <- prob - null.prob
   odds.ratio <- (prob / (1 - prob)) /  (null.prob / (1 - null.prob))
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(requested = requested,
@@ -461,21 +447,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   delta <- prob - null.prob
   odds.ratio <- (prob / (1 - prob)) /  (null.prob / (1 - null.prob))
 
-  # verbose check
-  if (is.logical(verbose)) {
-    ifelse(isTRUE(verbose),
-           verbose <- 1,
-           verbose <- 0)
-  } else if (is.numeric(verbose)) {
-    if (length(verbose) == 1 && verbose %% 1 == 0) {
-      ifelse(verbose %in% c(0, 1, 2),
-             verbose <- verbose,
-             verbose <- 1)
-    }
-  } else {
-    verbose <- 1
-  } # verbose
-
+  verbose <- .ensure_verbose(verbose)
   if (verbose != 0) {
 
     print.obj <- list(requested = requested,
@@ -924,21 +896,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     delta <- prob1 - prob2
     odds.ratio <- (prob1 / (1 - prob1)) /  (prob2 / (1 - prob2))
 
-    # verbose check
-    if (is.logical(verbose)) {
-      ifelse(isTRUE(verbose),
-             verbose <- 1,
-             verbose <- 0)
-    } else if (is.numeric(verbose)) {
-      if (length(verbose) == 1 && verbose %% 1 == 0) {
-        ifelse(verbose %in% c(0, 1, 2),
-               verbose <- verbose,
-               verbose <- 1)
-      }
-    } else {
-      verbose <- 1
-    } # verbose
-
+    verbose <- .ensure_verbose(verbose)
     if (verbose != 0) {
 
       print.obj <- list(requested = requested,
