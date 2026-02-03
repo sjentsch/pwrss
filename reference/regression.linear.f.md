@@ -19,7 +19,7 @@ are deprecated, but they will remain available as a wrapper for
 power.f.regression(r.squared.change = NULL, margin = 0,
                    k.total, k.tested = k.total,
                    n = NULL, power = NULL, alpha = 0.05,
-                   ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                   ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -63,8 +63,9 @@ power.f.regression(r.squared.change = NULL, margin = 0,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -132,15 +133,15 @@ power.f.regression(r.squared = 0.15,
 #> 
 #> Linear Regression (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : R-squared = 0 
 #>   H1 (Alt. Claim) : R-squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 66  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -159,15 +160,15 @@ power.f.regression(r.squared.change = 0.10, # R-squared change
 #> 
 #> Hierarchical Linear Regression (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Change in R-squared = 0 
 #>   H1 (Alt. Claim) : Change in R-squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 90  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199

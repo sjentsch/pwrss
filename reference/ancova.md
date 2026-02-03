@@ -24,7 +24,7 @@ power.f.ancova(eta.squared,
                power = NULL,
                alpha = 0.05,
                ceiling = TRUE,
-               verbose = TRUE,
+               verbose = 1,
                pretty = FALSE)
 ```
 
@@ -68,7 +68,9 @@ power.f.ancova(eta.squared,
 
 - verbose:
 
-  logical; if `FALSE` no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -143,19 +145,19 @@ power.f.ancova(eta.squared = 0.059,
 #> 
 #> One-way Analysis of Variance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 128  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.197
-#>   Statistical Power      = 0.803
+#> ----------------------------------------------------
+#>   Total Sample Size    = 128  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.197
+#>   Statistical Power    = 0.803
 #> 
 
 # estimate sample size using regression approach(F-Test)
@@ -168,15 +170,15 @@ power.f.regression(r.squared = 0.059,
 #> 
 #> Linear Regression (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : R-squared = 0 
 #>   H1 (Alt. Claim) : R-squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 128  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.197
@@ -189,7 +191,26 @@ power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
                    sd.predictor = sqrt(p*(1-p)),
                    alpha = 0.05, power = 0.80)
-#> Error: Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.
+#> +--------------------------------------------------+
+#> |             SAMPLE SIZE CALCULATION              |
+#> +--------------------------------------------------+
+#> 
+#> Linear Regression Coefficient (T-Test)
+#> 
+#> ----------------------------------------------------
+#> Hypotheses
+#> ----------------------------------------------------
+#>   H0 (Null Claim) : beta - null.beta = 0 
+#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#> 
+#> ----------------------------------------------------
+#> Results
+#> ----------------------------------------------------
+#>   Sample Size          = 128  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
+#> 
 
 # estimate sample size using t test approach
 power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
@@ -199,19 +220,19 @@ power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 64 and 64  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 64 and 64  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 #############################################
@@ -231,19 +252,19 @@ power.f.ancova(eta.squared = 0.03,
 #> 
 #> Two-way Analysis of Variance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 256  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Total Sample Size    = 256  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 # estimate sample size using regression approach (F test)
@@ -259,19 +280,19 @@ power.f.regression(r.squared = 0.03,
 #> 
 #> Hierarchical Linear Regression (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Change in R-squared = 0 
 #>   H1 (Alt. Claim) : Change in R-squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 256  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 #############################################
@@ -293,19 +314,19 @@ power.f.ancova(eta.squared = 0.048,
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 158  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 158  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 #############################################
@@ -326,18 +347,18 @@ power.f.ancova(eta.squared = 0.02,
 #> 
 #> Two-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 388  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 388  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 ```

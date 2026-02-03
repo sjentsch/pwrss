@@ -57,7 +57,7 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span>               power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>               ceiling <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>               verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>               verbose <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -89,7 +89,7 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <dd><p>logical; if <code>FALSE</code> sample size in each cell is not rounded up.</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; if <code>FALSE</code> no output is printed on the console.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
   <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
 <dd><p>logical; whether the output should show Unicode characters (if encoding allows for it). <code>FALSE</code> by default.</p></dd>
@@ -151,19 +151,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> One-way Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 128  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 128  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.803</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate sample size using regression approach(F-Test)</span></span></span>
@@ -176,15 +176,15 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : R-squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : R-squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 128  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.197</span>
@@ -197,7 +197,26 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-in"><span>                   k.total <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                   sd.predictor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                   alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta = 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta != 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 128  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate sample size using t test approach</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.50</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
@@ -207,19 +226,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 64 and 64  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 64 and 64  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################</span></span></span>
@@ -239,19 +258,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Two-way Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 256  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 256  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate sample size using regression approach (F test)</span></span></span>
@@ -267,19 +286,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hierarchical Linear Regression (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : Change in R-squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : Change in R-squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 256  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################</span></span></span>
@@ -301,19 +320,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> One-way Analysis of Covariance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 158  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 158  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################</span></span></span>
@@ -334,19 +353,19 @@ Formulas are validated using G*Power and tables in PASS documentation."></head><
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Two-way Analysis of Covariance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 388  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 388  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

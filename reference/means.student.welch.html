@@ -63,14 +63,14 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span>                alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span>, <span class="st">"two.one.sided"</span><span class="op">)</span>,</span>
 <span>                design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"independent"</span>, <span class="st">"paired"</span>, <span class="st">"one.sample"</span><span class="op">)</span>,</span>
 <span>                claim.basis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"md.pval"</span>, <span class="st">"smd.ci"</span><span class="op">)</span>,</span>
-<span>                ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>                ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="fl">1</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">power.t.welch</span><span class="op">(</span><span class="va">d</span>, null.d <span class="op">=</span> <span class="fl">0</span>, margin <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">1</span>, n.ratio <span class="op">=</span> <span class="fl">1</span>, n2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>              power <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>              alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span>, <span class="st">"two.one.sided"</span><span class="op">)</span>,</span>
 <span>              claim.basis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"md.pval"</span>, <span class="st">"smd.ci"</span><span class="op">)</span>,</span>
-<span>              ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span>              ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="fl">1</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -113,7 +113,7 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <dd><p>logical; whether sample size should be rounded up. <code>TRUE</code> by default.</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; whether the output should be printed on the console. <code>TRUE</code> by default.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
   <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
 <dd><p>logical; whether the output should show Unicode characters (if encoding allows for it). <code>FALSE</code> by default.</p></dd>
@@ -179,19 +179,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 412 and 412  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 412 and 412  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -205,19 +205,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 394 and 394  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 394 and 394  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## when sample size ratio and group variances differ</span></span></span>
@@ -232,19 +232,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Welch's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 473 and 237  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 473 and 237  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -265,19 +265,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 325 and 325  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 325 and 325  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -291,19 +291,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 310 and 310  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 310 and 310  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## when sample size ratio and group variances differ</span></span></span>
@@ -318,19 +318,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Welch's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 372 and 186  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 372 and 186  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -352,19 +352,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 208 and 208  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 208 and 208  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -379,19 +379,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 199 and 199  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 199 and 199  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## when sample size ratio and group variances differ</span></span></span>
@@ -407,19 +407,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Welch's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 238 and 119  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 238 and 119  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -441,19 +441,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 578 and 578  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 578 and 578  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -468,19 +468,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 552 and 552  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 552 and 552  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## when sample size ratio and group variances differ</span></span></span>
@@ -496,19 +496,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Welch's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 662 and 331  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 662 and 331  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -531,21 +531,21 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 7175 and 7175  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 7175 and 7175  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -560,21 +560,21 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 6852 and 6852  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 6852 and 6852  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## when sample size ratio and group variances differ</span></span></span>
@@ -590,21 +590,21 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Welch's T-Test (Independent Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 8222 and 4111  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 8222 and 4111  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -628,19 +628,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 208  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 208  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -654,19 +654,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Paired Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 199  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 199  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## difference between time 1 and time 2 is less than zero</span></span></span>
@@ -685,19 +685,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &gt;= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &lt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 164  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 164  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -711,19 +711,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Paired Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &gt;= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &lt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 156  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 156  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## mean of time 1 is practically not greater than mean of time 2</span></span></span>
@@ -744,19 +744,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 291  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 291  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -771,19 +771,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Paired Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 278  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 278  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## mean of time 1 is practically greater than mean of time 2</span></span></span>
@@ -803,19 +803,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 105  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 105  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -830,19 +830,19 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Paired Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 100  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 100  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -865,21 +865,21 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method       : Guenther</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Distribution : Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 3589  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 3589  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## parametric</span></span></span>
@@ -894,21 +894,21 @@ NOTE: The functions pwrss.z.mean() and pwrss.z.2means() are no longer supported.
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Student's T-Test (Paired Samples)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 3427  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 3427  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

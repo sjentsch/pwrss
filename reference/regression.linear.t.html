@@ -57,7 +57,7 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span>                   r.squared <span class="op">=</span> <span class="op">(</span><span class="va">beta</span> <span class="op">*</span> <span class="va">sd.predictor</span> <span class="op">/</span> <span class="va">sd.outcome</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">1</span>, n <span class="op">=</span> <span class="cn">NULL</span>, power <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                   alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span>, <span class="st">"two.one.sided"</span><span class="op">)</span>,</span>
-<span>                   ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span>                   ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="fl">1</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -100,7 +100,7 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <dd><p>logical; whether sample size should be rounded up. <code>TRUE</code> by default.</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; whether the output should be printed on the console. <code>TRUE</code> by default.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
   <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
 <dd><p>logical; whether the output should show Unicode characters (if encoding allows for it). <code>FALSE</code> by default.</p></dd>
@@ -156,19 +156,19 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 140  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 140  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># binary predictor x (and 4 covariates)</span></span></span>
@@ -184,19 +184,19 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 552  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 552  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># non-inferiority test with binary predictor x (and 4 covariates)</span></span></span>
@@ -214,19 +214,19 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta &gt;  margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 278  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 278  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># superiority test with binary predictor x (and 4 covariates)</span></span></span>
@@ -244,19 +244,19 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta &lt;= margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta &gt;  margin </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 773  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 773  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># equivalence test with binary predictor x (and 4 covariates)</span></span></span>
@@ -274,21 +274,21 @@ NOTE: The pwrss.t.regression() function and its alias pwrss.z.reg() are deprecat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Coefficient (T-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : beta - null.beta &lt;= min(margin) or </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     beta - null.beta &gt;= max(margin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : beta - null.beta &gt; min(margin) and </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     beta - null.beta &lt; max(margin)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size            = 9593  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error           = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 9593  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

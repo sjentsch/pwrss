@@ -50,7 +50,7 @@ Validated via PASS and G*Power."></head><body>
 <span>                   alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                   alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span><span class="op">)</span>,</span>
 <span>                   method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"approximate"</span><span class="op">)</span>,</span>
-<span>                   ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span>                   ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="fl">1</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -84,7 +84,7 @@ Validated via PASS and G*Power."></head><body>
 <dd><p>logical; if <code>TRUE</code> rounds up sample size in each group.</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; if <code>FALSE</code> no output is printed on the console.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
   <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
 <dd><p>logical; whether the output should show Unicode characters (if encoding allows for it). <code>FALSE</code> by default.</p></dd>
@@ -161,15 +161,15 @@ Validated via PASS and G*Power."></head><body>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method          : Fisher's Exact</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : prob1 - prob2 = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : prob1 - prob2 != 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 50 and 50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.538</span>

@@ -6,11 +6,11 @@ versa). `cor.to.z()` function applies Fisher's z transformation.
 ## Usage
 
 ``` r
-cor.to.z(rho, verbose = TRUE)
+cor.to.z(rho, verbose = 1)
 
-  cors.to.q(rho1, rho2, verbose = TRUE)
+  cors.to.q(rho1, rho2, verbose = 1)
 
-  q.to.cors(q, rho1 = NULL, rho2 = NULL, verbose = TRUE)
+  q.to.cors(q, rho1 = NULL, rho2 = NULL, verbose = 1)
 ```
 
 ## Arguments
@@ -33,8 +33,9 @@ cor.to.z(rho, verbose = TRUE)
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 

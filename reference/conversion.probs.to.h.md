@@ -6,7 +6,7 @@ versa).
 ## Usage
 
 ``` r
-probs.to.h(prob1, prob2 = 0.50, verbose = TRUE)
+probs.to.h(prob1, prob2 = 0.50, verbose = 1)
 ```
 
 ## Arguments
@@ -27,8 +27,9 @@ probs.to.h(prob1, prob2 = 0.50, verbose = TRUE)
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 

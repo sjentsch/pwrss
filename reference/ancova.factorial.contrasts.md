@@ -17,7 +17,7 @@ factorial.contrasts(factor.levels = c(3, 2),
                     coding.scheme = rep("deviation", length(factor.levels)),
                     base = factor.levels,
                     intercept = FALSE,
-                    verbose = TRUE)
+                    verbose = 1)
 ```
 
 ## Arguments
@@ -38,18 +38,17 @@ factorial.contrasts(factor.levels = c(3, 2),
 
 - base:
 
-  Integer vector. Specifies which group is considered the baseline
+  integer vector. Specifies which group is considered the baseline
   group. Ignored for coding schemes other than "treatment"
 
 - intercept:
 
-  Logical. `FALSE` by default. If `TRUE` contrast matrix includes the
+  logical; `FALSE` by default. If `TRUE` contrast matrix includes the
   intercept
 
 - verbose:
 
-  Logical. `TRUE` by default. If `FALSE` no output is printed on the
-  console
+  `1` by default. If `0` no output is printed on the console
 
 ## Value
 
@@ -204,7 +203,7 @@ contrast.object <- factorial.contrasts(factor.levels = 3,
 contrast.object$model.matrix
 #>   (Intercept)           A.L        A.Q
 #> 1           1 -7.071068e-01  0.4082483
-#> 2           1 -9.073800e-17 -0.8164966
+#> 2           1 -7.850462e-17 -0.8164966
 #> 3           1  7.071068e-01  0.4082483
 #> attr(,"assign")
 #> [1] 0 1 1
@@ -212,7 +211,7 @@ contrast.object$model.matrix
 #> attr(,"contrasts")$A
 #>              .L         .Q
 #> 1 -7.071068e-01  0.4082483
-#> 2 -9.073800e-17 -0.8164966
+#> 2 -7.850462e-17 -0.8164966
 #> 3  7.071068e-01  0.4082483
 #> 
 

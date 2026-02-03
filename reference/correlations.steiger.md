@@ -14,7 +14,7 @@ power.z.twocors.steiger(rho12, rho13, rho23,
                         n = NULL, power = NULL, alpha = 0.05,
                         alternative = c("two.sided", "one.sided"),
                         pooled = TRUE, common.index = FALSE,
-                        ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                        ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -87,7 +87,9 @@ power.z.twocors.steiger(rho12, rho13, rho23,
 
 - verbose:
 
-  logical; if `FALSE` no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -170,15 +172,15 @@ power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05,
 #> 
 #>   Common Index    : TRUE
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho12 - rho13 = 0
 #>   H1 (Alt. Claim) : rho12 - rho13 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1000
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.253
@@ -217,15 +219,15 @@ power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50,
 #> 
 #>   Common Index    : FALSE
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho12 - rho34 = 0
 #>   H1 (Alt. Claim) : rho12 - rho34 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1000
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.062

@@ -13,7 +13,7 @@ power.exact.mcnemar(prob10, prob01, n.paired = NULL,
                     power = NULL,  alpha = 0.05,
                     alternative = c("two.sided", "one.sided"),
                     method = c("exact", "approximate"),
-                    ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                    ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -68,7 +68,9 @@ power.exact.mcnemar(prob10, prob01, n.paired = NULL,
 
 - verbose:
 
-  logical; if `FALSE` no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -197,15 +199,15 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 #> 
 #>   Method          : McNemar's Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob10 - prob01 = 0
 #>   H1 (Alt. Claim) : prob10 - prob01 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Paired Sample Size   = 100
 #>   Type 1 Error (alpha) = 0.043
 #>   Type 2 Error (beta)  = 0.627
@@ -225,15 +227,15 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 #> 
 #>   Method          : McNemar's Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob10 - prob01 = 0
 #>   H1 (Alt. Claim) : prob10 - prob01 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Paired Sample Size   = 249  <<
 #>   Type 1 Error (alpha) = 0.037
 #>   Type 2 Error (beta)  = 0.199
@@ -247,6 +249,6 @@ joint.probs.2x2(prob1 = 0.55, # mean of case group (or after)
                     # correlation between matched case-control or before-after
                     rho = 0.4141414
 )
-#> prob11 prob10 prob01 prob00 
-#>   0.35   0.20   0.10   0.35 
+#>    rho.min    rho.max     prob11     prob10     prob01     prob00 
+#> -1.0000000  0.8181818  0.3500000  0.2000000  0.1000000  0.3500000 
 ```

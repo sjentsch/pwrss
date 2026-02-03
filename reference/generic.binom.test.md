@@ -8,7 +8,7 @@ and Type 2 error plots.
 ``` r
 power.binom.test(size, prob, null.prob = 0.5, alpha = 0.05,
                  alternative = c("two.sided", "one.sided", "two.one.sided"),
-                 plot = TRUE, verbose = TRUE, pretty = FALSE)
+                 plot = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -44,8 +44,9 @@ power.binom.test(size, prob, null.prob = 0.5, alpha = 0.05,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -87,18 +88,18 @@ power.binom.test(size = 200, prob = 0.6, null.prob = 0.5,
 #> 
 #> Generic Binomial Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob <= null.prob 
 #>   H1 (Alt. Claim) : prob > null.prob 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.038
-#>   Type 2 Error (beta)    = 0.140
-#>   Statistical Power      = 0.86  <<
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.038
+#>   Type 2 Error (beta)  = 0.140
+#>   Statistical Power    = 0.860  <<
 #> 
 
 # two-sided
@@ -111,18 +112,18 @@ power.binom.test(size = 200, prob = 0.4, null.prob = 0.5,
 #> 
 #> Generic Binomial Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob = null.prob 
 #>   H1 (Alt. Claim) : prob != null.prob 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.040
-#>   Type 2 Error (beta)    = 0.213
-#>   Statistical Power      = 0.787  <<
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.040
+#>   Type 2 Error (beta)  = 0.213
+#>   Statistical Power    = 0.787  <<
 #> 
 
 # equivalence
@@ -135,19 +136,19 @@ power.binom.test(size = 200, prob = 0.5, null.prob = c(0.4, 0.6),
 #> 
 #> Generic Binomial Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob <= min(null.prob) or 
 #>                     prob >= max(null.prob) 
 #>   H1 (Alt. Claim) : prob > min(null.prob) and 
 #>                     prob < max(null.prob) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.049
-#>   Type 2 Error (beta)    = 0.229
-#>   Statistical Power      = 0.771  <<
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.049
+#>   Type 2 Error (beta)  = 0.229
+#>   Statistical Power    = 0.771  <<
 #> 
 ```

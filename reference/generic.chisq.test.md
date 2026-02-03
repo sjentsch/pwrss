@@ -7,7 +7,7 @@ and Type 2 error plots.
 
 ``` r
 power.chisq.test(ncp, null.ncp = 0, df, alpha = 0.05,
-                 plot = TRUE, verbose = TRUE, pretty = FALSE)
+                 plot = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -37,8 +37,9 @@ power.chisq.test(ncp, null.ncp = 0, df, alpha = 0.05,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -64,17 +65,17 @@ power.chisq.test(ncp = 20, df = 100, alpha = 0.05)
 #> 
 #> Generic Chi-square Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)   : ncp = null.ncp 
 #>   H1 (Alt. Claim)   : ncp > null.ncp 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.619
-#>   Statistical Power      = 0.381  <<
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.619
+#>   Statistical Power    = 0.381  <<
 #> 
 ```

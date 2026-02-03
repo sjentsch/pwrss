@@ -9,7 +9,7 @@ Calculates power for the generic Z-Test with (optional) Type 1 and Type
 power.z.test(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
              alpha = 0.05, alternative = c("two.sided",
                                            "one.sided", "two.one.sided"),
-             plot = TRUE, verbose = TRUE, pretty = FALSE, ...)
+             plot = TRUE, verbose = 1, pretty = FALSE, ...)
 ```
 
 ## Arguments
@@ -54,8 +54,9 @@ power.z.test(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - ...:
 
@@ -109,18 +110,18 @@ power.z.test(mean = 1.96, alpha = 0.05,
 #> 
 #> Generic Z-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : mean = null.mean 
 #>   H1 (Alt. Claim) : mean != null.mean 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.500
-#>   Statistical Power    = 0.5  <<
+#>   Statistical Power    = 0.500  <<
 #> 
 
 # one-sided
@@ -135,15 +136,15 @@ power.z.test(mean = 1.96, alpha = 0.05,
 #> 
 #> Generic Z-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : mean <= null.mean 
 #>   H1 (Alt. Claim) : mean > null.mean 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.376
 #>   Statistical Power    = 0.624  <<
@@ -162,17 +163,17 @@ power.z.test(mean = 0, null.mean = c(-2, 2), alpha = 0.05,
 #> 
 #> Generic Z-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : mean <= min(null.mean) or 
 #>                     mean >= max(null.mean) 
 #>   H1 (Alt. Claim) : mean > min(null.mean) and 
 #>                     mean < max(null.mean) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.722
 #>   Statistical Power    = 0.278  <<
@@ -191,17 +192,17 @@ power.z.test(mean = 2, null.mean = c(-1, 1), alpha = 0.05,
 #> 
 #> Generic Z-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : mean >= min(null.mean) and 
 #>                     mean <= max(null.mean) 
 #>   H1 (Alt. Claim) : mean < min(null.mean) or 
 #>                     mean > max(null.mean) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.831
 #>   Statistical Power    = 0.169  <<

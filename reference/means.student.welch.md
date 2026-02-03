@@ -50,14 +50,14 @@ power.t.student(d, null.d = 0, margin = 0,
                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                 design = c("independent", "paired", "one.sample"),
                 claim.basis = c("md.pval", "smd.ci"),
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.t.welch(d, null.d = 0, margin = 0,
               var.ratio = 1, n.ratio = 1, n2 = NULL,
               power = NULL, alpha = 0.05,
               alternative = c("two.sided", "one.sided", "two.one.sided"),
               claim.basis = c("md.pval", "smd.ci"),
-              ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+              ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -120,8 +120,9 @@ power.t.welch(d, null.d = 0, margin = 0,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -208,19 +209,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 412 and 412  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 412 and 412  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## parametric
@@ -234,19 +235,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 394 and 394  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 394 and 394  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## when sample size ratio and group variances differ
@@ -261,19 +262,19 @@ power.t.welch(d = 0.20,
 #> 
 #> Welch's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 473 and 237  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 473 and 237  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 
@@ -294,19 +295,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= 0 
 #>   H1 (Alt. Claim) : d - null.d > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 325 and 325  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 325 and 325  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## parametric
@@ -320,19 +321,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= 0 
 #>   H1 (Alt. Claim) : d - null.d > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 310 and 310  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 310 and 310  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## when sample size ratio and group variances differ
@@ -347,19 +348,19 @@ power.t.welch(d = 0.20,
 #> 
 #> Welch's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= 0 
 #>   H1 (Alt. Claim) : d - null.d > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 372 and 186  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 372 and 186  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -381,19 +382,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 208 and 208  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 208 and 208  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## parametric
@@ -408,19 +409,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 199 and 199  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 199 and 199  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## when sample size ratio and group variances differ
@@ -436,19 +437,19 @@ power.t.welch(d = 0.20,
 #> 
 #> Welch's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 238 and 119  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 238 and 119  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -470,19 +471,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 578 and 578  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 578 and 578  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## parametric
@@ -497,19 +498,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 552 and 552  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 552 and 552  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## when sample size ratio and group variances differ
@@ -525,19 +526,19 @@ power.t.welch(d = 0.20,
 #> 
 #> Welch's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 662 and 331  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 662 and 331  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -560,21 +561,21 @@ power.np.wilcoxon(d = 0,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 7175 and 7175  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 7175 and 7175  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## parametric
@@ -589,21 +590,21 @@ power.t.student(d = 0,
 #> 
 #> Student's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 6852 and 6852  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 6852 and 6852  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## when sample size ratio and group variances differ
@@ -619,21 +620,21 @@ power.t.welch(d = 0,
 #> 
 #> Welch's T-Test (Independent Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 8222 and 4111  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 8222 and 4111  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -657,19 +658,19 @@ power.np.wilcoxon(d = -0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 208  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 208  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## parametric
@@ -683,19 +684,19 @@ power.t.student(d = -0.20,
 #> 
 #> Student's T-Test (Paired Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 199  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.198
-#>   Statistical Power      = 0.802
+#> ----------------------------------------------------
+#>   Sample Size          = 199  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.198
+#>   Statistical Power    = 0.802
 #> 
 
 ## difference between time 1 and time 2 is less than zero
@@ -714,19 +715,19 @@ power.np.wilcoxon(d = -0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d >= 0 
 #>   H1 (Alt. Claim) : d - null.d < 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 164  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.198
-#>   Statistical Power      = 0.802
+#> ----------------------------------------------------
+#>   Sample Size          = 164  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.198
+#>   Statistical Power    = 0.802
 #> 
 
 ## parametric
@@ -740,19 +741,19 @@ power.t.student(d = -0.20,
 #> 
 #> Student's T-Test (Paired Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d >= 0 
 #>   H1 (Alt. Claim) : d - null.d < 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 156  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 156  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of time 1 is practically not greater than mean of time 2
@@ -773,19 +774,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 291  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 291  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## parametric
@@ -800,19 +801,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Paired Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 278  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 278  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of time 1 is practically greater than mean of time 2
@@ -832,19 +833,19 @@ power.np.wilcoxon(d = 0.20,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 105  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.198
-#>   Statistical Power      = 0.802
+#> ----------------------------------------------------
+#>   Sample Size          = 105  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.198
+#>   Statistical Power    = 0.802
 #> 
 
 ## parametric
@@ -859,19 +860,19 @@ power.t.student(d = 0.20,
 #> 
 #> Student's T-Test (Paired Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 100  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 100  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 
@@ -894,21 +895,21 @@ power.np.wilcoxon(d = 0,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 3589  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 3589  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## parametric
@@ -923,20 +924,20 @@ power.t.student(d = 0,
 #> 
 #> Student's T-Test (Paired Samples)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 3427  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 3427  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 ```

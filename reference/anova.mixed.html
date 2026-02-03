@@ -55,7 +55,7 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span>                    rho.within <span class="op">=</span> <span class="fl">0.50</span>, epsilon <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                    n.total <span class="op">=</span> <span class="cn">NULL</span>, power <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                    effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"between"</span>, <span class="st">"within"</span>, <span class="st">"interaction"</span><span class="op">)</span>,</span>
-<span>                    ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span>                    ceiling <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="fl">1</span>, pretty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -95,7 +95,7 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <dd><p>logical;  <code>TRUE</code> by default. If <code>FALSE</code> sample size in each group is NOT rounded up.</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; <code>TRUE</code> by default. If <code>FALSE</code> no output is printed on the console.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
   <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
 <dd><p>logical; whether the output should show Unicode characters (if encoding allows for it). <code>FALSE</code> by default.</p></dd>
@@ -152,24 +152,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"within"</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Repeated Measures Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 90  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.804</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if effect size is already adjusted for correlation</span></span></span>
@@ -181,24 +181,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Repeated Measures Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 90  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.804</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##########################################################</span></span></span>
@@ -213,24 +213,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"between"</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 128  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.803</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -248,24 +248,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"between"</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mixed-Effects Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 152  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.803</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a researcher is expecting an interaction effect</span></span></span>
@@ -276,24 +276,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"interaction"</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mixed-Effects Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 198  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.804</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a researcher is expecting an interaction effect</span></span></span>
@@ -304,24 +304,24 @@ NOTE: The pwrss.f.rmanova() function is deprecated and will no longer be support
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"within"</span>,</span></span>
 <span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mixed-Effects Analysis of Variance (F-Test)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 198  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size    = 198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.804</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

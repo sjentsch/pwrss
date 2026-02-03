@@ -12,7 +12,7 @@ power.exact.fisher(prob1, prob2, n2 = NULL, n.ratio = 1,
                    alpha = 0.05, power = NULL,
                    alternative = c("two.sided", "one.sided"),
                    method = c("exact", "approximate"),
-                   ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                   ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -60,7 +60,9 @@ power.exact.fisher(prob1, prob2, n2 = NULL, n.ratio = 1,
 
 - verbose:
 
-  logical; if `FALSE` no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -152,15 +154,15 @@ power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50)
 #> 
 #>   Method          : Fisher's Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob1 - prob2 = 0 
 #>   H1 (Alt. Claim) : prob1 - prob2 != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 50 and 50
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.538

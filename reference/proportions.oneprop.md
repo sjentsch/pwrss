@@ -18,12 +18,12 @@ power.z.oneprop(prob, null.prob = 0.50,
                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                 std.error = c("null", "alternative"),
                 arcsine = FALSE, correct = FALSE,
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.exact.oneprop(prob, null.prob = 0.50,
                     n = NULL, power = NULL, alpha = 0.05,
                     alternative = c("two.sided", "one.sided", "two.one.sided"),
-                    verbose = TRUE, pretty = FALSE)
+                    verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -78,8 +78,9 @@ power.exact.oneprop(prob, null.prob = 0.50,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -149,19 +150,19 @@ power.z.oneprop(prob = 0.45, null.prob = 0.50,
 #>   Arcsine Transformation : FALSE
 #>   Standard Error         : Calculated From Null
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)        : prob - null.prob >= 0
 #>   H1 (Alt. Claim)        : prob - null.prob < 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size           = 500
-#>   Type 1 Error (alpha)  = 0.050
-#>   Type 2 Error (beta)   = 0.276
-#>   Statistical Power     = 0.724  <<
+#> ----------------------------------------------------
+#>   Sample Size          = 500
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.276
+#>   Statistical Power    = 0.724  <<
 #> 
 
 power.exact.oneprop(prob = 0.45, null.prob = 0.50,
@@ -175,19 +176,19 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> 
 #>   Method                 : Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)        : prob - null.prob >= 0
 #>   H1 (Alt. Claim)        : prob - null.prob < 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size           = 500
-#>   Type 1 Error (alpha)  = 0.050
-#>   Type 2 Error (beta)   = 0.279
-#>   Statistical Power     = 0.721  <<
+#> ----------------------------------------------------
+#>   Sample Size          = 500
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.279
+#>   Statistical Power    = 0.721  <<
 #> 
 
 
@@ -207,19 +208,19 @@ power.z.oneprop(prob = 0.45, null.prob = 0.50,
 #>   Arcsine Transformation : FALSE
 #>   Standard Error         : Calculated From Null
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)        : prob - null.prob >= 0
 #>   H1 (Alt. Claim)        : prob - null.prob < 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size           = 617  <<
-#>   Type 1 Error (alpha)  = 0.050
-#>   Type 2 Error (beta)   = 0.200
-#>   Statistical Power     = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 617  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 power.exact.oneprop(prob = 0.45, null.prob = 0.50,
@@ -233,18 +234,18 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> 
 #>   Method                 : Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)        : prob - null.prob >= 0
 #>   H1 (Alt. Claim)        : prob - null.prob < 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size           = 633  <<
-#>   Type 1 Error (alpha)  = 0.050
-#>   Type 2 Error (beta)   = 0.197
-#>   Statistical Power     = 0.803
+#> ----------------------------------------------------
+#>   Sample Size          = 633  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.197
+#>   Statistical Power    = 0.803
 #> 
 ```

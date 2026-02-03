@@ -5,9 +5,9 @@ Helper function to convert between Cohen's f and R-squared.
 ## Usage
 
 ``` r
-rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = TRUE)
+rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = 1)
 
-  f.to.rsq(f, r.squared.full = NULL, verbose = TRUE)
+  f.to.rsq(f, r.squared.full = NULL, verbose = 1)
 ```
 
 ## Arguments
@@ -26,8 +26,9 @@ rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = TRUE)
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 
@@ -61,12 +62,6 @@ local effect size, from PROC MIXED. Frontiers in Psychology, 3, 111.
 
 ``` r
   f.to.rsq(f = 0.10) # small
-#>         f.squared                 f    r.squared.full r.squared.reduced 
-#>        0.01000000        0.10000000        0.00990099        0.00000000 
   f.to.rsq(f = 0.25) # medium
-#>         f.squared                 f    r.squared.full r.squared.reduced 
-#>        0.06250000        0.25000000        0.05882353        0.00000000 
   f.to.rsq(f = 0.40) # large
-#>         f.squared                 f    r.squared.full r.squared.reduced 
-#>          0.160000          0.400000          0.137931          0.000000 
 ```

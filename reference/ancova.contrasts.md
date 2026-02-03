@@ -32,7 +32,7 @@ power.t.contrast(mu.vector,
                  r.squared = 0, k.covariates = 1,
                  power = NULL, alpha = 0.05,
                  tukey.kramer = FALSE,
-                 ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                 ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.t.contrasts(x = NULL,
                   mu.vector = NULL,
@@ -44,7 +44,7 @@ power.t.contrasts(x = NULL,
                   adjust.alpha = c("none", "tukey", "bonferroni",
                                    "holm", "hochberg", "hommel",
                                    "BH", "BY", "fdr"),
-                  ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                  ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -130,8 +130,9 @@ power.t.contrasts(x = NULL,
 
 - verbose:
 
-  logical; `TRUE` by default. If `FALSE` no output is printed on the
-  console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -220,19 +221,19 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 1245  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 1245  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
   # power of planned contrasts, adjusted for alpha level
@@ -243,15 +244,15 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> Multiple Contrast Analyses (T-Tests)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : psi = 0 
 #>   H1 (Alt. Claim) : psi != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>  contr comparison   psi      d    ncp n.total power
 #>      1  A1 <=> A3 -0.05 -0.071 -1.018    1245 0.111
 #>      2  A2 <=> A3  0.10  0.141  2.036    1245 0.418
@@ -284,19 +285,19 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 1245  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 1245  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
   # power of planned contrasts
@@ -307,15 +308,15 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> Multiple Contrast Analyses (T-Tests)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : psi = 0 
 #>   H1 (Alt. Claim) : psi != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>  contr   comparison    psi      d    ncp n.total power
 #>      1    A2 <=> A1  0.075  0.106  3.055    1245 0.863
 #>      2 A3 <=> A1 A2 -0.008 -0.012 -0.588    1245 0.090
@@ -348,19 +349,19 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 1245  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 1245  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
   # power of the planned contrasts
@@ -371,15 +372,15 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> Multiple Contrast Analyses (T-Tests)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : psi = 0 
 #>   H1 (Alt. Claim) : psi != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>  contr   comparison    psi      d    ncp n.total power
 #>      1    A3 <=> A1  0.035  0.050  1.018    1245 0.174
 #>      2 A1 A3 <=> A2 -0.102 -0.144 -2.939    1245 0.836
@@ -411,19 +412,19 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 1245  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Total Sample Size    = 1245  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
   # power of the planned contrasts
@@ -434,15 +435,15 @@ analysis in ANCOVA. Multivariate Behavioral Research, 52(1), 1-11.
 #> 
 #> Multiple Contrast Analyses (T-Tests)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : psi = 0 
 #>   H1 (Alt. Claim) : psi != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>  contr   comparison    psi      d    ncp n.total power
 #>      1 A1 <=> A2 A3 -0.100 -0.141 -2.351    1245 0.652
 #>      2 A1 A2 <=> A3  0.025  0.035  0.588    1245 0.090

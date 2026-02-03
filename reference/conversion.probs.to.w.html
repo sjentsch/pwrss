@@ -45,7 +45,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">probs.to.w</span><span class="op">(</span><span class="va">prob.matrix</span>,</span>
 <span>           null.prob.matrix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>           verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span>           verbose <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -59,7 +59,7 @@
 <dd><p>a vector or matrix of cell probabilities under null hypothesis. Calculated automatically when <code>prob.matrix</code> is specified. The default can be overwritten by the user via providing a vector of the same size or matrix of the same dimensions as <code>prob.matrix</code></p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>logical; whether the output should be printed on the console. <code>TRUE</code> by default.</p></dd>
+<dd><p><code>1</code> by default (returns test, hypotheses, and results), if <code>2</code> a more detailed output is given (plus key parameters and defintions), if <code>0</code> no output is printed on the console.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,19 +102,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-Square Test for Goodness-of-Fit or Independence</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 41  &lt;&lt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 41  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.804</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -148,19 +148,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-Square Test for Goodness-of-Fit or Independence</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 463  &lt;&lt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 463  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -197,19 +197,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-Square Test for Goodness-of-Fit or Independence</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Total Sample Size      = 13069  &lt;&lt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha)   = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)    = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power      = 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 13069  &lt;&lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

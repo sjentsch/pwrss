@@ -5,9 +5,9 @@ Helper function to convert between Cohen's f and Eta-squared.
 ## Usage
 
 ``` r
-f.to.etasq(f, verbose = TRUE)
+f.to.etasq(f, verbose = 1)
 
-etasq.to.f(eta.squared, verbose = TRUE)
+etasq.to.f(eta.squared, verbose = 1)
 ```
 
 ## Arguments
@@ -22,8 +22,9 @@ etasq.to.f(eta.squared, verbose = TRUE)
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 

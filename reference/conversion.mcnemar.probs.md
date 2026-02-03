@@ -7,9 +7,9 @@ binary data.
 ## Usage
 
 ``` r
-joint.probs.2x2(prob1, prob2, rho = 0.50, verbose = TRUE)
+joint.probs.2x2(prob1, prob2, rho = 0.50, verbose = 1)
 
-marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = TRUE)
+marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = 1)
 ```
 
 ## Arguments
@@ -52,7 +52,9 @@ marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = TRUE)
 
 - verbose:
 
-  if `FALSE` no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 
@@ -165,8 +167,8 @@ jp <- joint.probs.2x2(prob1 = 0.55, # mean of case (or after)
                           prob2 = 0.45, # mean of matched control (or before)
                           # correlation b/w matched case-control / before-after
                           rho = 0.4141414)
-#> prob11 prob10 prob01 prob00 
-#>   0.35   0.20   0.10   0.35 
+#>    rho.min    rho.max     prob11     prob10     prob01     prob00 
+#> -1.0000000  0.8181818  0.3500000  0.2000000  0.1000000  0.3500000 
 
 # required sample size for exact test
 # assuming prob01 and prob10 are population parameters
@@ -182,15 +184,15 @@ power.exact.mcnemar(prob01 = jp$prob01,
 #> 
 #>   Method          : McNemar's Exact
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob10 - prob01 = 0
 #>   H1 (Alt. Claim) : prob10 - prob01 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Paired Sample Size   = 249  <<
 #>   Type 1 Error (alpha) = 0.037
 #>   Type 2 Error (beta)  = 0.199

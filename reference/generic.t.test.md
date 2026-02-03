@@ -8,7 +8,7 @@ Calculates power for the generic T-Test with (optional) Type 1 and Type
 ``` r
 power.t.test(ncp, null.ncp = 0, df, alpha = 0.05,
              alternative = c("two.sided", "one.sided", "two.one.sided"),
-             plot = TRUE, verbose = TRUE, pretty = FALSE)
+             plot = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -46,8 +46,9 @@ power.t.test(ncp, null.ncp = 0, df, alpha = 0.05,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -92,18 +93,18 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
 #> 
 #> Generic T-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : ncp = null.ncp 
 #>   H1 (Alt. Claim) : ncp != null.ncp 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.507
-#>   Statistical Power      = 0.493  << 
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.507
+#>   Statistical Power    = 0.493  <<
 #> 
 
 # one-sided
@@ -118,18 +119,18 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
 #> 
 #> Generic T-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : ncp <= null.ncp 
 #>   H1 (Alt. Claim) : ncp > null.ncp 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.381
-#>   Statistical Power      = 0.619  << 
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.381
+#>   Statistical Power    = 0.619  <<
 #> 
 
 # equivalence
@@ -146,20 +147,20 @@ power.t.test(ncp = 0, df = 100,
 #> 
 #> Generic T-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : ncp <= min(null.ncp) or 
 #>                     ncp >= max(null.ncp) 
 #>   H1 (Alt. Claim) : ncp > min(null.ncp) and 
 #>                     ncp < max(null.ncp) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.723
-#>   Statistical Power      = 0.277  << 
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.723
+#>   Statistical Power    = 0.277  <<
 #> 
 
 # minimal effect testing
@@ -176,19 +177,19 @@ power.t.test(ncp = 2, df = 100,
 #> 
 #> Generic T-Test
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : ncp >= min(null.ncp) and 
 #>                     ncp <= max(null.ncp) 
 #>   H1 (Alt. Claim) : ncp < min(null.ncp) or 
 #>                     ncp > max(null.ncp) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.837
-#>   Statistical Power      = 0.163  << 
+#> ----------------------------------------------------
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.837
+#>   Statistical Power    = 0.163  <<
 #> 
 ```

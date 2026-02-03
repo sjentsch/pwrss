@@ -11,7 +11,7 @@ remain available as a wrapper for the `power.chisq.gof()` function.
 ``` r
 power.chisq.gof(w, null.w = 0, df,
                 n = NULL, power = NULL, alpha = 0.05,
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -53,8 +53,9 @@ power.chisq.gof(w, null.w = 0, df,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -127,19 +128,19 @@ power.chisq.gof(w = 0.44, df = 1,
 #> 
 #> Chi-Square Test for Goodness-of-Fit or Independence
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
 #>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 41  << 
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.196
-#>   Statistical Power      = 0.804
+#> ----------------------------------------------------
+#>   Sample Size          = 41  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.196
+#>   Statistical Power    = 0.804
 #> 
 
 
@@ -173,19 +174,19 @@ power.chisq.gof(w = 0.1302134, df = 1,
 #> 
 #> Chi-Square Test for Goodness-of-Fit or Independence
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
 #>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 463  << 
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 463  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -222,18 +223,18 @@ power.chisq.gof(w = 0.03022008, df = 4,
 #> 
 #> Chi-Square Test for Goodness-of-Fit or Independence
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
 #>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 13069  << 
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 13069  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 ```

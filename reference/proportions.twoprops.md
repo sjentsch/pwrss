@@ -19,14 +19,14 @@ power.z.twoprops(prob1, prob2, margin = 0,
                  arcsine = FALSE, correct = FALSE,
                  paired = FALSE, rho.paired = 0.50,
                  std.error = c("pooled", "unpooled"),
-                 ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                 ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.exact.twoprops(prob1, prob2, n2 = NULL, n.ratio = 1,
                      power = NULL, alpha = 0.05,
                      alternative = c("two.sided", "one.sided"),
                      paired = FALSE, rho.paired = 0.50,
                      method = c("exact", "approximate"),
-                     ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                     ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -102,7 +102,9 @@ power.exact.twoprops(prob1, prob2, n2 = NULL, n.ratio = 1,
 
 - verbose:
 
-  logical; `TRUE` prints the output on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -178,15 +180,15 @@ Universitesi Kirsehir Egitim Fakultesi Dergisi, 24(3), 2207-2328.
 #> 
 #>   Method          : Normal Approximation
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob1 - prob2 <= 0 
 #>   H1 (Alt. Claim) : prob1 - prob2 > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 500 and 500
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.505
@@ -205,18 +207,18 @@ Universitesi Kirsehir Egitim Fakultesi Dergisi, 24(3), 2207-2328.
 #> 
 #>   Method          : Normal Approximation
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : prob1 - prob2 <= 0 
 #>   H1 (Alt. Claim) : prob1 - prob2 > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1159 and 1159  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 ```

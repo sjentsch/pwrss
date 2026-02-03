@@ -39,7 +39,7 @@ power.z.poisson(base.rate = NULL, rate.ratio = NULL,
                 alpha = 0.05, alternative = c("two.sided", "one.sided"),
                 method = c("demidenko(vc)", "demidenko", "signorini"),
                 distribution = "normal", ceiling = TRUE,
-                verbose = TRUE, pretty = FALSE)
+                verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -113,8 +113,9 @@ power.z.poisson(base.rate = NULL, rate.ratio = NULL,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -186,19 +187,19 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 474  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ## rate ratio specification
@@ -215,19 +216,19 @@ power.z.poisson(base.rate = exp(0.50),
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 474  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ## change parameters associated with predictor X
@@ -245,15 +246,15 @@ power.z.poisson(base.rate = exp(0.50),
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 318  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -276,19 +277,19 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 2003  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ## rate ratio specification
@@ -305,19 +306,19 @@ power.z.poisson(base.rate = exp(0.50),
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 2003  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ## change parameters associatied with predictor X
@@ -335,18 +336,18 @@ power.z.poisson(base.rate = exp(0.50),
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Rate Ratio = 1 
 #>   H1 (Alt. Claim) : Rate Ratio != 1 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 2404  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 ```

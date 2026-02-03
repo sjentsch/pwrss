@@ -39,7 +39,7 @@ power.np.wilcoxon(d, null.d = 0, margin = 0,
                   distribution = c("normal", "uniform", "double.exponential",
                                    "laplace", "logistic"),
                   method = c("guenther", "noether"),
-                  ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                  ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -99,8 +99,9 @@ power.np.wilcoxon(d, null.d = 0, margin = 0,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -213,19 +214,19 @@ power.np.wilcoxon(d = 0.25,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 265 and 265  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 265 and 265  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## difference between group 1 and group 2 is greater than zero
@@ -243,19 +244,19 @@ power.np.wilcoxon(d = 0.25,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= 0 
 #>   H1 (Alt. Claim) : d - null.d > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 208 and 208  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 208 and 208  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of group 1 is practically not smaller than mean of group 2
@@ -274,19 +275,19 @@ power.np.wilcoxon(d = 0.10,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 576 and 576  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 576 and 576  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of group 1 is practically greater than mean of group 2
@@ -305,19 +306,19 @@ power.np.wilcoxon(d = 0.10,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= margin 
 #>   H1 (Alt. Claim) : d - null.d > margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 5184 and 5184  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 5184 and 5184  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of group 1 is practically same as mean of group 2
@@ -337,21 +338,21 @@ power.np.wilcoxon(d = 0,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 7175 and 7175  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 7175 and 7175  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 
@@ -371,19 +372,19 @@ power.np.wilcoxon(d = -0.25,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d = 0 
 #>   H1 (Alt. Claim) : d - null.d != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 134  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 134  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## difference between time 1 and time 2 is greater than zero
@@ -401,19 +402,19 @@ power.np.wilcoxon(d = -0.25,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d >= 0 
 #>   H1 (Alt. Claim) : d - null.d < 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 106  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.197
-#>   Statistical Power      = 0.803
+#> ----------------------------------------------------
+#>   Sample Size          = 106  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.197
+#>   Statistical Power    = 0.803
 #> 
 
 ## mean of time 1 is practically not smaller than mean of time 2
@@ -432,19 +433,19 @@ power.np.wilcoxon(d = -0.10,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d >= margin 
 #>   H1 (Alt. Claim) : d - null.d < margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 289  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 289  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 
 ## mean of time 1 is practically greater than mean of time 2
@@ -463,19 +464,19 @@ power.np.wilcoxon(d = -0.10,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d >= margin 
 #>   H1 (Alt. Claim) : d - null.d < margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 2599  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 2599  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 ## mean of time 1 is practically same as mean of time 2
@@ -495,20 +496,20 @@ power.np.wilcoxon(d = 0,
 #>   Method       : Guenther
 #>   Distribution : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : d - null.d <= min(margin) or 
 #>                     d - null.d >= max(margin) 
 #>   H1 (Alt. Claim) : d - null.d > min(margin) and 
 #>                     d - null.d < max(margin) 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 3589  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 3589  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 ```

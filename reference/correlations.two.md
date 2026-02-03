@@ -13,7 +13,7 @@ power.z.twocors(rho1, rho2,
                 n2 = NULL, n.ratio = 1,
                 power = NULL, alpha = 0.05,
                 alternative = c("two.sided", "one.sided"),
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -56,8 +56,9 @@ power.z.twocors(rho1, rho2,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -129,19 +130,19 @@ power.z.twocors(rho1 = .20, rho2 = 0.30,
 #> 
 #> Independent Correlations 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho1 - rho2 = 0
 #>   H1 (Alt. Claim) : rho1 - rho2 != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1380 and 1380  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 # difference between r1 and r2 is greater than zero
@@ -154,18 +155,18 @@ power.z.twocors(rho1 = .30, rho2 = 0.20,
 #> 
 #> Independent Correlations 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho1 - rho2 <= 0
 #>   H1 (Alt. Claim) : rho1 - rho2 > 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1088 and 1088  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 ```

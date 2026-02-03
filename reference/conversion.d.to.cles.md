@@ -16,9 +16,9 @@ randomly selected observation is greater than the reference value (e.g.,
 ## Usage
 
 ``` r
-d.to.cles(d, design = c("independent", "paired", "one.sample"), verbose = TRUE)
+d.to.cles(d, design = c("independent", "paired", "one.sample"), verbose = 1)
 
-  cles.to.d(cles, design = c("independent", "paired", "one.sample"), verbose = TRUE)
+  cles.to.d(cles, design = c("independent", "paired", "one.sample"), verbose = 1)
 ```
 
 ## Arguments
@@ -38,8 +38,9 @@ d.to.cles(d, design = c("independent", "paired", "one.sample"), verbose = TRUE)
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 ## Value
 

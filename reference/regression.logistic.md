@@ -40,7 +40,7 @@ power.z.logistic(prob = NULL, base.prob = NULL,
                  alpha = 0.05, alternative = c("two.sided", "one.sided"),
                  method = c("demidenko(vc)", "demidenko", "hsieh"),
                  distribution = "normal", ceiling = TRUE,
-                 verbose = TRUE, pretty = FALSE)
+                 verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -121,8 +121,9 @@ power.z.logistic(prob = NULL, base.prob = NULL,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -197,15 +198,15 @@ power.z.logistic(base.prob = 0.15, prob = 0.20,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 511  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -225,15 +226,15 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 511  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -253,15 +254,15 @@ power.z.logistic(beta0 = -1.734601, beta1 = 0.3483067,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 511  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -282,15 +283,15 @@ power.z.logistic(base.prob = 0.15, beta1 = 0.3483067,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Normal
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 134  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -316,19 +317,19 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 1816  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ## change parameters associated with predictor X
@@ -345,19 +346,19 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 2114  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 ####################################
@@ -400,18 +401,18 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #>   Method          : Demidenko (Variance Corrected)
 #>   Predictor Dist. : Bernoulli
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : Odds Ratio = 1
 #>   H1 (Alt. Claim) : Odds Ratio != 1
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 3549  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 ```

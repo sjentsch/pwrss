@@ -12,7 +12,7 @@ Formulas are validated using PASS and G\*Power.
 power.z.onecor(rho, null.rho = 0,
                n = NULL, power = NULL, alpha = 0.05,
                alternative = c("two.sided", "one.sided"),
-               ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+               ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -50,8 +50,9 @@ power.z.onecor(rho, null.rho = 0,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -124,19 +125,19 @@ power.z.onecor(rho = 0.20,
 #> 
 #> One-Sample Correlation 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho -  null.rho = 0
 #>   H1 (Alt. Claim) : rho -  null.rho != 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 194  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 
 # expected correlation is 0.20 and it is greater than 0.10
@@ -150,18 +151,18 @@ power.z.onecor(rho = 0.20, null = 0.10,
 #> 
 #> One-Sample Correlation 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : rho -  null.rho <= 0
 #>   H1 (Alt. Claim) : rho -  null.rho > 0
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   Sample Size          = 593  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.8
+#>   Statistical Power    = 0.800
 #> 
 ```

@@ -59,7 +59,7 @@ Validated using lm() and aov() functions."></head><body>
 <span>                    coding.scheme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"deviation"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">factor.levels</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                    base <span class="op">=</span> <span class="va">factor.levels</span>,</span>
 <span>                    intercept <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                    verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span>                    verbose <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,13 +72,13 @@ Validated using lm() and aov() functions."></head><body>
 <dd><p>Character vector. Coding scheme for each factor. "sum" for deviation or effect coding, "treatment" for dummy coding, "helmert" for Helmert type of coding, and "poly" for polynomial coding. Each factor can have their own coding scheme. If a single character value is provided, it will be copied to other factors</p></dd>
 
   <dt id="arg-base">base<a class="anchor" aria-label="anchor" href="#arg-base"></a></dt>
-<dd><p>Integer vector. Specifies which group is considered the baseline group. Ignored for coding schemes other than "treatment"</p></dd>
+<dd><p>integer vector. Specifies which group is considered the baseline group. Ignored for coding schemes other than "treatment"</p></dd>
 
   <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
-<dd><p>Logical. <code>FALSE</code> by default. If <code>TRUE</code> contrast matrix includes the intercept</p></dd>
+<dd><p>logical; <code>FALSE</code> by default. If <code>TRUE</code> contrast matrix includes the intercept</p></dd>
 
   <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>Logical. <code>TRUE</code> by default. If <code>FALSE</code> no output is printed on the console</p></dd>
+<dd><p><code>1</code> by default. If <code>0</code> no output is printed on the console</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -233,7 +233,7 @@ Validated using lm() and aov() functions."></head><body>
 <span class="r-in"><span><span class="va">contrast.object</span><span class="op">$</span><span class="va">model.matrix</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (Intercept)           A.L        A.Q</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1           1 -7.071068e-01  0.4082483</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           1 -9.073800e-17 -0.8164966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           1 -7.850462e-17 -0.8164966</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3           1  7.071068e-01  0.4082483</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"assign")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 1 1</span>
@@ -241,7 +241,7 @@ Validated using lm() and aov() functions."></head><body>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"contrasts")$A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              .L         .Q</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -7.071068e-01  0.4082483</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -9.073800e-17 -0.8164966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -7.850462e-17 -0.8164966</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  7.071068e-01  0.4082483</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>

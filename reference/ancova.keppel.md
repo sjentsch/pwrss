@@ -19,7 +19,7 @@ power.f.ancova.keppel(mu.vector, sd.vector,
                       factor.levels = length(mu.vector),
                       r.squared = 0, k.covariates = 0,
                       power = NULL, alpha = 0.05,
-                      ceiling = TRUE, verbose = TRUE,
+                      ceiling = TRUE, verbose = 1,
                       pretty = FALSE)
 ```
 
@@ -76,8 +76,9 @@ power.f.ancova.keppel(mu.vector, sd.vector,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -142,19 +143,19 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # marginal means
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 66  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.193
-#>   Statistical Power      = 0.807
+#> ----------------------------------------------------
+#>   Total Sample Size    = 66  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.193
+#>   Statistical Power    = 0.807
 #> 
 
 # effect size approach
@@ -169,19 +170,19 @@ power.f.ancova(eta.squared = 0.111, # effect size that is already adjusted for c
 #> 
 #> One-way Analysis of Covariance (F-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : eta.squared = 0 
 #>   H1 (Alt. Claim) : eta.squared > 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Total Sample Size      = 66  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error (beta)    = 0.193
-#>   Statistical Power      = 0.807
+#> ----------------------------------------------------
+#>   Total Sample Size    = 66  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.193
+#>   Statistical Power    = 0.807
 #> 
 
 # regression approach
@@ -198,18 +199,18 @@ power.t.regression(beta = 0.50,
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta = 0 
 #>   H1 (Alt. Claim) : beta - null.beta != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 65  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.199
-#>   Statistical Power      = 0.801
+#> ----------------------------------------------------
+#>   Sample Size          = 65  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.199
+#>   Statistical Power    = 0.801
 #> 
 ```

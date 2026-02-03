@@ -29,7 +29,7 @@ power.t.regression(beta, null.beta = 0, margin = 0,
                    r.squared = (beta * sd.predictor / sd.outcome)^2,
                    k.total = 1, n = NULL, power = NULL, alpha = 0.05,
                    alternative = c("two.sided", "one.sided", "two.one.sided"),
-                   ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                   ceiling = TRUE, verbose = 1, pretty = FALSE)
 ```
 
 ## Arguments
@@ -100,8 +100,9 @@ power.t.regression(beta, null.beta = 0, margin = 0,
 
 - verbose:
 
-  logical; whether the output should be printed on the console. `TRUE`
-  by default.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -181,19 +182,19 @@ power.t.regression(beta = 0.20,
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta = 0 
 #>   H1 (Alt. Claim) : beta - null.beta != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 140  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.198
-#>   Statistical Power      = 0.802
+#> ----------------------------------------------------
+#>   Sample Size          = 140  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.198
+#>   Statistical Power    = 0.802
 #> 
 
 # binary predictor x (and 4 covariates)
@@ -209,19 +210,19 @@ power.t.regression(beta = 0.20,
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta = 0 
 #>   H1 (Alt. Claim) : beta - null.beta != 0 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 552  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 552  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 # non-inferiority test with binary predictor x (and 4 covariates)
@@ -239,19 +240,19 @@ power.t.regression(beta = 0.20, # Cohen's d
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta <= margin 
 #>   H1 (Alt. Claim) : beta - null.beta >  margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 278  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 278  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 # superiority test with binary predictor x (and 4 covariates)
@@ -269,19 +270,19 @@ power.t.regression(beta = 0.20, # Cohen's d
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta <= margin 
 #>   H1 (Alt. Claim) : beta - null.beta >  margin 
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 773  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 773  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 
 # equivalence test with binary predictor x (and 4 covariates)
@@ -299,20 +300,20 @@ power.t.regression(beta = 0, # Cohen's d
 #> 
 #> Linear Regression Coefficient (T-Test)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Hypotheses
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #>   H0 (Null Claim) : beta - null.beta <= min(margin) or 
 #>                     beta - null.beta >= max(margin) 
 #>   H1 (Alt. Claim) : beta - null.beta > min(margin) and 
 #>                     beta - null.beta < max(margin)
 #> 
-#> ---------------------------------------------------
+#> ----------------------------------------------------
 #> Results
-#> ---------------------------------------------------
-#>   Sample Size            = 9593  <<
-#>   Type 1 Error (alpha)   = 0.050
-#>   Type 2 Error           = 0.200
-#>   Statistical Power      = 0.8
+#> ----------------------------------------------------
+#>   Sample Size          = 9593  <<
+#>   Type 1 Error (alpha) = 0.050
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 ```
