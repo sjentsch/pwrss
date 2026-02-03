@@ -1,6 +1,6 @@
 # power for the generic f test with (optional) type I and type II error plots
 power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
-                         plot = TRUE, verbose = TRUE, pretty = FALSE) {
+                         plot = TRUE, verbose = 1, pretty = FALSE) {
 
   check.positive(df1, df2)
   check.proportion(alpha)
@@ -29,8 +29,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
 
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (.ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic F-Test",
                       requested = "power",

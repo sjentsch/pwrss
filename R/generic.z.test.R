@@ -1,7 +1,7 @@
 # power for the generic t test with (optional) type I and type II error plots
 power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
                          alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
-                         plot = TRUE, verbose = TRUE, pretty = FALSE, ...) {
+                         plot = TRUE, verbose = 1, pretty = FALSE, ...) {
 
   old.args <- list(...) # just arguments in ...
   names.old.args <- names(old.args)
@@ -129,8 +129,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (.ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Z-Test",
                       requested = "power",

@@ -13,12 +13,13 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                                method = c("sobel", "aroian", "goodman",
                                           "joint", "monte.carlo"),
                                n.simulation = 1000, n.draws = 1000,
-                               ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
-
-  user.parms.names <- names(as.list(match.call()))
+                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
+  func.parms <- clean.parms(as.list(environment()))
+  user.parms.names <- names(as.list(match.call()))
+  verbose <- .ensure_verbose(verbose)
 
   check.logical(ceiling)
   check.numeric(beta.a, beta.b, beta.cp)
@@ -72,14 +73,14 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
       sobel.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2)
       lambda <- (beta.a * beta.b) / sobel.se
       pwr.obj <- power.z.test(mean = lambda, alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
     }
 
     if (method == "aroian") {
       aroian.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2 + se.beta.a ^ 2 * se.beta.b ^ 2)
       lambda <- (beta.a * beta.b) / aroian.se
       pwr.obj <- power.z.test(mean = lambda, alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
     }
 
     if (method == "goodman") {
@@ -88,14 +89,14 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
       goodman.se <- sqrt(goodman.var)
       lambda <- (beta.a * beta.b) / goodman.se
       pwr.obj <- power.z.test(mean = lambda, alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
     }
 
     if (method == "joint") {
       power.beta.a <- power.z.test(mean = beta.a / se.beta.a, alpha = alpha, alternative = alternative,
-                                   plot = FALSE, verbose = FALSE)$power
+                                   plot = FALSE, verbose = 0)$power
       power.beta.b <- power.z.test(mean = beta.b / se.beta.b, alpha = alpha, alternative = alternative,
-                                   plot = FALSE, verbose = FALSE)$power
+                                   plot = FALSE, verbose = 0)$power
       power <- power.beta.a * power.beta.b
       pwr.obj <- list(alternative = alternative, mean = NA, sd = NA, null.mean = NA,
                       alpha = alpha, z.alpha = NA, power = power)
@@ -137,7 +138,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
         sobel.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2)
         lambda.sobel <- (beta.a * beta.b) / sobel.se
         power - power.z.test(mean = lambda.sobel, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = FALSE)$power
+                             plot = FALSE, verbose = 0)$power
       }, interval = c(10, 1e10))$root
     }
 
@@ -151,7 +152,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
         aroian.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2 + se.beta.a ^ 2 * se.beta.b ^ 2)
         lambda.aroian <- (beta.a * beta.b) / aroian.se
         power - power.z.test(mean = lambda.aroian, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = FALSE)$power
+                             plot = FALSE, verbose = 0)$power
       }, interval = c(10, 1e10))$root
     }
 
@@ -169,7 +170,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
         }
         lambda.goodman <- (beta.a * beta.b) / goodman.se
         power - power.z.test(mean = lambda.goodman, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = FALSE)$power
+                             plot = FALSE, verbose = 0)$power
       }, interval = c(10, 1e10))$root
     }
 
@@ -230,8 +231,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   std.beta.cp <- beta.cp * sd.predictor / sd.outcome
   std.beta.indirect <-  std.beta.a * std.beta.b
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(test = "Indirect Effect in a Mediation Model",
                       method = method,
@@ -258,11 +258,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
 
   } # verbose
 
-  invisible(structure(list(parms = list(beta.a = beta.a, beta.b = beta.b, beta.cp = beta.cp,
-                                        sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                                        r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
-                                        alpha = alpha, alternative = alternative, method = method,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = switch(method, `joint` = "joint", `monte.carlo` = "monte.carlo", "z"),
                            std.beta.a = std.beta.a,
                            std.beta.b = std.beta.b,
@@ -288,12 +284,13 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                r2y.mx = (b ^ 2 * sdm ^ 2 + cp ^ 2 * sdx ^ 2) / sdy ^ 2,
                                n = NULL, power = NULL,
                                alpha = 0.05, alternative = c("not equal", "less", "greater"),
-                               mc = TRUE, nsims = 1000, ndraws = 1000,
-                               verbose = TRUE) {
+                               mc = TRUE, nsims = 1000, ndraws = 1000, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   if (is.null(power)) {
 
@@ -306,7 +303,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    n.simulation = nsims,
                                    n.draws = ndraws,
                                    ceiling = TRUE,
-                                   verbose = FALSE)
+                                   verbose = 0)
 
     aroian.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                     sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -317,7 +314,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                     n.simulation = nsims,
                                     n.draws = ndraws,
                                     ceiling = TRUE,
-                                    verbose = FALSE)
+                                    verbose = 0)
 
     goodman.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                      sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -328,7 +325,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                      n.simulation = nsims,
                                      n.draws = ndraws,
                                      ceiling = TRUE,
-                                     verbose = FALSE)
+                                     verbose = 0)
 
     joint.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                    sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -339,7 +336,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    n.simulation = nsims,
                                    n.draws = ndraws,
                                    ceiling = TRUE,
-                                   verbose = FALSE)
+                                   verbose = 0)
 
     monte.carlo.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                          sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -350,7 +347,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                          n.simulation = nsims,
                                          n.draws = ndraws,
                                          ceiling = TRUE,
-                                         verbose = FALSE)
+                                         verbose = 0)
 
     power.out <- data.frame(rbind(
       c(sobel.obj$mean, sobel.obj$n, sobel.obj$power),
@@ -376,7 +373,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    n.simulation = nsims,
                                    n.draws = ndraws,
                                    ceiling = TRUE,
-                                   verbose = FALSE)
+                                   verbose = 0)
 
     aroian.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                     sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -387,7 +384,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                     n.simulation = nsims,
                                     n.draws = ndraws,
                                     ceiling = TRUE,
-                                    verbose = FALSE)
+                                    verbose = 0)
 
     goodman.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                      sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -398,7 +395,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                      n.simulation = nsims,
                                      n.draws = ndraws,
                                      ceiling = TRUE,
-                                     verbose = FALSE)
+                                     verbose = 0)
 
     power.out <- data.frame(rbind(
       c(sobel.obj$mean, sobel.obj$n, sobel.obj$power),
@@ -428,7 +425,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                    mc = power.out$power[5])
   }
 
-  if (verbose) {
+  if (verbose > 0) {
     cat(" Indirect Effect in a Mediation Model",
         "\n ====================================\n",
         sep = "")
@@ -447,10 +444,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
 
 # cat("This function will be removed in the future. \n Please use power.z.mediation() function. \n")
 
-invisible(structure(list(parms = list(a = a, b = b, cp = cp,
-                                      sdx = sdx, sdm = sdm, sdy = sdy,
-                                      r2m.x = r2m.x, r2y.mx = r2y.mx,
-                                      alpha = alpha, alternative = alternative, verbose = verbose),
+invisible(structure(list(parms = func.parms,
                          test = c("z", "joint", "monte.carlo"),
                          ncp = ncp.vec,
                          power = power.vec,
@@ -458,4 +452,5 @@ invisible(structure(list(parms = list(a = a, b = b, cp = cp,
                     class = c("pwrss", "z", "med", "defunct")))
 
 } # pwrss.z.mediation()
+
 pwrss.z.med  <- pwrss.z.mediation

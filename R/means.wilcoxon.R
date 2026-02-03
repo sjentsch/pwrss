@@ -10,7 +10,14 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                               distribution = c("normal", "uniform", "double.exponential",
                                                "laplace", "logistic"),
                               method = c("guenther", "noether"),
-                              ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                              ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  distribution <- tolower(match.arg(distribution))
+  method <- tolower(match.arg(method))
+  design <- tolower(match.arg(design))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.logical(ceiling)
   check.proportion(alpha)
@@ -18,11 +25,6 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   check.numeric(d, null.d)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  distribution <- tolower(match.arg(distribution))
-  method <- tolower(match.arg(method))
-  design <- tolower(match.arg(design))
 
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
@@ -61,22 +63,22 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
       propss <- n.ratio / (n.ratio + 1)
 
-      prob <- d.to.cles(d = d, design = design, verbose = FALSE)$cles
-      null.prob <- d.to.cles(d = null.d, design = design, verbose = FALSE)$cles
+      prob <- d.to.cles(d = d, design = design, verbose = 0)$cles
+      null.prob <- d.to.cles(d = null.d, design = design, verbose = 0)$cles
 
       if (alternative == "two.one.sided") {
 
-        ignorable.prob.lower <- d.to.cles(d = min(margin) + null.d, design = design, verbose = FALSE)$cles
+        ignorable.prob.lower <- d.to.cles(d = min(margin) + null.d, design = design, verbose = 0)$cles
         margin.prob.lower <- ignorable.prob.lower - null.prob
 
-        ignorable.prob.upper <- d.to.cles(d = max(margin) + null.d, design = design, verbose = FALSE)$cles
+        ignorable.prob.upper <- d.to.cles(d = max(margin) + null.d, design = design, verbose = 0)$cles
         margin.prob.upper <- ignorable.prob.upper - null.prob
 
         margin.prob <-  c(margin.prob.lower,  margin.prob.upper)
 
       } else {
 
-        ignorable.prob <- d.to.cles(d = margin + null.d, design = design, verbose = FALSE)$cles
+        ignorable.prob <- d.to.cles(d = margin + null.d, design = design, verbose = 0)$cles
         margin.prob <- ignorable.prob - null.prob
       }
 
@@ -85,7 +87,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
       pwr.obj <- power.z.test(mean = lambda, null.mean = null.lambda,
                               alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
 
       list(power = pwr.obj$power,
            z.alpha = pwr.obj$z.alpha,
@@ -106,7 +108,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
       pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
                               alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
 
       list(power = pwr.obj$power,
            t.alpha = pwr.obj$t.alpha,
@@ -252,8 +254,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   ifelse(design %in% c("paired", "one.sample"), n <- n2.star, n <- c(n1 = n1.star, n2 = n2.star))
   # ifelse(design %in% c("paired", "one.sample"), n <- n2, n <- c(n1 = n1, n2 = n2))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     ifelse(design == "independent",
            test <- "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)",
@@ -274,12 +275,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
   }
 
-  invisible(structure(c(list(parms = list(d = d, null.d = null.d, margin = margin,
-                                          n.ratio = n.ratio, alpha = alpha,
-                                          alternative = alternative, design = design,
-                                          distribution = distribution,
-                                          method = method, ceiling = ceiling,
-                                          verbose = verbose, pretty = pretty),
+  invisible(structure(c(list(parms = func.parms,
                              test = ifelse(method == "noether", "z", "t"),
                              n = n), list.out),
                       class = c("pwrss", "np", "wilcoxon", ifelse(method == "noether", "z", "t"))))
@@ -302,6 +298,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
   method <- tolower(match.arg(method))
   alternative <- tolower(match.arg(alternative))
   distribution <- tolower(match.arg(distribution))
+  verbose <- .ensure_verbose(verbose)
 
   null.d <- 0
   d <- means.to.d(mu1 = mu1, mu2 = mu2,
@@ -309,7 +306,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                   n2 = 1e4, n.ratio = kappa,
                   paired = paired,
                   rho.paired = paired.r,
-                  verbose = FALSE)$d
+                  verbose = 0)$d
 
   if (alternative == "equivalent") {
     margin <- c(min(-margin, margin), max(-margin, margin))
@@ -318,13 +315,13 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                                n2 = 1e10, n.ratio = kappa,
                                paired = paired,
                                rho.paired = paired.r,
-                               verbose = FALSE)$d
+                               verbose = 0)$d
     margin.upper <- means.to.d(mu1 = margin[2], mu2 = 0,
                                sd1 = sd1, sd2 = sd2,
                                n2 = 1e10, n.ratio = kappa,
                                paired = paired,
                                rho.paired = paired.r,
-                               verbose = FALSE)$d
+                               verbose = 0)$d
     margin <- c(margin.lower, margin.upper)
   } else {
     margin <- means.to.d(mu1 = margin, mu2 = 0,
@@ -332,7 +329,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                          n2 = 1e10, n.ratio = kappa,
                          paired = paired,
                          rho.paired = paired.r,
-                         verbose = FALSE)$d
+                         verbose = 0)$d
   }
 
 
@@ -361,5 +358,6 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
 
 } # end of pwrss.np.2groups()
 
-pwrss.np.2means <- function(...)
+pwrss.np.2means <- function(...) {
   stop("This function is no longer available. Please use `power.np.wilcox()`.", call. = FALSE)
+}

@@ -13,7 +13,7 @@ plot.pwrss <- function(x, ...) {
                  df = x$df,
                  alpha = x$parms$alpha,
                  alternative = x$parms$alternative,
-                 verbose = FALSE)
+                 verbose = 0)
 
   } else if (all(c("pwrss", "z") %in% class(x))) {
 
@@ -26,7 +26,7 @@ plot.pwrss <- function(x, ...) {
                  null.sd = x$null.sd,
                  alpha = x$parms$alpha,
                  alternative = x$parms$alternative,
-                 verbose = FALSE)
+                 verbose = 0)
 
   } else if (all(c("pwrss", "exact") %in% class(x))) {
 
@@ -38,7 +38,7 @@ plot.pwrss <- function(x, ...) {
                      null.prob = x$null.prob,
                      alpha = x$parms$alpha,
                      alternative = x$parms$alternative,
-                     verbose = FALSE)
+                     verbose = 0)
 
   } else if (all(c("pwrss", "f") %in% class(x))) {
 
@@ -48,7 +48,7 @@ plot.pwrss <- function(x, ...) {
                  df1 = x$df1,
                  df2 = x$df2,
                  alpha = x$parms$alpha,
-                 verbose = FALSE)
+                 verbose = 0)
 
   } else if (all(c("pwrss", "chisq") %in% class(x))) {
 
@@ -57,7 +57,7 @@ plot.pwrss <- function(x, ...) {
                      null.ncp = x$null.ncp,
                      df = x$df,
                      alpha = x$parms$alpha,
-                     verbose = FALSE)
+                     verbose = 0)
 
   } else {
 

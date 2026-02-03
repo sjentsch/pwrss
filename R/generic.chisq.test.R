@@ -1,6 +1,6 @@
 # power for the generic Chi-square test with (optional) type I and type II error plots
 power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
-                             plot = TRUE, verbose = TRUE, pretty = FALSE) {
+                             plot = TRUE, verbose = 1, pretty = FALSE) {
 
   check.positive(df)
   check.proportion(alpha)
@@ -28,8 +28,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
 
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (.ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Chi-square Test",
                       requested = "power",

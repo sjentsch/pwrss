@@ -5,13 +5,15 @@
 power.exact.oneprop <- function(prob, null.prob = 0.50,
                                 n = NULL, power = NULL, alpha = 0.05,
                                 alternative = c("two.sided", "one.sided", "two.one.sided"),
-                                verbose = TRUE, pretty = FALSE) {
+                                verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(prob, alpha)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
@@ -30,7 +32,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   ss.exact <- function(prob, null.prob, power, alpha, alternative) {
 
     n <- power.z.oneprop(prob = prob, null.prob = null.prob, power = power,
-                         alpha = alpha, alternative = alternative, verbose = FALSE)$n
+                         alpha = alpha, alternative = alternative, verbose = 0)$n
     n <- ceiling(n)
 
     if (n > 500) {
@@ -46,7 +48,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                                            alpha = alpha,
                                            alternative = alternative,
                                            plot = FALSE,
-                                           verbose = FALSE)$power
+                                           verbose = 0)$power
 
         if (achieved.power < power) n <- n + steprob20
 
@@ -69,7 +71,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                                            alpha = alpha,
                                            alternative = alternative,
                                            plot = FALSE,
-                                           verbose = FALSE)$power
+                                           verbose = 0)$power
 
         if (achieved.power < power) n <- n + step5
 
@@ -90,7 +92,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                                          alpha = alpha,
                                          alternative = alternative,
                                          plot = FALSE,
-                                         verbose = FALSE)$power
+                                         verbose = 0)$power
 
       if (achieved.power < power) n <- n + steprob1
 
@@ -108,7 +110,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                               alpha = alpha,
                               alternative = alternative,
                               plot = FALSE,
-                              verbose = FALSE)
+                              verbose = 0)
     power <- pwr.obj$power
     size <- n
     prob.alternative <- prob
@@ -128,7 +130,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                                 alpha = alpha,
                                 alternative = alternative,
                                 plot = FALSE,
-                                verbose = FALSE)
+                                verbose = 0)
     power <- pwr.obj$power
     size <- n
     prob.alternative <- prob
@@ -140,8 +142,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   delta <- prob - null.prob
   odds.ratio <- (prob / (1 - prob)) /  (null.prob / (1 - null.prob))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "One Proportion",
@@ -165,9 +166,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 
   } # verbose
 
-  invisible(structure(list(parms = list(prob = prob, null.prob = null.prob,
-                                        alpha = alpha, alternative = alternative,
-                                        verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = "exact",
                            delta = delta,
                            odds.ratio = odds.ratio,
@@ -192,19 +191,17 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             std.error = c("null", "alternative"),
                             arcsine = FALSE, correct = FALSE,
-                            ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-  # old <- list(...)
-  # user.parms <- as.list(match.call(expand.dots = TRUE))
-  # names.user.parms <- names(user.parms)
+  alternative <- tolower(match.arg(alternative))
+  std.error <- tolower(match.arg(std.error))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(prob, alpha)
   check.logical(arcsine, correct, ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  alternative <- tolower(match.arg(alternative))
-  std.error <- tolower(match.arg(std.error))
 
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
@@ -279,11 +276,11 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
     if (alternative %in% c("two.sided", "one.sided")) {
       pwr.obj <- power.z.test(mean = lambda, sd = 1, null.mean = 0, null.sd = null.dist.sd,
                               alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
     } else {
       pwr.obj <- power.z.test(mean = 0, sd = 1, null.mean = lambda, null.sd = null.dist.sd,
                               alpha = alpha, alternative = alternative,
-                              plot = FALSE, verbose = FALSE)
+                              plot = FALSE, verbose = 0)
     }
 
 
@@ -447,8 +444,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   delta <- prob - null.prob
   odds.ratio <- (prob / (1 - prob)) /  (null.prob / (1 - null.prob))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "One Proportion",
@@ -476,13 +472,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
   } # verbose
 
-  invisible(structure(list(parms = list(prob = prob, null.prob = null.prob,
-                                        std.error = std.error,
-                                        arcsine = arcsine,
-                                        correct = correct,
-                                        alpha = alpha,
-                                        alternative = alternative,
-                                        verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = "z",
                            delta = delta,
                            odds.ratio = odds.ratio,
@@ -505,6 +495,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
                           n = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
 
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
@@ -539,15 +530,17 @@ power.exact.twoprops <- function(prob1, prob2, n2 = NULL, n.ratio = 1,
                                   alternative = c("two.sided", "one.sided"),
                                   paired = FALSE, rho.paired = 0.50,
                                   method = c("exact", "approximate"),
-                                  ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                                  ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  method <- tolower(match.arg(method))
+  verbose <- .ensure_verbose(verbose)
+
   check.positive(n.ratio)
   check.proportion(prob1, prob2, alpha)
   check.logical(paired, ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
 
   if (!is.numeric(rho.paired) || rho.paired > 1 || rho.paired < -1) stop("Incorrect value for `rho.paired`.", call. = FALSE)
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
@@ -555,7 +548,7 @@ power.exact.twoprops <- function(prob1, prob2, n2 = NULL, n.ratio = 1,
 
   if (paired) {
 
-    jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = FALSE)
+    jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
 
     power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
                         power = power, n.paired = n2, alpha = alpha,
@@ -586,20 +579,18 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
                               arcsine = FALSE, correct = FALSE,
                               paired = FALSE, rho.paired = 0.50,
                               std.error = c("pooled", "unpooled"),
-                              ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                              ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-  # old <- list(...)
-  # user.parms <- as.list(match.call(expand.dots = TRUE))
-  # names.user.parms <- names(user.parms)
+  alternative <- tolower(match.arg(alternative))
+  std.error <- tolower(match.arg(std.error))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.positive(n.ratio)
   check.proportion(prob1, prob2, alpha)
   check.logical(arcsine, correct, paired, ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  std.error <- tolower(match.arg(std.error))
 
   if (!is.numeric(rho.paired) || rho.paired > 1 || rho.paired < -1) stop("Incorrect value for `rho.paired`.", call. = FALSE)
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
@@ -676,7 +667,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     pwr.obj <- power.z.test(mean = lambda, sd = 1,
                             null.mean  = null.lambda, null.sd = null.dist.sd,
                             alpha = alpha, alternative =  alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
 
     list(power = pwr.obj$power,
          mean.alternative = pwr.obj$mean,
@@ -830,7 +821,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     if (margin != 0) warning("`margin` argument is ignored.", call. = FALSE)
     if (alternative == "two.one.sided") warning("Two one-sided tests are currently not supported for paired tests.", call. = FALSE)
 
-    jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = FALSE)
+    jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
 
     power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
                         power = power, n.paired = n2, alpha = alpha,
@@ -896,8 +887,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     delta <- prob1 - prob2
     odds.ratio <- (prob1 / (1 - prob1)) /  (prob2 / (1 - prob2))
 
-    verbose <- .ensure_verbose(verbose)
-    if (verbose != 0) {
+    if (verbose > 0) {
 
       print.obj <- list(requested = requested,
                         test = "Independent Proportions",
@@ -924,14 +914,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
 
     } # verbose
 
-    invisible(structure(list(parms = list(prob1 = prob1, prob2 = prob2,
-                                          margin = ifelse(paired, 0, margin),
-                                          n2 = n2, n.ratio = n.ratio,
-                                          alpha = alpha, power = power,
-                                          arcsine = arcsine, correct = correct,
-                                          paired = paired, rho.paired = rho.paired,
-                                          alternative = alternative,
-                                          ceiling = ceiling, verbose = ceiling),
+    invisible(structure(list(parms = func.parms,
                              test = "z",
                              delta = delta,
                              odds.ratio = odds.ratio,
@@ -957,12 +940,14 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
                                            "equivalent", "non-inferior", "superior"),
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
+  alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
+
   check.proportion(p1, p2, alpha)
   check.positive(kappa)
   check.numeric(margin)
-  check.logical(arcsin.trans, verbose)
+  check.logical(arcsin.trans)
 
-  alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
   if (alternative == "equivalent") alternative <- "two.one.sided"

@@ -7,17 +7,16 @@ power.z.steiger <- function(rho12, rho13, rho23,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
                             pooled = TRUE, common.index = FALSE,
-                            ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-  user.parms <- as.list(match.call())
-  names.user.parms <- names(user.parms)
+  alternative <- tolower(match.arg(alternative))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(alpha)
   check.logical(pooled, common.index, ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
@@ -45,7 +44,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
                             null.mean = 0, null.sd = 1,
                             alpha = alpha,
                             alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
 
     pwr.obj
 
@@ -74,7 +73,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
   if (common.index) {
 
-    if (any(c("rho14", "rho24", "rho34") %in% names.user.parms))
+    if (any(c("rho14", "rho24", "rho34") %in% names(as.list(match.call()))))
       warning("Ignoring `rho14` `rho24`, or `rho34` because common.index = TRUE.", call. = FALSE)
 
     check.correlation(rho12, rho13, rho23)
@@ -242,8 +241,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
   delta <- rho1 - rho2
   q <- cors.to.q(rho1, rho2, FALSE)$q
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <-  list(requested = requested,
                        test = "Dependent Correlations",
@@ -269,12 +267,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
   }
 
-  invisible(structure(list(parms = list(rho12 = rho12, rho13 = rho13, rho23 = rho23,
-                                        rho14 = rho14, rho24 = rho24, rho34 = rho34,
-                                        alpha = alpha, alternative = alternative,
-                                        pooled = pooled, common.index = common.index,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "z",
                            design = "paired",
                            delta = delta,
@@ -297,11 +290,11 @@ power.z.twocors <- function(rho1, rho2,
                             n2 = NULL, n.ratio = 1,
                             power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
-                            ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-  # old <- list(...)
-  # user.parms <- as.list(match.call(expand.dots = TRUE))
-  # names.user.parms <- names(user.parms)
+  alternative <- tolower(match.arg(alternative))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.positive(n.ratio)
   check.proportion(alpha)
@@ -309,8 +302,6 @@ power.z.twocors <- function(rho1, rho2,
   check.logical(ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
@@ -399,8 +390,7 @@ power.z.twocors <- function(rho1, rho2,
   mean.null <- 0
   sd.null <- 1
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <-  list(requested = requested,
                        test = "Independent Correlations",
@@ -425,10 +415,7 @@ power.z.twocors <- function(rho1, rho2,
 
   }
 
-  invisible(structure(list(parms = list(rho1 = rho1, rho2 = rho2, n.ratio = n.ratio,
-                                        alpha = alpha, alternative = alternative,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "z",
                            design = "independent",
                            delta = delta,
@@ -454,19 +441,17 @@ power.z.twocor <- power.z.twocors
 power.z.onecor <- function(rho, null.rho = 0,
                            n = NULL, power = NULL, alpha = 0.05,
                            alternative = c("two.sided", "one.sided"),
-                           ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                           ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-  # old <- list(...)
-  # user.parms <- as.list(match.call(expand.dots = TRUE))
-  # names.user.parms <- names(user.parms)
+  alternative <- tolower(match.arg(alternative))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(alpha)
   check.correlation(rho, null.rho)
   check.logical(ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
   if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
@@ -533,8 +518,7 @@ power.z.onecor <- function(rho, null.rho = 0,
   mean.null <- 0
   sd.null <- 1
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <-  list(requested = requested,
                        test = "One-Sample Correlation",
@@ -559,10 +543,7 @@ power.z.onecor <- function(rho, null.rho = 0,
 
   }
 
-  invisible(structure(list(parms = list(rho = rho, null.rho = null.rho,
-                                        alpha = alpha, alternative = alternative,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "z",
                            design = "one.sample",
                            delta = delta,
@@ -584,13 +565,13 @@ pwrss.z.cor <- function(r = 0.50, r0 = 0, alpha = 0.05,
                          alternative = c("not equal", "greater", "less"),
                          n = NULL, power = NULL, verbose = TRUE) {
 
+  alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
 
   check.correlation(r, r0)
-  check.logical(verbose)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
 
-  alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
 
@@ -612,13 +593,13 @@ pwrss.z.2cors <- function(r1 = 0.50, r2 = 0.30,
                            alternative = c("not equal", "greater", "less"),
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
+  alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
 
   check.correlation(r1, r2)
-  check.logical(verbose)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
 
-  alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
 

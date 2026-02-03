@@ -1,22 +1,25 @@
-rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = TRUE) {
+rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
 
   check.nonnegative(r.squared.full, r.squared.reduced)
-  if (r.squared.full < r.squared.reduced) stop("Expecting `r.squared.full` > `r.squared.reduced`.", call. = FALSE)
+  verbose <- .ensure_verbose(verbose)
+
+  if (r.squared.full < r.squared.reduced)
+    stop("Expecting `r.squared.full` > `r.squared.reduced`.", call. = FALSE)
 
   f.squared <- (r.squared.full - r.squared.reduced) / (1 - r.squared.full)
 
-  if (verbose) print(c(f.squared = f.squared, f = sqrt(f.squared),
-                      r.squared.full = r.squared.full,
-                      r.squared.reduced = r.squared.reduced))
+  if (verbose > 0)
+    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
 
   invisible(list(f.squared = f.squared, f = sqrt(f.squared),
                  r.squared.full = r.squared.full,
                  r.squared.reduced = r.squared.reduced))
 } # rsq.to.f
 
-f.to.rsq <- function(f, r.squared.full = NULL, verbose = TRUE) {
+f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 
   check.nonnegative(f)
+  verbose <- .ensure_verbose(verbose)
 
   f.squared <- f ^ 2
   if (is.null(r.squared.full)) {
@@ -27,9 +30,8 @@ f.to.rsq <- function(f, r.squared.full = NULL, verbose = TRUE) {
     r.squared.reduced <- r.squared.full - change.r.squared
   }
 
-  if (verbose) print(c(f.squared = f.squared, f = sqrt(f.squared),
-                      r.squared.full = r.squared.full,
-                      r.squared.reduced = r.squared.reduced))
+  if (verbose > 0)
+    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
 
   invisible(list(f.squared = f.squared, f = sqrt(f.squared),
                  r.squared.full = r.squared.full,
@@ -47,7 +49,10 @@ power.f.regression <- function(r.squared.change = NULL,
                                k.total,
                                k.tested = k.total,
                                n = NULL, power = NULL, alpha = 0.05,
-                               ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(alpha)
   check.logical(ceiling)
@@ -69,8 +74,8 @@ power.f.regression <- function(r.squared.change = NULL,
     df1 <- k.tested
     df2 <- n - k.total - 1
 
-    f.squared <- rsq.to.f(r.squared.full = r.squared.change, verbose = FALSE)$f.squared
-    null.f.squared <- rsq.to.f(r.squared.full = margin, verbose = FALSE)$f.squared
+    f.squared <- rsq.to.f(r.squared.full = r.squared.change, verbose = 0)$f.squared
+    null.f.squared <- rsq.to.f(r.squared.full = margin, verbose = 0)$f.squared
 
     lambda <- f.squared * n
     null.lambda <- null.f.squared * n
@@ -138,13 +143,10 @@ power.f.regression <- function(r.squared.change = NULL,
     f.alpha <- pwr.obj$f.alpha
 
   } # ss
+  
+  if (verbose > 0) {
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
-
-    ifelse(k.tested == k.total,
-           test <- "Linear Regression (F-Test)",
-           test <- "Hierarchical Linear Regression (F-Test)")
+    test <- ifelse(k.tested == k.total, "Linear Regression (F-Test)", "Hierarchical Linear Regression (F-Test)")
 
     print.obj <- list(requested = requested,
                       test = test,
@@ -169,12 +171,7 @@ power.f.regression <- function(r.squared.change = NULL,
 
   } # verbose
 
-  invisible(structure(list(parms = list(r.squared.change = r.squared.change,
-                                        margin = margin,
-                                        k.total = k.total, k.tested = k.tested,
-                                        alpha = alpha,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "F",
                            df1 = df1,
                            df2 = df2,
@@ -194,13 +191,13 @@ pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
                         k = 1, m = k, alpha = 0.05,
                         n = NULL, power = NULL, verbose = TRUE) {
 
-  user.parms <- as.list(match.call())
-  names.user.parms <- names(user.parms)
+  verbose <- .ensure_verbose(verbose)
 
-  if (all(c("r2", "f2") %in% names.user.parms)) {
-    stop("Specify either `r2` or `f2`.", call. = FALSE)
-  } else {
-    if ("f2" %in% names.user.parms) r2 <- f.to.rsq(f = sqrt(f2), verbose = verbose)$r.squared.full
+  r2_f2 <- as.list(match.call())[c("r2", "f2")]
+  if (all(hasName(r2_f2, c("r2", "f2")))) {
+    stop("Effect size conflict for the alternative. Specify only either `r2` or `f2`.", call. = FALSE)
+  } else if (hasName(r2_f2, "f2")) {
+    r2 <- f.to.rsq(f = sqrt(f2), verbose = 0)$r.squared.full
   }
 
   pwrss.f.reg.obj <- power.f.regression(r.squared.change = r2, margin = 0,
@@ -231,7 +228,11 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                                k.total = 1,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided", "two.one.sided"),
-                               ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.numeric(beta, null.beta)
   check.proportion(alpha)
@@ -240,13 +241,14 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
 
-  alternative <- tolower(match.arg(alternative))
-
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-  if (!is.numeric(r.squared) || r.squared >= 1 || r.squared <= 0)
+  if (is.null(n) && is.null(power))
+    stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
+  if (!is.null(n) && !is.null(power))
+    stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
+  if (!is.numeric(r.squared) || r.squared > 1 || r.squared < 0)
     stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
-  if (r.squared < (beta * sd.predictor / sd.outcome) ^ 2) warning("`r.squared` is possibly larger.", call. = FALSE)
+  if (r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
+    warning("`r.squared` is possibly larger.", call. = FALSE)
 
   if (alternative == "two.one.sided") {
     if (length(margin) != 2) stop("Specify `margin` in the form of margin = c(lower, upper).", call. = FALSE)
@@ -271,7 +273,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
     pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
                             alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
     power <- pwr.obj$power
     t.alpha <- pwr.obj$t.alpha
 
@@ -337,8 +339,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   std.null.beta <- null.beta * (sd.predictor / sd.outcome)
   std.margin <- margin * (sd.predictor / sd.outcome)
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "Linear Regression Coefficient (T-Test)",
@@ -363,13 +364,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
   } # verbose
 
-  invisible(structure(list(parms = list(beta = beta, null.beta = null.beta,
-                                        margin = margin,
-                                        sd.predictor = sd.predictor, sd.outcome = sd.outcome,
-                                        r.squared = r.squared, k.total = k.total,
-                                        alpha = alpha, alternative = alternative,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "t",
                            std.beta = std.beta,
                            std.null.beta = std.null.beta,
@@ -393,6 +388,7 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
                                                "non-inferior", "superior", "equivalent"),
                                verbose = TRUE) {
 
+  verbose <- .ensure_verbose(verbose)
   alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
@@ -417,9 +413,12 @@ pwrss.t.reg <- pwrss.t.regression
 
 
 # defunct
-pwrss.z.mean   <- function(...)
+pwrss.z.mean   <- function(...) {
   stop("This function is no longer available. Please use `power.t.student()`.", call. = FALSE)
-pwrss.z.2means <- function(...)
+}
+pwrss.z.2means <- function(...) {
   stop("This function is no longer available. Please use `power.t.student()` or `power.t.welch()`.", call. = FALSE)
-pwrss.z.regression <- pwrss.z.reg <- function(...)
+}
+pwrss.z.regression <- pwrss.z.reg <- function(...) {
   stop("This function is no longer available. Please use `power.t.regression()`.", call. = FALSE)
+}

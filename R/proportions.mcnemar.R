@@ -2,15 +2,17 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
                                 power = NULL,  alpha = 0.05,
                                 alternative = c("two.sided", "one.sided"),
                                 method = c("exact", "approximate"),
-                                ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  method <- tolower(match.arg(method))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(prob10, prob01, alpha)
   check.logical(ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n.paired)) check.sample.size(n.paired)
-
-  method <- tolower(match.arg(method))
-  alternative <- tolower(match.arg(alternative))
 
   ifelse(is.null(power),
          requested <- "power",
@@ -27,7 +29,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
     prod1 <- dbinom(x = seq(0, ceiling(n.paired)), size = ceiling(n.paired), prob = prob01 + prob10)
     prod2 <- power.binom.test(prob = prob, null.prob = 0.50,
                               size = seq(0, ceiling(n.paired)), alpha = alpha,
-                              alternative = alternative, plot = FALSE, verbose = FALSE)$power
+                              alternative = alternative, plot = FALSE, verbose = 0)$power
     power <- sum(prod1 * prod2)
 
     power
@@ -262,8 +264,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
          class <- c("pwrss", "exact", "mcnemar"),
          class <- c("pwrss", "z", "twoprops"))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "Paired Proportions",
@@ -292,10 +293,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
   } # verbose
 
-  invisible(structure(list(parms = list(prob10 = prob10, prob01 = prob01,
-                                        alpha = approx.alpha, alternative = alternative,
-                                        method = method, ceiling = ceiling,
-                                        verbose = verbose, pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = ifelse(method == "exact", "exact", "z"),
                            delta = prob10 - prob01,
                            odds.ratio = prob10 / prob01,

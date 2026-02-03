@@ -5,7 +5,7 @@ power.binom.test <- function(size,
                              alpha = 0.05,
                              alternative = c("two.sided", "one.sided", "two.one.sided"),
                              plot = TRUE,
-                             verbose = TRUE,
+                             verbose = 1,
                              pretty = FALSE) {
 
   check.proportion(prob, alpha)
@@ -140,8 +140,7 @@ power.binom.test <- function(size,
 
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (.ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Binomial Test",
                       requested = "power",

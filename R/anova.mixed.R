@@ -7,7 +7,10 @@ power.f.mixed.anova <- function(eta.squared,
                                 n.total = NULL,
                                 power = NULL, alpha = 0.05,
                                 effect = c("between", "within", "interaction"),
-                                ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.proportion(alpha)
   check.logical(ceiling)
@@ -170,8 +173,7 @@ power.f.mixed.anova <- function(eta.squared,
   if (effect == "within")      effect_bw <- paste0(c("W", "B"), "(", c(n.levels.within, n.levels.between), ")", collapse = "|")
   if (effect == "interaction") effect_bw <- paste0(c("B", "W"), "(", c(n.levels.between, n.levels.within), ")", collapse = ":")
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     if (n.levels.between == 1) test <- "Repeated Measures Analysis of Variance (F-Test)"
     if (n.levels.within == 1) test <- "Analysis of Variance (F-Test)"
@@ -190,15 +192,7 @@ power.f.mixed.anova <- function(eta.squared,
 
   } # verbose
 
-  invisible(structure(list(parms = list(eta.squared = eta.squared,
-                                        null.eta.squared = null.eta.squared,
-                                        factor.levels = factor.levels,
-                                        factor.type = factor.type,
-                                        rho.within = rho.within,
-                                        epsilon = epsilon,
-                                        alpha = alpha, effect = effect,
-                                        ceiling = ceiling, verbose = verbose,
-                                        pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            effect = effect_bw,
                            test = "F",
                            df1 = df1,
@@ -222,26 +216,27 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
                              type = c("between", "within", "interaction"),
                              n = NULL, power = NULL, verbose = TRUE) {
 
-  user.parms.names <- names(as.list(match.call()))
-  if ("repmeasures.r" %in% user.parms.names)
-    stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
-  if ("n.measurements" %in% user.parms.names)
-    stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
-  if (all(c("eta2", "f2") %in% user.parms.names))
-    warning("`eta2` and `f2` cannot be specified at the same time \n Using `f2` as the effect size", call. = FALSE)
-  if ("f2" %in% user.parms.names) eta.squared <- f.to.etasq(f = sqrt(f2), verbose = FALSE)$eta.squared
-  if ("eta2" %in% user.parms.names) eta.squared <- eta2
-
   type <- tolower(match.arg(type))
+  verbose <- .ensure_verbose(verbose)
+  
+  arg.names <- names(as.list(match.call()))
+  f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
+  if ("repmeasures.r" %in% arg.names)
+    stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
+  if ("n.measurements" %in% arg.names)
+    stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
+  if (all(hasName(f2_eta2, c("f2", "eta2")))) {
+    stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
+  } else if (hasName(f2_eta2, "f2")) {
+    eta2 <- f2 / (1 + f2)
+  }
 
-  mixed.anova.obj <- power.f.mixed.anova(eta.squared = eta.squared,
-                                         n.total = n,
+  mixed.anova.obj <- power.f.mixed.anova(eta.squared = eta2, n.total = n,
                                          factor.levels = c(n.levels, n.rm),
                                          factor.type = c("between", "within"),
                                          rho.within = corr.rm, epsilon = epsilon,
                                          power = power, alpha = alpha,
-                                         effect = type,
-                                         ceiling = TRUE, verbose = verbose)
+                                         effect = type, ceiling = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.f.mixed.anova() function. \n")
 

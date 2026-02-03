@@ -5,7 +5,13 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             design = c("independent", "paired", "one.sample"),
                             claim.basis = c("md.pval", "smd.ci"),
-                            ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  design <- tolower(match.arg(design))
+  claim.basis <- tolower(match.arg(claim.basis))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.numeric(d, null.d)
   check.logical(ceiling)
@@ -13,10 +19,6 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  design <- tolower(match.arg(design))
-  claim.basis <- tolower(match.arg(claim.basis))
 
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
   if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
@@ -65,7 +67,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
     pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
                             alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
 
     list(power = pwr.obj$power,
          t.alpha = pwr.obj$t.alpha,
@@ -137,8 +139,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
   ifelse(design %in% c("paired", "one.sample"), n <- n2, n <- c(n1 = n1, n2 = n2))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     ifelse(design == "independent",
            test <- "Student's T-Test (Independent Samples)",
@@ -162,11 +163,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
   }
 
-  invisible(structure(list(parms = list(d = d, null.d = null.d, margin = margin,
-                                        n2 = n2, n.ratio = n.ratio,
-                                        alpha = alpha, alternative = alternative,
-                                        design = design, claim.basis = claim.basis,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = "t",
                            df = df,
                            ncp = ncp,
@@ -187,7 +184,12 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                           power = NULL, alpha = 0.05,
                           alternative = c("two.sided", "one.sided", "two.one.sided"),
                           claim.basis = c("md.pval", "smd.ci"),
-                          ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                          ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  claim.basis <- tolower(match.arg(claim.basis))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   # variance ratio constraint
   vrc <- function(var.ratio, n2, n.ratio) {
@@ -207,9 +209,6 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  claim.basis <- tolower(match.arg(claim.basis))
 
   if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
   if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
@@ -257,7 +256,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
     pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
                             alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
 
     list(power = pwr.obj$power,
          t.alpha = pwr.obj$t.alpha,
@@ -334,8 +333,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
   n <- c(n1 = n1, n2 = n2)
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     test <- "Welch's T-Test (Independent Samples)"
 
@@ -355,12 +353,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
   }
 
-  invisible(structure(list(parms = list(d = d, null.d = null.d,
-                                        var.ratio = var.ratio,
-                                        n2 = n2, n.ratio = n.ratio,
-                                        alpha = alpha, alternative = alternative,
-                                        claim.basis = claim.basis,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = "t",
                            df = df,
                            ncp = ncp,
@@ -384,13 +377,13 @@ pwrss.t.mean <- function(mu, sd = 1, mu0 = 0, margin = 0, alpha = 0.05,
                                          "equivalent", "non-inferior", "superior"),
                          n = NULL, power = NULL, verbose = TRUE) {
 
+  alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
+
   check.positive(sd)
   check.numeric(mu, mu0, margin)
-  check.logical(verbose)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
@@ -441,16 +434,16 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
                                             "equivalent", "non-inferior", "superior"),
                             n2 = NULL, power = NULL, verbose = TRUE) {
 
+  alternative <- tolower(match.arg(alternative))
+  verbose <- .ensure_verbose(verbose)
+
   if (isFALSE(welch.df)) warning("Forcing welch.df = TRUE.", call. = FALSE)
 
   check.positive(sd1, sd2)
   check.correlation(paired.r)
   check.numeric(mu1, mu2, margin)
-  check.logical(paired, verbose)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
 
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"

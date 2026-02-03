@@ -2,7 +2,7 @@
 power.t.test <- function(ncp, null.ncp = 0,
                          df, alpha = 0.05,
                          alternative = c("two.sided", "one.sided", "two.one.sided"),
-                         plot = TRUE, verbose = TRUE, pretty = FALSE) {
+                         plot = TRUE, verbose = 1, pretty = FALSE) {
 
   check.positive(df)
   check.proportion(alpha)
@@ -108,8 +108,7 @@ power.t.test <- function(ncp, null.ncp = 0,
 
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (.ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic T-Test",
                       requested = "power",

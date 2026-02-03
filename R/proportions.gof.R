@@ -4,12 +4,10 @@
 
 power.chisq.gof <- function(w, null.w = 0, df,
                             n = NULL, power = NULL, alpha = 0.05,
-                            ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
-
-  # old.args <- list(...) # just arguments in ...
-  # names.old.args <- names(old.args)
-  # user.parms.names <- names(as.list(match.call()))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.positive(w, df)
   check.proportion(alpha)
@@ -91,8 +89,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
   test <- "Chi-Square Test for Goodness-of-Fit or Independence"
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = test,
@@ -112,8 +109,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
   }
 
-  invisible(structure(list(parms = list(w = w, null.w = null.w, df = df, alpha = alpha,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = test,
                            df = df,
                            ncp = ncp.alternative,
@@ -128,16 +124,16 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
 
 pwrss.chisq.gofit <- function(p1 = c(0.50, 0.50),
-                              p0 = probs.to.w(p1, verbose = FALSE)$null.prob.matrix,
-                              w = probs.to.w(p1, p0, verbose = FALSE)$w,
-                              df = probs.to.w(p1, p0, verbose = FALSE)$df,
+                              p0 = probs.to.w(p1, verbose = 0)$null.prob.matrix,
+                              w = probs.to.w(p1, p0, verbose = 0)$w,
+                              df = probs.to.w(p1, p0, verbose = 0)$df,
                               n = NULL, power = NULL,
                               alpha = 0.05, verbose = TRUE) {
 
+  verbose <- .ensure_verbose(verbose)
   user.parms.names <- names(as.list(match.call()))
 
   check.proportion(alpha)
-  check.logical(verbose)
   check.positive(w)
   check.sample.size(df)
   if (!is.null(power)) check.proportion(power)

@@ -5,16 +5,18 @@ power.exact.fisher <- function(prob1, prob2,
                                alpha = 0.05, power = NULL,
                                alternative = c("two.sided", "one.sided"),
                                method = c("exact", "approximate"),
-                               ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+
+  alternative <- tolower(match.arg(alternative))
+  method <- tolower(match.arg(method))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
   check.positive(n.ratio)
   check.proportion(prob1, prob2, alpha)
   check.logical(ceiling)
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
 
   ifelse(is.null(power),
          requested <- "power",
@@ -59,7 +61,7 @@ power.exact.fisher <- function(prob1, prob2,
 
     pwr.obj <- power.z.test(mean = delta / stderr, sd = 1, null.mean = 0, null.sd = 1,
                             alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
 
     power <- pwr.obj$power
     mean.alternative <- pwr.obj$mean.alternative
@@ -183,7 +185,7 @@ power.exact.fisher <- function(prob1, prob2,
       # step is subtracted from n2 (for the larger steps), so that n2 can be approached with smaller steps
       n2 <- n2 - ifelse(step > 1, step, 0)
     }
-    
+
     n2
   } #  ss.exact()
 
@@ -289,8 +291,7 @@ power.exact.fisher <- function(prob1, prob2,
          class <- c("pwrss", "exact", "fisher"),
          class <- c("pwrss", "z", "twoprops"))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "Independent Proportions",
@@ -317,10 +318,7 @@ power.exact.fisher <- function(prob1, prob2,
 
   } # verbose
 
-  invisible(structure(list(parms = list(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio,
-                                        alpha = alpha, method = method,
-                                        alternative = alternative, ceiling = ceiling,
-                                        verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = ifelse(method == "exact", "exact", "z"),
                            delta = prob1 - prob2,
                            odds.ratio = (prob1 / (1 - prob1)) /  (prob2 / (1 - prob2)),
