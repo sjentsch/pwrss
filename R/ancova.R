@@ -8,32 +8,23 @@ power.f.ancova <- function(eta.squared,
                            power = NULL,
                            alpha = 0.05,
                            ceiling = TRUE,
-                           verbose = TRUE,
+                           verbose = 1,
                            pretty = FALSE) {
 
-  check.proportion(alpha)
-  check.logical(ceiling)
-  check.nonnegative(eta.squared, null.eta.squared, k.covariates)
-  if (!is.null(power)) check.proportion(power)
-  if (!is.null(n.total)) check.sample.size(n.total)
-  for (i in seq_along(factor.levels)) {
-    factor.level.check <- factor.levels[i]
-    check.sample.size(factor.level.check)
-  }
+  func.parms <- clean.parms(as.list(environment()))
 
-  # old <- list(...)
-  # user.parms <- as.list(match.call(expand.dots = TRUE))
-  # names.user.parms <- names(user.parms)
+  check.nonnegative(eta.squared, null.eta.squared, k.covariates)
+  check.vector(factor.levels, check.sample.size, 1)
+  if (!is.null(n.total)) check.sample.size(n.total)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+
+  requested <- check.n_power(n.total, power)
 
   f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
-
-  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n.total")
 
   ss <- function(df1, n.groups, k.covariates, f.squared, null.f.squared, alpha, power) {
 
@@ -91,7 +82,7 @@ power.f.ancova <- function(eta.squared,
 
   } # n.way
 
-  if (requested == "n.total") {
+  if (requested == "n") {
 
     n.total <- ss(df1 = df1, n.groups = n.groups, k.covariates = k.covariates,
                   f.squared = f.squared, null.f.squared = null.f.squared,
@@ -122,14 +113,9 @@ power.f.ancova <- function(eta.squared,
     null.ncp <-  pwr.obj$null.lambda
     f.alpha <- pwr.obj$f.alpha
 
-  } else {
-
-    stop("Invalid `n.total` or `power`.", call. = FALSE)
-
   }
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     test <- paste(switch(n.way,
                          `1` = "One",
@@ -153,11 +139,9 @@ power.f.ancova <- function(eta.squared,
 
   } # verbose
 
-  invisible(structure(list(parms = list(eta.squared = eta.squared, null.eta.squared = null.eta.squared,
-                                        factor.levels = factor.levels, k.covariates = k.covariates,
-                                        alpha = alpha, ceiling = ceiling, verbose = verbose, pretty = pretty),
-                           effect = effect,
+  invisible(structure(list(parms = func.parms,
                            test = "F",
+                           effect = effect,
                            df1 = df1,
                            df2 = df2,
                            ncp = ncp,
@@ -174,20 +158,17 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
                            n.levels = 2, n.covariates = 0, alpha = 0.05,
                            n = NULL, power = NULL, verbose = TRUE) {
 
-  user.parms <- as.list(match.call())
-  names.user.parms <- names(user.parms)
+  verbose <- .ensure_verbose(verbose)
+  f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
 
-  if ("f2" %in% names.user.parms) {
-    if ("eta2" %in% names.user.parms) stop("Effect size conflict. Specify only one.", call. = FALSE)
-    eta.squared <- f2 / (1 + f2)
+  if (all(hasName(f2_eta2, c("f2", "eta2")))) {
+    stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
+  } else if (hasName(f2_eta2, "f2")) {
+    eta2 <- f2 / (1 + f2)
   }
+  # eta2 doesn't need conversion, and falls back to the default if neither f2 nor eta2 is given explicitly
 
-  if ("eta2" %in% names.user.parms) {
-    if ("f2" %in% names.user.parms) stop("Effect size conflict for the alternative. Specify only one.", call. = FALSE)
-    eta.squared <- eta2
-  }
-
-  ancova.obj <- power.f.ancova(eta.squared = eta.squared,
+  ancova.obj <- power.f.ancova(eta.squared = eta2,
                                null.eta.squared = 0,
                                factor.levels = n.levels,
                                k.covariates = n.covariates,
@@ -208,73 +189,42 @@ power.f.ancova.keppel <- function(mu.vector,
                                   sd.vector,
                                   n.vector = NULL,
                                   p.vector = NULL,
-                                  factor.levels = length(mu.vector),
+                                  factor.levels = NULL,
                                   r.squared = 0,
                                   k.covariates = 0,
                                   power = NULL,
                                   alpha = 0.05,
                                   ceiling = TRUE,
-                                  verbose = TRUE,
+                                  verbose = 1,
                                   pretty = FALSE) {
 
-  # value checks
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
+  func.parms <- clean.parms(as.list(environment()))
 
-  for (i in seq_along(mu.vector)) {
-    mu.vector.check <- mu.vector[i]
-    check.numeric(mu.vector.check)
-  } # mu.vector check
-
-  for (i in seq_along(sd.vector)) {
-    sd.vector.check <- sd.vector[i]
-    check.positive(sd.vector.check)
-  } # sd.vector check
-
-  if (!is.null(n.vector)) {
-    for (i in seq_along(n.vector)) {
-      n.vector.check <- n.vector[i]
-      check.sample.size(n.vector.check)
-    }
-  } # n.vector check
-
-  if (!is.null(p.vector)) {
-    for (i in seq_along(p.vector)) {
-      p.vector.check <- p.vector[i]
-      check.proportion(p.vector.check)
-    }
-  } # p.vector check
-
-  for (i in seq_along(factor.levels)) {
-    factor.level.check <- factor.levels[i]
-    check.sample.size(factor.level.check)
-  } # factor.levels check
-
-  # consistency checks
+  # value and consistency checks
   if (!is.vector(mu.vector) || !is.numeric(mu.vector))
-    stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
-  if (!is.vector(sd.vector) || !is.numeric(sd.vector))
-    stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
-  if (length(mu.vector) != length(sd.vector))
-    stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
-  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
-    stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
-  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1)
-    stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
-  if (r.squared > 0 && k.covariates < 1)
-    stop("Explanatory power of covariates is expected to be non-zero when number of covariates is non-zero.", call. = FALSE)
-  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
-    stop("Type 1 error rate (alpha) takes a value between 0 and 1", call. = FALSE)
-  if (length(mu.vector) != prod(factor.levels))
-    stop("Vector of means does not match number of levels.", call. = FALSE)
+    stop("Provide a vector of means (`mu.vector`) with its length equal to number of groups.", call. = FALSE)
+  check.vector(mu.vector, check.numeric)
+  check.vector(sd.vector, check.positive)
+  if (!is.null(n.vector)) check.vector(n.vector, check.sample.size)
+  if (!is.null(p.vector)) check.vector(p.vector, check.proportion)
+  check.same.lengths(mu.vector, sd.vector, n.vector, p.vector)
+  if (is.null(factor.levels)) factor.levels <- length(mu.vector)
   if (length(factor.levels) > 1)
     stop("Factorial designs are not allowed in Keppel's approach.", call. = FALSE)
-  if (is.null(n.vector) && is.null(power))
-    stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power))
-    stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
+  check.factor.level(factor.levels)
+  if (length(mu.vector) != factor.levels)
+    stop("Length of the vector of means (`mu.vector`) does not match number of levels.", call. = FALSE)
+  if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
+    stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
+  check.nonnegative(k.covariates)
+  if (r.squared > 0 && k.covariates < 1)
+    stop("Explanatory power of covariates is expected to be non-zero when number of covariates is non-zero.", call. = FALSE)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
 
-requested <- ifelse(is.null(power), "power", "n.total")
+  requested <- check.n_power(n.vector, power)
 
   ncp.keppel <- function(mu.vector, sd.vector, n.vector, k.covariates, r.squared, factor.levels) {
 
@@ -324,13 +274,7 @@ requested <- ifelse(is.null(power), "power", "n.total")
     n.total
   }
 
-  if (is.null(power)) {
-    if (is.vector(n.vector) || length(n.vector) != prod(factor.levels))
-      stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
-    if (length(mu.vector) != length(n.vector))
-      stop("Number of elements in the vector of means should match those in the vector of sample size.", call. = FALSE)
-    if (length(n.vector) != length(sd.vector))
-      stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations.", call. = FALSE)
+  if (requested == "power") {
 
     pwr.obj <- pwr.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
                           n.vector = n.vector, k.covariates = k.covariates,
@@ -344,10 +288,10 @@ requested <- ifelse(is.null(power), "power", "n.total")
     n.total <- sum(n.vector)
     p.vector <- n.vector / sum(n.vector)
 
-  } else if (is.null(n.vector)) {
+  } else if (requested == "n") {
 
     if (is.null(p.vector)) stop("`p.vector` cannot be NULL when sample size is requested", call. = FALSE)
-    if (round(sum(p.vector), 5) != 1) stop("elements of `p.vector` should sum to one", call. = FALSE)
+    if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1", call. = FALSE)
     n.total <- ss.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
                          p.vector = p.vector, k.covariates = k.covariates,
                          r.squared = r.squared, alpha = alpha, power =  power,
@@ -371,12 +315,6 @@ requested <- ifelse(is.null(power), "power", "n.total")
     f.alpha <- pwr.obj$f.alpha
     n.total <- sum(n.vector)
     p.vector <- n.vector / sum(n.vector)
-
-
-  } else {
-
-    stop("Exactly one of the `power` or `n.vector` can be NULL at a time.", call. = FALSE)
-
   }
 
   ncp.obj <- ncp.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
@@ -392,21 +330,12 @@ requested <- ifelse(is.null(power), "power", "n.total")
   f.alpha.upper <- qf(1 - alpha.hc, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
   if (var.ratio <= f.alpha.lower || var.ratio >= f.alpha.upper)
     warning("Interpretation of results may no longer be valid when variances differ beyond sampling error.", call. = FALSE)
-
+  effect <- paste0(c("A"), "(", factor.levels, ")")
   n.way <- length(factor.levels)
-  if (n.way == 1) {
-    effect <- paste0(c("A"), "(", factor.levels, ")")
-  } else {
-    stop("More than one-way ANOVA or ANCOVA is not allowed for Keppel's procedure.", call. = FALSE)
-  } # n.way
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
-    ifelse(k.covariates > 0,
-           test <- "One-way Analysis of Covariance (F-Test)",
-           test <- "One-way Analysis of Variance (F-Test)")
-
+    test <- ifelse(k.covariates > 0, "One-way Analysis of Covariance (F-Test)", "One-way Analysis of Variance (F-Test)")
     print.obj <- list(test = test, effect = effect, n.total = n.total, n.way = n.way,
                       requested = requested, factor.levels = factor.levels,
                       power = power, ncp = ncp, null.ncp = 0,
@@ -420,20 +349,18 @@ requested <- ifelse(is.null(power), "power", "n.total")
 
   } #verbose
 
-  invisible(structure(list(parms = list(alpha = alpha, mu.vector = mu.vector, sd.vector = sd.vector,
-                                        n.vector = n.vector, p.vector = p.vector, factor.levels = factor.levels,
-                                        n.way = length(factor.levels), r.squared = r.squared, k.covariates = k.covariates,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
+                           test = "F",
                            effect = effect,
                            eta.squared = ncp.obj$eta.squared,
                            f = ncp.obj$f,
-                           test = "F",
                            df1 = df1,
                            df2 = df2,
                            ncp = ncp,
                            null.ncp = 0,
                            f.alpha = f.alpha,
                            power = power,
+                           n.vector = n.vector,
                            n.total = n.total),
                       class = c("pwrss", "f", "ancova", "keppel")))
 
@@ -452,21 +379,25 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
                                 coding.scheme = rep("deviation", length(factor.levels)),
                                 base = factor.levels, # only used with dummy or treatment coding
                                 intercept = FALSE,
-                                verbose = TRUE) {
+                                verbose = 1) {
+
+  if (length(coding.scheme) > length(factor.levels)) {
+
+    coding.scheme <- coding.scheme[seq_along(factor.levels)]
+    if (verbose >= 0)
+      message(sprintf("Provide as many coding schemes as number of factors. Using the first %d.", length(factor.levels)))
+
+  } # coding.scheme
 
   if (length(factor.levels) > 1) {
 
-    if (length(coding.scheme) == 1) {
+    if (length(coding.scheme) == 1 && verbose >= 0) {
 
       coding.scheme <- rep(coding.scheme, length(factor.levels))
-      message("Assuming the same coding scheme applies to the other factor(s)")
+      if (verbose >= 0)
+        message("Assuming the same coding scheme applies to the other factor(s)")
 
-    } else if (length(coding.scheme) > length(factor.levels)) {
-
-      coding.scheme <- coding.scheme[seq_along(factor.levels)]
-      message(paste("Provide as many coding schemes as number of factors. Using the first", length(factor.levels)))
-
-    } # coding.scheme
+    }
 
     if (length(base) == 1) {
 
@@ -503,7 +434,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 
     } else {
 
-      stop("Contrast type not supported at the moment", call. = FALSE)
+      stop(sprintf("Contrast type \"%s\" not supported at the moment.", coding.scheme[i]), call. = FALSE)
 
     }
 
@@ -579,17 +510,17 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 
   } else {
 
-    stop("This version supports only up to three-way interactions", call. = FALSE)
+    stop("This version supports only up to three-way interactions.", call. = FALSE)
 
   }
 
-  if (length(factor.levels) > 1)
+  if (length(factor.levels) > 1 && verbose >= 0)
     message("Elements of `mu.vector`, `sd.vector`, `n.vector` or `p.vector` should follow this specific order:\n",
             paste(means.cell.names, " "), "\n")
 
   if (isFALSE(intercept)) contrast.mat <- contrast.mat[-1, ]
 
-  if (verbose) {
+  if (verbose > 0) {
     print(round(contrast.mat, 3))
   }
 
@@ -605,92 +536,62 @@ power.f.ancova.shieh <- function(mu.vector,
                                  sd.vector,
                                  n.vector = NULL,
                                  p.vector = NULL,
-                                 factor.levels = length(mu.vector),
+                                 factor.levels = NULL,
                                  r.squared = 0,
                                  k.covariates = 1,
                                  contrast.matrix = NULL,
                                  power = NULL,
                                  alpha = 0.05,
                                  ceiling = TRUE,
-                                 verbose = TRUE,
+                                 verbose = 1,
                                  pretty = FALSE) {
 
-  # value checks
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
+  func.parms <- clean.parms(as.list(environment()))
 
-  for (i in seq_along(mu.vector)) {
-    mu.vector.check <- mu.vector[i]
-    check.numeric(mu.vector.check)
-  } # mu.vector check
-
-  for (i in seq_along(sd.vector)) {
-    sd.vector.check <- sd.vector[i]
-    check.positive(sd.vector.check)
-  } # sd.vector check
-
-  if (!is.null(n.vector)) {
-    for (i in seq_along(n.vector)) {
-      n.vector.check <- n.vector[i]
-      check.sample.size(n.vector.check)
-    }
-  } # n.vector check
-
-  if (!is.null(p.vector)) {
-    for (i in seq_along(p.vector)) {
-      p.vector.check <- p.vector[i]
-      check.proportion(p.vector.check)
-    }
-  } # n.vector check
-
-  for (i in seq_along(factor.levels)) {
-    factor.level.check <- factor.levels[i]
-    check.sample.size(factor.level.check)
-  } # factor.levels check
-
+  # value and consistency checks
   if (!is.vector(mu.vector) || !is.numeric(mu.vector))
-    stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
-  if (!is.vector(sd.vector) || !is.numeric(sd.vector))
-    stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
-  if (length(mu.vector) != length(sd.vector))
-    stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
+    stop("Provide a vector of means (`mu.vector`) with its length equal to the number of groups.", call. = FALSE)
+  check.vector(mu.vector, check.numeric)
+  check.vector(sd.vector, check.positive)
+  if (!is.null(n.vector)) check.vector(n.vector, check.sample.size)
+  if (!is.null(p.vector)) check.vector(p.vector, check.proportion)
+  check.same.lengths(mu.vector, sd.vector, n.vector, p.vector)
+  if (is.null(factor.levels)) factor.levels <- length(mu.vector)
+  check.vector(factor.levels, check.factor.level, 1)
+  if (length(mu.vector) != prod(factor.levels))
+    stop("Provide a vector of means (`mu.vector`) with its length equal to the the product of `factor.levels`.", call. = FALSE)
   if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
     stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
-  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1)
-    stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
+  check.positive(k.covariates)
+  if (!is.null(power)) check.proportion(power)
   if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
     stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
 
-  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n.total")
+  requested <- check.n_power(n.vector, power)
 
   if (is.null(contrast.matrix)) {
 
     contrast.matrix <- factorial.contrasts(factor.levels = factor.levels,
                                            intercept = FALSE,
-                                           verbose = FALSE)$contrast.matrix
-    if (is.vector(contrast.matrix)) contrast.matrix <- matrix(contrast.matrix, nrow = 1, ncol = length(contrast.matrix))
-    C.mat <- tail(contrast.matrix, n = prod(factor.levels - 1))
+                                           verbose = min(verbose, 0))$contrast.matrix
+    if (is.vector(contrast.matrix)) contrast.matrix <- t(as.matrix(contrast.matrix))
+    contrast.matrix <- tail(contrast.matrix, n = prod(factor.levels - 1))
 
   } else {
 
-    if (is.vector(contrast.matrix)) contrast.matrix <- matrix(contrast.matrix, nrow = 1, ncol = length(contrast.matrix))
+    if (is.vector(contrast.matrix))
+      contrast.matrix <- t(as.matrix(contrast.matrix))
     if (!is.matrix(contrast.matrix))
       stop("Contrast coefficients are not provided in the form of a matrix.", call. = FALSE)
     if (dim(contrast.matrix)[2] != length(mu.vector))
-      stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
+      stop("The number of columns in the contrast matrix should match number of groups.", call. = FALSE)
     if (dim(contrast.matrix)[1] > length(mu.vector) - 1)
-      stop("Number of rows in the contrast matrix should be less than or equal to number of groups minus one.", call. = FALSE)
-    C.mat <- contrast.matrix
-
+      stop("The number of rows in the contrast matrix should be less than or equal to number of groups minus one.", call. = FALSE)
   }
 
-
-  pwr.shieh <- function(mu.vector, sd.vector, n.vector, k.covariates, r.squared, alpha, C.mat, calculate.lambda = FALSE) {
+  pwr.shieh <- function(mu.vector, sd.vector, n.vector, k.covariates, r.squared, alpha, contrast.matrix, calculate.lambda = FALSE) {
 
     n.total <- sum(n.vector)
     sigma2_pooled <- sum((n.vector - 1) * sd.vector ^ 2) / (n.total - length(mu.vector))
@@ -698,10 +599,11 @@ power.f.ancova.shieh <- function(mu.vector,
 
     Q.mat <- diag(n.total / n.vector)
     mean.mat <- matrix(mu.vector, length(mu.vector), 1)
-    gamma2 <- t(C.mat %*% mean.mat) %*% solve(C.mat %*% Q.mat %*% t(C.mat)) %*% (C.mat %*% mean.mat) / sigma2_error
+    gamma2 <- (t(contrast.matrix %*% mean.mat) %*% solve(contrast.matrix %*% Q.mat %*%
+               t(contrast.matrix)) %*% (contrast.matrix %*% mean.mat)) / sigma2_error
     gamma2 <- as.numeric(gamma2)
 
-    u <- nrow(C.mat)
+    u <- nrow(contrast.matrix)
     v <- n.total - length(mu.vector) - k.covariates
 
     f.alpha <- qf(1 - alpha, df1 = u, df2 = v)
@@ -714,26 +616,20 @@ power.f.ancova.shieh <- function(mu.vector,
       sd.beta <- sqrt((shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1)))
       lower.beta <- max(0, mean.beta - 10 * sd.beta)
 
-      integrand <- function(x) dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
-                               pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE)
+      integrand <- function(x) { dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
+                                 pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE) }
       power <- integrate(integrand, lower = lower.beta, upper = 1)$value
 
-      ifelse(calculate.lambda,
-             lambda <- n.total * gamma2 * (v + 1) / (v + 1 + k.covariates),
-             lambda <- NA)
+      lambda <- ifelse(calculate.lambda, n.total * gamma2 * (v + 1) / (v + 1 + k.covariates), NA)
 
     } else if (k.covariates == 1) {
 
       integrand <- function(x) dt(x, (v + 1)) * pf(f.alpha, u, v, n.total * gamma2 / (1 + (k.covariates / (v + 1)) * x ^ 2), lower.tail = FALSE)
       power <- integrate(integrand, lower = -10, upper = 10)$value
 
-      ifelse(calculate.lambda,
-             lambda <- integrate(function(x) dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2), lower = -Inf, upper = Inf)$value,
-             lambda <- NA)
-
-    } else {
-
-      stop("Number of covariates should be 1 or greater.", call. = FALSE)
+      lambda <- ifelse(calculate.lambda,
+                       integrate(function(x) dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2), lower = -Inf, upper = Inf)$value,
+                       NA)
 
     }
 
@@ -741,29 +637,23 @@ power.f.ancova.shieh <- function(mu.vector,
 
   }
 
-  ss.shieh <- function(mu.vector, sd.vector, p.vector, k.covariates, r.squared, alpha, power, C.mat) {
-    n.total <- uniroot(function(n.total) {
+  ss.shieh <- function(mu.vector, sd.vector, p.vector, k.covariates, r.squared, alpha, power, contrast.matrix) {
+
+    uniroot(function(n.total) {
       n.vector <- n.total * p.vector
       power -  pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                    n.vector = n.vector, k.covariates = k.covariates,
-                   r.squared =  r.squared, alpha = alpha, C.mat = C.mat)$power
+                   r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix)$power
     }, interval = c(length(mu.vector) + k.covariates + 1, 1e10))$root
-    n.total
+
   }
 
 
-  if (is.null(power)) {
-
-    if (!is.vector(n.vector) || length(n.vector) != prod(factor.levels))
-      stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
-    if (length(mu.vector) != length(n.vector))
-      stop("Number of elements in the vector of means should match those in the vector of sample size", call. = FALSE)
-    if (length(n.vector) != length(sd.vector))
-      stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations", call. = FALSE)
+  if (requested == "power") {
 
     pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                          n.vector = n.vector, k.covariates = k.covariates,
-                         r.squared =  r.squared, alpha = alpha, C.mat = C.mat,
+                         r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
                          calculate.lambda = TRUE)
     power <- pwr.obj$power
     df1 <- pwr.obj$df1
@@ -773,14 +663,14 @@ power.f.ancova.shieh <- function(mu.vector,
     n.total <- sum(n.vector)
     p.vector <- n.vector / sum(n.vector)
 
-  } else if (is.null(n.vector)) {
+  } else if (requested == "n") {
 
     if (is.null(p.vector)) stop("`p.vector` cannot be NULL when sample size is requested.", call. = FALSE)
-    if (round(sum(p.vector), 5) != 1) stop("Elements of `p.vector` should sum to one.", call. = FALSE)
+    if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1.", call. = FALSE)
     n.total <- ss.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                         p.vector = p.vector, k.covariates =  k.covariates,
                         r.squared = r.squared, alpha = alpha,
-                        power = power, C.mat =  C.mat)
+                        power = power, contrast.matrix =  contrast.matrix)
     n.vector <- n.total * p.vector
 
     if (ceiling) {
@@ -792,17 +682,13 @@ power.f.ancova.shieh <- function(mu.vector,
 
     pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                          n.vector = n.vector, k.covariates = k.covariates,
-                         r.squared =  r.squared, alpha = alpha, C.mat = C.mat,
+                         r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
                          calculate.lambda = TRUE)
     power <- pwr.obj$power
     df1 <- pwr.obj$df1
     df2 <- pwr.obj$df2
     ncp <- pwr.obj$lambda
     f.alpha <- pwr.obj$f.alpha
-
-  } else {
-
-    stop("Exactly one of the `power` or `n.vector` can be NULL at a time.", call. = FALSE)
 
   }
 
@@ -832,8 +718,7 @@ power.f.ancova.shieh <- function(mu.vector,
     stop("More than three-way ANCOVA is not allowed at the moment.", call. = FALSE)
   } # n.way
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     test <- paste(switch(n.way,
                          `1` = "One",
@@ -857,22 +742,18 @@ power.f.ancova.shieh <- function(mu.vector,
 
   } # verbose
 
-  invisible(structure(list(parms = list(mu.vector =  mu.vector, sd.vector = sd.vector,
-                                        n.vector = n.vector, p.vector = p.vector,
-                                        r.squared = r.squared, k.covariates = k.covariates,
-                                        contrast.matrix = contrast.matrix,
-                                        factor.levels = factor.levels, alpha = alpha,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
+                           test = "F",
                            effect = effect,
                            eta.squared = eta.squared,
                            f = sqrt(f.squared),
-                           test = "F",
                            df1 = df1,
                            df2 = df2,
                            ncp = ncp,
                            null.ncp = 0,
                            f.alpha = f.alpha,
                            power = power,
+                           n.vector = n.vector,
                            n.total = n.total),
                       class = c("pwrss", "f", "ancova", "shieh")))
 
@@ -893,75 +774,48 @@ power.t.contrast <- function(mu.vector,
                              alpha = 0.05,
                              tukey.kramer = FALSE,
                              ceiling = TRUE,
-                             verbose = TRUE,
+                             verbose = 1,
                              pretty = FALSE) {
 
+  func.parms <- clean.parms(as.list(environment()))
+
   # value checks
-  check.logical(ceiling, tukey.kramer)
-  if (!is.null(power)) check.proportion(power)
-
-  for (i in seq_along(mu.vector)) {
-    mu.vector.check <- mu.vector[i]
-    check.numeric(mu.vector.check)
-  } # mu.vector check
-
-  for (i in seq_along(sd.vector)) {
-    sd.vector.check <- sd.vector[i]
-    check.positive(sd.vector.check)
-  } # sd.vector check
-
-  if (!is.null(n.vector)) {
-    for (i in seq_along(n.vector)) {
-      n.vector.check <- n.vector[i]
-      check.sample.size(n.vector.check)
-    }
-  } # n.vector check
-
-  if (!is.null(p.vector)) {
-    for (i in seq_along(p.vector)) {
-      p.vector.check <- p.vector[i]
-      check.proportion(p.vector.check)
-    }
-  } # n.vector check
-
-  if (!is.vector(mu.vector) || !is.numeric(mu.vector))
-    stop("Provide a vector of means with its length equal to number of groups.", call. = FALSE)
-  if (!is.vector(sd.vector) || !is.numeric(sd.vector))
-    stop("Provide a vector of standard deviations with its length equal to number of groups.", call. = FALSE)
-  if (is.vector(contrast.vector)) contrast.vector <- matrix(contrast.vector, nrow = 1, ncol = length(contrast.vector))
-  if (dim(contrast.vector)[2] != length(mu.vector))
-    stop("Number of columns in the contrast matrix should match number of groups.", call. = FALSE)
-  if (dim(contrast.vector)[1] > 1)
-    stop("Number of rows in the contrast matrix should be one.", call. = FALSE)
-  C.mat <- contrast.vector
-
-  if (length(mu.vector) != length(sd.vector))
-    stop("Number of elements in the vector of means should match those in the vector of standard deviations.", call. = FALSE)
+  check.vector(mu.vector, check.numeric)
+  check.vector(sd.vector, check.positive)
+  if (!is.null(n.vector)) check.vector(n.vector, check.sample.size)
+  if (!is.null(p.vector)) check.vector(p.vector, check.proportion)
+  check.same.lengths(mu.vector, sd.vector, n.vector, p.vector)
   if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)
     stop("R-squared (explanatory power of covariates) takes a value between 0 and 1.", call. = FALSE)
-  if (k.covariates < 0 || k.covariates %% 1 || !is.numeric(k.covariates) || length(k.covariates) != 1)
-    stop("Number of covariates should be an integer greater or equal to 0.", call. = FALSE)
-  if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
-    stop("Type 1 error rate (alpha) take a value between 0 and 1.", call. = FALSE)
+  check.nonnegative(k.covariates)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(tukey.kramer, ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
 
-  if (is.null(n.vector) && is.null(power))
-    stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power))
-    stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
+  if (is.vector(contrast.vector))
+    contrast.matrix <- t(as.matrix(contrast.vector))
+  else if (is.matrix(contrast.vector))
+    contrast.matrix <- contrast.vector
+  else
+    stop("`contrast.vector` must be either a vector or a matrix.", call. = FALSE)
 
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n.total")
+  if (dim(contrast.matrix)[2] != length(mu.vector))
+    stop("The number of columns in the contrast matrix should match number of groups.", call. = FALSE)
+  if (dim(contrast.matrix)[1] > 1)
+    stop("The number of rows in the contrast matrix should be one.", call. = FALSE)
+
+  requested <- check.n_power(n.vector, power)
 
   pwr.contrast <- function(mu.vector, sd.vector, n.vector, k.covariates,
-                           r.squared, alpha, C.mat, tukey.kramer,
+                           r.squared, alpha, contrast.matrix, tukey.kramer,
                            calculate.lambda = FALSE) {
 
     n.total <- sum(n.vector)
     sigma2_pooled <- sum((n.vector - 1) * sd.vector ^ 2) / (n.total - length(mu.vector))
     sigma2_error <- sigma2_pooled * (1 - r.squared)
 
-    psi <- sum(C.mat * mu.vector)
+    psi <- sum(contrast.matrix * mu.vector)
     v <- n.total - length(mu.vector) - k.covariates
 
     if (tukey.kramer == 1) {
@@ -974,7 +828,7 @@ power.t.contrast <- function(mu.vector,
 
     }
 
-    a <- sum(C.mat ^ 2 / n.vector)
+    a <- sum(contrast.matrix ^ 2 / n.vector)
     # delta <- psi / sqrt(a * sigma2_error)
     d <- psi / sqrt(sigma2_error)
 
@@ -1008,15 +862,14 @@ power.t.contrast <- function(mu.vector,
       }
       power <- integrate(integrand, lower = lower.beta, upper = 1)$value
 
-      lambda <- numeric(1)
-      ifelse(calculate.lambda,
-             lambda <- integrate(function(x) dbeta(x, (v + 1) / 2, k.covariates / 2) *
-                                             (sqrt(x) * psi / sqrt(sigma2_error * a)), lower.beta, 1)$value,
-             lambda <- NA)
+      lambda <-  ifelse(calculate.lambda,
+                        integrate(function(x) { dbeta(x, (v + 1) / 2, k.covariates / 2) *
+                                                (sqrt(x) * psi / sqrt(sigma2_error * a)) }, lower.beta, 1)$value,
+                        NA)
 
     } else {
 
-      stop("Number of covariates should be 1 or greater in the analysis of covariance.", call. = FALSE)
+      stop("The number of covariates should be 1 or greater in the analysis of covariance.", call. = FALSE)
 
     }
 
@@ -1025,14 +878,14 @@ power.t.contrast <- function(mu.vector,
   } # pwr.contrast()
 
   ss.contrast <- function(mu.vector, sd.vector, p.vector, power, k.covariates,
-                          r.squared, alpha, C.mat, tukey.kramer) {
+                          r.squared, alpha, contrast.matrix, tukey.kramer) {
 
-    psi <- sum(C.mat * mu.vector)
+    psi <- sum(contrast.matrix * mu.vector)
 
     if (psi == 0) {
 
       n.total <- as.integer(.Machine$integer.max)
-      warning("Using infinity (maximum integer number as defined in R) for `n.total` because psi = 0", call. = FALSE)
+      warning("Using infinity (maximum integer number as defined in R) for `n.total` because `psi` = 0.", call. = FALSE)
 
     } else {
 
@@ -1040,7 +893,7 @@ power.t.contrast <- function(mu.vector,
         n.vector <- n.total * p.vector
         power - pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
                              n.vector = n.vector, k.covariates = k.covariates,
-                             r.squared = r.squared, alpha = alpha, C.mat = C.mat,
+                             r.squared = r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
                              tukey.kramer = tukey.kramer, calculate.lambda = FALSE)$power
       }, interval = c(length(mu.vector) + k.covariates + 1, 1e10))$root
 
@@ -1048,22 +901,14 @@ power.t.contrast <- function(mu.vector,
 
     n.total
 
-  }
+  } # ss.contrast
 
 
-  if (is.null(power)) {
+  if (requested == "power") {
 
-    if (!is.vector(n.vector) || !is.numeric(n.vector))
-      stop("Provide a vector of sample size with its length equal to number of groups (sample size per each group).", call. = FALSE)
-    if (length(mu.vector) != length(n.vector))
-      stop("Number of elements in the vector of means should match those in the vector of sample size.", call. = FALSE)
-    if (length(n.vector) != length(sd.vector))
-      stop("Number of elements in the vector of sample sizes should match those in the vector of standard deviations.", call. = FALSE)
-
-    pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
-                              n.vector = n.vector, k.covariates = k.covariates,
-                              r.squared = r.squared, alpha = alpha, C.mat = C.mat,
-                              tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
+    pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector, n.vector = n.vector,
+                            k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
+                            contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
     power <- pwr.obj$power
     df <- pwr.obj$df
     ncp <- pwr.obj$lambda
@@ -1073,11 +918,13 @@ power.t.contrast <- function(mu.vector,
     n.total <- sum(n.vector)
     p.vector <- n.vector / sum(n.vector)
 
-  } else if (is.null(n.vector)) {
+  } else if (requested == "n") {
 
-    if (is.null(p.vector)) stop("`p.vector` cannot be NULL when sample size is requested", call. = FALSE)
-    if (round(sum(p.vector), 5) != 1) stop("elements of `p.vector` should sum to one", call. = FALSE)
-    n.total <- ss.contrast(mu.vector, sd.vector, p.vector, power, k.covariates, r.squared, alpha, C.mat, tukey.kramer)
+    if (is.null(p.vector)) stop("The `p.vector` cannot be NULL when the sample size is requested.", call. = FALSE)
+    if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1.", call. = FALSE)
+    n.total <- ss.contrast(mu.vector = mu.vector, sd.vector = sd.vector, p.vector = p.vector, power = power,
+                           k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
+                           contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer)
     n.vector <- n.total * p.vector
 
     if (ceiling) {
@@ -1088,9 +935,9 @@ power.t.contrast <- function(mu.vector,
     }
 
     pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
-                              n.vector = n.vector, k.covariates = k.covariates,
-                              r.squared = r.squared, alpha = alpha, C.mat = C.mat,
-                              tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
+                            n.vector = n.vector, k.covariates = k.covariates,
+                            r.squared = r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
+                            tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
     power <- pwr.obj$power
     df <- pwr.obj$df
     ncp <- pwr.obj$lambda
@@ -1098,17 +945,12 @@ power.t.contrast <- function(mu.vector,
     psi <- pwr.obj$psi
     d <- pwr.obj$d
 
-  } else {
-
-    stop("Only one of the `power` or `n.vector` can be NULL at a time", call. = FALSE)
-
   }
 
-  # u <- 1 # nrow(C.mat)
+  # u <- 1 # nrow(contrast.matrix)
   # v <- n.total - length(mu.vector) - k.covariates
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     test <- "Single Contrast Analysis (T-Test)"
 
@@ -1125,11 +967,7 @@ power.t.contrast <- function(mu.vector,
 
   }
 
-  invisible(structure(list(parms = list(alpha = alpha, mu.vector = mu.vector, sd.vector = sd.vector,
-                                        n.vector = n.vector, p.vector = p.vector,
-                                        r.squared = r.squared, k.covariates = k.covariates,
-                                        contrast.vector = contrast.vector,
-                                        ceiling = ceiling, verbose = verbose),
+  invisible(structure(list(parms = func.parms,
                            test = "t",
                            psi = psi,
                            d = d,
@@ -1138,6 +976,7 @@ power.t.contrast <- function(mu.vector,
                            ncp = ncp,
                            ncp.null = 0,
                            power = power,
+                           n.vector = n.vector,
                            n.total = n.total),
                       class = c("pwrss", "t", "contrast")))
 
@@ -1171,23 +1010,21 @@ power.t.contrasts <- function(x = NULL,
                               adjust.alpha = c("none", "tukey", "bonferroni",
                                                "holm", "hochberg", "hommel",
                                                "BH", "BY", "fdr"),
-                              ceiling = TRUE, verbose = TRUE, pretty = FALSE) {
-
-  user.parms <- as.list(match.call())
-  names.user.parms <- names(user.parms)
+                              ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   if (!is.null(x)) {
 
     if (all(c("pwrss", "f", "ancova", "shieh") %in% class(x))) {
 
+      # transfer pwrss.f.ancova.shieh object into the input parameters and remove the object
       mu.vector <- x$parms$mu.vector
       sd.vector <- x$parms$sd.vector
-      n.vector <- x$parms$n.vector
-      contrast.matrix <- x$parms$contrast.matrix
-      k.covariates <- x$parms$k.covariates
+      n.vector <- x$n.vector
+      p.vector <- x$parms$p.vector
       r.squared <- x$parms$r.squared
-      alpha <- alpha
-      p.vector <- NULL
+      k.covariates <- x$parms$k.covariates
+      contrast.matrix <- x$parms$contrast.matrix
+      ceiling <- x$parms$ceiling
       power <- NULL
 
     } else {
@@ -1196,70 +1033,31 @@ power.t.contrasts <- function(x = NULL,
 
     }
 
-    if ("mu.vector" %in%  names.user.parms) warning("Specification to `mu.vector` is ignored.", call. = FALSE)
-    if ("sd.vector" %in%  names.user.parms) warning("Specification to `sd.vector` is ignored.", call. = FALSE)
-    if ("n.vector" %in%  names.user.parms) warning("Specification to `n.vector` is ignored.", call. = FALSE)
-    if ("p.vector" %in%  names.user.parms) warning("Specification to `p.vector` is ignored.", call. = FALSE)
-    if ("r.squared" %in%  names.user.parms) warning("Specification to `r.squared` is ignored.", call. = FALSE)
-    if ("k.covariates" %in%  names.user.parms) warning("Specification to `k.covariates` is ignored.", call. = FALSE)
-    if ("contrast.matrix" %in%  names.user.parms) warning("Specification to `contrast.matrix` is ignored.", call. = FALSE)
-    if ("power" %in%  names.user.parms) warning("Specification to `power` is ignored.", call. = FALSE)
-
-    requested <- "power"
-
   } else {
 
     # value checks
-    check.logical(ceiling)
+    check.vector(mu.vector, check.numeric)
+    check.vector(sd.vector, check.positive)
+    if (!is.null(n.vector)) check.vector(n.vector, check.sample.size)
+    if (!is.null(p.vector)) check.vector(p.vector, check.proportion)
+    check.proportion(r.squared)
+    check.nonnegative(k.covariates)
     if (!is.null(power)) check.proportion(power)
-
-    for (i in seq_along(mu.vector)) {
-      mu.vector.check <- mu.vector[i]
-      check.numeric(mu.vector.check)
-    } # mu.vector check
-
-    for (i in seq_along(sd.vector)) {
-      sd.vector.check <- sd.vector[i]
-      check.positive(sd.vector.check)
-    } # sd.vector check
-
-    if (!is.null(n.vector)) {
-      for (i in seq_along(n.vector)) {
-        n.vector.check <- n.vector[i]
-        check.sample.size(n.vector.check)
-      }
-    } # n.vector check
-
-    if (!is.null(p.vector)) {
-      for (i in seq_along(p.vector)) {
-        p.vector.check <- p.vector[i]
-        check.proportion(p.vector.check)
-      }
-    } # n.vector check
-
-    ifelse(is.null(power),
-           requested <- "power",
-           requested <- "n.total")
-
+    check.proportion(alpha)
+    check.logical(ceiling)
 
   } # if data is null
 
-  if (is.null(n.vector) && is.null(power)) stop("`n.vector` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.vector) && !is.null(power)) stop("Exactly one of the `n.vector` or `power` should be NULL.", call. = FALSE)
+  rm(x)
+  adjust.alpha <- tolower(match.arg(adjust.alpha))
+  func.parms <- clean.parms(as.list(environment()))
+  verbose <- .ensure_verbose(verbose)
 
-  if (is.vector(contrast.matrix)) {
+  requested <- check.n_power(n.vector, power)
 
-    levels <- names(contrast.matrix)
-    contrast.matrix <- matrix(contrast.matrix, nrow = 1, ncol = length(contrast.matrix))
-    colnames(contrast.matrix) <- levels
-
-  } else {
-
-    levels <- colnames(contrast.matrix)
-
-  }
-
-  adjust.alpha <- match.arg(adjust.alpha)
+  if (is.vector(contrast.matrix))
+    contrast.matrix <- t(as.matrix(contrast.matrix))
+  levels <- colnames(contrast.matrix)
 
   if (tolower(adjust.alpha == "tukey")) {
 
@@ -1296,7 +1094,7 @@ power.t.contrasts <- function(x = NULL,
                                         alpha = alpha, power = power,
                                         tukey.kramer = tukey.kramer,
                                         ceiling = ceiling,
-                                        verbose = FALSE)
+                                        verbose = 0)
 
     power.out.i <- cbind(psi = pwr.t.contr.obj$psi,
                          d = pwr.t.contr.obj$d,
@@ -1313,8 +1111,7 @@ power.t.contrasts <- function(x = NULL,
   rownames(comparison) <- NULL
   contrast.number <- seq_len(nrow(contrast.matrix))
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     power.out <- as.data.frame(power.out)
     print.data <- data.frame(contr = contrast.number, comparison = comparison,
@@ -1338,7 +1135,11 @@ power.t.contrasts <- function(x = NULL,
 
   } # verbose
 
-  invisible(structure(data.frame(contrast = contrast.number, comparison = comparison, power.out),
+  invisible(structure(c(list(parms = func.parms,
+                             test = "t"),
+                        data.frame(contrast = contrast.number,
+                                   comparison = comparison,
+                                   power.out)),
                       class = c("pwrss", "t", "contrasts")))
 
 } # power.t.contrasts
