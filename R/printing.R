@@ -4,34 +4,55 @@
   if (is.logical(verbose)) {
     as.integer(verbose)
   } else if (is.numeric(verbose)) {
-    ifelse(length(verbose) == 1 && verbose %% 1 == 0 && verbose %in% c(0, 1, 2), verbose, 1)
+    ifelse(length(verbose) == 1 && verbose %% 1 == 0 && verbose %in% c(-1, 0, 1, 2), verbose, 1)
   } else {
     1
   }
 }
 
+.header_ascii <- function(requested) {
+  RC <- ifelse(requested == "n",
+               "             SAMPLE SIZE CALCULATION              ",
+               "                POWER CALCULATION                 ")
+
+  paste0(paste0("+", strrep("-", 50), "+", "\n"),
+         paste0("|", RC,              "|", "\n"),
+         paste0("+", strrep("-", 50), "+", "\n\n"))
+
+}
+
+.topic_ascii <- function(topic) {
+  paste0(paste0(strrep("-", 52), "\n"),
+         paste0(topic, "\n"),
+         paste0(strrep("-", 52), "\n"))
+}
+
+.results_ascii <- function(x, digits = 3) {
+  if (any(c("n", "n.total", "n.paired") %in% names(x))) {
+    n_prefix <- ifelse(hasName(x, "n.total") && !hasName(x, "n"), "Total ", ifelse(hasName(x, "n.paired"), "Paired ", ""))
+    n_pad    <- strrep(" ", 9 - nchar(n_prefix))
+    n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
+    n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
+    n_line   <- sprintf("  %sSample Size%s = %s%s\n", n_prefix, n_pad, n_text,  ifelse(x$requested == "n",     "  <<", ""))
+  } else {
+    n_line = ""
+  }
+
+  paste0(.topic_ascii("Results"),
+         n_line,
+         sprintf("  Type 1 Error (alpha) = %.*f\n",     digits, x$alpha),
+         sprintf("  Type 2 Error (beta)  = %.*f\n",     digits, 1 - x$power),
+         sprintf("  Statistical Power    = %.*f%s\n\n", digits, x$power, ifelse(x$requested == "power", "  <<", "")))
+}
+
 .print.ascii.pwrss.logistic <- function(x, digits = 3, verbose = 1, ...) {
-
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+ 
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", x$method, "\n", sep = "")
   cat("  Predictor Dist. : ", x$dist, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim) : Odds Ratio = 1\n")
     cat("  H1 (Alt. Claim) : Odds Ratio != 1\n\n")
@@ -44,9 +65,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters \n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Base Probability     = %.*f \n", digits, x$base.prob))
     cat(sprintf("  Odds Ratio           = %.*f \n", digits, x$odds.ratio))
     cat(sprintf("  Var. Corr. Factor    = %.*f \n", digits, x$vcf))
@@ -57,28 +76,10 @@
     cat(sprintf("  Critical Value       = %s \n\n", paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  Odds Ratio = [prob/(1-prob)] / [base.prob/(1-base.prob)] \n")
     cat("  prob       : Base probability when predictor = 0 \n")
     cat("  base.prob  : Probability when predictor = 1 \n")
@@ -91,27 +92,12 @@
 
 .print.ascii.pwrss.poisson <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", x$method, "\n", sep = "")
   cat("  Predictor Dist. : ", x$dist, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt ==  "two.sided") {
     cat("  H0 (Null Claim) : Rate Ratio = 1 \n")
     cat("  H1 (Alt. Claim) : Rate Ratio != 1 \n\n")
@@ -124,9 +110,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Base Rate            = %.*f \n", digits, x$base.rate))
     cat(sprintf("  Rate Ratio           = %.*f \n", digits, x$rate.ratio))
     cat(sprintf("  Var. Corr. Factor    = %.*f\n", digits, x$vcf))
@@ -138,26 +122,10 @@
                 paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "\n"))
-  }
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  Base Rate  = exp(beta0) \n")
     cat("  Rate Ratio = exp(beta1) \n\n")
   }
@@ -168,25 +136,10 @@
 
 .print.ascii.pwrss.regression <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt ==  "two.sided") {
     if (x$margin == 0) {
       cat("  H0 (Null Claim) : beta - null.beta = 0 \n")
@@ -220,9 +173,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Std. Beta Under Alt.   = %.*f \n", digits, x$std.beta))
     cat(sprintf("  Std. Beta Under Null   = %.*f \n", digits, x$std.null.beta))
     cat(sprintf("  Std. Margin            = %s \n", paste(round(x$std.margin, digits), collapse = " and ")))
@@ -232,26 +183,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size            = ", round(x$n, digits = digits), "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size            = ", round(x$n, digits = digits), "\n"))
-  }
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error           = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  beta                 : Regression coefficient under alt. \n")
     cat("  null.beta            : Regression coefficient under null \n")
     cat("  margin               : Smallest beta - null.beta difference that matters \n\n")
@@ -266,27 +201,11 @@
 
 
 .print.ascii.pwrss.f.regression <- function(x, digits = 3, verbose = 1, ...) {
-
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$k.tested < x$k.total) {
     if (x$margin == 0) {
       cat("  H0 (Null Claim) : Change in R-squared = 0 \n")
@@ -306,9 +225,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     if (x$k.tested < x$k.total) {
       cat(sprintf("  Change in R-squared    = %.*f \n", digits, x$r.squared.change))
     } else {
@@ -322,26 +239,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "\n"))
-  }
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     if (x$k.tested < x$k.total) {
       cat("  Margin : Smallest change in R-squared that matters \n\n")
     } else {
@@ -355,32 +256,12 @@
 
 .print.ascii.pwrss.med <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  method <- switch(x$method,
-                   `sobel` = "Sobel",
-                   `aroian` = "Aroian",
-                   `goodman` = "Goodman",
-                   `joint` = "Joint",
-                   `monte.carlo` = "Monte Carlo")
-
+  cat(.header_ascii(x$requested))
+  method <- switch(x$method, `sobel` = "Sobel", `aroian` = "Aroian", `goodman` = "Goodman", `joint` = "Joint", `monte.carlo` = "Monte Carlo")
   cat(x$test, "\n\n", sep = "")
   cat("  Method            : ", method, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim)   : beta[a*b] = 0 \n")
     cat("  H1 (Alt. Claim)   : beta[a*b] != 0 \n\n")
@@ -395,9 +276,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Std. beta[a]         = %.*f \n", digits, x$std.beta.a))
     cat(sprintf("  Std. beta[b]         = %.*f \n", digits, x$std.beta.b))
     if (x$method %in% c("sobel", "aorian", "goodman")) {
@@ -410,26 +289,10 @@
     }
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", round(x$n, digits = digits), "\n"))
-  }
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error         = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  beta[a]        : Regression coefficient for path a\n")
     cat("  beta[b]        : Regression coefficient for path b\n")
     cat("  beta[a*b]      : Coefficient for the indirect path a*b\n\n")
@@ -447,25 +310,10 @@
 
 .print.ascii.pwrss.student <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     if (any(x$margin == 0)) {
       cat("  H0 (Null Claim) : d - null.d = 0 \n")
@@ -503,9 +351,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Cohen's d              = %.*f\n", digits, x$d))
     cat(sprintf("  Cohen's d Under Null   = %.*f\n", digits, x$null.d))
     cat(sprintf("  Margin                 = %s\n", paste(round(x$margin, digits), collapse = " and ")))
@@ -515,27 +361,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size            = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size            = ", n.text, "\n"))
-  }
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  Margin : Smallest d - null.d difference that matters \n\n")
   }
 
@@ -545,19 +374,7 @@
 
 .print.ascii.pwrss.wilcoxon <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   dist <- switch(x$dist,
                  `normal` = "Normal",
                  `uniform` = "Uniform",
@@ -567,15 +384,11 @@
   method <- switch(x$method,
                    `guenther` = "Guenther",
                    `noether` = "Noether")
-
   cat(x$test, "\n\n", sep = "")
   cat("  Method       : ", method, "\n", sep = "")
   cat("  Distribution : ", dist, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     if (x$margin == 0) {
       cat("  H0 (Null Claim) : d - null.d = 0 \n")
@@ -624,9 +437,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Cohen's d              = %.*f\n", digits, x$d))
     cat(sprintf("  Cohen's d Under Null   = %.*f\n", digits, x$null.d))
     cat(sprintf("  Margin                 = %s\n", paste(round(x$margin, digits), collapse = " and ")))
@@ -642,27 +453,10 @@
     }
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size            = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size            = ",  n.text), "\n")
-  }
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  Margin : Smallest d - null.d difference that matters \n\n")
   }
 
@@ -672,32 +466,15 @@
 
 .print.ascii.pwrss.gof <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   cat("  H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) \n")
   cat("  H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)\n\n")
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Degrees of Freedom     = %.*f \n", 0, x$df))
     cat(sprintf("  Non-centrality of Alt. = %.*f \n", digits, x$ncp.alternative))
     cat(sprintf("  Non-centrality of Null = %.*f \n", digits, x$ncp.null))
@@ -705,26 +482,10 @@
                 paste(round(x$chisq.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n") {
-    cat(paste0("  Total Sample Size      = ", round(x$n, digits = digits), "  << \n"))
-  } else {
-    cat(paste0("  Total Sample Size      = ", round(x$n, digits = digits)), "\n")
-  }
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  For goodness-of-fit, comparisons are P[i] vs P0[i] \n")
     cat("  For independence, comparisons are P[i,j] vs P0[i,j] \n")
     cat("  Independence implies (default) P0[i,j] = P[i,.] * P[.,j] \n\n")
@@ -739,25 +500,10 @@
 
 .print.ascii.pwrss.chisq <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   if (x$ncp.null > 0) {
     cat("  H0 (Null Claim)   : 0 <= ncp <= null.ncp \n")
     cat("  H1 (Alt. Claim)   : ncp > null.ncp \n\n")
@@ -767,9 +513,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Degrees of Freedom     = %.*f\n", 0, x$df))
     cat(sprintf("  Non-centrality of Alt. = %.*f\n", digits, x$ncp.alternative))
     cat(sprintf("  Non-centrality of Null = %.*f\n", digits, x$ncp.null))
@@ -777,21 +521,10 @@
                 paste(round(x$chisq.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  ncp      : Non-centrality parameter of alt. \n")
     cat("  null.ncp : Non-centrality parameter of null \n\n")
   }
@@ -802,25 +535,10 @@
 
 .print.ascii.pwrss.t <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim) : ncp = null.ncp \n")
     cat("  H1 (Alt. Claim) : ncp != null.ncp \n\n")
@@ -843,9 +561,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     if (isFALSE(is.infinite(x$df))) {
       cat(sprintf("  Degrees of Freedom     = %.*f\n", 0, x$df))
     }
@@ -854,21 +570,10 @@
     cat(sprintf("  Critical Value         = %s\n\n", paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "  << \n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  ncp      : Non-centrality parameter of Alt. \n")
     cat("  null.ncp : Non-centrality parameter of Null \n\n")
   }
@@ -879,26 +584,10 @@
 
 .print.ascii.pwrss.z <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim) : mean = null.mean \n")
     cat("  H1 (Alt. Claim) : mean != null.mean \n\n")
@@ -921,29 +610,16 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Mean of Alt.         = %.*f\n", digits, x$mean.alternative))
     cat(sprintf("  Mean of Null         = %s\n", paste(round(x$mean.null, digits), collapse = " and ")))
     cat(sprintf("  Critical Value       = %s\n\n", paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  mean      : Mean of alt. \n")
     cat("  null.mean : Mean of null \n\n")
   }
@@ -954,25 +630,10 @@
 
 .print.ascii.pwrss.binom <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim) : prob = null.prob \n")
     cat("  H1 (Alt. Claim) : prob != null.prob \n\n")
@@ -995,30 +656,17 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Size                   = %.*f\n", 0, x$size))
     cat(sprintf("  Probability Under Alt. = %.*f\n", digits, x$prob.alt))
     cat(sprintf("  Probability Under Null = %s\n", paste(round(x$prob.null, digits), collapse = " and ")))
     cat(sprintf("  Critical Value         = %s\n\n", paste(round(x$binom.alpha, 0), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  prob      : Probability under alt. \n")
     cat("  null.prob : Probability under null \n\n")
   }
@@ -1029,25 +677,10 @@
 
 .print.ascii.pwrss.f <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$ncp.null > 0) {
     cat("  H0 (Null Claim) : 0 <= ncp <= null.ncp \n")
     cat("  H1 (Alt. Claim) : ncp > null.ncp \n\n")
@@ -1057,9 +690,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Num. Deg. of Freedom   = %.*f \n", 0, x$df1))
     cat(sprintf("  Denom. Deg. of Freedom = %.*f \n", 0, x$df2))
     cat(sprintf("  Non-centrality of Alt. = %.*f \n", digits, x$ncp.alternative))
@@ -1067,21 +698,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  ncp      : Non-centrality parameter of alt. \n")
     cat("  null.ncp : Non-centrality parameter of null \n\n")
   }
@@ -1093,25 +713,10 @@
 
 .print.ascii.pwrss.ancova <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n.total",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$null.ncp == 0) {
     cat("  H0 (Null Claim) : eta.squared = 0 \n")
     cat("  H1 (Alt. Claim) : eta.squared > 0 \n\n")
@@ -1121,9 +726,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Design                 = %s \n", x$effect))
     cat(sprintf("  Num. Deg. of Freedom   = %.*f \n", 0, x$df1))
     cat(sprintf("  Denom. Deg. of Freedom = %.*f \n", 0, x$df2))
@@ -1132,27 +735,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$f.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n.total") {
-    cat(paste0("  Total Sample Size      = ", round(x$n.total, digits), "  <<\n"))
-  } else {
-    cat(paste0("  Total Sample Size      = ", round(x$n.total, digits), "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha)   = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)    = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power      = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     if (x$null.ncp != 0) cat("  null.eta.squared : (Partial) Eta-squared under null \n")
     cat("  eta.squared      : (Partial) Eta-squared under alt. \n\n")
   }
@@ -1164,32 +750,15 @@
 
 .print.ascii.pwrss.contrast <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n.total",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   cat("  H0 (Null Claim) : psi = 0 \n")
   cat("  H1 (Alt. Claim) : psi != 0 \n\n")
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Contrast Est. (psi)    = %.*f \n", digits, x$psi))
     cat(sprintf("  Standardized psi (d)   = %.*f \n", digits, x$d))
     cat(sprintf("  Degrees of Freedom     = %.*f \n", 0, x$df))
@@ -1198,27 +767,10 @@
     cat(sprintf("  Critical Value         = %s \n\n", paste(round(x$t.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-  if (x$requested == "n.total") {
-    cat(paste0("  Total Sample Size     = ", round(x$n.total, digits), "  <<\n"))
-  } else {
-    cat(paste0("  Total Sample Size     = ", round(x$n.total, digits), "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha)  = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)   = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power     = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power     = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  psi : Contrast estimate, sum(contrast[i] * mu[i]) \n")
     cat("  d   : Standardized contrast estimate \n\n")
   }
@@ -1229,32 +781,15 @@
 
 .print.ascii.pwrss.contrasts <- function(x, data = NULL, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n.total",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
-  # Header
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
+  cat(.topic_ascii("Hypotheses"))
   cat("  H0 (Null Claim) : psi = 0 \n")
   cat("  H1 (Alt. Claim) : psi != 0 \n\n")
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     adjust.alpha <- switch(x$adjust.alpha,
                            `none` = "None",
                            `fdr` = "False Discovery Rate",
@@ -1270,18 +805,14 @@
     cat(sprintf("  Non-centrality of Null = %.*f \n\n", digits, x$null.ncp))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
+  cat(.topic_ascii("Results"))
   if (!is.null(x$data)) {
     print(x$data, row.names = FALSE)
     cat("\n")
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  psi : Contrast estimate, sum(contrast[i] * mu[i])\n")
     cat("  d   : Standardized contrast estimate \n")
     cat("  ncp : Non-centrality parameter under alt. \n\n")
@@ -1294,30 +825,14 @@
 
 .print.ascii.pwrss.fisher <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   method <- switch(x$method,
                    `z` = "Normal Approximation",
                    `exact` = "Fisher's Exact")
-
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", method, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     if (any(x$margin == 0)) {
       cat("  H0 (Null Claim) : prob1 - prob2 = 0 \n")
@@ -1355,9 +870,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  prob1 - prob2        = %.*f\n", digits, x$delta))
     cat(sprintf("  Odds Ratio           = %.*f\n", digits, x$odds.ratio))
     if (x$method == "z") {
@@ -1369,30 +882,10 @@
     }
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", n.text, "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits = digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  prob1       : Probability of success in the first group \n")
     cat("  prob2       : Probability of success in the second group \n")
     if (any(x$margin != 0))
@@ -1409,30 +902,14 @@
 
 .print.ascii.pwrss.mcnemar <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   method <- switch(x$method,
                    `z` = "Normal Approximation",
                    `exact` = "McNemar's Exact")
-
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", method, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim) : prob10 - prob01 = 0\n")
     cat("  H1 (Alt. Claim) : prob10 - prob01 != 0\n\n")
@@ -1447,9 +924,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     cat(sprintf("  Odds Ratio           = %.*f\n", digits, x$odds.ratio))
     cat(sprintf("  prob10 - prob01      = %.*f\n", digits, x$delta))
     if (x$method == "exact") {
@@ -1464,30 +939,10 @@
     }
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-
-  n.text <- paste(round(x$n.paired, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Paired Sample Size   = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Paired Sample Size   = ", n.text, "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  prob10      : Joint prob. of observing {1,0} \n")
     cat("  prob01      : Joint prob. of observing {0,1} \n")
     cat("  Odds Ratio  : prob10 / prob01 \n")
@@ -1502,25 +957,11 @@
 
 .print.ascii.pwrss.oneprop <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   method <- switch(x$method,
                    `z` = "Normal Approximation",
                    `exact` = "Exact")
-
   cat(x$test, "\n\n", sep = "")
-
   if (x$method == "exact") {
     cat("  Method                 : ", method, "\n\n", sep = "")
   } else {
@@ -1533,10 +974,7 @@
     cat("  Standard Error         : Calculated From ", stderr, "\n\n", sep = "")
   }
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     cat("  H0 (Null Claim)        : prob - null.prob = 0\n")
     cat("  H1 (Alt. Claim)        : prob - null.prob != 0\n\n")
@@ -1559,9 +997,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     delta.text <- paste(round(x$delta, digits), collapse = " and ")
     cat(sprintf("  prob - null.prob      = %s\n", delta.text))
     or.text <- paste(round(x$odds.ratio, digits), collapse = " and ")
@@ -1578,29 +1014,10 @@
     }
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size           = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size           = ", n.text, "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha)  = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)   = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power     = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power     = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     cat("  Odds Ratio      : Odds(prob) / Odds(null.prob) \n")
     cat("  Odds(prob)      : prob / (1 - prob) \n")
     cat("  Odds(null.prob) : null.prob / (1 - null.prob) \n\n")
@@ -1613,26 +1030,11 @@
 
 .print.ascii.pwrss.steiger <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
   cat("  Common Index    : ", x$common, "\n\n", sep = "")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     if (x$common) {
       cat("  H0 (Null Claim) : rho12 - rho13 = 0\n")
@@ -1662,9 +1064,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     if (x$common) {
       cat(sprintf("  rho12 - rho13        = %.*f\n", digits, x$delta))
     } else {
@@ -1678,29 +1078,10 @@
     cat(sprintf("  Critical Value       = %s\n\n", paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", n.text, "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     if (x$common) {
       cat("  rho12 : Correlation between variable V1 and V2 \n")
       cat("  rho13 : Correlation between variable V1 and V3 \n\n")
@@ -1717,25 +1098,10 @@
 
 .print.ascii.pwrss.twocors <- function(x, digits = 3, verbose = 1, ...) {
 
-  UL <- UR <- LL <- LR <- "+"
-  HL <- "-"
-  VL <- "|"
-  HR <- strrep(HL, 50)
-  line <- paste0("-", strrep("-", 50), "\n")
-
-  cat(UL, HR, UR, "\n", sep = "")
-  cat(VL, ifelse(x$requested == "n",
-                 "             SAMPLE SIZE CALCULATION              ",
-                 "                POWER CALCULATION                 "),
-      VL, "\n", sep = "")
-  cat(LL, HR, LR, "\n\n", sep = "")
-
+  cat(.header_ascii(x$requested))
   cat(x$test, "\n\n")
 
-  cat(line)
-  cat("Hypotheses\n")
-  cat(line)
-
+  cat(.topic_ascii("Hypotheses"))
   if (x$alt == "two.sided") {
     if (x$design %in% c("independent", "paired")) {
       cat("  H0 (Null Claim) : rho1 - rho2 = 0\n")
@@ -1765,9 +1131,7 @@
   }
 
   if (verbose == 2) {
-    cat(line)
-    cat("Key Parameters\n")
-    cat(line)
+    cat(.topic_ascii("Key Parameters"))
     if (x$design %in% c("independent", "paired")) {
       cat(sprintf("  rho1 - rho2          = %.*f\n", digits, x$delta))
     } else {
@@ -1781,29 +1145,10 @@
     cat(sprintf("  Critical Value       = %s\n\n", paste(round(x$z.alpha, digits), collapse = " and ")))
   }
 
-  cat(line)
-  cat("Results\n")
-  cat(line)
-
-  n.text <- paste(round(x$n, digits), collapse = " and ")
-  if (x$requested == "n") {
-    cat(paste0("  Sample Size          = ", n.text, "  <<\n"))
-  } else {
-    cat(paste0("  Sample Size          = ", n.text, "\n"))
-  }
-
-  cat(sprintf("  Type 1 Error (alpha) = %.*f\n", digits, x$alpha))
-  cat(sprintf("  Type 2 Error (beta)  = %.*f\n", digits, 1 - x$power))
-  if (x$requested == "power") {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "  <<\n\n"))
-  } else {
-    cat(paste0("  Statistical Power    = ", round(x$power, digits), "\n\n"))
-  }
+  cat(.results_ascii(x, digits))
 
   if (verbose == 2) {
-    cat(line)
-    cat("Definitions\n")
-    cat(line)
+    cat(.topic_ascii("Definitions"))
     if (x$design %in% c("independent", "paired")) {
       cat("  rho1 : Correlation in group 1 \n")
       cat("  rho2 : Correlation in group 2 \n\n")

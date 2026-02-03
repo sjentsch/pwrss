@@ -1,7 +1,7 @@
 test_that("correlations.R works", {
     # power.z.steiger (= power.z.twocors.steiger [the latter is exported]) ---------------------------------------------
     crrRes <- power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, n = 1000, power = NULL, alpha = 0.05,
-                                      alternative = "two.sided", common.index = TRUE, verbose = FALSE)
+                                      alternative = "two.sided", common.index = TRUE, verbose = 0)
     crrOut <- capture.output(power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, n = 1000, power = NULL,
                                                      alpha = 0.05, alternative = "two.sided", common.index = TRUE))
     crrPty <- capture.output(power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, n = 1000, power = NULL,
@@ -17,14 +17,14 @@ test_that("correlations.R works", {
                            "+--------------------------------------------------+", "",
                            "Dependent Correlations", "",
                            "  Common Index    : TRUE", "",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "Hypotheses",
-                           "---------------------------------------------------",#
+                           "----------------------------------------------------",
                            "  H0 (Null Claim) : rho12 - rho13 = 0",
                            "  H1 (Alt. Claim) : rho12 - rho13 != 0", "",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "Results",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "  Sample Size          = 1000",
                            "  Type 1 Error (alpha) = 0.050",
                            "  Type 2 Error (beta)  = 0.253",
@@ -34,21 +34,21 @@ test_that("correlations.R works", {
                            "╚══════════════════════════════════════════════════╝", "",
                            "Dependent Correlations", "",
                            "  Common Index        : TRUE", "",
-                           "───────────────────────────────────────────────────",
+                           "────────────────────────────────────────────────────",
                            "Hypotheses",
-                           "───────────────────────────────────────────────────",
+                           "────────────────────────────────────────────────────",
                            "  H₀ (Null)         : ρ₁₂ - ρ₁₃ = 0 ",
                            "  H₁ (Alternative)  : ρ₁₂ - ρ₁₃ ≠ 0 ", "",
-                           "───────────────────────────────────────────────────",
+                           "────────────────────────────────────────────────────",
                            "Results",
-                           "───────────────────────────────────────────────────",
-                           "  Sample Size       = 1000 ",
+                           "────────────────────────────────────────────────────",
+                           "  Sample Size       = 1000",
                            "  Type 1 Error (α)  = 0.050",
                            "  Type 2 Error (β)  = 0.253",
-                           " \033[34m Statistical Power = 0.747\033[0m\033[1;35m  ◄◄ ", "", "\033[0m"))
-    
+                           "  \033[34mStatistical Power = 0.747\033[0m  \033[1;35m◄◄\033[0m", ""))
+
     crrRes <- power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55, n = 1000,
-                                      power = NULL, alpha = 0.05, alternative = "two.sided", common.index = FALSE, verbose = FALSE)
+                                      power = NULL, alpha = 0.05, alternative = "two.sided", common.index = FALSE, verbose = 0)
     crrOut <- capture.output(power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                                      n = 1000, power = NULL, alpha = 0.05, alternative = "two.sided", common.index = FALSE))
     expect_equal(class(crrRes), c("pwrss", "z", "twocors", "paired"))
@@ -62,21 +62,21 @@ test_that("correlations.R works", {
                            "+--------------------------------------------------+", "",
                            "Dependent Correlations", "",
                            "  Common Index    : FALSE", "",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "Hypotheses",
-                           "---------------------------------------------------",#
+                           "----------------------------------------------------",
                            "  H0 (Null Claim) : rho12 - rho34 = 0",
                            "  H1 (Alt. Claim) : rho12 - rho34 != 0", "",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "Results",
-                           "---------------------------------------------------",
+                           "----------------------------------------------------",
                            "  Sample Size          = 1000",
                            "  Type 1 Error (alpha) = 0.050",
                            "  Type 2 Error (beta)  = 0.062",
                            "  Statistical Power    = 0.938  <<", ""))
 
     # power.z.twocors (= pwrss.z.2cors) --------------------------------------------------------------------------------
-    
+
     # power.z.onecor (= pwrss.z.cor) -----------------------------------------------------------------------------------
-    
+
 })
