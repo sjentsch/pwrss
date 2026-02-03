@@ -1,0 +1,42 @@
+# Run CI for R using https://eddelbuettel.github.io/r-ci/
+
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main, master]
+
+env:
+  USE_BSPM: "true"
+  _R_CHECK_FORCE_SUGGESTS_: "false"
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        include:
+          - { name: r-devel,   os: ubuntu-latest, container: rocker/drd }
+          - { name: macos,     os: macos-latest }
+          - { name: ubuntu,    os: ubuntu-latest }
+
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: eddelbuettel/github-actions/r-ci@master
+
+      - name: Dependencies
+        run: ./run.sh install_all
+
+      - name: Test
+        run: ./run.sh run_tests
+        
+      - name: Logs
+        run: ./run.sh dump_logs
+        if: failure()
