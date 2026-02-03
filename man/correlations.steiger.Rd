@@ -16,7 +16,7 @@ power.z.twocors.steiger(rho12, rho13, rho23,
                         n = NULL, power = NULL, alpha = 0.05,
                         alternative = c("two.sided", "one.sided"),
                         pooled = TRUE, common.index = FALSE,
-                        ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                        ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -33,7 +33,7 @@ power.z.twocors.steiger(rho12, rho13, rho23,
   \item{pooled}{logical; whether standard error should be pooled. \code{TRUE} by default.}
   \item{common.index}{logical; whether calculations pertain to one common index. \code{TRUE} means calculations involve correlations with a common index (where both correlations share one variable). \code{FALSE} (default) means calculations pertain to correlations with no common index (where all relevant correlations must be explicitly specified). Check examples below.}
   \item{ceiling}{logical; if \code{TRUE} rounds up sample size.}
-  \item{verbose}{logical; if \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

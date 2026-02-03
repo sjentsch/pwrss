@@ -28,14 +28,14 @@ power.t.student(d, null.d = 0, margin = 0,
                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                 design = c("independent", "paired", "one.sample"),
                 claim.basis = c("md.pval", "smd.ci"),
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.t.welch(d, null.d = 0, margin = 0,
               var.ratio = 1, n.ratio = 1, n2 = NULL,
               power = NULL, alpha = 0.05,
               alternative = c("two.sided", "one.sided", "two.one.sided"),
               claim.basis = c("md.pval", "smd.ci"),
-              ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+              ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -51,7 +51,7 @@ power.t.welch(d, null.d = 0, margin = 0,
   \item{design}{character; "independent", "paired" or "one.sample".}
   \item{claim.basis}{character; "md.pval" when claims are based on raw mean differences and p-values, "smd.ci" when claims are based on standardized mean differences and confidence intervals.}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

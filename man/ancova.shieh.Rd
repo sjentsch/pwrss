@@ -18,7 +18,7 @@ power.f.ancova.shieh(mu.vector, sd.vector,
                      r.squared = 0, k.covariates = 1,
                      contrast.matrix = NULL,
                      power = NULL, alpha = 0.05,
-                     ceiling = TRUE, verbose = TRUE,
+                     ceiling = TRUE, verbose = 1,
                      pretty = FALSE)
 }
 
@@ -34,7 +34,7 @@ power.f.ancova.shieh(mu.vector, sd.vector,
    \item{power}{statistical power, defined as the probability of correctly rejecting a false null hypothesis, denoted as \eqn{1 - \beta}.}
   \item{alpha}{type 1 error rate, defined as the probability of incorrectly rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
   \item{ceiling}{logical;  \code{TRUE} by default. If \code{FALSE} sample size in each cell is NOT rounded up.}
-  \item{verbose}{logical; \code{TRUE} by default. If \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

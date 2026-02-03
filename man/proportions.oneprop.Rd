@@ -20,12 +20,12 @@ power.z.oneprop(prob, null.prob = 0.50,
                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                 std.error = c("null", "alternative"),
                 arcsine = FALSE, correct = FALSE,
-                ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.exact.oneprop(prob, null.prob = 0.50,
                     n = NULL, power = NULL, alpha = 0.05,
                     alternative = c("two.sided", "one.sided", "two.one.sided"),
-                    verbose = TRUE, pretty = FALSE)
+                    verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -39,7 +39,7 @@ power.exact.oneprop(prob, null.prob = 0.50,
   \item{correct}{logical; whether Yate's continuity correction should be applied.}
   \item{alternative}{character; the direction or type of the hypothesis test: "two.sided", "one.sided", or "two.one.sided". For non-inferiority or superiority tests, add margin to the null hypothesis value and use \code{alternative = "one.sided"}.}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

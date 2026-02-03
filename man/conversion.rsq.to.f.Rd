@@ -9,16 +9,16 @@ Helper function to convert between Cohen's f and R-squared.
 }
 
 \usage{
-  rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = TRUE)
+  rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = 1)
 
-  f.to.rsq(f, r.squared.full = NULL, verbose = TRUE)
+  f.to.rsq(f, r.squared.full = NULL, verbose = 1)
 }
 
 \arguments{
   \item{f}{Cohen's f.}
   \item{r.squared.full}{R-squared for the full model.}
   \item{r.squared.reduced}{R-squared for the reduced model.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

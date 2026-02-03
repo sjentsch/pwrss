@@ -22,7 +22,7 @@ power.f.ancova(eta.squared,
                power = NULL,
                alpha = 0.05,
                ceiling = TRUE,
-               verbose = TRUE,
+               verbose = 1,
                pretty = FALSE)
 
 }
@@ -36,7 +36,7 @@ power.f.ancova(eta.squared,
   \item{power}{statistical power, defined as the probability of correctly rejecting a false null hypothesis, denoted as \eqn{1 - \beta}.}
   \item{alpha}{type 1 error rate, defined as the probability of incorrectly rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
   \item{ceiling}{logical; if \code{FALSE} sample size in each cell is not rounded up.}
-  \item{verbose}{logical; if \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

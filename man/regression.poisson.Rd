@@ -32,7 +32,7 @@ power.z.poisson(base.rate = NULL, rate.ratio = NULL,
                 alpha = 0.05, alternative = c("two.sided", "one.sided"),
                 method = c("demidenko(vc)", "demidenko", "signorini"),
                 distribution = "normal", ceiling = TRUE,
-                verbose = TRUE, pretty = FALSE)
+                verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -49,7 +49,7 @@ power.z.poisson(base.rate = NULL, rate.ratio = NULL,
   \item{method}{character; calculation method. \code{"demidenko(vc)"} stands for Demidenko (2007) procedure with variance correction; \code{"demidenko"} stands for Demidenko (2007) procedure without variance correction; \code{"signorini"} stands for Signorini (1991) procedure. \code{"demidenko"} and \code{"signorini"} methods produce similar results but \code{"demidenko(vc)"} is more precise.}
   \item{distribution}{character; distribution family. Can be one of the \code{c("normal", "poisson", "uniform", "exponential", "binomial", "bernouilli", "lognormal")}.}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

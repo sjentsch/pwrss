@@ -11,13 +11,13 @@
 \usage{
  probs.to.w(prob.matrix,
            null.prob.matrix = NULL,
-           verbose = TRUE)
+           verbose = 1)
 }
 
 \arguments{
 \item{prob.matrix}{a vector or matrix of cell probabilities under alternative hypothesis}
 \item{null.prob.matrix}{a vector or matrix of cell probabilities under null hypothesis. Calculated automatically when \code{prob.matrix} is specified. The default can be overwritten by the user via providing a vector of the same size or matrix of the same dimensions as \code{prob.matrix}}
-\item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+\item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

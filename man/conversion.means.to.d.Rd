@@ -15,7 +15,7 @@ means.to.d(mu1, mu2 = 0,
            n2, n.ratio = 1,
            paired = FALSE,
            rho.paired = 0.50,
-           verbose = TRUE)
+           verbose = 1)
 }
 
 \arguments{
@@ -28,7 +28,7 @@ means.to.d(mu1, mu2 = 0,
   \item{paired}{if \code{TRUE} paired samples}
   \item{rho.paired}{correlation between repeated measures for paired samples (e.g., pretest and post-test).}
   \item{n2}{integer; sample size in the second group (or for the single group in paired samples).}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

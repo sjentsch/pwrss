@@ -15,7 +15,7 @@ power.exact.fisher(prob1, prob2, n2 = NULL, n.ratio = 1,
                    alpha = 0.05, power = NULL,
                    alternative = c("two.sided", "one.sided"),
                    method = c("exact", "approximate"),
-                   ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                   ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -28,7 +28,7 @@ power.exact.fisher(prob1, prob2, n2 = NULL, n.ratio = 1,
   \item{alternative}{character; direction or type of the hypothesis test: "two.sided" or "one.sided".}
   \item{method}{character; method used for power calculation. "exact" specifies Fisher's exact test, while "approximate" refers to the Z-Test based on the normal approximation.}
   \item{ceiling}{logical; if \code{TRUE} rounds up sample size in each group.}
-  \item{verbose}{logical; if \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

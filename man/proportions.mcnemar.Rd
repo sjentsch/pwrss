@@ -15,7 +15,7 @@
                     power = NULL,  alpha = 0.05,
                     alternative = c("two.sided", "one.sided"),
                     method = c("exact", "approximate"),
-                    ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                    ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -27,7 +27,7 @@
   \item{method}{character; the method used for power calculation. "exact" specifies Fisher's exact test, while "approximate" refers to the z-test based on the normal approximation.}
   \item{alternative}{character; the direction or type of the hypothesis test: "not equal", "greater", "less". Optionally, users can specify 'two.sided' as an alternative to 'not equal' for consistency with other R statistical functions.}
   \item{ceiling}{logical; if \code{TRUE} rounds up sample size in each cell. This procedure assumes symmetry for concordant probs, which are 'p11' and 'p00'). Thus results may differ from other software by a few units. To match results set 'ceiling = FALSE'.}
-  \item{verbose}{logical; if \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

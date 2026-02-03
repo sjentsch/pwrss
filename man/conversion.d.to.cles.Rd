@@ -12,9 +12,9 @@ Helper function to convert Cohen's d to common language effect size (or vice ver
 
 \usage{
 
-  d.to.cles(d, design = c("independent", "paired", "one.sample"), verbose = TRUE)
+  d.to.cles(d, design = c("independent", "paired", "one.sample"), verbose = 1)
 
-  cles.to.d(cles, design = c("independent", "paired", "one.sample"), verbose = TRUE)
+  cles.to.d(cles, design = c("independent", "paired", "one.sample"), verbose = 1)
 
 }
 
@@ -22,7 +22,7 @@ Helper function to convert Cohen's d to common language effect size (or vice ver
   \item{d}{Cohen's d}
   \item{design}{character; one of the "independent", "paired", or "one.sample". The default is "independent".}
   \item{cles}{common language effect size.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

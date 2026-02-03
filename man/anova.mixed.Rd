@@ -20,7 +20,7 @@
                     rho.within = 0.50, epsilon = 1,
                     n.total = NULL, power = NULL, alpha = 0.05,
                     effect = c("between", "within", "interaction"),
-                    ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                    ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -35,7 +35,7 @@
   \item{alpha}{type 1 error rate, defined as the probability of incorrectly rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
   \item{effect}{character; the effect of interest: "between", "within", or "interaction".}
   \item{ceiling}{logical;  \code{TRUE} by default. If \code{FALSE} sample size in each group is NOT rounded up.}
-  \item{verbose}{logical; \code{TRUE} by default. If \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

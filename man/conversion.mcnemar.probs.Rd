@@ -12,9 +12,9 @@
 
 \usage{
 
-joint.probs.2x2(prob1, prob2, rho = 0.50, verbose = TRUE)
+joint.probs.2x2(prob1, prob2, rho = 0.50, verbose = 1)
 
-marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = TRUE)
+marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = 1)
 
 }
 
@@ -27,7 +27,7 @@ marginal.probs.2x2(prob11, prob10, prob01, prob00, verbose = TRUE)
   \item{prob10}{(joint) probability of success in case (or after) but failure in matched control (or before). 'prob10' and 'prob01' are known as discordant probs.}
   \item{prob01}{(joint) probability of failure in case (or after) but success in matched control (or before). prob10' and 'prob01' are known as discordant probs.}
   \item{prob00}{(joint) probability of failure in both groups. 'prob11' and 'prob00' are known as concordant probs.}
-  \item{verbose}{if \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 
 }
 

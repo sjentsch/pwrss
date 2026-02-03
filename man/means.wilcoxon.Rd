@@ -33,7 +33,7 @@ power.np.wilcoxon(d, null.d = 0, margin = 0,
                   distribution = c("normal", "uniform", "double.exponential",
                                    "laplace", "logistic"),
                   method = c("guenther", "noether"),
-                  ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                  ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 }
 
@@ -50,7 +50,7 @@ power.np.wilcoxon(d, null.d = 0, margin = 0,
   \item{distribution}{character; parent distribution: "normal", "uniform", "double.exponential", "laplace", or "logistic".}
   \item{method}{character; non-parametric approach: "guenther" (default) or "noether"}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

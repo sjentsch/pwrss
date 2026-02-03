@@ -10,7 +10,7 @@ Calculates power for the generic chi-square test with (optional) Type 1 and Type
 
 \usage{
 power.chisq.test(ncp, null.ncp = 0, df, alpha = 0.05,
-                 plot = TRUE, verbose = TRUE, pretty = FALSE)
+                 plot = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -19,7 +19,7 @@ power.chisq.test(ncp, null.ncp = 0, df, alpha = 0.05,
   \item{df}{integer; degrees of freedom. For example, for the test of independence df = (nrow - 1)*(ncol - 1).}
   \item{alpha}{type 1 error rate, defined as the probability of incorrectly rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
   \item{plot}{logical; \code{FALSE} switches off Type 1 and Type 2 error plot. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

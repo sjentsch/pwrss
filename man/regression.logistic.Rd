@@ -34,7 +34,7 @@ power.z.logistic(prob = NULL, base.prob = NULL,
                  alpha = 0.05, alternative = c("two.sided", "one.sided"),
                  method = c("demidenko(vc)", "demidenko", "hsieh"),
                  distribution = "normal", ceiling = TRUE,
-                 verbose = TRUE, pretty = FALSE)
+                 verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -51,7 +51,7 @@ power.z.logistic(prob = NULL, base.prob = NULL,
   \item{method}{character; analytic method. \code{"demidenko(vc)"} stands for Demidenko (2007) procedure with variance correction; \code{"demidenko"} stands for Demidenko (2007) procedure without variance correction; \code{"hsieh"} stands for Hsieh et al. (1998) procedure. \code{"demidenko"} and \code{"hsieh"} methods produce similar results but \code{"demidenko(vc)"} is more precise}
   \item{distribution}{character; distribution family. Can be one of the \code{c("noramal", "poisson", "uniform", "exponential", "binomial", "bernouilli", "lognormal")} for Demidenko (2007) procedure but only \code{c("normal", "binomial", "bernouilli")} for Hsieh et al. (1998) procedure.}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

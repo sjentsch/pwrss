@@ -12,11 +12,11 @@
 }
 
 \usage{
-  cor.to.z(rho, verbose = TRUE)
+  cor.to.z(rho, verbose = 1)
 
-  cors.to.q(rho1, rho2, verbose = TRUE)
+  cors.to.q(rho1, rho2, verbose = 1)
 
-  q.to.cors(q, rho1 = NULL, rho2 = NULL, verbose = TRUE)
+  q.to.cors(q, rho1 = NULL, rho2 = NULL, verbose = 1)
 
 }
 
@@ -25,7 +25,7 @@
   \item{rho1}{first correlation.}
   \item{rho2}{second correlation.}
   \item{q}{Cohen's q effect size.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

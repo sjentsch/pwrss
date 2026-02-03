@@ -19,15 +19,15 @@ factorial.contrasts(factor.levels = c(3, 2),
                     coding.scheme = rep("deviation", length(factor.levels)),
                     base = factor.levels,
                     intercept = FALSE,
-                    verbose = TRUE)
+                    verbose = 1)
 }
 
 \arguments{
  \item{factor.levels}{Integer. Number of levels or groups in each factor. For example, for two factors each having two levels or groups use e.g. c(2, 2), for three factors each having two levels or groups use e.g. c(2, 2, 2)}
   \item{coding.scheme}{Character vector. Coding scheme for each factor. "sum" for deviation or effect coding, "treatment" for dummy coding, "helmert" for Helmert type of coding, and "poly" for polynomial coding. Each factor can have their own coding scheme. If a single character value is provided, it will be copied to other factors}
-  \item{base}{Integer vector. Specifies which group is considered the baseline group. Ignored for coding schemes other than "treatment"}
-  \item{intercept}{Logical. \code{FALSE} by default. If \code{TRUE} contrast matrix includes the intercept}
-  \item{verbose}{Logical. \code{TRUE} by default. If \code{FALSE} no output is printed on the console}
+  \item{base}{integer vector. Specifies which group is considered the baseline group. Ignored for coding schemes other than "treatment"}
+  \item{intercept}{logical; \code{FALSE} by default. If \code{TRUE} contrast matrix includes the intercept}
+  \item{verbose}{\code{1} by default. If \code{0} no output is printed on the console}
 }
 
 \value{

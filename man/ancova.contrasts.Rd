@@ -1,8 +1,7 @@
-\name{pwrss.t.contrasts}
+\name{power.t.contrasts}
+\alias{power.t.contrast}
 \alias{pwrss.t.contrasts}
 \alias{pwrss.t.contrast}
-\alias{power.t.contrasts}
-\alias{power.t.contrast}
 
 \title{Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple Comparisons (T-Tests)}
 
@@ -26,7 +25,7 @@ power.t.contrast(mu.vector,
                  r.squared = 0, k.covariates = 1,
                  power = NULL, alpha = 0.05,
                  tukey.kramer = FALSE,
-                 ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                 ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 power.t.contrasts(x = NULL,
                   mu.vector = NULL,
@@ -38,7 +37,7 @@ power.t.contrasts(x = NULL,
                   adjust.alpha = c("none", "tukey", "bonferroni",
                                    "holm", "hochberg", "hommel",
                                    "BH", "BY", "fdr"),
-                  ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                  ceiling = TRUE, verbose = 1, pretty = FALSE)
 
 }
 
@@ -57,7 +56,7 @@ power.t.contrasts(x = NULL,
   \item{tukey.kramer}{logical; \code{TRUE} by default. If \code{FALSE} no adjustment will be made to control Type 1 error.}
   \item{adjust.alpha}{character; one of the methods in c("none", "tukey", "bonferroni", "holm", "hochberg", "hommel", "BH", "BY", "fdr") to control Type 1 error. See \code{?stats::p.adjust}.}
   \item{ceiling}{logical;  \code{TRUE} by default. If \code{FALSE} sample size in each cell is NOT rounded up.}
-  \item{verbose}{logical; \code{TRUE} by default. If \code{FALSE} no output is printed on the console.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

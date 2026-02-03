@@ -10,7 +10,7 @@ Calculates power for the generic F-Test with (optional) Type 1 and Type 2 error 
 
 \usage{
 power.f.test(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
-             plot = TRUE, verbose = TRUE, pretty = FALSE)
+             plot = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -20,7 +20,7 @@ power.f.test(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
   \item{df1}{integer; numerator degrees of freedom.}
   \item{df2}{integer; denominator degrees of freedom.}
   \item{plot}{logical; \code{FALSE} switches off Type 1 and Type 2 error plot. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 

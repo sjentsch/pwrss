@@ -11,7 +11,7 @@
 
 \usage{
 
-probs.to.h(prob1, prob2 = 0.50, verbose = TRUE)
+probs.to.h(prob1, prob2 = 0.50, verbose = 1)
 
 }
 
@@ -19,7 +19,7 @@ probs.to.h(prob1, prob2 = 0.50, verbose = TRUE)
   \item{prob1}{probability of success in the first group, or under the alternative hypothesis in the one-sample case).}
   \item{prob2}{probability of success in the second group, or under the null hypothesis in the one-sample case).}
   \item{h}{Cohen's h effect size.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
 }
 
 \value{

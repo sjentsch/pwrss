@@ -25,7 +25,7 @@ power.t.regression(beta, null.beta = 0, margin = 0,
                    r.squared = (beta * sd.predictor / sd.outcome)^2,
                    k.total = 1, n = NULL, power = NULL, alpha = 0.05,
                    alternative = c("two.sided", "one.sided", "two.one.sided"),
-                   ceiling = TRUE, verbose = TRUE, pretty = FALSE)
+                   ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{
@@ -41,7 +41,7 @@ power.t.regression(beta, null.beta = 0, margin = 0,
   \item{alpha}{type 1 error rate, defined as the probability of incorrectly rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
   \item{alternative}{character; the direction or type of the hypothesis test: "two.sided", "one.sided", or "two.one.sided".}
   \item{ceiling}{logical; whether sample size should be rounded up. \code{TRUE} by default.}
-  \item{verbose}{logical; whether the output should be printed on the console. \code{TRUE} by default.}
+  \item{verbose}{\code{1} by default (returns test, hypotheses, and results), if \code{2} a more detailed output is given (plus key parameters and defintions), if \code{0} no output is printed on the console.}
   \item{pretty}{logical; whether the output should show Unicode characters (if encoding allows for it). \code{FALSE} by default.}
 }
 
