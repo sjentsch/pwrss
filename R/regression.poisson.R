@@ -13,17 +13,19 @@
 
 # mean.exposure is the mean exposure time (should be > 0)
 power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
-                            beta0 = log(base.rate), beta1 = log(rate.ratio),
+                            beta0 = NULL, beta1 = NULL,
                             n = NULL, power = NULL,
                             r.squared.predictor = 0, mean.exposure = 1,
                             alpha = 0.05, alternative = c("two.sided", "one.sided"),
                             method = c("demidenko(vc)", "demidenko", "signorini"),
                             distribution = "normal", ceiling = TRUE,
-                            verbose = TRUE, pretty = FALSE) {
+                            verbose = 1, pretty = FALSE) {
 
-  # old.args <- list(...) # just arguments in ...
-  # names.old.args <- names(old.args)
+  alternative <- tolower(match.arg(alternative))
+  method <- tolower(match.arg(method))
+  func.parms <- clean.parms(as.list(environment()))
   user.parms.names <- names(as.list(match.call()))
+  verbose <- .ensure_verbose(verbose)
 
   check.positive(mean.exposure)
   check.proportion(alpha, r.squared.predictor)
@@ -31,20 +33,17 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
-
   if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
     check.nonnegative(base.rate, rate.ratio)
     beta0 <- log(base.rate)
     beta1 <- log(rate.ratio)
-    if (any(c("beta0", "beta1") %in% user.parms.names))
+    if (any(c("beta0", "beta1") %in% user.parms.names) && verbose >= 0)
       message("Using `base.rate` and `rate.ratio`, ignoring any specifications to `beta0` or `beta1`.")
   } else if (all(c("beta0", "beta1") %in% user.parms.names)) {
     check.numeric(beta0, beta1)
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
-    if (any(c("base.rate", "rate.ratio") %in% user.parms.names))
+    if (any(c("base.rate", "rate.ratio") %in% user.parms.names) && verbose >= 0)
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
   } else {
     stop("Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`.", call. = FALSE)
@@ -91,51 +90,49 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
       mean <- distribution$mean
       sd <- distribution$sd
-
       min.norm <- qnorm(.0000001, mean = mean, sd = sd)
       max.norm <- qnorm(.9999999, mean = mean, sd = sd)
+      
+      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      dstFnc <- function(x, e, b0, b1) x ^ e * dnorm(x, mean = mean, sd = sd) * exp(b0 + b1 * x)
+      mu  <- integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
+      beta0s <- log(mu)
 
       # variance under null
-      mu  <- integrate(function(x) x ^ 0 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x), min.norm, max.norm)$value
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- integrate(function(x) x ^ 0 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x), min.norm, max.norm)$value
-      i01 <- integrate(function(x) x ^ 1 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x), min.norm, max.norm)$value
-      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0.star + beta1.star * x), min.norm, max.norm)$value
+      i00 <- integrate(dstFnc, min.norm, max.norm, 0, beta0s, 0)$value
+      i01 <- integrate(dstFnc, min.norm, max.norm, 1, beta0s, 0)$value
+      i11 <- integrate(dstFnc, min.norm, max.norm, 2, beta0s, 0)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x) x ^ 0 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x), min.norm, max.norm)$value
-      i01 <- integrate(function(x) x ^ 1 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x), min.norm, max.norm)$value
-      i11 <- integrate(function(x) x ^ 2 * dnorm(x, mean = mean, sd = sd) * exp(beta0 + beta1 * x), min.norm, max.norm)$value
+      i00 <- integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
+      i01 <- integrate(dstFnc, min.norm, max.norm, 1, beta0,  beta1)$value
+      i11 <- integrate(dstFnc, min.norm, max.norm, 2, beta0,  beta1)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
-    }
-
-    if (tolower(distribution$dist) == "poisson") {
+    } else if (tolower(distribution$dist) == "poisson") {
 
       lambda <- distribution$lambda
-      # maximum value
-      max.pois <- qpois(.999999999, lambda = lambda)
+      max.pois <- qpois(.999999999, lambda = lambda) # maximum value
+
+      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      dstFnc <- function(x, e, b0, b1) x ^ e * dpois(x, lambda = lambda) * exp(b0 + b1 * x)
+      mu  <- sum(sapply(0:max.pois, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
+      beta0s <- log(mu)
 
       # variance under null
-      mu  <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, function(x) x ^ 1 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
+      i00 <- sum(sapply(0:max.pois, dstFnc, 0, beta0s, 0),     na.rm = TRUE)
+      i01 <- sum(sapply(0:max.pois, dstFnc, 1, beta0s, 0),     na.rm = TRUE)
+      i11 <- sum(sapply(0:max.pois, dstFnc, 2, beta0s, 0),     na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- sum(sapply(0:max.pois, function(x) x ^ 0 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, function(x) x ^ 1 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, function(x) x ^ 2 * dpois(x, lambda = lambda) * exp(beta0 + beta1 * x)), na.rm = TRUE)
+      i00 <- sum(sapply(0:max.pois, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
+      i01 <- sum(sapply(0:max.pois, dstFnc, 1, beta0,  beta1), na.rm = TRUE)
+      i11 <- sum(sapply(0:max.pois, dstFnc, 2, beta0,  beta1), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
-    }
-
-    if (tolower(distribution$dist) == "uniform") {
+    } else if (tolower(distribution$dist) == "uniform") {
 
       min <- distribution$min
       max <- distribution$max
@@ -155,9 +152,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
-    }
-
-    if (tolower(distribution$dist) == "exponential") {
+    } else if (tolower(distribution$dist) == "exponential") {
 
       rate <- distribution$rate
       max.exp <- qexp(.9999999, rate = rate)
@@ -177,31 +172,29 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
-    }
+    } else if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
 
-    if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
-
-      ifelse(tolower(distribution$dist) == "bernoulli", size <- 1, size <- distribution$size)
+      size <- ifelse(tolower(distribution$dist) == "bernoulli", 1, distribution$size)
       prob <- distribution$prob
 
+      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      dstFnc <- function(x, e, b0, b1) x ^ e * dbinom(x, size = size, prob = prob) * exp(b0 + b1 * x)
+      mu  <- sum(sapply(0:size, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
+      beta0s <- log(mu)
+
       # variance under null
-      mu  <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
-      i01 <- sum(sapply(0:size, function(x) x ^ 1 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
-      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0.star + beta1.star * x)), na.rm = TRUE)
+      i00 <- sum(sapply(0:size, dstFnc, 0, beta0s, 0),     na.rm = TRUE)
+      i01 <- sum(sapply(0:size, dstFnc, 1, beta0s, 0),     na.rm = TRUE)
+      i11 <- sum(sapply(0:size, dstFnc, 2, beta0s, 0),     na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- sum(sapply(0:size, function(x) x ^ 0 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      i01 <- sum(sapply(0:size, function(x) x ^ 1 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x)), na.rm = TRUE)
-      i11 <- sum(sapply(0:size, function(x) x ^ 2 * dbinom(x, size = size, prob = prob) * exp(beta0 + beta1 * x)), na.rm = TRUE)
+      i00 <- sum(sapply(0:size, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
+      i01 <- sum(sapply(0:size, dstFnc, 1, beta0,  beta1), na.rm = TRUE)
+      i11 <- sum(sapply(0:size, dstFnc, 2, beta0,  beta1), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
-    }
-
-    if (tolower(distribution$dist) == "lognormal") {
+    } else if (tolower(distribution$dist) == "lognormal") {
 
       meanlog <- distribution$meanlog
       sdlog <- distribution$sdlog
@@ -209,22 +202,25 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       max.lnorm <- qlnorm(.9999999, meanlog = meanlog, sdlog = sdlog)
 
       # variance under null
-      mu  <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                           exp(beta0 + beta1 * x), min.lnorm, max.lnorm)$value
+      mu  <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
       beta0.star <- log(mu)
       beta1.star <- 0
-      i00 <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                           exp(beta0.star + beta1.star * x), min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                           exp(beta0.star + beta1.star * x), min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                           exp(beta0.star + beta1.star * x), min.lnorm, max.lnorm)$value
+      i00 <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
+      i01 <- integrate(function(x) { x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
+      i11 <- integrate(function(x) { x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x) x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x), min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x), min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) * exp(beta0 + beta1 * x), min.lnorm, max.lnorm)$value
+      i00 <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
+      i01 <- integrate(function(x) { x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
+      i11 <- integrate(function(x) { x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     }
@@ -270,7 +266,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
     pwr.obj <- power.z.test(mean = ncp, sd = sd.ncp, null.mean = 0,
                             alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = FALSE)
+                            plot = FALSE, verbose = 0)
     power <- pwr.obj$power
     z.alpha <- pwr.obj$z.alpha
 
@@ -332,8 +328,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
   } # ss
 
-  verbose <- .ensure_verbose(verbose)
-  if (verbose != 0) {
+  if (verbose > 0) {
 
     print.obj <- list(requested = requested,
                       test = "Poisson Regression Coefficient (Wald's Z-Test)",
@@ -370,10 +365,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
   } # verbose
 
-  invisible(structure(list(parms = list(base.rate = base.rate, rate.ratio = rate.ratio, beta0 = beta0, beta1 = beta1,
-                                        r.squared.predictor = r.squared.predictor, mean.exposure = mean.exposure,
-                                        alpha = alpha, alternative = alternative, method = method,
-                                        distribution =  distribution, ceiling = ceiling, verbose = verbose, pretty = pretty),
+  invisible(structure(list(parms = func.parms,
                            test = "z",
                            base.rate = base.rate,
                            rate.ratio = rate.ratio,
@@ -396,8 +388,9 @@ pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
                             method = c("demidenko(vc)", "demidenko", "signorini"),
                             distribution = "normal", verbose = TRUE) {
 
-  method <- tolower(match.arg(method))
   alternative <- tolower(match.arg(alternative))
+  method <- tolower(match.arg(method))
+  verbose <- .ensure_verbose(verbose)
 
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
