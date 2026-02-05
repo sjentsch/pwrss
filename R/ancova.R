@@ -1,5 +1,9 @@
 # f.squared <- eta.squared / (1 - eta.squared)
 # eta.squared <- f.squared / (1 + f.squared)
+format.test <- function(n.way, cov) {
+  paste0(c("One", "Two", "Three")[n.way], "-way Analysis of ", ifelse(cov > 0, "Cov", "V"), "ariance (F-Test)")
+}
+
 power.f.ancova <- function(eta.squared,
                            null.eta.squared = 0,
                            factor.levels = 2,
@@ -88,44 +92,23 @@ power.f.ancova <- function(eta.squared,
                   f.squared = f.squared, null.f.squared = null.f.squared,
                   alpha = alpha, power = power)
 
-    if (ceiling) {
-
-      n.total <- ceiling(n.total / n.groups) * n.groups
-
-    }
-
-    pwr.obj <- pwr(df1 = df1, n.total = n.total, n.groups = n.groups, k.covariates = k.covariates,
-                   f.squared = f.squared, null.f.squared = null.f.squared, alpha = alpha)
-
-    df2 <- n.total - n.groups - k.covariates
-    power <- ncp <- pwr.obj$power
-    ncp <-  pwr.obj$lambda
-    null.ncp <-  pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
-
-  } else if (requested == "power") {
-
-    pwr.obj <- pwr(df1 = df1, n.total = n.total, n.groups = n.groups, k.covariates = k.covariates,
-                 f.squared = f.squared, null.f.squared = null.f.squared, alpha = alpha)
-    df2 <- n.total - n.groups - k.covariates
-    power <- ncp <- pwr.obj$power
-    ncp <-  pwr.obj$lambda
-    null.ncp <-  pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
+    if (ceiling) n.total <- ceiling(n.total / n.groups) * n.groups
 
   }
 
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr(df1 = df1, n.total = n.total, n.groups = n.groups, k.covariates = k.covariates,
+                 f.squared = f.squared, null.f.squared = null.f.squared, alpha = alpha)
+
+  df2 <- n.total - n.groups - k.covariates
+  power <- ncp <- pwr.obj$power
+  ncp <-  pwr.obj$lambda
+  null.ncp <-  pwr.obj$null.lambda
+  f.alpha <- pwr.obj$f.alpha
+
   if (verbose > 0) {
 
-    test <- paste(switch(n.way,
-                         `1` = "One",
-                         `2` = "Two",
-                         `3` = "Three"),
-                  ifelse(k.covariates > 0,
-                         "-way Analysis of Covariance (F-Test)",
-                         "-way Analysis of Variance (F-Test)"),
-                  sep = "")
-
+    test <- format.test(n.way, k.covariates)
     print.obj <- list(test = test, effect = effect, n.total = n.total, n.way = n.way,
                       requested = requested, factor.levels = factor.levels,
                       power = power, ncp = ncp, null.ncp = null.ncp,
@@ -274,48 +257,35 @@ power.f.ancova.keppel <- function(mu.vector,
     n.total
   }
 
-  if (requested == "power") {
+  if (requested == "n") {
 
-    pwr.obj <- pwr.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
-                          n.vector = n.vector, k.covariates = k.covariates,
-                          r.squared = r.squared, alpha = alpha,
-                          factor.levels = factor.levels)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    ncp <- pwr.obj$lambda
-    f.alpha <- pwr.obj$f.alpha
-    n.total <- sum(n.vector)
-    p.vector <- n.vector / sum(n.vector)
+    if (is.null(p.vector))
+      stop("`p.vector` cannot be NULL when sample size is requested", call. = FALSE)
+    if (round(sum(p.vector), 5) != 1)
+      stop("The elements of the `p.vector` should sum to 1", call. = FALSE)
 
-  } else if (requested == "n") {
-
-    if (is.null(p.vector)) stop("`p.vector` cannot be NULL when sample size is requested", call. = FALSE)
-    if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1", call. = FALSE)
     n.total <- ss.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
                          p.vector = p.vector, k.covariates = k.covariates,
                          r.squared = r.squared, alpha = alpha, power =  power,
                          factor.levels = factor.levels)
     n.vector <- n.total * p.vector
 
-    if (ceiling) {
+    if (ceiling) n.vector <- ceiling(n.vector)
 
-      n.vector <- ceiling(n.vector)
-
-    }
-
-    pwr.obj <- pwr.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
-                          n.vector = n.vector, k.covariates = k.covariates,
-                          r.squared = r.squared, alpha = alpha,
-                          factor.levels = factor.levels)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    ncp <- pwr.obj$lambda
-    f.alpha <- pwr.obj$f.alpha
-    n.total <- sum(n.vector)
-    p.vector <- n.vector / sum(n.vector)
   }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
+                        n.vector = n.vector, k.covariates = k.covariates,
+                        r.squared = r.squared, alpha = alpha,
+                        factor.levels = factor.levels)
+
+  power <- pwr.obj$power
+  df1 <- pwr.obj$df1
+  df2 <- pwr.obj$df2
+  ncp <- pwr.obj$lambda
+  f.alpha <- pwr.obj$f.alpha
+  n.total <- sum(n.vector)
 
   ncp.obj <- ncp.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
                         n.vector = n.vector, k.covariates = k.covariates,
@@ -649,48 +619,32 @@ power.f.ancova.shieh <- function(mu.vector,
   }
 
 
-  if (requested == "power") {
-
-    pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
-                         n.vector = n.vector, k.covariates = k.covariates,
-                         r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
-                         calculate.lambda = TRUE)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    ncp <- pwr.obj$lambda
-    f.alpha <- pwr.obj$f.alpha
-    n.total <- sum(n.vector)
-    p.vector <- n.vector / sum(n.vector)
-
-  } else if (requested == "n") {
+  if (requested == "n") {
 
     if (is.null(p.vector)) stop("`p.vector` cannot be NULL when sample size is requested.", call. = FALSE)
     if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1.", call. = FALSE)
+
     n.total <- ss.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                         p.vector = p.vector, k.covariates =  k.covariates,
                         r.squared = r.squared, alpha = alpha,
                         power = power, contrast.matrix =  contrast.matrix)
     n.vector <- n.total * p.vector
 
-    if (ceiling) {
-
-      n.vector <- ceiling(n.vector)
-      n.total <- sum(n.vector)
-
-    }
-
-    pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
-                         n.vector = n.vector, k.covariates = k.covariates,
-                         r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
-                         calculate.lambda = TRUE)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    ncp <- pwr.obj$lambda
-    f.alpha <- pwr.obj$f.alpha
+    if (ceiling) n.vector <- ceiling(n.vector)
 
   }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
+                       n.vector = n.vector, k.covariates = k.covariates,
+                       r.squared =  r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
+                       calculate.lambda = TRUE)
+  power <- pwr.obj$power
+  df1 <- pwr.obj$df1
+  df2 <- pwr.obj$df2
+  ncp <- pwr.obj$lambda
+  f.alpha <- pwr.obj$f.alpha
+  n.total <- sum(n.vector)
 
   f.squared <- ncp / n.total
   eta.squared <- f.squared / (1 + f.squared)
@@ -704,7 +658,6 @@ power.f.ancova.shieh <- function(mu.vector,
   f.alpha.upper <- qf(1 - alpha, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
   if (var.ratio <= f.alpha.lower || var.ratio >= f.alpha.upper)
     warning("Interpretation of results may no longer be valid when variances differ beyond sampling error.", call. = FALSE)
-
 
   n.way <- length(factor.levels)
 
@@ -720,15 +673,7 @@ power.f.ancova.shieh <- function(mu.vector,
 
   if (verbose > 0) {
 
-    test <- paste(switch(n.way,
-                         `1` = "One",
-                         `2` = "Two",
-                         `3` = "Three"),
-                  ifelse(k.covariates > 0,
-                         "-way Analysis of Covariance (F-Test)",
-                         "-way Analysis of Variance (F-Test)"),
-                  sep = "")
-
+    test <- format.test(n.way, k.covariates)
     print.obj <- list(test = test, effect = effect, n.total = n.total,
                       requested = requested, factor.levels = factor.levels,
                       power = power, ncp = ncp, null.ncp = 0,
@@ -904,48 +849,32 @@ power.t.contrast <- function(mu.vector,
   } # ss.contrast
 
 
-  if (requested == "power") {
-
-    pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector, n.vector = n.vector,
-                            k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
-                            contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
-    power <- pwr.obj$power
-    df <- pwr.obj$df
-    ncp <- pwr.obj$lambda
-    t.alpha <- pwr.obj$t.alpha
-    psi <- pwr.obj$psi
-    d <- pwr.obj$d
-    n.total <- sum(n.vector)
-    p.vector <- n.vector / sum(n.vector)
-
-  } else if (requested == "n") {
+  if (requested == "n") {
 
     if (is.null(p.vector)) stop("The `p.vector` cannot be NULL when the sample size is requested.", call. = FALSE)
     if (round(sum(p.vector), 5) != 1) stop("The elements of the `p.vector` should sum to 1.", call. = FALSE)
+
     n.total <- ss.contrast(mu.vector = mu.vector, sd.vector = sd.vector, p.vector = p.vector, power = power,
                            k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
                            contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer)
     n.vector <- n.total * p.vector
 
-    if (ceiling) {
-
-      n.vector <- ceiling(n.vector)
-      n.total <- sum(n.vector)
-
-    }
-
-    pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
-                            n.vector = n.vector, k.covariates = k.covariates,
-                            r.squared = r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
-                            tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
-    power <- pwr.obj$power
-    df <- pwr.obj$df
-    ncp <- pwr.obj$lambda
-    t.alpha <- pwr.obj$t.alpha
-    psi <- pwr.obj$psi
-    d <- pwr.obj$d
+    if (ceiling) n.vector <- ceiling(n.vector)
 
   }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector, n.vector = n.vector,
+                          k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
+                          contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
+
+  power <- pwr.obj$power
+  df <- pwr.obj$df
+  ncp <- pwr.obj$lambda
+  t.alpha <- pwr.obj$t.alpha
+  psi <- pwr.obj$psi
+  d <- pwr.obj$d
+  n.total <- sum(n.vector)
 
   # u <- 1 # nrow(contrast.matrix)
   # v <- n.total - length(mu.vector) - k.covariates

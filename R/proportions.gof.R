@@ -7,20 +7,18 @@ power.chisq.gof <- function(w, null.w = 0, df,
                             ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
   check.positive(w, df)
-  check.proportion(alpha)
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
+  check.nonnegative(null.w)
   if (!is.null(n)) check.sample.size(n)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
   if (w < null.w)
     stop("`w` should be greater than or equal to `null.w`.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   pwr.chisq <- function(w, null.w, df, n, alpha) {
 
@@ -58,34 +56,21 @@ power.chisq.gof <- function(w, null.w = 0, df,
   } # ss.chisq
 
 
-  if (is.null(power)) {
+  if (requested == "n") {
 
-    pwr.obj <- pwr.chisq(w = w, null.w = null.w,
-                       df = df, n = n, alpha = alpha)
+    n <- ss.chisq(w = w, null.w = null.w, df = df, power = power, alpha = alpha)
 
-    power <- pwr.obj$power
-    ncp.alternative <- pwr.obj$lambda
-    ncp.null <- pwr.obj$null.lambda
-    chisq.alpha <- pwr.obj$chisq.alpha
-
-  } else if (is.null(n)) {
-
-    n <- ss.chisq(w = w, null.w = null.w,
-                  df = df, power = power, alpha = alpha)
-
-    if (ceiling) {
-      n <- ceiling(n)
-    }
-
-    pwr.obj <- pwr.chisq(w = w, null.w = null.w,
-                         df = df, n = n, alpha = alpha)
-
-    power <- pwr.obj$power
-    ncp.alternative <- pwr.obj$lambda
-    ncp.null <- pwr.obj$null.lambda
-    chisq.alpha <- pwr.obj$chisq.alpha
+    if (ceiling) n <- ceiling(n)
 
   }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.chisq(w = w, null.w = null.w, df = df, n = n, alpha = alpha)
+
+  power <- pwr.obj$power
+  ncp.alternative <- pwr.obj$lambda
+  ncp.null <- pwr.obj$null.lambda
+  chisq.alpha <- pwr.obj$chisq.alpha
 
   test <- "Chi-Square Test for Goodness-of-Fit or Independence"
 

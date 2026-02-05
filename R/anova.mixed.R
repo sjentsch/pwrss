@@ -9,14 +9,16 @@ power.f.mixed.anova <- function(eta.squared,
                                 effect = c("between", "within", "interaction"),
                                 ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
+  effect <- tolower(match.arg(effect))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.proportion(alpha)
-  check.logical(ceiling)
   check.nonnegative(eta.squared, null.eta.squared)
-  if (!is.null(power)) check.proportion(power)
   if (!is.null(n.total)) check.sample.size(n.total)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n.total, power)
 
   for (i in 1:2) {
     factor.type.check <- factor.type[i]
@@ -25,8 +27,6 @@ power.f.mixed.anova <- function(eta.squared,
                  "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
                  "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
   }
-
-  effect <- tolower(match.arg(effect))
 
   if (length(factor.levels) != 2 || length(factor.type) != 2)
     stop("Excatly two factors are allowed in this procedure.", call. = FALSE)
@@ -37,9 +37,6 @@ power.f.mixed.anova <- function(eta.squared,
   n.levels.within <- factor.levels[which(tolower(factor.type) == "within")]
   if (n.levels.within > 1 && epsilon <  1 / (n.levels.within - 1))
     stop("Incorrect value for the non-sphericity correction factor (epsilon).", call. = FALSE)
-
-  if (is.null(n.total) && is.null(power)) stop("`n.total` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n.total) && !is.null(power)) stop("Exactly one of the `n.total` or `power` should be NULL.", call. = FALSE)
 
   f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
@@ -59,10 +56,6 @@ power.f.mixed.anova <- function(eta.squared,
     warning("Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.", call. = FALSE)
 
   }
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n.total")
 
   ss.mixed <- function(f.squared, null.f.squared, n.levels.between, n.levels.within, epsilon, alpha, power, effect) {
 
@@ -128,46 +121,27 @@ power.f.mixed.anova <- function(eta.squared,
 
   } # pwr.mixed()
 
-
-  if (is.null(n.total)) {
+  if (requested == "n") {
 
     n.total <- ss.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
-                        n.levels.between = n.levels.between,
-                        n.levels.within = n.levels.within,
-                        epsilon = epsilon, alpha = alpha,
-                        power = power, effect = effect)
+                        n.levels.between = n.levels.between, n.levels.within = n.levels.within,
+                        epsilon = epsilon, alpha = alpha, power = power, effect = effect)
 
     if (ceiling) n.total <- ceiling(n.total / n.levels.between) * n.levels.between
 
-    pwr.obj <- pwr.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
-                         n.total = n.total, n.levels.between = n.levels.between,
-                         n.levels.within = n.levels.within,
-                         epsilon = epsilon, alpha = alpha, effect = effect)
+  }
 
-    power <- ncp <- pwr.obj$power
-    df1 <-  pwr.obj$df1
-    df2 <-  pwr.obj$df2
-    ncp <-  pwr.obj$lambda
-    null.ncp <-  pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
+                       n.total = n.total, n.levels.between = n.levels.between, n.levels.within = n.levels.within,
+                       epsilon = epsilon, alpha = alpha, effect = effect)
 
-  } # n.total is null
-
-  if (is.null(power)) {
-
-    pwr.obj <- pwr.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
-                         n.total = n.total, n.levels.between = n.levels.between,
-                         n.levels.within = n.levels.within,
-                         epsilon = epsilon, alpha = alpha, effect = effect)
-
-    power <- ncp <- pwr.obj$power
-    df1 <-  pwr.obj$df1
-    df2 <-  pwr.obj$df2
-    ncp <-  pwr.obj$lambda
-    null.ncp <-  pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
-
-  } # power is null
+  power <- ncp <- pwr.obj$power
+  df1 <-  pwr.obj$df1
+  df2 <-  pwr.obj$df2
+  ncp <-  pwr.obj$lambda
+  null.ncp <-  pwr.obj$null.lambda
+  f.alpha <- pwr.obj$f.alpha
 
   if (effect == "between")     effect_bw <- paste0(c("B", "W"), "(", c(n.levels.between, n.levels.within), ")", collapse = "|")
   if (effect == "within")      effect_bw <- paste0(c("W", "B"), "(", c(n.levels.within, n.levels.between), ")", collapse = "|")

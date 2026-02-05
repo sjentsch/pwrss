@@ -7,16 +7,14 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.proportion(prob10, prob01, alpha)
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
+  check.proportion(prob10, prob01)
   if (!is.null(n.paired)) check.sample.size(n.paired)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n.paired, power)
 
   pwr.exact <- function(prob10, prob01, n.paired, alpha, alternative) {
 
@@ -112,27 +110,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   # method
   if (method == "exact") {
 
-    if (is.null(power)) {
-
-      power <- pwr.exact(prob10 = prob10, prob01 = prob01,
-                         n.paired = n.paired, alpha = alpha,
-                         alternative = alternative)
-
-      n.discordant <- sum(n.paired * c(prob10, prob01))
-
-      if (ceiling) {
-        n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
-      }
-
-      mean.alternative <- NA
-      sd.alternative <- NA
-      mean.null <- NA
-      sd.null <- NA
-      z.alpha <- NA
-
-    }
-
-    if (is.null(n.paired)) {
+    if (requested == "n") {
 
       n.paired <- ss.exact(prob10 = prob10, prob01 = prob01,
                            power = power, alpha = alpha,
@@ -144,42 +122,24 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
         n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
       }
 
-      power <- pwr.exact(prob10 = prob10, prob01 = prob01,
-                         n.paired = n.paired, alpha = alpha,
-                         alternative = alternative)
+    } else if (requested == "power") {
 
-      mean.alternative <- NA
-      sd.alternative <- NA
-      mean.null <- NA
-      sd.null <- NA
-      z.alpha <- NA
+      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
     }
 
-  }  else if (method == "approximate") {
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    power <- pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired, alpha = alpha, alternative = alternative)
 
-    if (is.null(power)) {
+    mean.alternative <- NA
+    sd.alternative <- NA
+    mean.null <- NA
+    sd.null <- NA
+    z.alpha <- NA
 
-      pwr.obj <- pwr.approx(prob10 = prob10, prob01 = prob01,
-                            n.paired = n.paired, alpha = alpha,
-                            alternative = alternative)
+  } else if (method == "approximate") {
 
-      power <- pwr.obj$power
-      mean.alternative <- pwr.obj$mean.alternative
-      sd.alternative <- pwr.obj$sd.alternative
-      mean.null <- pwr.obj$mean.null
-      sd.null <- pwr.obj$sd.null
-      z.alpha <- pwr.obj$z.alpha
-
-      n.discordant <- sum(n.paired * c(prob10, prob01))
-
-      if (ceiling) {
-        n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
-      }
-
-    }
-
-    if (is.null(n.paired)) {
+    if (requested == "n") {
 
       n.paired <- ss.approx(prob10 = prob10, prob01 = prob01,
                             power = power, alpha = alpha,
@@ -191,18 +151,21 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
         n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
       }
 
-      pwr.obj <- pwr.approx(prob10 = prob10, prob01 = prob01,
-                            n.paired = n.paired, alpha = alpha,
-                            alternative = alternative)
+    } else if (requested == "power") {
 
-      power <- pwr.obj$power
-      mean.alternative <- pwr.obj$mean.alternative
-      sd.alternative <- pwr.obj$sd.alternative
-      mean.null <- pwr.obj$mean.null
-      sd.null <- pwr.obj$sd.null
-      z.alpha <- pwr.obj$z.alpha
+      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
     }
+
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    pwr.obj <- pwr.approx(prob10 = prob10, prob01 = prob01, n.paired = n.paired, alpha = alpha, alternative = alternative)
+
+    power <- pwr.obj$power
+    mean.alternative <- pwr.obj$mean.alternative
+    sd.alternative <- pwr.obj$sd.alternative
+    mean.null <- pwr.obj$mean.null
+    sd.null <- pwr.obj$sd.null
+    z.alpha <- pwr.obj$z.alpha
 
   }  # method
 

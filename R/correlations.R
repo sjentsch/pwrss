@@ -11,23 +11,15 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.proportion(alpha)
-  check.logical(pooled, common.index, ceiling)
-  if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(pooled, common.index, ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
-
-  pwr.steiger <- function(rho1, rho2,
-                          cov.null, cov.alt,
-                          n, alpha, alternative) {
+  pwr.steiger <- function(rho1, rho2, cov.null, cov.alt, n, alpha, alternative) {
 
     z1 <- cor.to.z(rho1, FALSE)$z
     z2 <- cor.to.z(rho2, FALSE)$z
@@ -193,50 +185,27 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
   } # if common.index
 
-  if (is.null(power)) {
-
-    pwr.obj <- pwr.steiger(rho1 = rho1, rho2 = rho2,
-                           cov.null = cov.null, cov.alt = cov.alt,
-                           n = n, alpha = alpha,
-                           alternative = alternative)
-
-    power <- pwr.obj$power
-    mean.alternative <- pwr.obj$mean
-    sd.alternative <- pwr.obj$sd
-    mean.null <- pwr.obj$null.mean
-    sd.null <- pwr.obj$null.sd
-    z.alpha <- pwr.obj$z.alpha
-
-    if (alternative == "two.sided" && rho1 - rho2 < 0) mean.alternative <- -mean.alternative
-
-  } # power
-
-  if (is.null(n)) {
+  if (requested == "n") {
 
     n <- ss.steiger(rho1 = rho1, rho2 = rho2,
                           cov.null = cov.null, cov.alt = cov.alt,
                           power = power, alpha = alpha,
                           alternative = alternative)
 
-    if (ceiling) {
-      n <- ceiling(n)
-    }
+    if (ceiling) n <- ceiling(n)
+    
+  }
 
-    pwr.obj <- pwr.steiger(rho1 = rho1, rho2 = rho2,
-                           cov.null = cov.null, cov.alt = cov.alt,
-                           n = n, alpha = alpha,
-                           alternative = alternative)
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.steiger(rho1 = rho1, rho2 = rho2, cov.null = cov.null, cov.alt = cov.alt,
+                         n = n, alpha = alpha, alternative = alternative)
 
-    power <- pwr.obj$power
-    mean.alternative <- pwr.obj$mean
-    sd.alternative <- pwr.obj$sd
-    mean.null <- pwr.obj$null.mean
-    sd.null <- pwr.obj$null.sd
-    z.alpha <- pwr.obj$z.alpha
-
-    if (alternative == "two.sided" && rho1 - rho2 < 0) mean.alternative <- -mean.alternative
-
-  } # ss
+  power <- pwr.obj$power
+  mean.alternative <- ifelse(alternative == "two.sided" && rho1 - rho2 < 0, -pwr.obj$mean, pwr.obj$mean)
+  sd.alternative <- pwr.obj$sd
+  mean.null <- pwr.obj$null.mean
+  sd.null <- pwr.obj$null.sd
+  z.alpha <- pwr.obj$z.alpha
 
   delta <- rho1 - rho2
   q <- cors.to.q(rho1, rho2, FALSE)$q
@@ -294,92 +263,46 @@ power.z.twocors <- function(rho1, rho2,
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.positive(n.ratio)
-  check.proportion(alpha)
   check.correlation(rho1, rho2)
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
+  check.positive(n.ratio)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n2, power)
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
+  z1 <- cor.to.z(rho1, FALSE)$z
+  z2 <- cor.to.z(rho2, FALSE)$z
 
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  if (requested == "n") {
 
-  if (alternative == "two.sided") {
-
-    if (is.null(n2)) {
-      beta <- 1 - power
-      z1 <- cor.to.z(rho1, FALSE)$z
-      z2 <- cor.to.z(rho2, FALSE)$z
+    beta <- 1 - power
+    if (alternative == "two.sided") {
       M <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) + qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
       n2 <- uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(-1e10, 1e10))$root
-      n1 <- n.ratio * n2
-
-      if (ceiling) {
-        n2 <- ceiling(n2)
-        n1 <- ceiling(n1)
-        lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
-        z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE)
-        power <- 1 - pnorm(z.alpha, mean = abs(lambda), sd = 1) + pnorm(-z.alpha, mean = abs(lambda), sd = 1)
-        z.alpha <- c(-z.alpha, z.alpha)
-      }
-    }
-
-    if (is.null(power)) {
-      z1 <- cor.to.z(rho1, FALSE)$z
-      z2 <- cor.to.z(rho2, FALSE)$z
-      n1 <- n.ratio * n2
-      if (ceiling) {
-        n2 <- ceiling(n2)
-        n1 <- ceiling(n1)
-      }
-      lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
-      z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE)
-      power <- 1 - pnorm(z.alpha, mean = abs(lambda), sd = 1) + pnorm(-z.alpha, mean = abs(lambda), sd = 1)
-      z.alpha <- c(-z.alpha, z.alpha)
+    
+    } else if (alternative == "one.sided") {
+      M <- qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
+      n2 <- uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
     }
 
   }
 
-  if (alternative == "one.sided") {
+  n1 <- n.ratio * n2
+  if (ceiling) {
+    n2 <- ceiling(n2)
+    n1 <- ceiling(n1)
+  }
 
-    if (is.null(n2)) {
-      beta <- 1 - power
-      z1 <- cor.to.z(rho1, FALSE)$z
-      z2 <- cor.to.z(rho2, FALSE)$z
-      M <- qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
-      n2 <- uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
-      n1 <- n.ratio * n2
-
-      if (ceiling) {
-        n2 <- ceiling(n2)
-        n1 <- ceiling(n1)
-        lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
-        z.alpha <- qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE)
-        power <- 1 - pnorm(z.alpha, mean = abs(lambda), sd = 1)
-        if (lambda < 0) z.alpha <- -z.alpha
-      }
-    }
-
-    if (is.null(power)) {
-      z1 <- cor.to.z(rho1, FALSE)$z
-      z2 <- cor.to.z(rho2, FALSE)$z
-      n1 <- n.ratio * n2
-      if (ceiling) {
-        n2 <- ceiling(n2)
-        n1 <- ceiling(n1)
-      }
-      lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
-      z.alpha <- qnorm(alpha,  mean = 0, sd = 1, lower.tail = FALSE)
-      power <- 1 - pnorm(z.alpha, mean = abs(lambda), sd = 1)
-      if (lambda < 0) z.alpha <- -z.alpha
-    }
-
+  lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
+  if (alternative == "two.sided") {
+    z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * c(-1, 1)
+    power <- 1 - pnorm(z.alpha[2], mean = abs(lambda), sd = 1) + pnorm(z.alpha[1], mean = abs(lambda), sd = 1)
+  } else if (alternative == "one.sided") {
+    z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * ifelse(lambda < 0, -1, 1)
+    power <- 1 - pnorm(abs(z.alpha), mean = abs(lambda), sd = 1)
   }
 
   delta <- rho1 - rho2
@@ -445,69 +368,39 @@ power.z.onecor <- function(rho, null.rho = 0,
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.proportion(alpha)
   check.correlation(rho, null.rho)
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
-
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
   z <- cor.to.z(rho, FALSE)$z
   null.z <- cor.to.z(null.rho, FALSE)$z
 
-  if (alternative == "two.sided") {
+  if (requested == "n") {
 
-    if (is.null(n)) {
-      beta <- 1 - power
+    beta <- 1 - power
+    if (alternative == "two.sided") {
       M <- qnorm(alpha / 2, lower.tail = FALSE) + qnorm(beta, lower.tail = FALSE)
       n <- M ^ 2 / (z - null.z) ^ 2 + 3
-      if (ceiling) {
-        n <- ceiling(n)
-        lambda <- (z - null.z) / sqrt(1 / (n - 3))
-        z.alpha <- qnorm(alpha / 2, lower.tail = FALSE)
-        power <- 1 - pnorm(z.alpha, lambda) + pnorm(-z.alpha, lambda)
-        z.alpha <- c(-z.alpha, z.alpha)
-      }
-
-    }
-
-    if (is.null(power)) {
-      lambda <- (z - null.z) / sqrt(1 / (n - 3))
-      z.alpha <- qnorm(alpha / 2, lower.tail = FALSE)
-      power <- 1 - pnorm(z.alpha, lambda) + pnorm(-z.alpha, lambda)
-      z.alpha <- c(-z.alpha, z.alpha)
-    }
-
-  }
-
-  if (alternative == "one.sided") {
-
-    if (is.null(n)) {
-      beta <- 1 - power
+    } else if (alternative == "one.sided") {
       M <- qnorm(alpha, lower.tail = FALSE) + qnorm(beta, lower.tail = FALSE)
       n <- M ^ 2 / (z - null.z) ^ 2 + 3
-      if (ceiling) {
-        n <- ceiling(n)
-        lambda <- (z - null.z) / sqrt(1 / (n - 3))
-        z.alpha <- qnorm(alpha, lower.tail = FALSE)
-        power <- 1 - pnorm(z.alpha, abs(lambda))
-      }
     }
 
-    if (is.null(power)) {
-      lambda <- (z - null.z) / sqrt(1 / (n - 3))
-      z.alpha <- qnorm(alpha, lower.tail = FALSE)
-      power <- 1 - pnorm(z.alpha, abs(lambda))
-    }
+    if (ceiling) n <- ceiling(n)
+  }
 
+  lambda <- (z - null.z) / sqrt(1 / (n - 3))
+  if (alternative == "two.sided") {
+    z.alpha <- qnorm(alpha / 2, lower.tail = FALSE) * c(-1, 1)
+    power <- 1 - pnorm(z.alpha[2], lambda) + pnorm(z.alpha[1], lambda)
+  } else if (alternative == "one.sided") {
+    z.alpha <- qnorm(alpha, lower.tail = FALSE)
+    power <- 1 - pnorm(z.alpha, abs(lambda))
   }
 
   delta <- rho - null.rho

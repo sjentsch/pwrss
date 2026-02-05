@@ -25,13 +25,15 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
   user.parms.names <- names(as.list(match.call()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.positive(mean.exposure)
-  check.proportion(alpha, r.squared.predictor)
-  check.logical(ceiling)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
+  check.proportion(r.squared.predictor)
+  check.positive(mean.exposure)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
   if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
     check.nonnegative(base.rate, rate.ratio)
@@ -50,12 +52,6 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   }
 
   if (beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   if (length(distribution) == 1 && is.character(distribution)) {
     distribution <- switch(tolower(distribution),
@@ -291,42 +287,26 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   } # ss.demidenko()
 
 
-
-  if (is.null(power)) {
-    pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                             r.squared.predictor = r.squared.predictor,
-                             alpha = alpha, alternative = alternative,
-                             method = method, distribution = distribution)
-    power <- pwr.obj$power
-    z.alpha <- pwr.obj$z.alpha
-    ncp <- pwr.obj$ncp
-    sd.ncp <- pwr.obj$sd.ncp
-    vcf <- pwr.obj$vcf
-
-  } # pwr
-
-  if (is.null(n)) {
+  if (requested == "n") {
 
     n <- ss.demidenko(beta0 = beta0, beta1 = beta1, power = power,
                       r.squared.predictor = r.squared.predictor,
                       alpha = alpha, alternative = alternative,
                       method = method, distribution = distribution)
 
-    if (ceiling) {
-      n <- ceiling(n)
-    }
+    if (ceiling) n <- ceiling(n)
 
-    pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                             r.squared.predictor = r.squared.predictor,
-                             alpha = alpha, alternative = alternative,
-                             method = method, distribution = distribution)
-    power <- pwr.obj$power
-    z.alpha <- pwr.obj$z.alpha
-    ncp <- pwr.obj$ncp
-    sd.ncp <- pwr.obj$sd.ncp
-    vcf <- pwr.obj$vcf
+  }
 
-  } # ss
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n, r.squared.predictor = r.squared.predictor,
+                           alpha = alpha, alternative = alternative, method = method, distribution = distribution)
+
+  power <- pwr.obj$power
+  z.alpha <- pwr.obj$z.alpha
+  ncp <- pwr.obj$ncp
+  sd.ncp <- pwr.obj$sd.ncp
+  vcf <- pwr.obj$vcf
 
   if (verbose > 0) {
 

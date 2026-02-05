@@ -11,17 +11,16 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   design <- tolower(match.arg(design))
   claim.basis <- tolower(match.arg(claim.basis))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
   check.numeric(d, null.d)
-  check.logical(ceiling)
-  check.proportion(alpha)
+  check.vector(margin, check.numeric, 1)
+  if (!is.null(n2)) check.sample.size(n2)
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
-  if (!is.null(n2)) check.sample.size(n2)
-
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n2, power)
 
   if (alternative == "two.one.sided") {
     if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
@@ -31,10 +30,6 @@ power.t.student <- function(d, null.d = 0, margin = 0,
     # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
     #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
   }
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   pwr.student <- function(d, null.d, margin, n2, n.ratio,
                           alpha, alternative,
@@ -99,45 +94,31 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
   } # ss.student()
 
-  if (is.null(power)) {
-    pwr.obj <- pwr.student(d = d, null.d = null.d, margin = margin,
-                           n2 = n2, n.ratio = n.ratio,
-                           alpha = alpha, alternative = alternative,
-                           design = design, claim.basis = claim.basis)
-    n1 <- n.ratio * n2
-    power <- pwr.obj$power
-    ncp <- pwr.obj$ncp
-    null.ncp <- pwr.obj$null.ncp
-    t.alpha <- pwr.obj$t.alpha
-    df <- pwr.obj$df
+  if (requested == "n") {
 
-  } # power is null
-
-  if (is.null(n2)) {
     n2 <- ss.student(d = d, null.d = null.d, margin = margin,
                      power = power, n.ratio = n.ratio,
                      alpha = alpha, alternative = alternative,
                      design = design, claim.basis = claim.basis)
-    n1 <- n.ratio * n2
 
-    if (ceiling) {
-      n1 <- ceiling(n1)
-      n2 <- ceiling(n2)
-    }
+  }
 
-    pwr.obj <- pwr.student(d = d, null.d = null.d, margin = margin,
-                           n2 = n2, n.ratio = n.ratio,
-                           alpha = alpha, alternative = alternative,
-                           design = design, claim.basis = claim.basis)
-    power <- pwr.obj$power
-    t.alpha <- pwr.obj$t.alpha
-    ncp <- pwr.obj$ncp
-    null.ncp <- pwr.obj$null.ncp
-    df <- pwr.obj$df
+  n1 <- n.ratio * n2
+  if (ceiling) {
+    n1 <- ceiling(n1)
+    n2 <- ceiling(n2)
+  }
+  ifelse(design == "independent", n <- c(n1 = n1, n2 = n2), n <- n2)
 
-  } # n2 is null
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                         alternative = alternative, design = design, claim.basis = claim.basis)
 
-  ifelse(design %in% c("paired", "one.sample"), n <- n2, n <- c(n1 = n1, n2 = n2))
+  power <- pwr.obj$power
+  t.alpha <- pwr.obj$t.alpha
+  ncp <- pwr.obj$ncp
+  null.ncp <- pwr.obj$null.ncp
+  df <- pwr.obj$df
 
   if (verbose > 0) {
 
@@ -189,7 +170,25 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   alternative <- tolower(match.arg(alternative))
   claim.basis <- tolower(match.arg(claim.basis))
   func.parms <- clean.parms(as.list(environment()))
+
+  check.numeric(d, null.d, var.ratio)
+  check.vector(margin, check.numeric, 1)
+  check.positive(n.ratio)
+  if (!is.null(n2)) check.sample.size(n2)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
   verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n2, power)
+
+  if (alternative == "two.one.sided") {
+    if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
+    if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
+  } else {
+    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `null.d`", call. = FALSE)
+    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
+    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
+  }
 
   # variance ratio constraint
   vrc <- function(var.ratio, n2, n.ratio) {
@@ -202,29 +201,6 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
     (sd1 ^ 2 / n1 + sd2 ^ 2 / n2) ^ 2 /
       (sd1^4 / (n1 ^ 2 * (n1 - 1)) + sd2^4 / (n2 ^ 2 * (n2 - 1)))
   } # welch.df()
-
-  check.numeric(d, null.d)
-  check.logical(ceiling)
-  check.proportion(alpha)
-  check.positive(n.ratio)
-  if (!is.null(power)) check.proportion(power)
-  if (!is.null(n2)) check.sample.size(n2)
-
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL", call. = FALSE)
-
-  if (alternative == "two.one.sided") {
-    if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
-    if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
-  } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `null.d`", call. = FALSE)
-    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
-    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
-  }
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   pwr.welch <- function(d, null.d, margin, var.ratio,
                         n2, n.ratio, alpha, alternative,
@@ -290,48 +266,30 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   } # ss.student()
 
 
-  if (is.null(power)) {
-    pwr.obj <- pwr.welch(d = d, null.d = null.d, margin = margin,
-                         var.ratio = var.ratio,
-                         n2 = n2, n.ratio = n.ratio,
-                         alpha = alpha, alternative = alternative,
-                         claim.basis = claim.basis)
-    n1 <- n.ratio * n2
-    power <- pwr.obj$power
-    ncp <- pwr.obj$ncp
-    null.ncp <- pwr.obj$null.ncp
-    t.alpha <- pwr.obj$t.alpha
-    se.d <- pwr.obj$se.d
-    df <- pwr.obj$df
-  } # power is null
+  if (requested == "n") {
 
-  if (is.null(n2)) {
-    n2 <- ss.welch(d = d, null.d = null.d, margin = margin,
-                   var.ratio = var.ratio,
-                   power = power, n.ratio = n.ratio,
-                   alpha = alpha, alternative = alternative,
-                   claim.basis = claim.basis)
-    n1 <- n.ratio * n2
+    n2 <- ss.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n.ratio = n.ratio,
+                   power = power, alpha = alpha, alternative = alternative, claim.basis = claim.basis)
 
-    if (ceiling) {
-      n1 <- ceiling(n1)
-      n2 <- ceiling(n2)
-    }
+  }
 
-    pwr.obj <- pwr.welch(d = d, null.d = null.d, margin = margin,
-                         var.ratio = var.ratio,
-                         n2 = n2, n.ratio = n.ratio,
-                         alpha = alpha, alternative = alternative,
-                         claim.basis = claim.basis)
-    power <- pwr.obj$power
-    t.alpha <- pwr.obj$t.alpha
-    ncp <- pwr.obj$ncp
-    null.ncp <- pwr.obj$null.ncp
-    se.d <- pwr.obj$se.d
-    df <- pwr.obj$df
-  } # n2 is null
-
+  n1 <- n.ratio * n2
+  if (ceiling) {
+    n1 <- ceiling(n1)
+    n2 <- ceiling(n2)
+  }
   n <- c(n1 = n1, n2 = n2)
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                       alpha = alpha, alternative = alternative, claim.basis = claim.basis)
+
+  power <- pwr.obj$power
+  t.alpha <- pwr.obj$t.alpha
+  ncp <- pwr.obj$ncp
+  null.ncp <- pwr.obj$null.ncp
+  se.d <- pwr.obj$se.d
+  df <- pwr.obj$df
 
   if (verbose > 0) {
 

@@ -7,8 +7,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                               n2 = NULL, n.ratio = 1, power = NULL, alpha = 0.05,
                               alternative = c("two.sided", "one.sided", "two.one.sided"),
                               design = c("independent", "paired", "one.sample"),
-                              distribution = c("normal", "uniform", "double.exponential",
-                                               "laplace", "logistic"),
+                              distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
                               method = c("guenther", "noether"),
                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
@@ -17,17 +16,16 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   method <- tolower(match.arg(method))
   design <- tolower(match.arg(design))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.logical(ceiling)
-  check.proportion(alpha)
-  check.positive(n.ratio)
   check.numeric(d, null.d)
-  if (!is.null(power)) check.proportion(power)
-  if (!is.null(n2)) check.sample.size(n2)
 
-  if (is.null(n2) && is.null(power)) stop("`n2` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n2) && !is.null(power)) stop("Exactly one of the `n2` or `power` should be NULL.", call. = FALSE)
+  if (!is.null(n2)) check.sample.size(n2)
+  check.positive(n.ratio)
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n2, power)
 
   if (alternative == "two.one.sided") {
     if (isFALSE(all(is.numeric(margin))) || any(margin < -10) || any(margin > 10))
@@ -41,21 +39,12 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
       stop("Possibly incorrect value for `margin`.", call. = FALSE)
   }
 
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  independent <- (design == "independent")
 
-  ifelse(design == "independent",
-         paired <- FALSE,
-         paired <- TRUE)
-
-  if (method == "noether" && isTRUE(paired))
+  if (method == "noether" && isFALSE(independent))
     stop("Specify `method` = 'guenther' to request Wilcoxon signed-rank test for matched pairs.", call. = FALSE)
 
-  pwr.wilcox <- function(d, null.d, margin,
-                         n2, n.ratio, alpha,
-                         paired, alternative,
-                         method) {
+  pwr.wilcox <- function(d, null.d, margin, n2, n.ratio, alpha, independent, alternative, method) {
 
     n1 <- n2 * n.ratio
 
@@ -96,14 +85,14 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
     } else if (method == "guenther") {
 
-      if (paired) {
-        df <- n2 - 1
-        lambda <- (d - null.d) / sqrt(1 / n2)
-        null.lambda <- (margin) / sqrt(1 / n2)
-      } else {
+      if (independent) {
         df <- n1 + n2 - 2
         lambda <- (d - null.d) / sqrt(1 / n1 + 1 / n2)
         null.lambda <- (margin) / sqrt(1 / n1 + 1 / n2)
+      } else {
+        df <- n2 - 1
+        lambda <- (d - null.d) / sqrt(1 / n2)
+        null.lambda <- (margin) / sqrt(1 / n2)
       }
 
       pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
@@ -131,7 +120,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   # ifelse(method == "noether", w.adj <- 1, w.adj <- w)
 
   # get power or sample size
-  if (is.null(power)) {
+  if (requested == "power") {
 
     # apply wilcoxon adjustment
     n1 <- n2 * n.ratio
@@ -140,7 +129,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
     pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
                           n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                          paired = paired, alternative = alternative,
+                          independent = independent, alternative = alternative,
                           method = method)
 
     if (method == "guenther") {
@@ -149,9 +138,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                        ncp = pwr.obj$ncp,
                        null.ncp = pwr.obj$null.ncp,
                        df = pwr.obj$df)
-    }
-
-    if (method == "noether") {
+    } else if (method == "noether") {
       list.out <- list(power = pwr.obj$power,
                        z.alpha = pwr.obj$z.alpha,
                        mean = pwr.obj$mean,
@@ -172,7 +159,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
       n2.star <- ceiling(n2.star)
     }
 
-  } else if (is.null(n2)) {
+  } else if (requested == "n") {
 
     if (method == "noether") {
 
@@ -186,10 +173,10 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
       H1_H0.min <- 0.001
       lambda.max <- 4
-      if (paired) {
-        n2.max <- (lambda.max / H1_H0.min) ^ 2
-      } else {
+      if (independent) {
         n2.max <- (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2
+      } else {
+        n2.max <- (lambda.max / H1_H0.min) ^ 2
       }
 
     }
@@ -204,7 +191,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                 uniroot(function(n2) {
                   power - pwr.wilcox(d = d, null.d = null.d, margin = margin,
                                      n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                                     paired = paired, alternative = alternative,
+                                     independent = independent, alternative = alternative,
                                      method = method)$power
                 }, interval = c(2, n2.max))$root
               }) # supressWarnings
@@ -225,7 +212,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
     pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
                           n2 = n2.star / w, n.ratio = n.ratio, alpha = alpha,
-                          paired = paired, alternative = alternative,
+                          independent = independent, alternative = alternative,
                           method = method)
 
     if (method == "guenther") {
@@ -234,9 +221,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                        ncp = pwr.obj$ncp,
                        null.ncp = pwr.obj$null.ncp,
                        df = pwr.obj$df)
-    }
-
-    if (method == "noether") {
+    } else if (method == "noether") {
       list.out <- list(power = pwr.obj$power,
                        z.alpha = pwr.obj$z.alpha,
                        mean = pwr.obj$mean,
@@ -250,9 +235,8 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
   } # get power or sample size
 
-
-  ifelse(design %in% c("paired", "one.sample"), n <- n2.star, n <- c(n1 = n1.star, n2 = n2.star))
-  # ifelse(design %in% c("paired", "one.sample"), n <- n2, n <- c(n1 = n1, n2 = n2))
+  ifelse(independent, n <- c(n1 = n1.star, n2 = n2.star), n <- n2.star)
+  # ifelse(independent, n <- c(n1 = n1, n2 = n2), n <- n2)
 
   if (verbose > 0) {
 

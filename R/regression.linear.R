@@ -52,22 +52,21 @@ power.f.regression <- function(r.squared.change = NULL,
                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
-  check.proportion(alpha)
-  check.logical(ceiling)
+  # r.squared.change is checked below
+  check.numeric(margin)
   check.positive(k.total, k.tested)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-  if (k.tested >  k.total) stop("`k.tested` cannot be greater than `k.total`.", call. = FALSE)
-  if (!is.numeric(r.squared.change) || r.squared.change >= 1 || r.squared.change <= 0)
-    stop("Incorrect value for `r.squared.change`.", call. = FALSE)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  if (!is.numeric(r.squared.change) || !is.finite(r.squared.change) || r.squared.change <= 0 || r.squared.change >= 1)
+    stop("Value for `r.squared.change` must be a finite number that is larger than 0 and smaller than 1.", call. = FALSE)
+  if (k.tested >  k.total)
+    stop("`k.tested` cannot be greater than `k.total`.", call. = FALSE)
 
   pwr.f.reg <- function(r.squared.change, margin, k.total, k.tested, n, alpha) {
 
@@ -108,41 +107,26 @@ power.f.regression <- function(r.squared.change = NULL,
   } # ss.f.reg()
 
 
-  if (is.null(power)) {
-
-    pwr.obj <- pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
-                         k.total = k.total, k.tested = k.tested,
-                         n = n, alpha = alpha)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    lambda <- pwr.obj$lambda
-    null.lambda <- pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
-
-  } # pwr
-
-  if (is.null(n)) {
+  if (requested == "n") {
 
     n <- ss.f.reg(r.squared.change = r.squared.change, margin = margin,
                   k.total = k.total, k.tested =  k.tested,
                   power = power, alpha = alpha)
 
-    if (ceiling) {
-      n <- ceiling(n)
-    }
+    if (ceiling) n <- ceiling(n)
 
-    pwr.obj <- pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
-                         k.total = k.total, k.tested = k.tested,
-                         n = n, alpha = alpha)
-    power <- pwr.obj$power
-    df1 <- pwr.obj$df1
-    df2 <- pwr.obj$df2
-    lambda <- pwr.obj$lambda
-    null.lambda <- pwr.obj$null.lambda
-    f.alpha <- pwr.obj$f.alpha
+  }
 
-  } # ss
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
+                       k.total = k.total, k.tested = k.tested, n = n, alpha = alpha)
+
+  power <- pwr.obj$power
+  df1 <- pwr.obj$df1
+  df2 <- pwr.obj$df2
+  lambda <- pwr.obj$lambda
+  null.lambda <- pwr.obj$null.lambda
+  f.alpha <- pwr.obj$f.alpha
   
   if (verbose > 0) {
 
@@ -232,19 +216,17 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
   check.numeric(beta, null.beta)
-  check.proportion(alpha)
-  check.logical(ceiling)
+  check.vector(margin, check.numeric, 1)
   check.positive(sd.predictor, sd.outcome, k.total)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
-  if (is.null(n) && is.null(power))
-    stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power))
-    stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
   if (!is.numeric(r.squared) || r.squared > 1 || r.squared < 0)
     stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
   if (r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
@@ -257,10 +239,6 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
     # if (beta == null.beta)
     #   stop("`beta` takes a value different from `null.beta` for 'one.sided' or 'two.sided' tests.", call. = FALSE)
   }
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   pwr.t.reg <- function(beta, null.beta, margin,
                         sd.outcome, sd.predictor,
@@ -305,35 +283,28 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   } # ss.t.reg()
 
 
-  if (is.null(power)) {
-    pwr.obj <- pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
-                         sd.outcome = sd.outcome, sd.predictor = sd.predictor,
-                         n = n, k.total = k.total, r.squared = r.squared,
-                         alpha = alpha, alternative =  alternative)
-    power <- pwr.obj$power
-    lambda <- pwr.obj$lambda
-    null.lambda <- pwr.obj$null.lambda
-    df <- pwr.obj$df
-    t.alpha <- pwr.obj$t.alpha
-  } # pwr
+  if (requested == "n") {
 
-  if (is.null(n)) {
     n <- ss.t.reg(beta = beta, null.beta = null.beta, margin = margin,
                   sd.outcome = sd.outcome, sd.predictor = sd.predictor,
                   power = power, k.total = k.total, r.squared = r.squared,
                   alpha = alpha, alternative =  alternative)
 
     if (ceiling) n <- ceiling(n)
-    pwr.obj <- pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
-                         sd.outcome = sd.outcome, sd.predictor = sd.predictor,
-                         n = n, k.total = k.total, r.squared = r.squared,
-                         alpha = alpha, alternative =  alternative)
-    power <- pwr.obj$power
-    lambda <- pwr.obj$lambda
-    null.lambda <- pwr.obj$null.lambda
-    df <- pwr.obj$df
-    t.alpha <- pwr.obj$t.alpha
-  } # ss
+    
+  }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
+                       sd.outcome = sd.outcome, sd.predictor = sd.predictor,
+                       n = n, k.total = k.total, r.squared = r.squared,
+                       alpha = alpha, alternative =  alternative)
+
+  power <- pwr.obj$power
+  lambda <- pwr.obj$lambda
+  null.lambda <- pwr.obj$null.lambda
+  df <- pwr.obj$df
+  t.alpha <- pwr.obj$t.alpha
 
   std.beta <- beta * (sd.predictor / sd.outcome)
   std.null.beta <- null.beta * (sd.predictor / sd.outcome)

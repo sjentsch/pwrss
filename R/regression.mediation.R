@@ -10,40 +10,32 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                                r.squared.outcome = (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided"),
-                               method = c("sobel", "aroian", "goodman",
-                                          "joint", "monte.carlo"),
+                               method = c("sobel", "aroian", "goodman", "joint", "monte.carlo"),
                                n.simulation = 1000, n.draws = 1000,
                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  user.parms.names <- names(as.list(match.call()))
-  verbose <- .ensure_verbose(verbose)
+  arg.names <- names(as.list(match.call()))
 
-  check.logical(ceiling)
   check.numeric(beta.a, beta.b, beta.cp)
-  check.sample.size(n.simulation, n.draws)
-  check.positive(sd.predictor, sd.mediator, sd.outcome)
-  check.proportion(alpha, r.squared.mediator, r.squared.outcome)
-
+  check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
+  check.proportion(r.squared.mediator, r.squared.outcome)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
-  if (is.null(n) && is.null(power))
-    stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power))
-    stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
+  check.proportion(alpha)
+  check.sample.size(n.simulation, n.draws)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
-  if (r.squared.outcome == 0 && "beta.cp" %in% user.parms.names)
+  if (r.squared.outcome == 0 && "beta.cp" %in% arg.names)
     warning("Ignoring any specification to `beta.cp`.", call. = FALSE)
   if (r.squared.mediator < beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2)
     warning("Specified `r.squared.mediator` is smaller than the base `r.squared.mediator`.", call. = FALSE)
   if (r.squared.outcome < (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2)
     warning("Specified `r.squared.outcome` is smaller than the base `r.squared.outcome`.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   se.a <- function(sd.mediator, sd.predictor, r.squared.mediator, n) {
     var.beta.a <- (1 / n) * (sd.mediator ^ 2) * (1 - r.squared.mediator) / (sd.predictor ^ 2)
@@ -178,53 +170,32 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
 
   } # ss.med()
 
-  if (is.null(power)) {
-
-    pwr.obj <- pwr.med(beta.a = beta.a, beta.b = beta.b,
-                       sd.predictor = sd.predictor,
-                       sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                       r.squared.mediator = r.squared.mediator,
-                       r.squared.outcome = r.squared.outcome,
-                       n = n, method = method)
-
-    power <- pwr.obj$power
-    mean.alternative <- pwr.obj$mean
-    sd.alternative <- 1
-    mean.null <- pwr.obj$null.mean
-    sd.null <- 1
-    z.alpha <- pwr.obj$z.alpha
-
-  }
-
-  if (is.null(n)) {
+  if (requested == "n") {
 
     if (method %in% c("joint", "monte.carlo"))
       stop("Sample size calculation not supported by this method", call. = FALSE)
 
     n <- ss.med(beta.a = beta.a, beta.b = beta.b,
-                sd.predictor = sd.predictor,
-                sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                r.squared.mediator = r.squared.mediator,
-                r.squared.outcome = r.squared.outcome,
+                sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
+                r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
                 power = power, method = method)
 
     if (ceiling) n <- ceiling(n)
 
-    pwr.obj <- pwr.med(beta.a = beta.a, beta.b = beta.b,
-                       sd.predictor = sd.predictor,
-                       sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                       r.squared.mediator = r.squared.mediator,
-                       r.squared.outcome = r.squared.outcome,
-                       n = n, method = method)
-
-    power <- pwr.obj$power
-    mean.alternative <- pwr.obj$mean
-    sd.alternative <- 1
-    mean.null <- pwr.obj$null.mean
-    sd.null <- 1
-    z.alpha <- pwr.obj$z.alpha
-
   }
+
+  # calculate power (if requested == "power") or update it (if requested == "n")
+  pwr.obj <- pwr.med(beta.a = beta.a, beta.b = beta.b,
+                     sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
+                     r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
+                     n = n, method = method)
+
+  power <- pwr.obj$power
+  mean.alternative <- pwr.obj$mean
+  sd.alternative <- 1
+  mean.null <- pwr.obj$null.mean
+  sd.null <- 1
+  z.alpha <- pwr.obj$z.alpha
 
   std.beta.a <- beta.a * sd.predictor / sd.mediator
   std.beta.b <- beta.b * sd.mediator / sd.outcome
@@ -360,9 +331,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
     colnames(power.out) <- c("non-centrality", "n", "power")
     power.out$method <- c("Sobel", "Aroian", "Goodman", "Joint", "Monte Carlo")
 
-  } # power
-
-  if (is.null(n)) {
+  } else if (is.null(n)) {
 
     sobel.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
                                    sd.predictor = sdx, sd.mediator = sdm, sd.outcome = sdy,
@@ -408,7 +377,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
     colnames(power.out) <- c("non-centrality", "n", "power")
     power.out$method <- c("Sobel", "Aroian", "Goodman", "Joint", "Monte Carlo")
 
-  } # n
+  }
 
 
   if (is.null(power)) {
@@ -417,7 +386,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
     n.vec <- c(sobel = power.out$n[1], aroian = power.out$n[2], goodman = power.out$n[3], joint = power.out$n[4], mc = power.out$n[5])
     power.vec <- c(sobel = power.out$power[1], aroian = power.out$power[2], goodman = power.out$power[3], joint = power.out$power[4],
                    mc = power.out$power[5])
-  } else {
+  } else if (is.null(n)) {
     ncp.vec <- c(sobel = power.out$mean[1], aroian = power.out$mean[2], goodman = power.out$mean[3], joint = power.out$mean[4],
                  mc = power.out$mean[5])
     n.vec <- c(sobel = power.out$n[1], aroian = power.out$n[2], goodman = power.out$n[3], joint = power.out$n[4], mc = power.out$n[5])
@@ -431,7 +400,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
         sep = "")
 
     ifelse(is.null(power),
-           print(power.out[, c("method", "non-centrality", "n", "power")], row.names = FALSE),
+           print(power.out[,    c("method", "non-centrality", "n", "power")], row.names = FALSE),
            print(power.out[1:3, c("method", "non-centrality", "n", "power")], row.names = FALSE))
 
     cat(" ------------------------------------\n",

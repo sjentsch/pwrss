@@ -1,8 +1,8 @@
 # type 1 and type 2 error plots are not available for this function
 # n.ratio = n1 / n2
 power.exact.fisher <- function(prob1, prob2,
-                               n2 = NULL, n.ratio = 1,
-                               alpha = 0.05, power = NULL,
+                               n.ratio = 1, n2 = NULL,
+                               power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided"),
                                method = c("exact", "approximate"),
                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
@@ -10,17 +10,15 @@ power.exact.fisher <- function(prob1, prob2,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
 
+  check.proportion(prob1, prob2)
   check.positive(n.ratio)
-  check.proportion(prob1, prob2, alpha)
-  check.logical(ceiling)
-  if (!is.null(power)) check.proportion(power)
   if (!is.null(n2)) check.sample.size(n2)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
+  if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n2, power)
 
   pwr.approx <- function(prob1, prob2, n2, n.ratio,
                          alpha, alternative,
@@ -193,97 +191,68 @@ power.exact.fisher <- function(prob1, prob2,
   # method
   if (method == "exact") {
 
-    if (is.null(power)) {
-
-      power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                         alpha = alpha, alternative = alternative)
-
-      mean.alternative <- NA
-      sd.alternative <- NA
-      mean.null <- NA
-      sd.null <- NA
-      z.alpha <- NA
-
-      n1 <- n.ratio * n2
-      n.total <- n1 + n2
-
-    }
-
-    if (is.null(n2)) {
+    if (requested == "n") {
 
       n2 <- ss.exact(prob1 = prob1, prob2 = prob2, power = power, n.ratio = n.ratio,
                      alpha = alpha, alternative = alternative)
-
       n1 <- n.ratio * n2
-      n.total <- n1 + n2
 
       if (ceiling) {
-
         n1 <- ceiling(n1)
         n2 <- ceiling(n2)
-        n.ratio <- n1 / n2
-        n.total <- n1 + n2
-
       }
+    
+    } else if (requested == "power") {
 
-      power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                         alpha = alpha, alternative = alternative)
-
-      mean.alternative <- NA
-      sd.alternative <- NA
-      mean.null <- NA
-      sd.null <- NA
-      z.alpha <- NA
+      n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
 
     }
+
+    n.total <- n1 + n2
+
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    power <- pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                       alpha = alpha, alternative = alternative)
+
+    mean.alternative <- NA
+    sd.alternative <- NA
+    mean.null <- NA
+    sd.null <- NA
+    z.alpha <- NA
 
   }  else if (method == "approximate") {
 
-    if (is.null(power)) {
-
-      pwr.obj <- pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                            alpha = alpha, alternative = alternative)
-
-      power <- pwr.obj$power
-      mean.alternative <- pwr.obj$mean.alternative
-      sd.alternative <- pwr.obj$sd.alternative
-      mean.null <- pwr.obj$mean.null
-      sd.null <- pwr.obj$sd.null
-      z.alpha <- pwr.obj$z.alpha
-
-      n1 <- n.ratio * n2
-      n.total <- n1 + n2
-
-    }
-
-    if (is.null(n2)) {
+    if (requested == "n") {
 
       n2 <- ss.approx(prob1 = prob1, prob2 = prob2, power = power, n.ratio = n.ratio,
-                     alpha = alpha, alternative = alternative)
+                      alpha = alpha, alternative = alternative)
 
       n1 <- n.ratio * n2
       n.total <- n1 + n2
 
       if (ceiling) {
-
         n1 <- ceiling(n1)
         n2 <- ceiling(n2)
-        n.ratio <- n1 / n2
-        n.total <- n1 + n2
-
       }
 
-      pwr.obj <- pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                            alpha = alpha, alternative = alternative)
+    } else if (requested == "power") {
 
-      power <- pwr.obj$power
-      mean.alternative <- pwr.obj$mean.alternative
-      sd.alternative <- pwr.obj$sd.alternative
-      mean.null <- pwr.obj$mean.null
-      sd.null <- pwr.obj$sd.null
-      z.alpha <- pwr.obj$z.alpha
+      n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)    
 
     }
+
+    n.total <- n1 + n2
+
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    pwr.obj <- pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                          alpha = alpha, alternative = alternative)
+
+    power <- pwr.obj$power
+    mean.alternative <- pwr.obj$mean.alternative
+    sd.alternative <- pwr.obj$sd.alternative
+    mean.null <- pwr.obj$mean.null
+    sd.null <- pwr.obj$sd.null
+    z.alpha <- pwr.obj$z.alpha
 
   }  # method
 

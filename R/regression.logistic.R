@@ -23,43 +23,42 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
-  user.parms.names <- names(as.list(match.call()))
+  arg.names <- names(as.list(match.call()))
 
-  check.proportion(alpha, r.squared.predictor)
-  check.logical(ceiling, pretty)
+  check.proportion(r.squared.predictor)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
+  check.proportion(alpha)
+  check.logical(ceiling, pretty)
+  verbose <- .ensure_verbose(verbose)
+  requested <- check.n_power(n, power)
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
-
-  if (all(c("base.prob", "prob") %in% user.parms.names)) {
+  if (all(c("base.prob", "prob") %in% arg.names)) {
     check.proportion(prob, base.prob)
-    if (any(c("odds.ratio", "beta0", "beta1") %in% user.parms.names) && verbose >= 0)
+    if (any(c("odds.ratio", "beta0", "beta1") %in% arg.names) && verbose >= 0)
       message("Using `base.prob` and `prob`, ignoring any specifications to `odds.ratio`, `beta0`, or `beta1`.")
     odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
-  } else if (all(c("base.prob", "odds.ratio") %in% user.parms.names)) {
+  } else if (all(c("base.prob", "odds.ratio") %in% arg.names)) {
     check.proportion(base.prob)
     check.positive(odds.ratio)
-    if (any(c("prob", "beta0", "beta1") %in% user.parms.names) && verbose >= 0)
+    if (any(c("prob", "beta0", "beta1") %in% arg.names) && verbose >= 0)
       message("Using `base.prob` and `odds.ratio`, ignoring any specifications to `prob`, `beta0`, or `beta1`.")
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
-  } else if (all(c("base.prob", "beta1") %in% user.parms.names)) {
+  } else if (all(c("base.prob", "beta1") %in% arg.names)) {
     check.proportion(base.prob)
     check.numeric(beta1)
-    if (any(c("prob", "beta0", "odds.ratio") %in% user.parms.names) && verbose >= 0)
+    if (any(c("prob", "beta0", "odds.ratio") %in% arg.names) && verbose >= 0)
       message("Using `base.prob` and `beta1`, ignoring any specifications to `prob`, `beta0`, or `odds.ratio`.")
     odds.ratio <- exp(beta1)
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
     beta0 <- log(base.prob / (1 - base.prob))
-  } else if (all(c("beta0", "beta1") %in% user.parms.names)) {
+  } else if (all(c("beta0", "beta1") %in% arg.names)) {
     check.numeric(beta0, beta1)
-    if (any(c("base.prob", "prob", "odds.ratio") %in% user.parms.names) && verbose >= 0)
+    if (any(c("base.prob", "prob", "odds.ratio") %in% arg.names) && verbose >= 0)
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.prob`, `prob`, or `odds.ratio`.")
     base.prob <- exp(beta0) / (1 + exp(beta0))
     odds.ratio <- exp(beta1)
@@ -69,12 +68,6 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   }
 
   if (prob == base.prob) stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
-  if (is.null(n) && is.null(power)) stop("`n` and `power` cannot be NULL at the same time.", call. = FALSE)
-  if (!is.null(n) && !is.null(power)) stop("Exactly one of the `n` or `power` should be NULL.", call. = FALSE)
-
-  ifelse(is.null(power),
-         requested <- "power",
-         requested <- "n")
 
   # check distribution
   if (length(distribution) == 1 && is.character(distribution)) {
@@ -344,9 +337,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                    "distribution."), call. = FALSE)
       prob <- distribution$prob
       beta <- 1 - power
-      ifelse(alternative == "two.sided",
-             z.alpha <- qnorm(alpha / 2, lower.tail = FALSE),
-             z.alpha <- qnorm(alpha, lower.tail = FALSE))
+      z.alpha <- qnorm(ifelse(alternative == "two.sided", alpha / 2, alpha), lower.tail = FALSE)
       z.beta <- qnorm(beta, lower.tail = FALSE)
       p.bar <- (1 - prob) * base.prob + prob * prob
       n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / prob) + z.beta *
@@ -356,9 +347,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     } else if (tolower(distribution$dist) == "normal") {
 
       beta <- 1 - power
-      ifelse(alternative == "two.sided",
-             z.alpha <- qnorm(alpha / 2, lower.tail = FALSE),
-             z.alpha <- qnorm(alpha, lower.tail = FALSE))
+      z.alpha <- qnorm(ifelse(alternative == "two.sided", alpha / 2, alpha), lower.tail = FALSE)
       z.beta <- qnorm(beta, lower.tail = FALSE)
       odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
       beta1 <- log(odds.ratio)
@@ -397,88 +386,50 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
   if (method %in% c("demidenko(vc)", "demidenko")) {
 
-    if (is.null(power)) {
-      pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                               r.squared.predictor = r.squared.predictor,
-                               alpha = alpha, alternative = alternative,
-                               method = method, distribution = distribution)
-      power <- pwr.obj$power
-      z.alpha <- pwr.obj$z.alpha
-      ncp <- pwr.obj$ncp
-      sd.ncp <- pwr.obj$sd.ncp
-      vcf <- pwr.obj$vcf
-
-    } # pwr
-
-    if (is.null(n)) {
+    if (requested == "n") {
 
       n <- ss.demidenko(beta0 = beta0, beta1 = beta1, power = power,
                         r.squared.predictor = r.squared.predictor,
                         alpha = alpha, alternative = alternative,
                         method = method, distribution = distribution)
 
-      if (ceiling) {
-        n <- ceiling(n)
-      }
+      if (ceiling) n <- ceiling(n)
 
-      pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                               r.squared.predictor = r.squared.predictor,
-                               alpha = alpha, alternative = alternative,
-                               method = method, distribution = distribution)
-      power <- pwr.obj$power
-      z.alpha <- pwr.obj$z.alpha
-      ncp <- pwr.obj$ncp
-      sd.ncp <- pwr.obj$sd.ncp
-      vcf <- pwr.obj$vcf
+    }
 
-    } # ss
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n, r.squared.predictor = r.squared.predictor,
+                             alpha = alpha, alternative = alternative, method = method, distribution = distribution)
+
+    power <- pwr.obj$power
+    z.alpha <- pwr.obj$z.alpha
+    ncp <- pwr.obj$ncp
+    sd.ncp <- pwr.obj$sd.ncp
+    vcf <- pwr.obj$vcf
 
   } else if (method == "hsieh") {
 
-    if (is.null(n)) {
+    if (requested == "n") {
 
-      ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob,
-                        r.squared.predictor = r.squared.predictor,
-                        power = power, alpha = alpha,
-                        alternative = alternative,
-                        distribution = distribution)
+      n <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor,
+                    power = power, alpha = alpha, alternative = alternative, distribution = distribution)$n
 
-      n <- ss.obj$n
-      z.alpha <- ss.obj$z.alpha
-      ncp <- ss.obj$ncp
-      sd.ncp <- ss.obj$sd.ncp
-      vcf <- ss.obj$vcf
-
-      if (ceiling) {
-        n <- ceiling(n)
-      }
-
-      power <- pwr.hsieh(base.prob = base.prob, prob = prob,
-                         r.squared.predictor = r.squared.predictor,
-                         n = n, alpha = alpha,
-                         alternative = alternative,
-                         distribution = distribution)
-
-    } else if (is.null(power)) {
-
-      power <- pwr.hsieh(base.prob = base.prob, prob = prob,
-                         r.squared.predictor = r.squared.predictor,
-                         n = n, alpha = alpha,
-                         alternative = alternative,
-                         distribution = distribution)
-
-      ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob,
-                         r.squared.predictor = r.squared.predictor,
-                         power = power, alpha = alpha,
-                         alternative = alternative,
-                         distribution = distribution)
-
-      z.alpha <- ss.obj$z.alpha
-      ncp <- ss.obj$ncp
-      sd.ncp <- ss.obj$sd.ncp
-      vcf <- ss.obj$vcf
+      if (ceiling) n <- ceiling(n)
 
     }
+
+    # calculate power (if requested == "power") or update it (if requested == "n")
+    power <- pwr.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor, n = n,
+                       alpha = alpha, alternative = alternative, distribution = distribution)
+
+    ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor, power = power,
+                       alpha = alpha, alternative = alternative, distribution = distribution)
+
+    z.alpha <- ss.obj$z.alpha
+    ncp <- ss.obj$ncp
+    sd.ncp <- ss.obj$sd.ncp
+    vcf <- ss.obj$vcf
+
   } # method
 
   if (verbose > 0) {
