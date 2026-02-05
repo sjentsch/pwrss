@@ -166,7 +166,7 @@ power.z.twocors(rho1 = .30, rho2 = 0.20,
 #> ----------------------------------------------------
 #>   Sample Size          = 1088 and 1088  <<
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Type 2 Error (beta)  = 0.299
+#>   Statistical Power    = 0.701
 #> 
 ```

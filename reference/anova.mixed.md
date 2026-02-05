@@ -157,7 +157,7 @@ power.f.mixed.anova(eta.squared = 0.022,
                     effect = "within",
                     alpha = 0.05, power = 0.80)
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Repeated Measures Analysis of Variance (F-Test)
@@ -171,7 +171,7 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 90
+#>   Total Sample Size    = 90  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
 #>   Statistical Power    = 0.804
@@ -186,7 +186,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
                     alpha = 0.05, power = 0.80)
 #> Warning: Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Repeated Measures Analysis of Variance (F-Test)
@@ -200,7 +200,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 90
+#>   Total Sample Size    = 90  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
 #>   Statistical Power    = 0.804
@@ -218,7 +218,7 @@ power.f.mixed.anova(eta.squared = 0.059,
                     effect = "between",
                     alpha = 0.05, power = 0.80)
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Analysis of Variance (F-Test)
@@ -232,7 +232,7 @@ power.f.mixed.anova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128
+#>   Total Sample Size    = 128  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.197
 #>   Statistical Power    = 0.803
@@ -253,7 +253,7 @@ power.f.mixed.anova(eta.squared = 0.038,
                     effect = "between",
                     alpha = 0.05, power = 0.80)
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Mixed-Effects Analysis of Variance (F-Test)
@@ -267,7 +267,7 @@ power.f.mixed.anova(eta.squared = 0.038,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 152
+#>   Total Sample Size    = 152  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.197
 #>   Statistical Power    = 0.803
@@ -281,7 +281,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     effect = "interaction",
                     alpha = 0.05, power = 0.80)
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Mixed-Effects Analysis of Variance (F-Test)
@@ -295,7 +295,7 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 198
+#>   Total Sample Size    = 198  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
 #>   Statistical Power    = 0.804
@@ -309,7 +309,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     effect = "within",
                     alpha = 0.05, power = 0.80)
 #> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
+#> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
 #> Mixed-Effects Analysis of Variance (F-Test)
@@ -323,7 +323,7 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 198
+#>   Total Sample Size    = 198  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
 #>   Statistical Power    = 0.804
