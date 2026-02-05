@@ -1,5 +1,5 @@
-clean.parms <- function(crrArg = list()) {
-  crrArg[names(crrArg)[!grepl("^power$|^n$|^n2$|^n.total$|^n.vector$", names(crrArg))]]
+clean.parms <- function(func.parms = list()) {
+  func.parms[names(func.parms)[!grepl("^power$|^n$|^n2$|^n.paired$|^n.total$|^n.vector$", names(func.parms))]]
 }
 
 inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
