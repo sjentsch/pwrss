@@ -4,6 +4,8 @@ test_that("regression.logistic.R works", {
     crrOut <- capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal"))
     crrDtl <- capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 2))
     crrPty <- capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", pretty = TRUE))
+    crrPnD <- capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal",
+                                              verbose = 2, pretty = TRUE))
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
@@ -86,6 +88,45 @@ test_that("regression.logistic.R works", {
                            "  Type 1 Error (α)  = 0.050",
                            "  Type 2 Error (β)  = 0.199",
                            "  Statistical Power = 0.801", ""))
+    expect_equal(crrPnD, c("╔══════════════════════════════════════════════════╗",
+                           "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
+                           "╚══════════════════════════════════════════════════╝", "",
+                           "Logistic Regression Coefficient (Wald's Z-Test)", "",
+                           "  Method           : Demidenko (Variance Corrected)",
+                           "  Predictor Dist.  : Normal", "",
+                           "────────────────────────────────────────────────────",
+                           "Hypotheses",
+                           "────────────────────────────────────────────────────",
+                           "  H₀ (Null)        : Odds Ratio (OR) = 1",
+                           "  H₁ (Alternative) : Odds Ratio (OR) ≠ 1", "",
+                           "────────────────────────────────────────────────────",
+                           "Key Parameters",
+                           "────────────────────────────────────────────────────",
+                           "  Base Probability  = 0.150 ",
+                           "  Odds Ratio (OR)   = 1.417 ",
+                           "  Var. Corr. Factor = 1.000",
+                           "  μ (Alternative)   = 2.784",
+                           "  σ (Alternative)   = 0.976",
+                           "  μ₀ (Null)          = 0.000 ",
+                           "  σ₀ (Null)          = 1.000 ",
+                           "  Z⁻¹(α, μ₀, σ₀)     = -1.96 and 1.96 ", "",
+                           "────────────────────────────────────────────────────",
+                           "Results",
+                           "────────────────────────────────────────────────────",
+                           "  \033[34mSample Size       = 511\033[0m  \033[1;35m◄◄\033[0m",
+                           "  Type 1 Error (α)  = 0.050",
+                           "  Type 2 Error (β)  = 0.199",
+                           "  Statistical Power = 0.801", "",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "\033[36mDefinitions\033[0m",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "\033[36m  OR = [p / (1 − p)] / [p₀ / (1 − p₀)] \033[0m ",
+                           "\033[36m β₁  = log(OR) \033[0m ",
+                           "\033[36m β₀  = log[p₀ / (1 − p₀)]",
+                           " \033[0m\033[36m p₀  : Base probability when predictor = 0 ",
+                           " \033[0m\033[36m p  : Probability when predictor = 1 ",
+                           " \033[0m\033[36m μ  : Mean ",
+                           "\033[0m\033[36m  σ  : Standard deviation ", "", "\033[0m"))
     expect_equal(crrOut, capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, verbose = "J")))
     expect_equal(crrRes, suppressMessages(pwrss.z.logistic(p0 = 0.15, p1 = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = FALSE)))
     expect_equal(crrRes, suppressMessages(pwrss.z.logreg(p0 = 0.15, p1 = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = FALSE)))
@@ -111,7 +152,7 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80158522, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80316639, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
                       z.alpha = 1.95996398454, power = 0.800442373, n = 508))
 
     crrRes <- power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, n = 511, distribution = "normal", verbose = 0)
@@ -191,7 +232,7 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.80158522, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696955, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964, power = 0.8015040, n = 54))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, n = 54, distribution = "bernoulli",
@@ -247,7 +288,7 @@ test_that("regression.logistic.R works", {
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, distribution = "normal", verbose = 0),
                  "`n` and `power` cannot be NULL at the same time.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.80, n = 50, distribution = "normal", verbose = 0),
-                 "Exactly one of the `n` or `power` should be NULL.")
+                 "Exactly / only one of the parameters `n` or `power` should be NULL.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.80,
                                   distribution = list(dist = "normal", mean = 0, sd = 1, err = 1), verbose = 0),
                  "Unknown input type for `distribution`")
