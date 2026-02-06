@@ -23,7 +23,7 @@ power.f.ancova <- function(eta.squared,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.total, power)
 
@@ -141,7 +141,7 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
                            n.levels = 2, n.covariates = 0, alpha = 0.05,
                            n = NULL, power = NULL, verbose = TRUE) {
 
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
 
   if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
@@ -205,7 +205,7 @@ power.f.ancova.keppel <- function(mu.vector,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 
@@ -537,7 +537,7 @@ power.f.ancova.shieh <- function(mu.vector,
   if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
     stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 
@@ -736,7 +736,7 @@ power.t.contrast <- function(mu.vector,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(tukey.kramer, ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   if (is.vector(contrast.vector))
     contrast.matrix <- t(as.matrix(contrast.vector))
@@ -980,7 +980,7 @@ power.t.contrasts <- function(x = NULL,
   rm(x)
   adjust.alpha <- tolower(match.arg(adjust.alpha))
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 

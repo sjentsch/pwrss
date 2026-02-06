@@ -17,7 +17,7 @@ power.f.mixed.anova <- function(eta.squared,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n.total, power)
 
   for (i in 1:2) {
@@ -191,7 +191,7 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
                              n = NULL, power = NULL, verbose = TRUE) {
 
   type <- tolower(match.arg(type))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   
   arg.names <- names(as.list(match.call()))
   f2_eta2 <- as.list(match.call())[c("f2", "eta2")]

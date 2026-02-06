@@ -14,7 +14,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (w < null.w)
@@ -115,7 +115,7 @@ pwrss.chisq.gofit <- function(p1 = c(0.50, 0.50),
                               n = NULL, power = NULL,
                               alpha = 0.05, verbose = TRUE) {
 
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   user.parms.names <- names(as.list(match.call()))
 
   check.proportion(alpha)

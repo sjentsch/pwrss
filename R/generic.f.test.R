@@ -29,7 +29,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
 
   }
 
-  if (.ensure_verbose(verbose) > 0) {
+  if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic F-Test",
                       requested = "power",

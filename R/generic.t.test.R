@@ -108,7 +108,7 @@ power.t.test <- function(ncp, null.ncp = 0,
 
   }
 
-  if (.ensure_verbose(verbose) > 0) {
+  if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic T-Test",
                       requested = "power",

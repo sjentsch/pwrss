@@ -140,7 +140,7 @@ power.binom.test <- function(size,
 
   }
 
-  if (.ensure_verbose(verbose) > 0) {
+  if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Binomial Test",
                       requested = "power",

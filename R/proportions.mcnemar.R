@@ -13,7 +13,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n.paired, power)
 
   pwr.exact <- function(prob10, prob01, n.paired, alpha, alternative) {

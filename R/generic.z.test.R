@@ -129,7 +129,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   }
 
-  if (.ensure_verbose(verbose) > 0) {
+  if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Z-Test",
                       requested = "power",

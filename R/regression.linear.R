@@ -1,7 +1,7 @@
 rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
 
   check.nonnegative(r.squared.full, r.squared.reduced)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   if (r.squared.full < r.squared.reduced)
     stop("Expecting `r.squared.full` > `r.squared.reduced`.", call. = FALSE)
@@ -19,7 +19,7 @@ rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
 f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 
   check.nonnegative(f)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   f.squared <- f ^ 2
   if (is.null(r.squared.full)) {
@@ -60,7 +60,7 @@ power.f.regression <- function(r.squared.change = NULL,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (!is.numeric(r.squared.change) || !is.finite(r.squared.change) || r.squared.change <= 0 || r.squared.change >= 1)
@@ -175,7 +175,7 @@ pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
                         k = 1, m = k, alpha = 0.05,
                         n = NULL, power = NULL, verbose = TRUE) {
 
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   r2_f2 <- as.list(match.call())[c("r2", "f2")]
   if (all(utils::hasName(r2_f2, c("r2", "f2")))) {
@@ -224,7 +224,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (!is.numeric(r.squared) || r.squared > 1 || r.squared < 0)
@@ -359,7 +359,7 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
                                                "non-inferior", "superior", "equivalent"),
                                verbose = TRUE) {
 
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"

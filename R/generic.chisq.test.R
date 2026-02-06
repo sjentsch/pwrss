@@ -28,7 +28,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
 
   }
 
-  if (.ensure_verbose(verbose) > 0) {
+  if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic Chi-square Test",
                       requested = "power",

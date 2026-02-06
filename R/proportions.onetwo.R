@@ -16,7 +16,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
   
   len.null.prob <- ifelse(alternative == "two.one.sided", 2, 1)
@@ -178,7 +178,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(arcsine, correct, ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
   len.null.prob <- ifelse(alternative == "two.one.sided", 2, 1)
@@ -445,7 +445,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
                           n = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
@@ -494,7 +494,7 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
   check.logical(paired)
   check.correlation(rho.paired)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
   if (paired) {
@@ -544,7 +544,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   check.logical(arcsine, correct, paired)
   check.correlation(rho.paired)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)  
+  verbose <- ensure_verbose(verbose)  
   requested <- check.n_power(n2, power)
 
   if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
@@ -868,7 +868,7 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   check.proportion(p1, p2, alpha)
   check.positive(kappa)

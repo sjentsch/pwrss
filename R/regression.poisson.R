@@ -32,7 +32,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   check.positive(mean.exposure)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
@@ -370,7 +370,7 @@ pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"

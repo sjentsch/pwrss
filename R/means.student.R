@@ -19,7 +19,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
   if (alternative == "two.one.sided") {
@@ -178,7 +178,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
   if (alternative == "two.one.sided") {
@@ -336,7 +336,7 @@ pwrss.t.mean <- function(mu, sd = 1, mu0 = 0, margin = 0, alpha = 0.05,
                          n = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   check.positive(sd)
   check.numeric(mu, mu0, margin)
@@ -393,7 +393,7 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
                             n2 = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- .ensure_verbose(verbose)
+  verbose <- ensure_verbose(verbose)
 
   if (isFALSE(welch.df)) warning("Forcing welch.df = TRUE.", call. = FALSE)
 
