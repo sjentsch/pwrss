@@ -1,8 +1,4 @@
-^docs$
-^LICENSE$
-^pkgdown$
-^README\.md$
-^README\.Rmd$
+^\.git$
 ^\.github$
 ^\.lintr$
 ^.*\.Rproj$
@@ -10,4 +6,10 @@
 ^_pkgdown\.yml$
 ^codemeta\.json$
 ^doc$
+^docs$
 ^Meta$
+^LICENSE$
+^pkgdown$
+^README\.md$
+^README\.Rmd$
+
