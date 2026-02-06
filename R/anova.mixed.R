@@ -62,7 +62,7 @@ power.f.mixed.anova <- function(eta.squared,
     n.min <- n.levels.between + 1
 
     n.total <- try(silent = TRUE,
-                   uniroot(function(n.total) {
+                   stats::uniroot(function(n.total) {
                      if (effect == "between") {
                        df1 <- n.levels.between - 1
                        df2 <- n.total - n.levels.between
@@ -79,9 +79,9 @@ power.f.mixed.anova <- function(eta.squared,
                      v <- df2
                      lambda <- f.squared * n.total * epsilon
                      null.lambda <- null.f.squared * n.total * epsilon
-                     f.alpha <- qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
+                     f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
 
-                     power - pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
+                     power - stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
 
                    }, interval = c(n.min, 1e10))$root
                    ) # try
@@ -113,8 +113,8 @@ power.f.mixed.anova <- function(eta.squared,
     if (u < 1 || v < 1) stop("Design is not feasible", call. = FALSE)
     lambda <- f.squared * n.total * epsilon
     null.lambda <- null.f.squared * n.total * epsilon
-    f.alpha <- qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
-    power <- pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
+    f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
+    power <- stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
 
     list(power = power, lambda = lambda, null.lambda = null.lambda,
          df1 = u, df2 = v, f.alpha = f.alpha)

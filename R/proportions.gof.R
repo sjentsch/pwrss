@@ -25,8 +25,8 @@ power.chisq.gof <- function(w, null.w = 0, df,
     lambda <- n * w ^ 2
     null.lambda <- n * null.w ^ 2
 
-    chisq.alpha <- qchisq(alpha, df = df, ncp = null.lambda, lower.tail = FALSE)
-    power <- pchisq(chisq.alpha, df = df, ncp = lambda, lower.tail = FALSE)
+    chisq.alpha <- stats::qchisq(alpha, df = df, ncp = null.lambda, lower.tail = FALSE)
+    power <- stats::pchisq(chisq.alpha, df = df, ncp = lambda, lower.tail = FALSE)
 
     list(power = power,
          lambda = lambda,
@@ -40,7 +40,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
     n <- try(silent = TRUE,
              suppressWarnings({
-               uniroot(function(n) {
+               stats::uniroot(function(n) {
                  power - pwr.chisq(w = w, null.w = null.w,
                                    df = df, n = n, alpha = alpha)$power
                }, interval = c(2, 1e10))$root

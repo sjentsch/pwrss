@@ -295,15 +295,15 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
     if (alternative == "two.sided") {
 
-      M <- qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE) +
-        qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+      M <- stats::qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE) +
+        stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
       n <- M ^ 2 * var.num / h ^ 2
     }
 
     if (alternative == "one.sided") {
 
-      M <- qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE) +
-        qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+      M <- stats::qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE) +
+        stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
       n <- M ^ 2 * var.num / h ^ 2
 
     }
@@ -312,12 +312,12 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
       if (prob > min(null.prob) && prob < max(null.prob)) {
         # equivalence
-        M <- qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE) +
-          qnorm(beta / 2, sd = null.dist.sd, lower.tail = FALSE)
+        M <- stats::qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE) +
+          stats::qnorm(beta / 2, sd = null.dist.sd, lower.tail = FALSE)
       } else {
         # minimal effect
-        M <- qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE) +
-          qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+        M <- stats::qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE) +
+          stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
       }
       n <- M ^ 2 * var.num / h ^ 2
       n <- max(n)
@@ -643,8 +643,8 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
 
     if (alternative == "one.sided") {
 
-      z.alpha <- qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE)
-      z.beta <- qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+      z.alpha <- stats::qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE)
+      z.beta <- stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
 
       if (arcsine) {
 
@@ -663,8 +663,8 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     if (alternative == "two.sided") {
 
 
-      z.alpha <- qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE)
-      z.beta <- qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+      z.alpha <- stats::qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE)
+      z.beta <- stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
 
       if (arcsine) {
 
@@ -683,11 +683,11 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
     if (alternative == "two.one.sided") {
 
       if (prob1 - prob2 > min(margin) && prob1 - prob2 < max(margin)) {
-        z.alpha <- qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE)
-        z.beta <- qnorm(beta / 2, sd = null.dist.sd, lower.tail = FALSE)
+        z.alpha <- stats::qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE)
+        z.beta <- stats::qnorm(beta / 2, sd = null.dist.sd, lower.tail = FALSE)
       } else {
-        z.alpha <- qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE)
-        z.beta <- qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+        z.alpha <- stats::qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE)
+        z.beta <- stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
       }
 
 # arcsine currently not permitted (l. 556)

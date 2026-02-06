@@ -24,11 +24,11 @@ power.t.test <- function(ncp, null.ncp = 0,
       stop("`ncp` or `null.ncp` must be numeric and of length one for the two-sided test.", call. = FALSE)
     # if (ncp < null.ncp) stop("`ncp` must be equal or greater than `null.ncp` for the two-sided test.", .call = FALSE)
 
-    t.alpha.upper <- qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
-    t.alpha.lower <- qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
+    t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
+    t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
     t.alpha <- c(t.alpha.lower, t.alpha.upper)
-    power <-  pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-      pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
+    power <-  stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
+      stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
 
   } else if (alternative == "one.sided") {
 
@@ -48,8 +48,8 @@ power.t.test <- function(ncp, null.ncp = 0,
     ifelse(ncp > null.ncp,
            lower.tail <- FALSE,
            lower.tail <- TRUE)
-    t.alpha <- qt(alpha, df = df, ncp = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
-    power <- pt(t.alpha, df = df, ncp = ncp, lower.tail = lower.tail) # if ncp > null.ncp
+    t.alpha <- stats::qt(alpha, df = df, ncp = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
+    power <- stats::pt(t.alpha, df = df, ncp = ncp, lower.tail = lower.tail) # if ncp > null.ncp
 
   } else if (alternative == "two.one.sided") {
 
@@ -71,12 +71,12 @@ power.t.test <- function(ncp, null.ncp = 0,
     # equivalence test
     if (ncp > min(null.ncp) && ncp < max(null.ncp)) {
 
-      t.alpha.upper <- qt(alpha, df = df, ncp = min(null.ncp), lower.tail = FALSE)
-      t.alpha.lower <- qt(alpha, df = df, ncp = max(null.ncp), lower.tail = TRUE)
+      t.alpha.upper <- stats::qt(alpha, df = df, ncp = min(null.ncp), lower.tail = FALSE)
+      t.alpha.lower <- stats::qt(alpha, df = df, ncp = max(null.ncp), lower.tail = TRUE)
       t.alpha <- c(t.alpha.upper, t.alpha.lower)
 
-      power <- pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-        pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE) - 1
+      power <- stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
+        stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE) - 1
 
       power[power < 0] <- 0
 
@@ -85,12 +85,12 @@ power.t.test <- function(ncp, null.ncp = 0,
     # minimum effect test
     if (ncp < min(null.ncp) || ncp > max(null.ncp)) {
 
-      t.alpha.lower <- qt(alpha / 2, df = df, ncp = min(null.ncp), lower.tail = TRUE)
-      t.alpha.upper <- qt(alpha / 2, df = df, ncp = max(null.ncp), lower.tail = FALSE)
+      t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = min(null.ncp), lower.tail = TRUE)
+      t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = max(null.ncp), lower.tail = FALSE)
       t.alpha <- c(t.alpha.lower, t.alpha.upper)
 
-      power <- pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-        pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
+      power <- stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
+        stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
 
     }
 

@@ -36,12 +36,12 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
     # if (mean < null.mean) stop("`mean` must be equal or greater than `null.mean` for the two-sided test.", .call = FALSE)
 
-    z.alpha.upper <- qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = FALSE)
-    z.alpha.lower <- qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = TRUE)
+    z.alpha.upper <- stats::qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = FALSE)
+    z.alpha.lower <- stats::qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = TRUE)
     z.alpha <- c(z.alpha.lower, z.alpha.upper)
 
-    power <-  pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-      pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
+    power <-  stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
+      stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
 
 
   } else if (alternative == "one.sided") {
@@ -64,8 +64,8 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     ifelse(mean > null.mean,
            lower.tail <- FALSE,
            lower.tail <- TRUE)
-    z.alpha <- qnorm(alpha, mean = null.mean, sd = null.sd, lower.tail = lower.tail) # if mean > null.mean
-    power <- pnorm(z.alpha, mean = mean, sd = sd, lower.tail = lower.tail) # if mean > null.mean
+    z.alpha <- stats::qnorm(alpha, mean = null.mean, sd = null.sd, lower.tail = lower.tail) # if mean > null.mean
+    power <- stats::pnorm(z.alpha, mean = mean, sd = sd, lower.tail = lower.tail) # if mean > null.mean
 
   } else if (alternative == "two.one.sided") {
 
@@ -88,12 +88,12 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     # equivalence test
     if (mean > min(null.mean) && mean < max(null.mean)) {
 
-      z.alpha.upper <- qnorm(alpha, mean = min(null.mean), sd = null.sd, lower.tail = FALSE)
-      z.alpha.lower <- qnorm(alpha, mean = max(null.mean), sd = null.sd, lower.tail = TRUE)
+      z.alpha.upper <- stats::qnorm(alpha, mean = min(null.mean), sd = null.sd, lower.tail = FALSE)
+      z.alpha.lower <- stats::qnorm(alpha, mean = max(null.mean), sd = null.sd, lower.tail = TRUE)
       z.alpha <- c(z.alpha.upper, z.alpha.lower)
 
-      power <- pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-        pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE) - 1
+      power <- stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
+        stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE) - 1
 
       power[power < 0] <- 0
 
@@ -102,12 +102,12 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     # minimum effect test
     if (mean < min(null.mean) || mean > max(null.mean)) {
 
-      z.alpha.lower <- qnorm(alpha / 2, mean = min(null.mean), sd = null.sd, lower.tail = TRUE)
-      z.alpha.upper <- qnorm(alpha / 2, mean = max(null.mean), sd = null.sd, lower.tail = FALSE)
+      z.alpha.lower <- stats::qnorm(alpha / 2, mean = min(null.mean), sd = null.sd, lower.tail = TRUE)
+      z.alpha.upper <- stats::qnorm(alpha / 2, mean = max(null.mean), sd = null.sd, lower.tail = FALSE)
       z.alpha <- c(z.alpha.lower, z.alpha.upper)
 
-      power <- pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-        pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
+      power <- stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
+        stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
 
     }
 

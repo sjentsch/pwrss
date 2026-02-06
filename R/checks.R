@@ -7,7 +7,7 @@ check.proportion <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && x >= 0 && x <= 1, logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.probs()
 
@@ -19,7 +19,7 @@ check.correlation <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && x >= -1 && x <= 1, logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.correlations()
 
@@ -31,7 +31,7 @@ check.logical <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.logical(x) && !is.na(x), logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.logical()
 
@@ -46,7 +46,7 @@ check.sample.size <- function(...) {
                   logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.sample.size
 
@@ -60,7 +60,7 @@ check.nonnegative <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && is.finite(x) && x >= 0, logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.nonnegative
 
@@ -72,7 +72,7 @@ check.positive <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && is.finite(x) && x > 0, logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.positive
 
@@ -84,7 +84,7 @@ check.numeric <- function(...) {
   check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && is.finite(x), logical(1))
 
   if (any(!check))
-    stop(format.errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
 } # check.positive
 
@@ -173,7 +173,7 @@ check.n_power <- function(n = NULL, power = NULL) {
 } # check.power_n
 
 # helper function(s) ---------------------------------------------------------------------------------------------------
-format.errmsg <- function(names = c(), fnc.name = NULL) {
+format_errmsg <- function(names = c(), fnc.name = NULL) {
   sprintf("Argument%s %s %s not have %svalid %s value%s (must be length 1, %s)",
           ifelse(length(names) > 1, "s", ""),
           paste(names, collapse = ifelse(length(names) > 2, ", ", " and ")),

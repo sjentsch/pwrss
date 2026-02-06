@@ -18,9 +18,9 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
-  chisq.alpha <- qchisq(alpha, df = df, ncp = null.ncp, lower.tail = FALSE)
+  chisq.alpha <- stats::qchisq(alpha, df = df, ncp = null.ncp, lower.tail = FALSE)
 
-  power <- pchisq(chisq.alpha, df = df, ncp = ncp, lower.tail = FALSE)
+  power <- stats::pchisq(chisq.alpha, df = df, ncp = ncp, lower.tail = FALSE)
 
   if (plot) {
 

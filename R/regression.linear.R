@@ -80,8 +80,8 @@ power.f.regression <- function(r.squared.change = NULL,
     null.lambda <- null.f.squared * n
 
 
-    f.alpha <- qf(alpha, df1 = df1, df2 = df2, ncp = null.lambda, lower.tail = FALSE)
-    power <- pf(f.alpha, df1 = df1, df2 = df2, ncp = lambda, lower.tail = FALSE)
+    f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.lambda, lower.tail = FALSE)
+    power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = lambda, lower.tail = FALSE)
 
     list(power = power, lambda = lambda, null.lambda = null.lambda,
          df1 = df1, df2 = df2, f.alpha = f.alpha)
@@ -92,7 +92,7 @@ power.f.regression <- function(r.squared.change = NULL,
 
     n <- try(silent = TRUE,
              suppressWarnings({
-               uniroot(function(n) {
+               stats::uniroot(function(n) {
                  power - pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
                                    k.total = k.total, k.tested = k.tested,
                                    n = n, alpha = alpha)$power
@@ -267,7 +267,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
     n <- try(silent = TRUE,
              suppressWarnings({
-               uniroot(function(n) {
+               stats::uniroot(function(n) {
                  power - pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
                                    sd.outcome = sd.outcome, sd.predictor = sd.predictor,
                                    n = n, k.total = k.total, r.squared = r.squared,

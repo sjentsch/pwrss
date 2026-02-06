@@ -24,7 +24,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
     if (alternative == "one.sided" && prob10 < prob01) prob <- min(1 / (1 + OR), OR / (1 + OR))
     if (alternative == "one.sided" && prob10 > prob01) prob <- max(1 / (1 + OR), OR / (1 + OR))
 
-    prod1 <- dbinom(x = seq(0, ceiling(n.paired)), size = ceiling(n.paired), prob = prob01 + prob10)
+    prod1 <- stats::dbinom(x = seq(0, ceiling(n.paired)), size = ceiling(n.paired), prob = prob01 + prob10)
     prod2 <- power.binom.test(prob = prob, null.prob = 0.50,
                               size = seq(0, ceiling(n.paired)), alpha = alpha,
                               alternative = alternative, plot = FALSE, verbose = 0)$power
@@ -62,9 +62,9 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
     # Machin, Campbell, Fayers, and Pinol (1997)
     if (alternative == "two.sided") alpha <- alpha / 2
-    z.alpha <- qnorm(1 - alpha, mean = 0, sd = 1, lower.tail = TRUE)
+    z.alpha <- stats::qnorm(1 - alpha, mean = 0, sd = 1, lower.tail = TRUE)
     z.beta <- (sqrt((OR - 1) ^ 2 * PD * n.paired) - z.alpha * (1 + OR)) / sqrt((OR + 1) ^ 2 - (OR - 1) ^ 2 * PD)
-    power <- pnorm(z.beta, mean = 0, sd = 1, lower.tail = TRUE)
+    power <- stats::pnorm(z.beta, mean = 0, sd = 1, lower.tail = TRUE)
 
     mean.alternative <- z.alpha + z.beta
     sd.alternative <- 1
@@ -95,8 +95,8 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
     # Machin, Campbell, Fayers, and Pinol (1997)
     if (alternative == "two.sided") alpha <- alpha / 2
-    z.alpha <- qnorm(1 - alpha, mean = 0, sd = 1, lower.tail = TRUE)
-    z.beta <- qnorm(1 - beta, mean = 0, sd = 1, lower.tail = TRUE)
+    z.alpha <- stats::qnorm(1 - alpha, mean = 0, sd = 1, lower.tail = TRUE)
+    z.beta <- stats::qnorm(1 - beta, mean = 0, sd = 1, lower.tail = TRUE)
     n.paired <- (z.alpha * (1 + OR) + z.beta * sqrt((OR + 1) ^ 2 - (OR - 1) ^ 2 * PD)) ^ 2 / ((OR - 1) ^ 2 * PD)
 
     n.paired
@@ -182,21 +182,21 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   if (alternative == "one.sided") {
     if (prob < null.prob) {
       # less
-      q.binom.alpha <- qbinom(alpha, size = size, prob = null.prob, lower.tail = TRUE)
-      p.binom.alpha <- pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = TRUE)
+      q.binom.alpha <- stats::qbinom(alpha, size = size, prob = null.prob, lower.tail = TRUE)
+      p.binom.alpha <- stats::pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = TRUE)
       if (p.binom.alpha > alpha) q.binom.alpha <- q.binom.alpha - 1
       if (method == "exact") {
-        approx.alpha <- pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = TRUE)
+        approx.alpha <- stats::pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = TRUE)
       } else {
         approx.alpha <- alpha
       }
     } else {
       # greater
-      q.binom.alpha <- qbinom(alpha, size = size, prob = null.prob, lower.tail = FALSE)
-      p.binom.alpha <- pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = FALSE)
+      q.binom.alpha <- stats::qbinom(alpha, size = size, prob = null.prob, lower.tail = FALSE)
+      p.binom.alpha <- stats::pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = FALSE)
       if (p.binom.alpha > alpha) q.binom.alpha <- q.binom.alpha + 1
       if (method == "exact") {
-        approx.alpha <- pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = FALSE)
+        approx.alpha <- stats::pbinom(q.binom.alpha, size = size, prob = null.prob, lower.tail = FALSE)
       } else {
         approx.alpha <- alpha
       }
@@ -204,15 +204,15 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   }
 
   if (alternative == "two.sided") {
-    q.binom.lower <- qbinom(alpha / 2, size = size, prob = null.prob, lower.tail = TRUE)
-    p.binom.lower <- pbinom(q.binom.lower, size = size, prob = null.prob, lower.tail = TRUE)
+    q.binom.lower <- stats::qbinom(alpha / 2, size = size, prob = null.prob, lower.tail = TRUE)
+    p.binom.lower <- stats::pbinom(q.binom.lower, size = size, prob = null.prob, lower.tail = TRUE)
     if (p.binom.lower > alpha / 2) q.binom.lower <- q.binom.lower - 1
-    p.binom.lower <- pbinom(q.binom.lower, size = size, prob = null.prob, lower.tail = TRUE)
+    p.binom.lower <- stats::pbinom(q.binom.lower, size = size, prob = null.prob, lower.tail = TRUE)
 
-    q.binom.upper <- qbinom(alpha / 2, size = size, prob = null.prob, lower.tail = FALSE)
-    p.binom.upper <- pbinom(q.binom.upper, size = size, prob = null.prob, lower.tail = FALSE)
+    q.binom.upper <- stats::qbinom(alpha / 2, size = size, prob = null.prob, lower.tail = FALSE)
+    p.binom.upper <- stats::pbinom(q.binom.upper, size = size, prob = null.prob, lower.tail = FALSE)
     if (p.binom.upper > alpha / 2) q.binom.upper <- q.binom.upper + 1
-    p.binom.upper <- pbinom(q.binom.upper, size = size, prob = null.prob, lower.tail = FALSE)
+    p.binom.upper <- stats::pbinom(q.binom.upper, size = size, prob = null.prob, lower.tail = FALSE)
 
     q.binom.alpha <- c(q.binom.lower, q.binom.upper)
     if (method == "exact") {

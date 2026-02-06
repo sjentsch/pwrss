@@ -182,13 +182,13 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
     }
 
     # n2.max <- 1e+08
-    # too big of a number throws warning in uniroot()
+    # too big of a number throws warning in stats::uniroot()
     # full precision may not have been achieved in 'pnt{final}'
     # because ncp is too large
 
     n2 <- try(silent = TRUE,
               suppressWarnings({
-                uniroot(function(n2) {
+                stats::uniroot(function(n2) {
                   power - pwr.wilcox(d = d, null.d = null.d, margin = margin,
                                      n2 = n2, n.ratio = n.ratio, alpha = alpha,
                                      independent = independent, alternative = alternative,

@@ -1,6 +1,6 @@
 # f.squared <- eta.squared / (1 - eta.squared)
 # eta.squared <- f.squared / (1 + f.squared)
-format.test <- function(n.way, cov) {
+format_test <- function(n.way, cov) {
   paste0(c("One", "Two", "Three")[n.way], "-way Analysis of ", ifelse(cov > 0, "Cov", "V"), "ariance (F-Test)")
 }
 
@@ -34,13 +34,13 @@ power.f.ancova <- function(eta.squared,
 
     n.total <- try(silent = TRUE,
         suppressWarnings({
-          uniroot(function(n.total) {
+          stats::uniroot(function(n.total) {
             u <- df1
             v <- n.total - n.groups - k.covariates
             lambda <- f.squared * n.total
             null.lambda <- null.f.squared * n.total
-            f.alpha <- qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
-            power - pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
+            f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
+            power - stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
           }, interval = c(n.groups + k.covariates + 2, 1e10))$root
         }) # supressWarnings
     ) # try
@@ -56,8 +56,8 @@ power.f.ancova <- function(eta.squared,
     v <- n.total - n.groups - k.covariates
     lambda <- f.squared * n.total
     null.lambda <- null.f.squared * n.total
-    f.alpha <- qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
-    power <- pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
+    f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
+    power <- stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
     list(power = power, u = u, v = v, lambda = lambda,
          null.lambda = null.lambda, f.alpha = f.alpha)
   } # pwr
@@ -108,7 +108,7 @@ power.f.ancova <- function(eta.squared,
 
   if (verbose > 0) {
 
-    test <- format.test(n.way, k.covariates)
+    test <- format_test(n.way, k.covariates)
     print.obj <- list(test = test, effect = effect, n.total = n.total, n.way = n.way,
                       requested = requested, factor.levels = factor.levels,
                       power = power, ncp = ncp, null.ncp = null.ncp,
@@ -239,14 +239,14 @@ power.f.ancova.keppel <- function(mu.vector,
     df1 <- ncp.obj$df1
     df2 <- ncp.obj$df2
     lambda <- ncp.obj$lambda
-    f.alpha <- qf(alpha, df1 = df1, df2 = df2, lower.tail = FALSE)
-    power <- pf(f.alpha, df1 = df1, df2 = df2, ncp = lambda, lower.tail = FALSE)
+    f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, lower.tail = FALSE)
+    power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = lambda, lower.tail = FALSE)
     list(power = power, df1 = df1, df2 = df2, lambda = lambda, f.alpha = f.alpha)
   }
 
   ss.keppel <- function(mu.vector, sd.vector, p.vector, k.covariates,
                         r.squared, alpha, power, factor.levels) {
-    n.total <- uniroot(function(n.total) {
+    n.total <- stats::uniroot(function(n.total) {
       n.vector <- n.total * p.vector
       power - pwr.keppel(mu.vector = mu.vector, sd.vector = sd.vector,
                          n.vector = n.vector, k.covariates = k.covariates,
@@ -296,8 +296,8 @@ power.f.ancova.keppel <- function(mu.vector,
   var.ratio <- max(sd.vector.squared) / min(sd.vector.squared)
   n.max <- n.vector[which(sd.vector.squared == max(sd.vector.squared))][1]
   n.min <- n.vector[which(sd.vector.squared == min(sd.vector.squared))][1]
-  f.alpha.lower <- qf(alpha.hc, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
-  f.alpha.upper <- qf(1 - alpha.hc, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
+  f.alpha.lower <- stats::qf(alpha.hc, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
+  f.alpha.upper <- stats::qf(1 - alpha.hc, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
   if (var.ratio <= f.alpha.lower || var.ratio >= f.alpha.upper)
     warning("Interpretation of results may no longer be valid when variances differ beyond sampling error.", call. = FALSE)
   effect <- paste0(c("A"), "(", factor.levels, ")")
@@ -339,12 +339,14 @@ power.f.ancova.keppel <- function(mu.vector,
 pwrss.f.ancova.keppel <- power.f.ancova.keppel
 
 
-# default base functions contr.treatment() and contr.sum()
+# default base functions stats::contr.treatment() and stats::contr.sum()
 # provides coding for the design matrix (dummy, effect, etc.)
 # some further manipulations are needed to get contrasts
 # that is, add intercept and take inverse
 # https://rpubs.com/timflutre/tuto_contrasts
 # https://stats.oarc.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis/
+
+#' @export
 factorial.contrasts <- function(factor.levels = c(3, 2),
                                 coding.scheme = rep("deviation", length(factor.levels)),
                                 base = factor.levels, # only used with dummy or treatment coding
@@ -388,19 +390,19 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 
     if (coding.scheme[i] %in% c("dummy", "treatment")) {
 
-      temp.contrast.list[[i]] <- contr.treatment(n = factor.levels[i], base = base[i])
+      temp.contrast.list[[i]] <- stats::contr.treatment(n = factor.levels[i], base = base[i])
 
     } else if (coding.scheme[i] %in% c("deviation", "effect", "sum")) {
 
-      temp.contrast.list[[i]] <- contr.sum(n = factor.levels[i])
+      temp.contrast.list[[i]] <- stats::contr.sum(n = factor.levels[i])
 
     } else if (coding.scheme[i] == "helmert") {
 
-      temp.contrast.list[[i]] <- contr.helmert(n = factor.levels[i])
+      temp.contrast.list[[i]] <- stats::contr.helmert(n = factor.levels[i])
 
     } else if (coding.scheme[i] %in% c("poly", "polynomial")) {
 
-      temp.contrast.list[[i]] <- contr.poly(n = factor.levels[i])
+      temp.contrast.list[[i]] <- stats::contr.poly(n = factor.levels[i])
 
     } else {
 
@@ -418,7 +420,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 
     contrasts.list <- list(A = temp.contrast.list[[1]])
 
-    model.mat <- model.matrix(~ A, factor.data, contrasts.arg = contrasts.list)
+    model.mat <- stats::model.matrix(~ A, factor.data, contrasts.arg = contrasts.list)
 
     contrast.mat <- solve(model.mat)
 
@@ -438,7 +440,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
     contrasts.list <- list(A = temp.contrast.list[[1]],
                            B = temp.contrast.list[[2]])
 
-    model.mat <- model.matrix(~ A + B + A:B, factor.data,
+    model.mat <- stats::model.matrix(~ A + B + A:B, factor.data,
                                  contrasts.arg = contrasts.list)
 
     contrast.mat <- solve(model.mat)
@@ -464,7 +466,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
                            B = temp.contrast.list[[2]],
                            C = temp.contrast.list[[3]])
 
-    model.mat <- model.matrix(~ A + B + C + A:B + A:C + B:C + A:B:C, factor.data,
+    model.mat <- stats::model.matrix(~ A + B + C + A:B + A:C + B:C + A:B:C, factor.data,
                                  contrasts.arg = contrasts.list)
 
     contrast.mat <- solve(model.mat)
@@ -547,7 +549,7 @@ power.f.ancova.shieh <- function(mu.vector,
                                            intercept = FALSE,
                                            verbose = min(verbose, 0))$contrast.matrix
     if (is.vector(contrast.matrix)) contrast.matrix <- t(as.matrix(contrast.matrix))
-    contrast.matrix <- tail(contrast.matrix, n = prod(factor.levels - 1))
+    contrast.matrix <- utils::tail(contrast.matrix, n = prod(factor.levels - 1))
 
   } else {
 
@@ -576,7 +578,7 @@ power.f.ancova.shieh <- function(mu.vector,
     u <- nrow(contrast.matrix)
     v <- n.total - length(mu.vector) - k.covariates
 
-    f.alpha <- qf(1 - alpha, df1 = u, df2 = v)
+    f.alpha <- stats::qf(1 - alpha, df1 = u, df2 = v)
 
     if (k.covariates > 1) {
 
@@ -586,19 +588,19 @@ power.f.ancova.shieh <- function(mu.vector,
       sd.beta <- sqrt((shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1)))
       lower.beta <- max(0, mean.beta - 10 * sd.beta)
 
-      integrand <- function(x) { dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
-                                 pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE) }
-      power <- integrate(integrand, lower = lower.beta, upper = 1)$value
+      integrand <- function(x) { stats::dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
+                                 stats::pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE) }
+      power <- stats::integrate(integrand, lower = lower.beta, upper = 1)$value
 
       lambda <- ifelse(calculate.lambda, n.total * gamma2 * (v + 1) / (v + 1 + k.covariates), NA)
 
     } else if (k.covariates == 1) {
 
-      integrand <- function(x) dt(x, (v + 1)) * pf(f.alpha, u, v, n.total * gamma2 / (1 + (k.covariates / (v + 1)) * x ^ 2), lower.tail = FALSE)
-      power <- integrate(integrand, lower = -10, upper = 10)$value
+      integrand <- function(x) stats::dt(x, (v + 1)) * stats::pf(f.alpha, u, v, n.total * gamma2 / (1 + (k.covariates / (v + 1)) * x ^ 2), lower.tail = FALSE)
+      power <- stats::integrate(integrand, lower = -10, upper = 10)$value
 
       lambda <- ifelse(calculate.lambda,
-                       integrate(function(x) dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2), lower = -Inf, upper = Inf)$value,
+                       stats::integrate(function(x) stats::dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2), lower = -Inf, upper = Inf)$value,
                        NA)
 
     }
@@ -609,7 +611,7 @@ power.f.ancova.shieh <- function(mu.vector,
 
   ss.shieh <- function(mu.vector, sd.vector, p.vector, k.covariates, r.squared, alpha, power, contrast.matrix) {
 
-    uniroot(function(n.total) {
+    stats::uniroot(function(n.total) {
       n.vector <- n.total * p.vector
       power -  pwr.shieh(mu.vector = mu.vector, sd.vector = sd.vector,
                    n.vector = n.vector, k.covariates = k.covariates,
@@ -654,8 +656,8 @@ power.f.ancova.shieh <- function(mu.vector,
   var.ratio <- max(sd.vector.squared) / min(sd.vector.squared)
   n.max <- n.vector[which(sd.vector.squared == max(sd.vector.squared))][1]
   n.min <- n.vector[which(sd.vector.squared == min(sd.vector.squared))][1]
-  f.alpha.lower <- qf(alpha, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
-  f.alpha.upper <- qf(1 - alpha, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
+  f.alpha.lower <- stats::qf(alpha, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
+  f.alpha.upper <- stats::qf(1 - alpha, df1 = n.max - 1, df2 = n.min - 1, lower.tail = TRUE)
   if (var.ratio <= f.alpha.lower || var.ratio >= f.alpha.upper)
     warning("Interpretation of results may no longer be valid when variances differ beyond sampling error.", call. = FALSE)
 
@@ -673,7 +675,7 @@ power.f.ancova.shieh <- function(mu.vector,
 
   if (verbose > 0) {
 
-    test <- format.test(n.way, k.covariates)
+    test <- format_test(n.way, k.covariates)
     print.obj <- list(test = test, effect = effect, n.total = n.total,
                       requested = requested, factor.levels = factor.levels,
                       power = power, ncp = ncp, null.ncp = 0,
@@ -765,11 +767,11 @@ power.t.contrast <- function(mu.vector,
 
     if (tukey.kramer == 1) {
 
-      t.alpha <- qtukey(1 - alpha, length(mu.vector), v) / sqrt(2)
+      t.alpha <- stats::qtukey(1 - alpha, length(mu.vector), v) / sqrt(2)
 
       } else {
 
-      t.alpha <- qt(1 - alpha / 2, v)
+      t.alpha <- stats::qt(1 - alpha / 2, v)
 
     }
 
@@ -781,16 +783,16 @@ power.t.contrast <- function(mu.vector,
 
       integrand <- function(x) {
 
-        dt(x, v + 1) * (pt(-t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))) +
-                          pt(t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1))), lower.tail = FALSE))
+        stats::dt(x, v + 1) * (stats::pt(-t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))) +
+                          stats::pt(t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1))), lower.tail = FALSE))
 
       }
 
-      power <- integrate(integrand, lower = -10, upper = 10)$value
+      power <- stats::integrate(integrand, lower = -10, upper = 10)$value
 
       lambda <- numeric(1)
       ifelse(calculate.lambda,
-             lambda <-  integrate(function(x) dt(x, v + 1) * (psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))), -10, 10)$value,
+             lambda <-  stats::integrate(function(x) stats::dt(x, v + 1) * (psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))), -10, 10)$value,
              lambda <- NA)
 
     } else if (k.covariates > 1) {
@@ -802,13 +804,13 @@ power.t.contrast <- function(mu.vector,
       lower.beta <- max(0, mean.beta - 10 * sd.beta)
 
       integrand <- function(x) {
-        dbeta(x, (v + 1) / 2, k.covariates / 2) * (pt(-t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a)) +
-                                                   pt(t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a), lower.tail = FALSE))
+        stats::dbeta(x, (v + 1) / 2, k.covariates / 2) * (stats::pt(-t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a)) +
+                                                   stats::pt(t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a), lower.tail = FALSE))
       }
-      power <- integrate(integrand, lower = lower.beta, upper = 1)$value
+      power <- stats::integrate(integrand, lower = lower.beta, upper = 1)$value
 
       lambda <-  ifelse(calculate.lambda,
-                        integrate(function(x) { dbeta(x, (v + 1) / 2, k.covariates / 2) *
+                        stats::integrate(function(x) { stats::dbeta(x, (v + 1) / 2, k.covariates / 2) *
                                                 (sqrt(x) * psi / sqrt(sigma2_error * a)) }, lower.beta, 1)$value,
                         NA)
 
@@ -834,7 +836,7 @@ power.t.contrast <- function(mu.vector,
 
     } else {
 
-      n.total <- uniroot(function(n.total) {
+      n.total <- stats::uniroot(function(n.total) {
         n.vector <- n.total * p.vector
         power - pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
                              n.vector = n.vector, k.covariates = k.covariates,
@@ -921,8 +923,8 @@ adjust.alpha <- function(n, alpha = 0.05,
   check.sample.size(n)
   method <- match.arg(method)
 
-  p.adj <- uniroot(function(p) {
-    alpha - p.adjust(p = p, method = method, n = n)
+  p.adj <- stats::uniroot(function(p) {
+    alpha - stats::p.adjust(p = p, method = method, n = n)
   }, interval = c(0, 1))$root
 
   p.adj

@@ -99,9 +99,9 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
       beta.b <- abs(beta.b)
       reject <- numeric(0)
       for (i in 1:n.simulation) {
-        beta.a.star <- rnorm(1, beta.a, se.beta.a)
-        beta.b.star <- rnorm(1, beta.b, se.beta.b)
-        reject <- c(reject, quantile(rnorm(n.draws, beta.a.star, se.beta.a) * rnorm(n.draws, beta.b.star, se.beta.b),
+        beta.a.star <- stats::rnorm(1, beta.a, se.beta.a)
+        beta.b.star <- stats::rnorm(1, beta.b, se.beta.b)
+        reject <- c(reject, stats::quantile(stats::rnorm(n.draws, beta.a.star, se.beta.a) * stats::rnorm(n.draws, beta.b.star, se.beta.b),
                                      probs = ifelse(alternative == "two.sided", alpha / 2, alpha), na.rm = TRUE) > 0)
       }
       power <- mean(reject)
@@ -121,7 +121,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
     method <- tolower(match.arg(method))
 
     if (method == "sobel") {
-      n <- uniroot(function(n) {
+      n <- stats::uniroot(function(n) {
         se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
                           r.squared.mediator = r.squared.mediator, n = n)
         se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,
@@ -135,7 +135,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
     }
 
     if (method == "aroian") {
-      n <- uniroot(function(n) {
+      n <- stats::uniroot(function(n) {
         se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
                           r.squared.mediator = r.squared.mediator, n = n)
         se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,
@@ -149,7 +149,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
     }
 
     if (method == "goodman") {
-      n <- uniroot(function(n) {
+      n <- stats::uniroot(function(n) {
         se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
                           r.squared.mediator = r.squared.mediator, n = n)
         se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,

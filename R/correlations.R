@@ -48,7 +48,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
 
     n <- try(silent = TRUE,
              suppressWarnings({
-               uniroot(function(n) {
+               stats::uniroot(function(n) {
                  power - pwr.steiger(rho1 = rho1, rho2 = rho2,
                                      cov.null = cov.null, cov.alt = cov.alt,
                                      n = n, alpha = alpha,
@@ -280,12 +280,12 @@ power.z.twocors <- function(rho1, rho2,
 
     beta <- 1 - power
     if (alternative == "two.sided") {
-      M <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) + qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
-      n2 <- uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(-1e10, 1e10))$root
+      M <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
+      n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(-1e10, 1e10))$root
     
     } else if (alternative == "one.sided") {
-      M <- qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
-      n2 <- uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
+      M <- stats::qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
+      n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
     }
 
   }
@@ -298,11 +298,11 @@ power.z.twocors <- function(rho1, rho2,
 
   lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
   if (alternative == "two.sided") {
-    z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * c(-1, 1)
-    power <- 1 - pnorm(z.alpha[2], mean = abs(lambda), sd = 1) + pnorm(z.alpha[1], mean = abs(lambda), sd = 1)
+    z.alpha <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * c(-1, 1)
+    power <- 1 - stats::pnorm(z.alpha[2], mean = abs(lambda), sd = 1) + stats::pnorm(z.alpha[1], mean = abs(lambda), sd = 1)
   } else if (alternative == "one.sided") {
-    z.alpha <- qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * ifelse(lambda < 0, -1, 1)
-    power <- 1 - pnorm(abs(z.alpha), mean = abs(lambda), sd = 1)
+    z.alpha <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * ifelse(lambda < 0, -1, 1)
+    power <- 1 - stats::pnorm(abs(z.alpha), mean = abs(lambda), sd = 1)
   }
 
   delta <- rho1 - rho2
@@ -384,10 +384,10 @@ power.z.onecor <- function(rho, null.rho = 0,
 
     beta <- 1 - power
     if (alternative == "two.sided") {
-      M <- qnorm(alpha / 2, lower.tail = FALSE) + qnorm(beta, lower.tail = FALSE)
+      M <- stats::qnorm(alpha / 2, lower.tail = FALSE) + stats::qnorm(beta, lower.tail = FALSE)
       n <- M ^ 2 / (z - null.z) ^ 2 + 3
     } else if (alternative == "one.sided") {
-      M <- qnorm(alpha, lower.tail = FALSE) + qnorm(beta, lower.tail = FALSE)
+      M <- stats::qnorm(alpha, lower.tail = FALSE) + stats::qnorm(beta, lower.tail = FALSE)
       n <- M ^ 2 / (z - null.z) ^ 2 + 3
     }
 
@@ -396,11 +396,11 @@ power.z.onecor <- function(rho, null.rho = 0,
 
   lambda <- (z - null.z) / sqrt(1 / (n - 3))
   if (alternative == "two.sided") {
-    z.alpha <- qnorm(alpha / 2, lower.tail = FALSE) * c(-1, 1)
-    power <- 1 - pnorm(z.alpha[2], lambda) + pnorm(z.alpha[1], lambda)
+    z.alpha <- stats::qnorm(alpha / 2, lower.tail = FALSE) * c(-1, 1)
+    power <- 1 - stats::pnorm(z.alpha[2], lambda) + stats::pnorm(z.alpha[1], lambda)
   } else if (alternative == "one.sided") {
-    z.alpha <- qnorm(alpha, lower.tail = FALSE)
-    power <- 1 - pnorm(z.alpha, abs(lambda))
+    z.alpha <- stats::qnorm(alpha, lower.tail = FALSE)
+    power <- 1 - stats::pnorm(z.alpha, abs(lambda))
   }
 
   delta <- rho - null.rho

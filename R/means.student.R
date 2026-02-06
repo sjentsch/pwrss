@@ -79,7 +79,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
     n2 <- try(silent = TRUE,
               suppressWarnings({
-                uniroot(function(n2) {
+                stats::uniroot(function(n2) {
                   power - pwr.student(d = d, null.d = null.d, margin = margin,
                                       n2 = n2, n.ratio = n.ratio,
                                       alpha = alpha, alternative = alternative,
@@ -197,10 +197,10 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
     list(sd1 = sd1, sd2 = sd2)
   } # vrc()
 
-  welch.df <- function(sd1, sd2, n1, n2) {
+  welch_df <- function(sd1, sd2, n1, n2) {
     (sd1 ^ 2 / n1 + sd2 ^ 2 / n2) ^ 2 /
       (sd1^4 / (n1 ^ 2 * (n1 - 1)) + sd2^4 / (n2 ^ 2 * (n2 - 1)))
-  } # welch.df()
+  } # welch_df()
 
   pwr.welch <- function(d, null.d, margin, var.ratio,
                         n2, n.ratio, alpha, alternative,
@@ -214,7 +214,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
     gamma1 <- 1 / n1
     gamma2 <- 1 / n2
 
-    df <- welch.df(sd1 = sd1, sd2 = sd2, n1 = n1, n2 = n2)
+    df <- welch_df(sd1 = sd1, sd2 = sd2, n1 = n1, n2 = n2)
 
     var.delta <- gamma1 * sd1 ^ 2 + gamma2 * sd2 ^ 2
     std <- sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
@@ -249,7 +249,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
     n2 <- try(silent = TRUE,
              suppressWarnings({
-               uniroot(function(n2) {
+               stats::uniroot(function(n2) {
                  power - pwr.welch(d = d, null.d = null.d, margin = margin,
                                    var.ratio = var.ratio,
                                    n2 = n2, n.ratio = n.ratio,

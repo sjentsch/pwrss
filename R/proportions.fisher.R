@@ -79,7 +79,7 @@ power.exact.fisher <- function(prob1, prob2,
                         alpha, alternative,
                         pooled.stderr = FALSE) {
 
-    n2 <- uniroot(function(n2) {
+    n2 <- stats::uniroot(function(n2) {
       power - pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
                          alpha = alpha, alternative = alternative,
                          pooled.stderr = pooled.stderr)$power
@@ -117,14 +117,14 @@ power.exact.fisher <- function(prob1, prob2,
                one.sided.less <- TRUE,
                one.sided.less <- FALSE)
 
-        joint.probs <- dbinom(x1.seq, n1, prob1) * dbinom(x2.seq, n2, prob2)
-        p.values <- phyper(x1.seq - ifelse(one.sided.less, 0, 1), m, n.total - m, k, lower.tail = one.sided.less)
+        joint.probs <- stats::dbinom(x1.seq, n1, prob1) * stats::dbinom(x2.seq, n2, prob2)
+        p.values <- stats::phyper(x1.seq - ifelse(one.sided.less, 0, 1), m, n.total - m, k, lower.tail = one.sided.less)
         reject <- !is.na(p.values) & p.values <= alpha
         power <- sum(joint.probs[reject])
 
       } else if (alternative == "two.sided") {
 
-        joint.probs <- dbinom(x1.seq, n1, prob1) * dbinom(x2.seq, n2, prob2)
+        joint.probs <- stats::dbinom(x1.seq, n1, prob1) * stats::dbinom(x2.seq, n2, prob2)
         valid <- joint.probs > 0
         x1.seq <- x1.seq[valid]
         x2.seq <- x2.seq[valid]
@@ -134,7 +134,7 @@ power.exact.fisher <- function(prob1, prob2,
         m.unique <- unique(m.seq)
         pmf.lookup <- lapply(m.unique, function(m) {
           support <- max(0, m - n2):min(n1, m)
-          probs <- dhyper(support, m, n.total - m, n1)
+          probs <- stats::dhyper(support, m, n.total - m, n1)
           list(support = support, probs = probs)
         })
         names(pmf.lookup) <- as.character(m.unique)
@@ -144,7 +144,7 @@ power.exact.fisher <- function(prob1, prob2,
           m  <- m.seq[i]
           key <- as.character(m)
           lookup <- pmf.lookup[[key]]
-          p.obs <- dhyper(x1, m, n.total - m, n1)
+          p.obs <- stats::dhyper(x1, m, n.total - m, n1)
           p.value <- sum(lookup$probs[lookup$probs <= (p.obs + eps)])
           !is.na(p.value) && p.value <= alpha
         }, logical(1))

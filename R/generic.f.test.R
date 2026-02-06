@@ -18,8 +18,8 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
-  f.alpha <- qf(alpha, df1 = df1, df2 = df2, ncp = null.ncp, lower.tail = FALSE)
-  power <- pf(f.alpha, df1 = df1, df2 = df2, ncp = ncp, lower.tail = FALSE)
+  f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.ncp, lower.tail = FALSE)
+  power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = ncp, lower.tail = FALSE)
 
   if (plot) {
 

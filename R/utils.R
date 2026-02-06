@@ -99,9 +99,9 @@ d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verb
   design <- tolower(match.arg(design))
 
   if (design == "independent") {
-    prob <- pnorm(d / sqrt(2))
+    prob <- stats::pnorm(d / sqrt(2))
   } else {
-    prob <- pnorm(d)
+    prob <- stats::pnorm(d)
   }
 
   if (ensure_verbose(verbose) > 0) print(c(cles = prob, d = d))
@@ -117,9 +117,9 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
   design <- tolower(match.arg(design))
 
   if (design == "independent") {
-    d <- sqrt(2) * qnorm(cles)
+    d <- sqrt(2) * stats::qnorm(cles)
   } else {
-    d <- qnorm(cles)
+    d <- stats::qnorm(cles)
   }
 
   if (ensure_verbose(verbose) > 0) print(c(d = d, cles = cles))
@@ -145,8 +145,8 @@ means.to.d <- function(mu1, mu2 = 0,
 
   alpha <- 0.05
   var.ratio <- sd1 ^ 2 / sd2 ^ 2
-  f.crit.lower <- qf(alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
-  f.crit.upper <- qf(1 - alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
+  f.crit.lower <- stats::qf(alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
+  f.crit.upper <- stats::qf(1 - alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
   if (var.ratio <= f.crit.lower || var.ratio >= f.crit.upper)
     warning("Interpretation of Cohen's d may no longer be valid when variances differ beyond sampling error.\n", call. = FALSE)
 

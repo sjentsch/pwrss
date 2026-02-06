@@ -86,33 +86,33 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
       mean <- distribution$mean
       sd <- distribution$sd
-      min.norm <- qnorm(.0000001, mean = mean, sd = sd)
-      max.norm <- qnorm(.9999999, mean = mean, sd = sd)
+      min.norm <- stats::qnorm(.0000001, mean = mean, sd = sd)
+      max.norm <- stats::qnorm(.9999999, mean = mean, sd = sd)
       
       # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * dnorm(x, mean = mean, sd = sd) * exp(b0 + b1 * x)
-      mu  <- integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
+      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dnorm(x, mean = mean, sd = sd) * exp(b0 + b1 * x)
+      mu  <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
       beta0s <- log(mu)
 
       # variance under null
-      i00 <- integrate(dstFnc, min.norm, max.norm, 0, beta0s, 0)$value
-      i01 <- integrate(dstFnc, min.norm, max.norm, 1, beta0s, 0)$value
-      i11 <- integrate(dstFnc, min.norm, max.norm, 2, beta0s, 0)$value
+      i00 <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0s, 0)$value
+      i01 <- stats::integrate(dstFnc, min.norm, max.norm, 1, beta0s, 0)$value
+      i11 <- stats::integrate(dstFnc, min.norm, max.norm, 2, beta0s, 0)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
-      i01 <- integrate(dstFnc, min.norm, max.norm, 1, beta0,  beta1)$value
-      i11 <- integrate(dstFnc, min.norm, max.norm, 2, beta0,  beta1)$value
+      i00 <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
+      i01 <- stats::integrate(dstFnc, min.norm, max.norm, 1, beta0,  beta1)$value
+      i11 <- stats::integrate(dstFnc, min.norm, max.norm, 2, beta0,  beta1)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } else if (tolower(distribution$dist) == "poisson") {
 
       lambda <- distribution$lambda
-      max.pois <- qpois(.999999999, lambda = lambda) # maximum value
+      max.pois <- stats::qpois(.999999999, lambda = lambda) # maximum value
 
       # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * dpois(x, lambda = lambda) * exp(b0 + b1 * x)
+      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dpois(x, lambda = lambda) * exp(b0 + b1 * x)
       mu  <- sum(sapply(0:max.pois, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
       beta0s <- log(mu)
 
@@ -134,38 +134,38 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       max <- distribution$max
 
       # variance under null
-      mu  <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
+      mu  <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
       beta0.star <- log(mu)
       beta1.star <- 0
-      i00 <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
-      i01 <- integrate(function(x) x ^ 1 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
-      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
+      i00 <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
+      i01 <- stats::integrate(function(x) x ^ 1 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
+      i11 <- stats::integrate(function(x) x ^ 2 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x) x ^ 0 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      i01 <- integrate(function(x) x ^ 1 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      i11 <- integrate(function(x) x ^ 2 * dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
+      i00 <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
+      i01 <- stats::integrate(function(x) x ^ 1 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
+      i11 <- stats::integrate(function(x) x ^ 2 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } else if (tolower(distribution$dist) == "exponential") {
 
       rate <- distribution$rate
-      max.exp <- qexp(.9999999, rate = rate)
+      max.exp <- stats::qexp(.9999999, rate = rate)
 
       # variance under null
-      mu  <- integrate(function(x) x ^ 0 * dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
+      mu  <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
       beta0.star <- log(mu)
       beta1.star <- 0
-      i00 <- integrate(function(x) x ^ 0 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
-      i01 <- integrate(function(x) x ^ 1 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
-      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
+      i00 <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
+      i01 <- stats::integrate(function(x) x ^ 1 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
+      i11 <- stats::integrate(function(x) x ^ 2 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x) x ^ 0 * dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      i01 <- integrate(function(x) x ^ 1 * dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      i11 <- integrate(function(x) x ^ 2 * dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
+      i00 <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
+      i01 <- stats::integrate(function(x) x ^ 1 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
+      i11 <- stats::integrate(function(x) x ^ 2 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     } else if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
@@ -174,7 +174,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       prob <- distribution$prob
 
       # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * dbinom(x, size = size, prob = prob) * exp(b0 + b1 * x)
+      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dbinom(x, size = size, prob = prob) * exp(b0 + b1 * x)
       mu  <- sum(sapply(0:size, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
       beta0s <- log(mu)
 
@@ -194,28 +194,28 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
       meanlog <- distribution$meanlog
       sdlog <- distribution$sdlog
-      min.lnorm <- qlnorm(.0000001, meanlog = meanlog, sdlog = sdlog)
-      max.lnorm <- qlnorm(.9999999, meanlog = meanlog, sdlog = sdlog)
+      min.lnorm <- stats::qlnorm(.0000001, meanlog = meanlog, sdlog = sdlog)
+      max.lnorm <- stats::qlnorm(.9999999, meanlog = meanlog, sdlog = sdlog)
 
       # variance under null
-      mu  <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      mu  <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
       beta0.star <- log(mu)
       beta1.star <- 0
-      i00 <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i00 <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) { x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i01 <- stats::integrate(function(x) { x ^ 1 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) { x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i11 <- stats::integrate(function(x) { x ^ 2 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- integrate(function(x) { x ^ 0 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i00 <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
-      i01 <- integrate(function(x) { x ^ 1 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i01 <- stats::integrate(function(x) { x ^ 1 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
-      i11 <- integrate(function(x) { x ^ 2 * dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
+      i11 <- stats::integrate(function(x) { x ^ 2 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
                                              exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
@@ -275,7 +275,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                            alpha, alternative,
                            method, distribution) {
 
-    n <- uniroot(function(n) {
+    n <- stats::uniroot(function(n) {
       power - pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
                             r.squared.predictor = r.squared.predictor,
                             alpha = alpha, alternative = alternative,
