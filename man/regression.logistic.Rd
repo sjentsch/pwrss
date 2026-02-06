@@ -27,9 +27,8 @@ Formulas are validated using G*Power and tables in PASS documentation.
 }
 
 \usage{
-power.z.logistic(prob = NULL, base.prob = NULL,
-                 odds.ratio  = (prob/(1-prob))/(base.prob/(1-base.prob)),
-                 beta0 = log(base.prob/(1-base.prob)), beta1 = log(odds.ratio),
+power.z.logistic(prob = NULL, base.prob = NULL, odds.ratio = NULL,
+                 beta0 = NULL, beta1 = NULL,
                  n = NULL, power = NULL, r.squared.predictor = 0,
                  alpha = 0.05, alternative = c("two.sided", "one.sided"),
                  method = c("demidenko(vc)", "demidenko", "hsieh"),
@@ -41,8 +40,8 @@ power.z.logistic(prob = NULL, base.prob = NULL,
   \item{base.prob}{base probability under null hypothesis (probability that an event occurs without the influence of the predictor - or when the value of the predictor is zero).}
   \item{prob}{probability under alternative hypothesis (probability that an event occurs when the value of the predictor is increased from 0 to 1). Warning: This is base probability + incremental increase.}
   \item{beta0}{regression coefficient defined as \cr \code{beta0 = log(base.prob/(1-base.prob))}}
-  \item{beta1}{regression coefficient for the predictor X defined as \cr \code{beta1 = log((prob/(1-prob))/(base.prob/(1-base.prob)))}}
-  \item{odds.ratio}{odds ratio defined as \cr \code{odds.ratio = exp(beta1) = (prob/(1-prob))/(base.prob/(1-base.prob))}}
+  \item{beta1}{regression coefficient for the predictor X defined as \cr \code{beta1 = log((prob / (1 - prob)) / (base.prob / (1 - base.prob)))}}
+  \item{odds.ratio}{odds ratio defined as \cr \code{odds.ratio = exp(beta1) = (prob / (1 - prob)) / (base.prob / (1 - base.prob))}}
   \item{n}{integer; sample size}
    \item{power}{statistical power, defined as the probability of correctly rejecting a false null hypothesis, denoted as \eqn{1 - \beta}.}
   \item{r.squared.predictor}{proportion of variance in the predictor accounted for by other covariates. This is not a pseudo R-squared. To compute it, regress the predictor on the covariates and extract the adjusted R-squared from that model.}

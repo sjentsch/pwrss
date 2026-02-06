@@ -9,9 +9,9 @@ Helper function to convert between Cohen's f and R-squared.
 }
 
 \usage{
-  rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = 1)
+  rsq.to.f(r.squared.full, r.squared.reduced = 0, verbose = 0)
 
-  f.to.rsq(f, r.squared.full = NULL, verbose = 1)
+  f.to.rsq(f, r.squared.full = NULL, verbose = 0)
 }
 
 \arguments{

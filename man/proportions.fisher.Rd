@@ -11,8 +11,8 @@
 }
 
 \usage{
-power.exact.fisher(prob1, prob2, n2 = NULL, n.ratio = 1,
-                   alpha = 0.05, power = NULL,
+power.exact.fisher(prob1, prob2, n.ratio = 1, n2 = NULL,
+                   power = NULL, alpha = 0.05,
                    alternative = c("two.sided", "one.sided"),
                    method = c("exact", "approximate"),
                    ceiling = TRUE, verbose = 1, pretty = FALSE)

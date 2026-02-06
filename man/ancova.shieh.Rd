@@ -12,14 +12,10 @@
 }
 
 \usage{
-power.f.ancova.shieh(mu.vector, sd.vector,
-                     n.vector = NULL, p.vector = NULL,
-                     factor.levels = length(mu.vector),
-                     r.squared = 0, k.covariates = 1,
-                     contrast.matrix = NULL,
-                     power = NULL, alpha = 0.05,
-                     ceiling = TRUE, verbose = 1,
-                     pretty = FALSE)
+power.f.ancova.shieh(mu.vector, sd.vector, n.vector = NULL, p.vector = NULL,
+                     factor.levels = NULL, r.squared = 0, k.covariates = 1,
+                     contrast.matrix = NULL, power = NULL, alpha = 0.05,
+                     ceiling = TRUE, verbose = 1, pretty = FALSE)
 }
 
 \arguments{

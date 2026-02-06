@@ -26,7 +26,7 @@ NOTE: The \code{pwrss.z.poisson()} and its alias \code{pwrss.z.poisreg()} are de
 
 \usage{
 power.z.poisson(base.rate = NULL, rate.ratio = NULL,
-                beta0 = log(base.rate), beta1 = log(rate.ratio),
+                beta0 = NULL, beta1 = NULL,
                 n = NULL, power = NULL,
                 r.squared.predictor = 0, mean.exposure = 1,
                 alpha = 0.05, alternative = c("two.sided", "one.sided"),
@@ -38,8 +38,8 @@ power.z.poisson(base.rate = NULL, rate.ratio = NULL,
 \arguments{
   \item{base.rate}{the base mean event rate.}
   \item{rate.ratio}{event rate ratio. The relative increase in the mean event rate for one unit increase in the predictor (similar to odds ratio in logistic regression).}
-  \item{beta0}{\code{log(base.rate)} or natural logarithm of the base mean event rate.}
-  \item{beta1}{\code{log(rate.ratio)} or natural logarithm of the relative increase in the mean event rate for one unit increase in the predictor.}
+  \item{beta0}{the natural logarithm of the base mean event rate.}
+  \item{beta1}{the natural logarithm of the relative increase in the mean event rate for one unit increase in the predictor.}
   \item{mean.exposure}{the mean exposure time (should be > 0). Usually 1}
   \item{n}{integer; sample size.}
   \item{power}{statistical power, defined as the probability of correctly rejecting a false null hypothesis, denoted as \eqn{1 - \beta}.}

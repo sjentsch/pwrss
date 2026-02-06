@@ -20,7 +20,7 @@
 
 \usage{
 power.z.twoprops(prob1, prob2, margin = 0,
-                 n2 = NULL, n.ratio = 1,
+                 n.ratio = 1, n2 = NULL,
                  power = NULL, alpha = 0.05,
                  alternative = c("two.sided", "one.sided", "two.one.sided"),
                  arcsine = FALSE, correct = FALSE,
@@ -28,7 +28,7 @@ power.z.twoprops(prob1, prob2, margin = 0,
                  std.error = c("pooled", "unpooled"),
                  ceiling = TRUE, verbose = 1, pretty = FALSE)
 
-power.exact.twoprops(prob1, prob2, n2 = NULL, n.ratio = 1,
+power.exact.twoprops(prob1, prob2, n.ratio = 1, n2 = NULL,
                      power = NULL, alpha = 0.05,
                      alternative = c("two.sided", "one.sided"),
                      paired = FALSE, rho.paired = 0.50,
