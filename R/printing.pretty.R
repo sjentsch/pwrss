@@ -22,7 +22,7 @@
 
 .nline_pretty <- function(x, digits = 3, c_a = rep("", 5)) {
   if (any(c("n", "n.total", "n.paired") %in% names(x))) {
-    n_prefix <- ifelse(hasName(x, "n.total") && !hasName(x, "n"), "Total ", ifelse(hasName(x, "n.paired"), "Paired ", ""))
+    n_prefix <- ifelse(utils::hasName(x, "n.total") && !utils::hasName(x, "n"), "Total ", ifelse(utils::hasName(x, "n.paired"), "Paired ", ""))
     n_pad    <- strrep(" ", 6 - nchar(n_prefix))
     n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))

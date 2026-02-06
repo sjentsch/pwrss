@@ -199,9 +199,9 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
     stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
   if ("n.measurements" %in% arg.names)
     stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
-  if (all(hasName(f2_eta2, c("f2", "eta2")))) {
+  if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
-  } else if (hasName(f2_eta2, "f2")) {
+  } else if (utils::hasName(f2_eta2, "f2")) {
     eta2 <- f2 / (1 + f2)
   }
 

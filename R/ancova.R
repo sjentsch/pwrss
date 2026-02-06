@@ -144,9 +144,9 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
   verbose <- .ensure_verbose(verbose)
   f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
 
-  if (all(hasName(f2_eta2, c("f2", "eta2")))) {
+  if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
-  } else if (hasName(f2_eta2, "f2")) {
+  } else if (utils::hasName(f2_eta2, "f2")) {
     eta2 <- f2 / (1 + f2)
   }
   # eta2 doesn't need conversion, and falls back to the default if neither f2 nor eta2 is given explicitly

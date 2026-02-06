@@ -178,9 +178,9 @@ pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
   verbose <- .ensure_verbose(verbose)
 
   r2_f2 <- as.list(match.call())[c("r2", "f2")]
-  if (all(hasName(r2_f2, c("r2", "f2")))) {
+  if (all(utils::hasName(r2_f2, c("r2", "f2")))) {
     stop("Effect size conflict for the alternative. Specify only either `r2` or `f2`.", call. = FALSE)
-  } else if (hasName(r2_f2, "f2")) {
+  } else if (utils::hasName(r2_f2, "f2")) {
     r2 <- f.to.rsq(f = sqrt(f2), verbose = 0)$r.squared.full
   }
 
