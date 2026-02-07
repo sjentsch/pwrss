@@ -27,9 +27,9 @@ power.t.test(
 - null.ncp:
 
   non-centrality parameter for the null. When alternative =
-  "two.one.sided", the function expects two values in the form c(lower,
-  upper). If a single value is provided, it is interpreted as the
-  absolute bound and automatically expanded to c(-value, +value).
+  "two.one.sided", the function expects two values in the form
+  `c(lower, upper)`. If a single value is provided, it is interpreted as
+  the absolute bound and automatically expanded to `c(-value, +value)`.
 
 - df:
 
@@ -53,9 +53,8 @@ power.t.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `2` a more
-  detailed output is given (plus key parameters and defintions), if `0`
-  no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `0` no
+  output is printed on the console.
 
 - pretty:
 
@@ -88,11 +87,9 @@ power.t.test(
 
 ``` r
 # two-sided
-# power defined as the probability of observing a test statistic
-# greater than the positive critical value OR
-# less than the negative critical value
-power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
-             alternative = "two.sided")
+# power defined as the probability of observing test statistics greater
+# than the positive critical value OR less than the negative critical value
+power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided")
 
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
@@ -115,10 +112,9 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
 #> 
 
 # one-sided
-# power is defined as the probability of observing a test statistic
-# greater than the critical value
-power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
-             alternative = "one.sided")
+# power is defined as the probability of observing a test statistic greater
+# than the critical value
+power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "one.sided")
 
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
@@ -141,11 +137,10 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
 #> 
 
 # equivalence
-# power is defined as the probability of observing a test statistic
-# greater than the upper critical value (for the lower bound) AND
-# less than the lower critical value (for the upper bound)
-power.t.test(ncp = 0, df = 100,
-             null.ncp = c(-2, 2), alpha = 0.05,
+# power is defined as the probability of observing a test statistic greater
+# than the upper critical value (for the lower bound) AND less than the
+# lower critical value (for the upper bound)
+power.t.test(ncp = 0, null.ncp = c(-2, 2), df = 100, alpha = 0.05,
              alternative = "two.one.sided")
 
 #> +--------------------------------------------------+
@@ -171,11 +166,10 @@ power.t.test(ncp = 0, df = 100,
 #> 
 
 # minimal effect testing
-# power is defined as the probability of observing a test statistic
-# greater than the upper critical value (for the upper bound) OR
-# less than the lower critical value (for the lower bound).
-power.t.test(ncp = 2, df = 100,
-             null.ncp = c(-1, 1), alpha = 0.05,
+# power is defined as the probability of observing a test statistic greater
+# than the upper critical value (for the upper bound) OR less than the lower
+# critical value (for the lower bound).
+power.t.test(ncp = 2, null.ncp = c(-1, 1), df = 100, alpha = 0.05,
              alternative = "two.one.sided")
 
 #> +--------------------------------------------------+

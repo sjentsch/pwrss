@@ -35,9 +35,9 @@ power.z.test(
 - null.mean:
 
   mean of the null. When alternative = "two.one.sided", the function
-  expects two values in the form c(lower, upper). If a single value is
+  expects two values in the form `c(lower, upper)`. If a single value is
   provided, it is interpreted as the absolute bound and automatically
-  expanded to c(-value, +value).
+  expanded to `c(-value, +value)`.
 
 - null.sd:
 
@@ -62,9 +62,8 @@ power.z.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `2` a more
-  detailed output is given (plus key parameters and defintions), if `0`
-  no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `0` no
+  output is printed on the console.
 
 - pretty:
 
@@ -106,11 +105,9 @@ power.z.test(
 
 ``` r
 # two-sided
-# power defined as the probability of observing z-statistics
-# greater than the positive critical t value OR
-# less than the negative critical t value
-power.z.test(mean = 1.96, alpha = 0.05,
-             alternative = "two.sided")
+# power defined as the probability of observing test statistics greater than
+# the positive critical value OR less than the negative critical value
+power.z.test(mean = 1.96, alpha = 0.05, alternative = "two.sided")
 
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
@@ -133,10 +130,9 @@ power.z.test(mean = 1.96, alpha = 0.05,
 #> 
 
 # one-sided
-# power is defined as the probability of observing z-statistics
-# greater than the critical t value
-power.z.test(mean = 1.96, alpha = 0.05,
-             alternative = "one.sided")
+# power is defined as the probability of observing a test statistic greater
+# than the critical value
+power.z.test(mean = 1.96, alpha = 0.05, alternative = "one.sided")
 
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
@@ -159,9 +155,9 @@ power.z.test(mean = 1.96, alpha = 0.05,
 #> 
 
 # equivalence
-# power is defined as the probability of observing a test statistic
-# greater than the upper critical value (for the lower bound) AND
-# less than the lower critical value (for the upper bound)
+# power is defined as the probability of observing a test statistic greater
+# than the upper critical value (for the lower bound) AND less than the
+# lower critical value (for the upper bound)
 power.z.test(mean = 0, null.mean = c(-2, 2), alpha = 0.05,
              alternative = "two.one.sided")
 
@@ -188,9 +184,9 @@ power.z.test(mean = 0, null.mean = c(-2, 2), alpha = 0.05,
 #> 
 
 # minimal effect testing
-# power is defined as the probability of observing a test statistic
-# greater than the upper critical value (for the upper bound) OR
-# less than the lower critical value (for the lower bound).
+# power is defined as the probability of observing a test statistic greater
+# than the upper critical value (for the upper bound) OR less than the lower
+# critical value (for the lower bound).
 power.z.test(mean = 2, null.mean = c(-1, 1), alpha = 0.05,
              alternative = "two.one.sided")
 

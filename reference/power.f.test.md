@@ -48,9 +48,8 @@ power.f.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `2` a more
-  detailed output is given (plus key parameters and defintions), if `0`
-  no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `0` no
+  output is printed on the console.
 
 - pretty:
 
@@ -86,8 +85,8 @@ power.f.test(
 ## Examples
 
 ``` r
-# power is defined as the probability of observing F-statistics
-# greater than the critical value
+# power is defined as the probability of observing a test statistics greater
+# than the critical value
 power.f.test(ncp = 1, df1 = 4, df2 = 100, alpha = 0.05)
 
 #> +--------------------------------------------------+

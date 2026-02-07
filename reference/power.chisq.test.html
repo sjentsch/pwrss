@@ -86,9 +86,7 @@ plot. <code>TRUE</code> by default.</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><code>1</code> by default (returns test, hypotheses, and results),
-if <code>2</code> a more detailed output is given (plus key
-parameters and defintions), if <code>0</code> no output is printed
-on the console.</p></dd>
+if <code>0</code> no output is printed on the console.</p></dd>
 
 
 <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
@@ -107,8 +105,8 @@ on the console.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># power is defined as the probability of observing Chi-square-statistics</span></span></span>
-<span class="r-in"><span><span class="co"># greater than the critical  value</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># power is defined as the probability of observing a test statistics greater</span></span></span>
+<span class="r-in"><span><span class="co"># than the critical value</span></span></span>
 <span class="r-in"><span><span class="fu">power.chisq.test</span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">20</span>, df <span class="op">=</span> <span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="power.chisq.test-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>

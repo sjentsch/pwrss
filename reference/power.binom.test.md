@@ -51,9 +51,8 @@ power.binom.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `2` a more
-  detailed output is given (plus key parameters and defintions), if `0`
-  no output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `0` no
+  output is printed on the console.
 
 - pretty:
 
