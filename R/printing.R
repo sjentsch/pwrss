@@ -34,7 +34,7 @@
 }
 
 .print.ascii.pwrss.logistic <- function(x, digits = 3, verbose = 1, ...) {
- 
+
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", x$method, "\n", sep = "")
@@ -189,7 +189,7 @@
 
 
 .print.ascii.pwrss.f.regression <- function(x, digits = 3, verbose = 1, ...) {
-  
+
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 

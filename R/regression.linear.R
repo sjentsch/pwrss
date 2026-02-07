@@ -1,3 +1,34 @@
+#' Conversion from R-squared to Cohen's f
+#'
+#' Helper function to convert between Cohen's f and R-squared.
+#'
+#' @param r.squared.full    R-squared for the full model.
+#' @param r.squared.reduced R-squared for the reduced model.
+#' @param verbose           \code{1} by default (returns results), if \code{0}
+#'                          no output is printed on the console.
+#'
+#' @return
+#'   \item{f.squared}{Cohen's f-squared.}
+#'   \item{f}{Cohen's f.}
+#'   \item{r.squared.full}{R-squared for the full model.}
+#'   \item{r.squared.reduced}{R-squared for the reduced model.}
+#'
+#' @references
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
+#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
+#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
+#'   111. https://doi.org/10.3389/fpsyg.2012.00111
+#'
+#' @examples
+#'
+#'   rsq.to.f(r.squared.full = 0.02) # small
+#'   rsq.to.f(r.squared.full = 0.13) # medium
+#'   rsq.to.f(r.squared.full = 0.26) # large
+#'
+#' @export rsq.to.f
 rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
 
   check.nonnegative(r.squared.full, r.squared.reduced)
@@ -16,6 +47,39 @@ rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
                  r.squared.reduced = r.squared.reduced))
 } # rsq.to.f
 
+
+#' Conversion from Cohen's f to R-squared
+#'
+#' Helper function to convert between Cohen's f and R-squared.
+#'
+#'
+#' @param f              Cohen's f.
+#' @param r.squared.full R-squared for the full model.
+#' @param verbose        \code{1} by default (returns results), if \code{0} no
+#'                       output is printed on the console.
+#'
+#' @return
+#'   \item{f}{Cohen's f.}
+#'   \item{f.squared}{Cohen's f-squared.}
+#'   \item{r.squared.full}{R-squared for the full model.}
+#'   \item{r.squared.reduced}{R-squared for the reduced model.}
+#'
+#' @references
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
+#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
+#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
+#'   111. https://doi.org/10.3389/fpsyg.2012.00111
+#'
+#' @examples
+#'
+#'   f.to.rsq(f = 0.14) # small
+#'   f.to.rsq(f = 0.39) # medium
+#'   f.to.rsq(f = 0.59) # large
+#'
+#' @export f.to.rsq
 f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 
   check.nonnegative(f)
@@ -39,11 +103,88 @@ f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 } # f.to.rsq
 
 
-
 ############################
 # linear regression f test #
 ############################
 
+#' Power Analysis for Linear Regression: R-squared or R-squared Change (F-Test)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test
+#' R-squared deviation from 0 (zero) in linear regression or to test R-squared
+#' change between two linear regression models. The test of R-squared change is
+#' often used to evaluate incremental contribution of a set of predictors in
+#' hierarchical linear regression.
+#'
+#' Formulas are validated using Monte Carlo simulation, G*Power, and tables in
+#' PASS documentation.
+#'
+#' NOTE: The \code{pwrss.f.reg()} function and its alias
+#' \code{pwrss.f.regression} are deprecated, but they will remain available as
+#' a wrapper for \code{power.f.regression()} during the transition period.
+#'
+#'
+#' @aliases pwrss.f.reg power.f.reg pwrss.f.regression power.f.regression
+#'
+#' @param r.squared.change R-squared (or R-squared change).
+#' @param margin           margin - ignorable R-squared (or R-squared change).
+#' @param k.total          integer; total number of predictors.
+#' @param k.tested         integer; number of predictors in the subset of
+#'                         interest. By default \code{k.tested = k.total},
+#'                         which implies that one is interested in the
+#'                         contribution of all predictors, and tests whether
+#'                         R-squared value is different from 0 (zero).
+#' @param n                integer; sample size.
+#' @param power            statistical power, defined as the probability of
+#'                         correctly rejecting a false null hypothesis, denoted
+#'                         as \eqn{1 - \beta}.
+#' @param alpha            type 1 error rate, defined as the probability of
+#'                         incorrectly rejecting a true null hypothesis,
+#'                         denoted as \eqn{\alpha}.
+#' @param ceiling          logical; whether sample size should be rounded up.
+#'                         \code{TRUE} by default.
+#' @param verbose          \code{1} by default (returns test, hypotheses, and
+#'                         results), if \code{2} a more detailed output is
+#'                         given (plus key parameters and defintions), if
+#'                         \code{0} no output is printed on the console.
+#' @param pretty           logical; whether the output should show Unicode
+#'                         characters (if encoding allows for it).
+#'                         \code{FALSE} by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (F-Test).}
+#'   \item{df1}{numerator degrees of freedom.}
+#'   \item{df2}{denominator degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter for the alternative.}
+#'   \item{null.ncp}{non-centrality parameter for the null.}
+#'   \item{f.alpha}{critical value.}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#'
+#' # in the outcome (R-squared = 0.15).
+#' power.f.regression(r.squared = 0.15,
+#'                    k.total = 3, # total number of predictors
+#'                    power = 0.80)
+#'
+#' # adding two more variables will increase R-squared
+#' # from 0.15 (with 3 predictors) to 0.25 (with 3 + 2 predictors)
+#' power.f.regression(r.squared.change = 0.10, # R-squared change
+#'                    k.total = 5, # total number of predictors
+#'                    k.tested = 2, # predictors to be tested
+#'                    power = 0.80)
+#'
+#' @export power.f.regression
 power.f.regression <- function(r.squared.change = NULL,
                                margin = 0,
                                k.total,
@@ -127,7 +268,7 @@ power.f.regression <- function(r.squared.change = NULL,
   lambda <- pwr.obj$lambda
   null.lambda <- pwr.obj$null.lambda
   f.alpha <- pwr.obj$f.alpha
-  
+
   if (verbose > 0) {
 
     test <- ifelse(k.tested == k.total, "Linear Regression (F-Test)", "Hierarchical Linear Regression (F-Test)")
@@ -168,9 +309,11 @@ power.f.regression <- function(r.squared.change = NULL,
 
 
 } # pwrss.f.regression()
+
+#' @export power.f.reg
 power.f.reg <- power.f.regression
 
-
+#' @export pwrss.f.regression
 pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
                         k = 1, m = k, alpha = 0.05,
                         n = NULL, power = NULL, verbose = TRUE) {
@@ -194,18 +337,172 @@ pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
   return(invisible(pwrss.f.reg.obj))
 
 } # pwrss.f.regression
-pwrss.f.reg <- pwrss.f.regression
 
+#' @export pwrss.f.reg
+pwrss.f.reg <- pwrss.f.regression
 
 
 #####################
 # linear regression #
 #####################
 
-# if the predictor is binary
-# provide sd.predictor = sqrt(p * (1 - p))
+# if the predictor is binary provide sd.predictor = sqrt(p * (1 - p))
 # p = proportion of subjects in treatment group
 # use defaults if beta is standardized
+
+#' Power Analysis for Linear Regression: Single Coefficient (T-Test)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test a
+#' single coefficient in multiple linear regression. The predictor is assumed
+#' to be continuous by default. However, one can calculate power or sample size
+#' for a binary predictor (such as treatment and control groups in an
+#' experimental design) by specifying \code{sd.predictor = sqrt(p*(1-p))} where
+#' \code{p} is the proportion of subjects in one of the groups. The sample size
+#' in each group would be \code{n*p} and \code{n*(1-p)}.
+#' \code{power.t.regression()}\code{pwrss.t.regression()} are the same
+#' functions, as well as \code{power.t.reg()} and \code{pwrss.t.reg()}.
+#'
+#' Minimal effect and equivalence tests are implemented in line with Hodges and
+#' Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont and
+#' Plummer (1998).
+#'
+#' Formulas are validated using Monte Carlo simulation, G*Power, tables in PASS
+#' documentation, and tables in Bulus (2021).
+#'
+#' NOTE: The \code{pwrss.t.regression()} function and its alias
+#' \code{pwrss.z.reg()} are deprecated, but they will remain available as a
+#' wrapper for \code{power.t.regression()} during the transition period.
+#'
+#'
+#' @aliases power.t.regression pwrss.t.regression pwrss.z.regression
+#'          pwrss.t.reg pwrss.z.reg power.t.reg
+#'
+#' @param beta         regression coefficient. One can use standardized
+#'                     regression coefficient, but should keep
+#'                     \code{sd.predictor = 1} and \code{sd.outcome = 1} or
+#'                     leave them out as they are default specifications.
+#' @param null.beta    regression coefficient under null hypothesis (typically
+#'                     zero). One can use standardized regression coefficient,
+#'                     but should keep \code{sd.predictor = 1} and
+#'                     \code{sd.outcome = 1} or leave them out as they are
+#'                     default specifications.
+#' @param margin       margin - ignorable \code{beta} - \code{null.beta}
+#'                     difference.
+#' @param sd.predictor standard deviation of the predictor. For a binary
+#'                     predictor, \code{sd.predictor = sqrt(p * (1 - p))} where
+#'                     \code{p} is the proportion of subjects in one of the
+#'                     groups.
+#' @param sd.outcome   standard deviation of the outcome.
+#' @param k.total      integer; total number of predictors, including the
+#'                     predictor of interest.
+#' @param r.squared    model R-squared. The default is
+#'                     \code{r.squared = (beta * sd.predictor / sd.outcome) ^ 2}
+#'                     assuming a linear regression with one predictor. Thus,
+#'                     an \code{r.squared} below this value will throw a
+#'                     warning.
+#'                     To consider other covariates in the model provide a value
+#'                     greater than the default \code{r.squared} along with the
+#'                     argument \code{k.total > 1}.
+#' @param n            integer; sample size.
+#' @param power        statistical power, defined as the probability of
+#'                     correctly rejecting a false null hypothesis, denoted as
+#'                     \eqn{1 - \beta}.
+#' @param alpha        type 1 error rate, defined as the probability of
+#'                     incorrectly rejecting a true null hypothesis, denoted as
+#'                     \eqn{\alpha}.
+#' @param alternative  character; the direction or type of the hypothesis test:
+#'                     "two.sided", "one.sided", or "two.one.sided".
+#' @param ceiling      logical; whether sample size should be rounded up.
+#'                     \code{TRUE} by default.
+#' @param verbose      \code{1} by default (returns test, hypotheses, and
+#'                     results), if \code{2} a more detailed output is given
+#'                     (plus key parameters and defintions), if \code{0} no
+#'                     output is printed on the console.
+#' @param pretty       logical; whether the output should show Unicode
+#'                     characters (if encoding allows for it). \code{FALSE} by
+#'                     default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (T-Test).}
+#'   \item{df}{degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter for the alternative.}
+#'   \item{null.ncp}{non-centrality parameter for the null.}
+#'   \item{t.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Bulus, M. (2021). Sample size determination and optimal design of
+#'   randomized / non-equivalent pretest-post-test control-group designs.
+#'   *Adiyaman University Journal of Educational Sciences, 11*(1), 48-69.
+#'   https://doi.org/10.17984/adyuebd.941434
+#'
+#'   Hodges Jr, J. L., & Lehmann, E. L. (1954). Testing the approximate
+#'   validity of statistical hypotheses. *Journal of the Royal Statistical
+#'   Society Series B: Statistical Methodology, 16*(2), 261-268.
+#'   https://doi.org/10.1111/j.2517-6161.1954.tb00169.x
+#'
+#'   Kim, J. H., & Robinson, A. P. (2019). Interval-based hypothesis testing
+#'   and its applications to economics and finance. *Econometrics, 7*(2), 21.
+#'   https://doi.org/10.1111/10.3390/econometrics7020021
+#'
+#'   Phillips, K. F. (1990). Power of the two one-sided tests procedure in
+#'   bioequivalence. *Journal of Pharmacokinetics and Biopharmaceutics, 18*(2),
+#'   137-144. https://doi.org/10.1007/bf01063556
+#'
+#'   Dupont, W. D., and Plummer, W. D. (1998). Power and sample size
+#'   calculations for studies involving linear regression. *Controlled Clinical
+#'   Trials, 19*(6), 589-601.
+#'   https://doi.org/10.1007/10.1016/s0197-2456(98)00037-3
+#'
+#' @examples
+#'
+#' # continuous predictor x (and 4 covariates)
+#' power.t.regression(beta = 0.20,
+#'             k.total = 5,
+#'             r.squared = 0.30,
+#'             power = 0.80)
+#'
+#' # binary predictor x (and 4 covariates)
+#' p <- 0.50 # proportion of subjects in one group
+#' power.t.regression(beta = 0.20,
+#'             sd.predictor = sqrt(p*(1-p)),
+#'             k.total = 5,
+#'             r.squared = 0.30,
+#'             power = 0.80)
+#'
+#' # non-inferiority test with binary predictor x (and 4 covariates)
+#' p <- 0.50 # proportion of subjects in one group
+#' power.t.regression(beta = 0.20, # Cohen's d
+#'             margin = -0.05, # non-inferiority margin in Cohen's d unit
+#'             alternative = "one.sided",
+#'             sd.predictor = sqrt(p*(1-p)),
+#'             k.total = 5,
+#'             r.squared = 0.30,
+#'             power = 0.80)
+#'
+#' # superiority test with binary predictor x (and 4 covariates)
+#' p <- 0.50 # proportion of subjects in one group
+#' power.t.regression(beta = 0.20, # Cohen's d
+#'             margin = 0.05, # superiority margin in Cohen's d unit
+#'             alternative = "one.sided",
+#'             sd.predictor = sqrt(p*(1-p)),
+#'             k.total = 5,
+#'             r.squared = 0.30,
+#'             power = 0.80)
+#'
+#' # equivalence test with binary predictor x (and 4 covariates)
+#' p <- 0.50 # proportion of subjects in one group
+#' power.t.regression(beta = 0, # Cohen's d
+#'             margin = c(-0.05, 0.05), # equivalence bounds in Cohen's d unit
+#'             alternative = "two.one.sided",
+#'             sd.predictor = sqrt(p*(1 - p)),
+#'             k.total = 5,
+#'             r.squared = 0.30,
+#'             power = 0.80)
+#'
+#' @export power.t.regression
 power.t.regression <- function(beta, null.beta = 0, margin = 0,
                                sd.predictor = 1, sd.outcome = 1,
                                r.squared = (beta * sd.predictor / sd.outcome) ^ 2,
@@ -291,7 +588,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                   alpha = alpha, alternative =  alternative)
 
     if (ceiling) n <- ceiling(n)
-    
+
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n")
@@ -348,9 +645,11 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                            n = n),
                       class = c("pwrss", "t", "regression")))
 } # power.t.regression()
+
+#' @export power.t.reg
 power.t.reg <- power.t.regression
 
-
+#' @export pwrss.t.regression
 pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
                                sdx = 1, sdy = 1,
                                k = 1, r2 = (beta1 * sdx / sdy) ^ 2,
@@ -380,16 +679,14 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
   return(invisible(pwrss.t.reg.obj))
 
 } # pwrss.t.regression
+
+#' @export pwrss.t.reg
 pwrss.t.reg <- pwrss.t.regression
 
 
 # defunct
-pwrss.z.mean   <- function(...) {
-  stop("This function is no longer available. Please use `power.t.student()`.", call. = FALSE)
-}
-pwrss.z.2means <- function(...) {
-  stop("This function is no longer available. Please use `power.t.student()` or `power.t.welch()`.", call. = FALSE)
-}
+#' @export pwrss.z.regression
+#' @export pwrss.z.reg
 pwrss.z.regression <- pwrss.z.reg <- function(...) {
   stop("This function is no longer available. Please use `power.t.regression()`.", call. = FALSE)
 }

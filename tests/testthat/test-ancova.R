@@ -857,7 +857,7 @@ test_that("ancova.R works", {
     expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
     expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
     expect_equal(crrCnt[["parms"]],
-                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), contrast.vector = mtxCnt[1, ], p.vector = rep(1 / 3, 3),
+                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3), contrast.vector = mtxCnt[1, ],
                       r.squared = 0.5, k.covariates = 1, alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0,
                       pretty = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
@@ -899,7 +899,7 @@ test_that("ancova.R works", {
     expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
     expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
     expect_equal(crrCnt[["parms"]],
-                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), contrast.vector = mtxCnt[1, ], p.vector = rep(1 / 3, 3),
+                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3), contrast.vector = mtxCnt[1, ],
                       r.squared = 0.5, k.covariates = 1, alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0,
                       pretty = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
@@ -943,7 +943,7 @@ test_that("ancova.R works", {
     expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
     expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
     expect_equal(crrCnt[["parms"]],
-                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), contrast.vector = mtxCnt[2, ], p.vector = rep(1 / 3, 3),
+                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3), contrast.vector = mtxCnt[2, ],
                       r.squared = 0.5, k.covariates = 2, alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0,
                       pretty = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
@@ -1001,7 +1001,7 @@ test_that("ancova.R works", {
     expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
     expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
     expect_equal(crrCnt[["parms"]],
-                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), contrast.vector = mtxCnt[1, ], p.vector = rep(1 / 3, 3),
+                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3), contrast.vector = mtxCnt[1, ],
                       r.squared = 0.5, k.covariates = 1, alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0,
                       pretty = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
@@ -1013,7 +1013,7 @@ test_that("ancova.R works", {
     expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
     expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
     expect_equal(crrCnt[["parms"]],
-                 list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), contrast.vector = c(1, -1), p.vector = NULL, r.squared = 0.5,
+                 list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), p.vector = NULL, contrast.vector = c(1, -1), r.squared = 0.5,
                       k.covariates = 1, alpha = 0.05, tukey.kramer = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,

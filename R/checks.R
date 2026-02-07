@@ -98,7 +98,7 @@ check.vector <- function(x, fnc, min.length = 2) {
   err.msg <- sprintf("All elements of `%s` need to be valid %s values (%s)", var.name, fnc2type(fnc.name), valid.cond(fnc.name))
   tryCatch(invisible(sapply(x, fnc)),
            error = function(e) stop(err.msg, call. = FALSE))
-  
+
   invisible(NULL)
 } # check.vector
 
@@ -108,7 +108,7 @@ check.same.lengths <- function(...) {
   arg.names <- vapply(substitute(list(...))[-1], function(fn) paste0("`", deparse(fn, nlines = 1), "`"), character(1))
   if (is.null(args[[1]]))
     stop(sprintf("To use `check.same.lengths`, %s can not be NULL.", arg.names[[1]]), call. = FALSE)
-  
+
   check <- rep(TRUE, length(args))
   check[c(FALSE, !unlist(lapply(args, is.null))[-1])] <-
     unlist(lapply(args, length)[c(FALSE, !unlist(lapply(args, is.null))[-1])]) == length(args[[1]])

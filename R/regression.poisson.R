@@ -1,17 +1,147 @@
-######################
-# poisson regression #
-######################
-
-# dist = c("normal", "poisson", "uniform", "exponential", "binomial", "bernouilli", "lognormal")
-# dist = list(dist = "normal", mean = 0, sd = 1)
-# dist = list(dist = "poisson", lambda = 1)
-# dist = list(dist = "uniform", min = 0, max = 1)
-# dist = list(dist = "exponential", rate = 1)
-# dist = list(dist = "binomial", size = 1, prob = 0.50)
-# dist = list(dist = "bernoulli", prob = 0.50)
-# dist = list(dist = "lognormal", meanlog = 0, sdlog = 1)
-
-# mean.exposure is the mean exposure time (should be > 0)
+#' Power Analysis for Poisson Regression Coefficient (Wald's z Test)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test a
+#' single coefficient in poisson regression. \code{power.z.poisson()} and
+#' \code{power.z.poisreg()} are the same functions, as well as
+#' \code{pwrss.z.poisson()} and \code{pwrss.z.poisreg()}. The distribution of
+#' the predictor variable can be one of the following: \code{c("normal",
+#' "poisson", "uniform", "exponential", "binomial", "bernouilli",
+#' "lognormal")}. The default parameters for these distributions are
+#'
+#' \code{distribution = list(dist = "normal", mean = 0, sd = 1)} \cr
+#' \code{distribution = list(dist = "poisson", lambda = 1)} \cr
+#' \code{distribution = list(dist = "uniform", min = 0, max = 1)} \cr
+#' \code{distribution = list(dist = "exponential", rate = 1)} \cr
+#' \code{distribution = list(dist = "binomial", size = 1, prob = 0.50)} \cr
+#' \code{distribution = list(dist = "bernoulli", prob = 0.50)} \cr
+#' \code{distribution = list(dist = "lognormal", meanlog = 0, sdlog = 1)} \cr
+#'
+#' Parameters defined in \code{list()} form can be modified, but the names
+#' should be kept the same. It is sufficient to use distribution's name for
+#' default parameters (e.g. \code{dist = "normal"}).
+#'
+#' Formulas are validated using Monte Carlo simulation, G*Power, and tables in
+#' PASS documentation.
+#'
+#' NOTE: The \code{pwrss.z.poisson()} and its alias \code{pwrss.z.poisreg()}
+#' are deprecated. However, they will remain available as wrappers for the
+#' \code{power.z.logistic()} function.
+#'
+#'
+#' @aliases power.z.poisreg power.z.poisson pwrss.z.poisreg pwrss.z.poisson
+#'
+#' @param base.rate           the base mean event rate.
+#' @param rate.ratio          event rate ratio. The relative increase in the
+#'                            mean event rate for one unit increase in the
+#'                            predictor (similar to odds ratio in logistic
+#'                            regression).
+#' @param beta0               the natural logarithm of the base mean event
+#'                            rate.
+#' @param beta1               the natural logarithm of the relative increase
+#'                            in the mean event rate for one unit increase in
+#'                            the predictor.
+#' @param mean.exposure       the mean exposure time (should be > 0), usually
+#'                            it is 1.
+#' @param n                   integer; sample size.
+#' @param power               statistical power, defined as the probability of
+#'                            correctly rejecting a false null hypothesis,
+#'                            denoted as \eqn{1 - \beta}.
+#' @param r.squared.predictor proportion of variance in the predictor accounted
+#'                            for by other covariates. This is not a pseudo
+#'                            R-squared. To compute it, regress the predictor
+#'                            on the covariates and extract the adjusted
+#'                            R-squared from that model.
+#' @param alpha               type 1 error rate, defined as the probability of
+#'                            incorrectly rejecting a true null hypothesis,
+#'                            denoted as \eqn{\alpha}.
+#' @param alternative         character; direction or type of the hypothesis
+#'                            test: "not equal", "greater", "less".
+#' @param method              character; calculation method:
+#'                            \code{"demidenko(vc)"} stands for Demidenko
+#'                            (2007) procedure with variance correction;
+#'                            \code{"demidenko"} stands for Demidenko (2007)
+#'                            procedure without variance correction;
+#'                            \code{"signorini"} stands for Signorini (1991)
+#'                            procedure. \code{"demidenko"} and
+#'                            \code{"signorini"} methods produce similar
+#'                            results but \code{"demidenko(vc)"} is more
+#'                            precise.
+#' @param distribution        character; distribution family. Can be one of the
+#'                            \code{c("normal", "poisson", "uniform",
+#'                            "exponential", "binomial", "bernouilli",
+#'                            "lognormal")}.
+#' @param ceiling             logical; whether sample size should be rounded
+#'                            up. \code{TRUE} by default.
+#' @param verbose             \code{1} by default (returns test, hypotheses,
+#'                            and results), if \code{2} a more detailed output
+#'                            is given (plus key parameters and defintions), if
+#'                            \code{0} no output is printed on the console.
+#' @param pretty              logical; whether the output should show Unicode
+#'                            characters (if encoding allows for it).
+#'                            \code{FALSE} by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (Z-Test).}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Demidenko, E. (2007). Sample size determination for logistic regression
+#'   revisited. *Statistics in Medicine, 26*(18), 3385-3397.
+#'   https://doi.org/10.1002/sim.2771
+#'
+#'   Signorini, D. F. (1991). Sample size for Poisson regression. *Biometrika,
+#'   78*(2), 446-450.
+#'
+#' @examples
+#' # predictor X follows normal distribution
+#'
+#' ## regression coefficient specification
+#' power.z.poisson(beta0 = 0.50, beta1 = -0.10,
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = "normal")
+#'
+#' ## rate ratio specification
+#' power.z.poisson(base.rate = exp(0.50),
+#'                 rate.ratio = exp(-0.10),
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = "normal")
+#'
+#' ## change parameters associated with predictor X
+#' dist.x <- list(dist = "normal", mean = 10, sd = 2)
+#' power.z.poisson(base.rate = exp(0.50),
+#'                 rate.ratio = exp(-0.10),
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = dist.x)
+#'
+#'
+#' # predictor X follows Bernoulli distribution (such as treatment/control groups)
+#'
+#' ## regression coefficient specification
+#' power.z.poisson(beta0 = 0.50, beta1 = -0.10,
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = "bernoulli")
+#'
+#' ## rate ratio specification
+#' power.z.poisson(base.rate = exp(0.50),
+#'                 rate.ratio = exp(-0.10),
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = "bernoulli")
+#'
+#' ## change parameters associatied with predictor X
+#' dist.x <- list(dist = "bernoulli", prob = 0.30)
+#' power.z.poisson(base.rate = exp(0.50),
+#'                 rate.ratio = exp(-0.10),
+#'                 alpha = 0.05, power = 0.80,
+#'                 dist = dist.x)
+#'
+#' @export power.z.poisson
 power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                             beta0 = NULL, beta1 = NULL,
                             n = NULL, power = NULL,
@@ -88,7 +218,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
       sd <- distribution$sd
       min.norm <- stats::qnorm(.0000001, mean = mean, sd = sd)
       max.norm <- stats::qnorm(.9999999, mean = mean, sd = sd)
-      
+
       # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
       dstFnc <- function(x, e, b0, b1) x ^ e * stats::dnorm(x, mean = mean, sd = sd) * exp(b0 + b1 * x)
       mu  <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
@@ -359,8 +489,12 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                            n = n),
                       class = c("pwrss", "z", "poisson")))
 } # power.z.poisson()
+
+#' @export power.z.poisreg
 power.z.poisreg <- power.z.poisson
 
+
+#' @export pwrss.z.poisson
 pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
                             beta0 = log(exp.beta0), beta1 = log(exp.beta1),
                             mean.exposure = 1, n = NULL, power = NULL, r2.other.x = 0,
@@ -385,4 +519,6 @@ pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
   return(invisible(poisreg.obj))
 
 } # pwrss.z.poisson
+
+#' @export pwrss.z.poisreg
 pwrss.z.poisreg <- pwrss.z.poisson

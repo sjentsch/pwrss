@@ -2,6 +2,66 @@
 # one proportion exact test #
 #############################
 
+#' Power Analysis for the Test of One Proportion (Exact Method)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) for test of
+#' a proportion against a constant using the exact method.
+#'
+#' Formulas are validated using PASS documentation.
+#'
+#'
+#' @param prob        probability of success under alternative.
+#' @param null.prob   probability of success under null.
+#' @param n           integer; sample size.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; the direction or type of the hypothesis test:
+#'                    "two.sided", "one.sided", or "two.one.sided". For
+#'                    non-inferiority or superiority tests, add margin to the
+#'                    null hypothesis value and use
+#'                    \code{alternative = "one.sided"}.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test ("exact").}
+#'   \item{delta}{difference between `prob` and `null.prob`}
+#'   \item{odds.ratio}{Odds-ratio \eqn{(prob / (1 - prob)) /
+#'                     (null.prob / (1 - null.prob))}}
+#'   \item{prob}{probability of success under alternative.}
+#'   \item{null.prob}{probability of success under null.}
+#'   \item{binom.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1 - \beta)}.}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#' @examples
+#' # power'
+#' power.exact.oneprop(prob = 0.45, null.prob = 0.50,
+#'                     alpha = 0.05, n = 500,
+#'                     alternative = "one.sided")
+#'
+#' # sample size
+#' power.exact.oneprop(prob = 0.45, null.prob = 0.50,
+#'                     alpha = 0.05, power = 0.80,
+#'                     alternative = "one.sided")
+#'
+#' @export power.exact.oneprop
 power.exact.oneprop <- function(prob, null.prob = 0.50,
                                 n = NULL, power = NULL, alpha = 0.05,
                                 alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -18,7 +78,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   check.logical(pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
-  
+
   len.null.prob <- ifelse(alternative == "two.one.sided", 2, 1)
   if (length(null.prob) != len.null.prob)
     stop(sprintf("`null.prob` must have the length %d if `alternative` is \"%s\".", len.null.prob, alternative), call. = FALSE)
@@ -156,11 +216,88 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 } # power.exact.oneprop
 
 
-
 #####################################
 # one proportion approximate z test #
 #####################################
 
+#' Power Analysis for the Test of One Proportion (Normal Approximation Method)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) for test of
+#' a proportion against a constant using the normal approximation method.
+#'
+#' Formulas are validated using PASS documentation.
+#'
+#' NOTE: The \code{pwrss.z.prop()} function is deprecated, but it will remain
+#' available as a wrapper for the \code{power.z.oneprop()} function during a
+#' transition period.
+#'
+#'
+#' @aliases power.z.oneprop pwrss.z.prop
+#'
+#' @param prob        probability of success under alternative.
+#' @param null.prob   probability of success under null.
+#' @param n           integer; sample size.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; the direction or type of the hypothesis test:
+#'                    "two.sided", "one.sided", or "two.one.sided". For
+#'                    non-inferiority or superiority tests, add margin to the
+#'                    null hypothesis value and use
+#'                    \code{alternative = "one.sided"}.
+#' @param std.error   character; whether to calculate standard error using
+#'                    "null" or "alternative" value. "null" by default.
+#' @param arcsine     logical; whether arcsine transformation should be
+#'                    applied. \code{FALSE} by default. Note that when
+#'                    \code{arcsine = TRUE}, any specification to
+#'                    \code{correct} and \code{std.error} will be ignored.
+#' @param correct     logical; whether Yate's continuity correction should be
+#'                    applied.
+#' @param ceiling     logical; whether sample size should be rounded up.
+#'                    \code{TRUE} by default.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test ("exact").}
+#'   \item{delta}{difference between `prob` and `null.prob`}
+#'   \item{odds.ratio}{Odds-ratio \eqn{(prob / (1 - prob)) /
+#'                     (null.prob / (1 - null.prob))}}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#' @examples
+#' # power
+#' power.z.oneprop(prob = 0.45, null.prob = 0.50,
+#'                 alpha = 0.05, n = 500,
+#'                 alternative = "one.sided")
+#'
+#' # sample size
+#' power.z.oneprop(prob = 0.45, null.prob = 0.50,
+#'                 alpha = 0.05, power = 0.80,
+#'                 alternative = "one.sided")
+#'
+#' @export power.z.oneprop
 power.z.oneprop <- function(prob, null.prob = 0.50,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -437,8 +574,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 } # power.z.oneprop
 
 
-
-
+#' @export pwrss.z.prop
 pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha = 0.05,
                           alternative = c("not equal", "greater", "less",
                                           "equivalent", "non-inferior", "superior"),
@@ -476,6 +612,95 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 # two proportions exact test #
 ##############################
 
+#' Power Analysis for Testing Difference Between Two Proportions (Exact Method)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) for two
+#' proportions using the exact method. The function is a wrapper for
+#' `power.exact.mcnemar` (if `paired` == TRUE), or `power.exact.fisher` (if
+#' `paired` == FALSE)
+#'
+#' Validated via G*Power and PASS documentation.
+#'
+#'
+#' @aliases power.exact.twoprops power.exact.twoprop
+#'
+#' @param prob1       probability of success in the first group.
+#' @param prob2       probability of success in the second group.
+#' @param n.ratio     sample size ratio (n1 / n2).
+#' @param n2          integer; sample size for the second group.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; direction or type of the hypothesis test:
+#'                    "two.sided", or "one.sided".
+#' @param paired      logical; if \code{TRUE} samples are paired. \code{FALSE}
+#'                    by default.
+#' @param rho.paired  correlation between paired observations.
+#' @param method      character; whether to use "approximate" or "exact"
+#'                    method. Default is \code{"exact"} (only in the
+#'                    \code{power.exact.twoprops()} function).
+#' @param ceiling     logical; \code{TRUE} rounds up sample size in each group.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the test, which is "z" or "exact".}
+#'   \item{delta}{difference between `prob1` and `prob2`}
+#'   \item{odds.ratio}{Odds-ratio \eqn{(prob1 / (1 - prob1)) /
+#'                     (prob2 / (1 - prob2))}}
+#'   \item{size}{... (applies to paired proportions).}
+#'   \item{prob}{... (applies to paired proportions).}
+#'   \item{null.prob}{... (applies to paired proportions).}
+#'   \item{binom.alpha}{critical value(s) (applies to paired proportions).}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{alternative}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1 - \beta)}.}
+#'   \item{n}{sample size in the form of c(n1, n2) (applies to independent
+#'            proportions).}
+#'   \item{n.total}{total sample size (applies to independent proportions).}
+#'   \item{n.paired}{paired sample size (applies to paired proportions).}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#' @examples
+#'   # power
+#'   power.exact.twoprops(prob1 = 0.70, prob2 = 0.60,
+#'                        alpha = 0.05, n2 = 500,
+#'                        alternative = "one.sided")
+#'
+#'   power.exact.twoprops(prob1 = 0.70, prob2 = 0.60,
+#'                        alpha = 0.05, n2 = 500,
+#'                        alternative = "one.sided",
+#'                        paired = TRUE)
+#'
+#'   # sample size
+#'   power.exact.twoprops(prob1 = 0.70, prob2 = 0.60,
+#'                        alpha = 0.05, power = 0.80,
+#'                        alternative = "one.sided")
+#'
+#'   power.exact.twoprops(prob1 = 0.70, prob2 = 0.60,
+#'                        alpha = 0.05, power = 0.80,
+#'                        alternative = "one.sided",
+#'                        paired = TRUE)
+#'
+#' @export power.exact.twoprops
 power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
                                  power = NULL, alpha = 0.05,
                                  alternative = c("two.sided", "one.sided"),
@@ -503,7 +728,7 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
 
     power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
                         power = power, n.paired = n2, alpha = alpha,
-                        method =  method, alternative = alternative,
+                        alternative = alternative, method =  method,
                         ceiling = ceiling, verbose = verbose, pretty = pretty)
 
   } else {
@@ -516,6 +741,8 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
   }
 
 } # power.exact.twoprops()
+
+#' @export power.exact.twoprop
 power.exact.twoprop <- power.exact.twoprops
 
 
@@ -523,6 +750,89 @@ power.exact.twoprop <- power.exact.twoprops
 # two proportions test #
 ########################
 
+#' Power Analysis for Testing Difference Between Two Proportions (Normal
+#' Approximation Method)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) for two
+#' proportions using the normal approximation method.
+#'
+#' Validated via G*Power and PASS documentation.
+#'
+#' NOTE: The \code{pwrss.z.2props()} function is deprecated, but it will remain
+#' available as a wrapper for the \code{power.z.twoprops()} function during the
+#' transition period.
+#'
+#'
+#' @aliases power.z.twoprops power.z.twoprop pwrss.z.2props pwrss.z.2prop
+#'
+#' @param prob1       probability of success in the first group.
+#' @param prob2       probability of success in the second group.
+#' @param margin      ignorable \code{prob1} - \code{prob2} difference. For two
+#'                    one-sided tests provide lower and upper margins in the
+#'                    form of \code{c(lower, upper)}.
+#' @param n.ratio     sample size ratio (n1 / n2).
+#' @param n2          integer; sample size for the second group.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; direction or type of the hypothesis test:
+#'                    "two.sided", "one.sided", or "two.one.sided".
+#' @param arcsine     logical; whether arcsine transformation should be
+#'                    applied. Note that this only applies to independent
+#'                    proportions without continuity correction.
+#' @param correct     logical; whether Yates' continuity correction should be
+#'                    applied to the test statistic. Ignored for the paired
+#'                    test.
+#' @param paired      logical; if \code{TRUE} samples are paired. \code{FALSE}
+#'                    by default.
+#' @param rho.paired  correlation between paired observations.
+#' @param std.error   character; whether to calculate standard error using
+#'                    "pooled" or "unpooled" standard deviation. Ignored for
+#'                    the paired test.
+#' @param ceiling     logical; \code{TRUE} rounds up sample size in each group.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the test, which is "z" or "exact".}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{n}{sample size in the form of c(n1, n2) (applies to independent
+#'            proportions).}
+#'   \item{n.total}{total sample size (applies to independent proportions).}
+#'   \item{n.paired}{paired sample size (applies to paired proportions).}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#' @examples
+#'   # power
+#'   power.z.twoprops(prob1 = 0.65, prob2 = 0.60,
+#'                    alpha = 0.05, n2 = 500,
+#'                    alternative = "one.sided")
+#'
+#'   # sample size
+#'   power.z.twoprops(prob1 = 0.65, prob2 = 0.60,
+#'                    alpha = 0.05, power = 0.80,
+#'                    alternative = "one.sided")
+#'
+#' @export power.z.twoprops
 power.z.twoprops <- function(prob1, prob2, margin = 0,
                              n.ratio = 1, n2 = NULL,
                              power = NULL, alpha = 0.05,
@@ -544,7 +854,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   check.logical(arcsine, correct, paired)
   check.correlation(rho.paired)
   check.logical(ceiling, pretty)
-  verbose <- ensure_verbose(verbose)  
+  verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
   if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
@@ -858,9 +1168,11 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   } # if paired
 
 } # power.z.twoprops()
+
+#' @export power.z.twoprop
 power.z.twoprop <- power.z.twoprops
 
-
+#' @export pwrss.z.2props
 pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
                            kappa = 1, alpha = 0.05,
                            alternative = c("not equal", "greater", "less",
@@ -897,4 +1209,5 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
 
 } # pwrss.z.2props()
 
+#' @export pwrss.z.2props
 pwrss.z.2prop <- pwrss.z.2props

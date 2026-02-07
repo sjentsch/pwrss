@@ -4,6 +4,147 @@ format_test <- function(n.way, cov) {
   paste0(c("One", "Two", "Three")[n.way], "-way Analysis of ", ifelse(cov > 0, "Cov", "V"), "ariance (F-Test)")
 }
 
+
+#' Power Analysis for One-, Two-, Three-Way ANOVA/ANCOVA Using Effect Size
+#' (F-Test)
+#'
+#' Calculates power or sample size for one-way, two-way, or three-way
+#' ANOVA/ANCOVA. Set \code{k.cov = 0} for ANOVA, and \code{k.cov > 0} for
+#' ANCOVA. Note that in the latter, the effect size (\code{eta.squared} should
+#' be obtained from the relevant ANCOVA model, which is already adjusted for
+#' the explanatory power of covariates (thus, an additional R-squared argument
+#' is not required as an input).
+#'
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
+#'
+#' Formulas are validated using G*Power and tables in PASS documentation.
+#'
+#'
+#' @aliases pwrss.f.ancova
+#'
+#' @param eta.squared      (partial) eta-squared for the alternative.
+#' @param null.eta.squared (partial) eta-squared for the null.
+#' @param factor.levels    integer; number of levels or groups in each factor.
+#'                         For example, for two factors each having two levels
+#'                         or groups use e.g. c(2, 2), for three factors each
+#'                         having two levels (groups) use e.g. c(2, 2, 2).
+#' @param k.covariates     integer; number of covariates in the ANCOVA model.
+#' @param n.total          integer; total sample size
+#' @param power            statistical power, defined as the probability of
+#'                         correctly rejecting a false null hypothesis,
+#'                         denoted as \eqn{1 - \beta}.
+#' @param alpha            type 1 error rate, defined as the probability of
+#'                         incorrectly rejecting a true null hypothesis,
+#'                         denoted as \eqn{\alpha}.
+#' @param ceiling          logical; if \code{FALSE} sample size in each cell
+#'                         is not rounded up.
+#' @param verbose          \code{1} by default (returns test, hypotheses, and
+#'                         results), if \code{2} a more detailed output is
+#'                         given (plus key parameters and defintions), if
+#'                         \code{0} no output is printed on the console.
+#' @param pretty           logical; whether the output should show Unicode
+#'                         characters (if encoding allows for it). \code{FALSE}
+#'                         by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (F-Test).}
+#'   \item{df1}{numerator degrees of freedom.}
+#'   \item{df2}{denominator degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter for the alternative.}
+#'   \item{null.ncp}{non-centrality parameter for the null.}
+#'   \item{f.alpha}{critical value.}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n.total}{total sample size.}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#'
+#' #############################################
+#' #              one-way ANOVA                #
+#' #############################################
+#'
+#' # Cohen's d = 0.50 between treatment and control
+#' # translating into Eta-squared = 0.059
+#'
+#' # estimate sample size using ANOVA approach
+#' power.f.ancova(eta.squared = 0.059,
+#'                factor.levels = 2,
+#'                alpha = 0.05, power = .80)
+#'
+#' # estimate sample size using regression approach(F-Test)
+#' power.f.regression(r.squared = 0.059,
+#'                    k.total = 1,
+#'                    alpha = 0.05, power = 0.80)
+#'
+#' # estimate sample size using regression approach (T-Test)
+#' p <- 0.50 # proportion of sample in treatment (allocation rate)
+#' power.t.regression(beta = 0.50, r.squared = 0,
+#'                    k.total = 1,
+#'                    sd.predictor = sqrt(p*(1-p)),
+#'                    alpha = 0.05, power = 0.80)
+#'
+#' # estimate sample size using t test approach
+#' power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
+#'
+#' #############################################
+#' #              two-way ANOVA                #
+#' #############################################
+#'
+#' # a researcher is expecting a partial Eta-squared = 0.03
+#' # for interaction of treatment (Factor A) with
+#' # gender consisting of two levels (Factor B)
+#'
+#' power.f.ancova(eta.squared = 0.03,
+#'                factor.levels = c(2,2),
+#'                alpha = 0.05, power = 0.80)
+#'
+#' # estimate sample size using regression approach (F test)
+#' # one dummy for treatment, one dummy for gender, and their interaction (k = 3)
+#' # partial Eta-squared is equivalent to the increase in R-squared by adding
+#' # only the interaction term (m = 1)
+#' power.f.regression(r.squared = 0.03,
+#'                    k.total = 3, k.test = 1,
+#'                    alpha = 0.05, power = 0.80)
+#'
+#' #############################################
+#' #              one-way ANCOVA               #
+#' #############################################
+#'
+#' # a researcher is expecting an adjusted difference of
+#' # Cohen's d = 0.45 between treatment and control after
+#' # controllling for the pretest (k.cov = 1)
+#' # translating into Eta-squared = 0.048
+#'
+#' power.f.ancova(eta.squared = 0.048,
+#'                factor.levels = 2,
+#'                k.covariates = 1,
+#'                alpha = 0.05, power = .80)
+#'
+#' #############################################
+#' #              two-way ANCOVA               #
+#' #############################################
+#'
+#' # a researcher is expecting an adjusted partial Eta-squared = 0.02
+#' # for interaction of treatment (Factor A) with
+#' # gender consisting of two levels (Factor B)
+#'
+#' power.f.ancova(eta.squared = 0.02,
+#'                factor.levels = c(2,2),
+#'                k.covariates = 1,
+#'                alpha = 0.05, power = .80)
+#'
+#' @export power.f.ancova
 power.f.ancova <- function(eta.squared,
                            null.eta.squared = 0,
                            factor.levels = 2,
@@ -136,6 +277,7 @@ power.f.ancova <- function(eta.squared,
 
 } # end of power.f.ancova()
 
+#' @export pwrss.f.ancova
 pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
                            n.way = length(n.levels),
                            n.levels = 2, n.covariates = 0, alpha = 0.05,
@@ -168,6 +310,99 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
 } # pwrss.f.ancova
 
 
+#' Power Analysis for One-Way ANOVA/ANCOVA Using Means and Standard Deviations
+#' (F test)
+#'
+#' Calculates power or sample size for one-way ANOVA/ANCOVA. Set \code{k.cov =
+#' 0} for one-way ANOVA (without any pretest or covariate adjustment). Set
+#' \code{k.cov > 0} in combination with \code{r2 > 0} for one-way ANCOVA (with
+#' pretest or covariate adjustment).
+#'
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+#' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
+#'
+#' Formulas are validated using PASS documentation.
+#'
+#'
+#' @param mu.vector     vector of adjusted means (or estimated marginal means)
+#'                      for each level of a factor.
+#' @param sd.vector     vector of unadjusted standard deviations for each level
+#'                      of a factor.
+#' @param n.vector      vector of sample sizes for each level of a factor.
+#' @param p.vector      vector of proportion of total sample size in each level
+#'                      of a factor. These proportions should sum to one.
+#' @param factor.levels integer; number of levels or groups in each factor. For
+#'                      example, for two factors each having two levels or
+#'                      groups use e.g. c(2, 2), for three factors each having
+#'                      two levels or groups use e.g. c(2, 2, 2)
+#' @param r.squared     explanatory power of covariates (R-squared) in the
+#'                      ANCOVA model. The default is \code{r.squared = 0},
+#'                      which means an ANOVA model would be of interest.
+#' @param k.covariates  integer; number of covariates in the ANCOVA model. The
+#'                      default is \code{k.covariates = 0}, which means an
+#'                      ANOVA model would be of interest.
+#' @param power         statistical power, defined as the probability of
+#'                      correctly rejecting a false null hypothesis, denoted as
+#'                      \eqn{1 - \beta}.
+#' @param alpha         type 1 error rate, defined as the probability of
+#'                      incorrectly rejecting a true null hypothesis, denoted
+#'                      as \eqn{\alpha}.
+#' @param ceiling       logical; whether sample size should be rounded up.
+#'                      \code{TRUE} by default.
+#' @param verbose       \code{1} by default (returns test, hypotheses, and
+#'                      results), if \code{2} a more detailed output is given
+#'                      (plus key parameters and defintions), if \code{0} no
+#'                      output is printed on the console.
+#' @param pretty        logical; whether the output should show Unicode
+#'                      characters (if encoding allows for it). \code{FALSE}
+#'                      by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (F-Test).}
+#'   \item{df1}{numerator degrees of freedom.}
+#'   \item{df2}{denominator degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter under alternative.}
+#'   \item{null.ncp}{non-centrality parameter under null.}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n.total}{total sample size.}
+#'
+#' @references
+#'   Keppel, G., & Wickens, T. D. (2004). Design and analysis: A researcher's
+#'   handbook (4th ed.). Pearson.
+#'
+#' @examples
+#'
+#' # required sample size to detect a mean difference of
+#' # Cohen's d = 0.50 for a one-way two-group design
+#' power.f.ancova.keppel(mu.vector = c(0.50, 0), # marginal means
+#'                       sd.vector = c(1, 1), # unadjusted standard deviations
+#'                       n.vector = NULL, # sample size (will be calculated)
+#'                       p.vector = c(0.50, 0.50), # balanced allocation
+#'                       k.cov = 1, # number of covariates
+#'                       r.squared = 0.50, # explanatory power of covariates
+#'                       alpha = 0.05, # Type 1 error rate
+#'                       power = .80)
+#'
+#' # effect size approach
+#' power.f.ancova(eta.squared = 0.111, # effect size that is already adjusted for covariates
+#'                factor.levels = 2, # one-way ANCOVA with two levels (groups)
+#'                k.covariates = 1, # number of covariates
+#'                alpha = 0.05, # Type 1 error rate
+#'                power = .80)
+#'
+#' # regression approach
+#' p <- 0.50
+#' power.t.regression(beta = 0.50,
+#'                    sd.predictor = sqrt(p * (1 - p)),
+#'                    sd.outcome = 1,
+#'                    k.total = 1,
+#'                    r.squared = 0.50,
+#'                    n = NULL, power = 0.80)
+#'
+#' @export power.f.ancova.keppel
 power.f.ancova.keppel <- function(mu.vector,
                                   sd.vector,
                                   n.vector = NULL,
@@ -336,8 +571,6 @@ power.f.ancova.keppel <- function(mu.vector,
 
 } # power.f.ancova.keppel
 
-pwrss.f.ancova.keppel <- power.f.ancova.keppel
-
 
 # default base functions stats::contr.treatment() and stats::contr.sum()
 # provides coding for the design matrix (dummy, effect, etc.)
@@ -346,12 +579,108 @@ pwrss.f.ancova.keppel <- power.f.ancova.keppel
 # https://rpubs.com/timflutre/tuto_contrasts
 # https://stats.oarc.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis/
 
-#' @export
+#' Factorial Contrasts
+#'
+#' Helper function to construct the default contrast coefficients for various
+#' coding schemes.
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{coding} instead of
+#' \code{coding.scheme}.
+#'
+#' Validated using \code{lm()} and \code{aov()} functions.
+#'
+#'
+#' @param factor.levels integer; Number of levels or groups in each factor. For
+#'                      example, for two factors each having two levels or
+#'                      groups use e.g. c(2, 2), for three factors each having
+#'                      two levels or groups use e.g. c(2, 2, 2).
+#' @param coding.scheme character vector; Coding scheme for each factor. "sum"
+#'                      for deviation or effect coding, "treatment" for dummy
+#'                      coding, "helmert" for Helmert type of coding, and
+#'                      "poly" for polynomial coding. Each factor can have
+#'                      their own coding scheme. If a single character value is
+#'                      provided, it will be copied to other factors.
+#' @param base          integer vector; Specifies which group is considered the
+#'                      baseline group. Ignored for coding schemes other than
+#'                      "treatment".
+#' @param intercept     logical; \code{FALSE} by default. If \code{TRUE}
+#'                      contrast matrix includes the intercept.
+#' @param verbose       \code{1} by default. If \code{0} no output is printed
+#'                      on the console.
+#'
+#' @return
+#'   \item{factor.levels}{Number of levels (or groups) in each factor}
+#'   \item{factor.data}{Unique combination of factor levels}
+#'   \item{model.matrix}{Model (design) matrix based on unique combination of
+#'                       factor levels}
+#'   \item{contrast.matrix}{Contrast matrix}
+#'
+#' @examples
+#' ###################################################
+#' ############### dummy coding scheme ###############
+#' ####################################################
+#'
+#' # one factor w/ 3 levels
+#' contrast.object <- factorial.contrasts(factor.levels = 3,
+#'                                        coding = "treatment")
+#' # model matrix
+#' contrast.object$model.matrix
+#'
+#' # contrast matrix
+#' contrast.object$contrast.matrix
+#'
+#' #######################################################
+#' ###############  deviation coding scheme ##############
+#' #######################################################
+#'
+#' # especially useful for factorial designs
+#' # two factors w/ 2 and 3 levels, respectively
+#' contrast.object <- factorial.contrasts(factor.levels = c(2, 3),
+#'                                        coding = "sum")
+#'
+#' # model matrix
+#' contrast.object$model.matrix
+#'
+#' # contrast matrix
+#' contrast.object$contrast.matrix
+#'
+#'
+#' ######################################################
+#' ###############  Helmert coding scheme ###############
+#' ######################################################
+#'
+#' # one factor w/ 3 levels
+#' contrast.object <- factorial.contrasts(factor.levels = 3,
+#'                                        coding = "helmert")
+#'
+#' # model matrix
+#' contrast.object$model.matrix
+#'
+#' # contrast matrix
+#' contrast.object$contrast.matrix
+#'
+#' #########################################################
+#' ###############  polynomial coding scheme ###############
+#' #########################################################
+#'
+#' # one factor w/ 3 levels
+#' contrast.object <- factorial.contrasts(factor.levels = 3,
+#'                                        coding = "poly")
+#'
+#' # model matrix
+#' contrast.object$model.matrix
+#'
+#' # contrast matrix
+#' contrast.object$contrast.matrix
+#'
+#' @export factorial.contrasts
 factorial.contrasts <- function(factor.levels = c(3, 2),
                                 coding.scheme = rep("deviation", length(factor.levels)),
                                 base = factor.levels, # only used with dummy or treatment coding
                                 intercept = FALSE,
                                 verbose = 1) {
+
+  verbose <- ensure_verbose(verbose)
 
   if (length(coding.scheme) > length(factor.levels)) {
 
@@ -504,6 +833,220 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 } # factorial.contrasts()
 
 
+#' Power Analysis for One-, Two-, Three-Way ANCOVA Using Means, Standard
+#' Deviations, and (Optionally) Contrasts (F test)
+#'
+#' Calculates power or sample size for one-, two-, three-way ANCOVA. For
+#' factorial designs, use the argument \code{factor.levels} but note that
+#' unique combination of levels (cells in this case) should follow a specific
+#' order for the test of interaction. The order of marginal means and standard
+#' deviations is printed as a warning message.
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+#' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
+#'
+#' Formulas are validated using examples and tables in Shieh (2020).
+#'
+#'
+#' @param mu.vector       vector; adjusted means (or estimated marginal means)
+#'                        for each level of a factor.
+#' @param sd.vector       vector; unadjusted standard deviations for each level
+#'                        of a factor. If a pooled standard deviation is
+#'                        provided, repeat its value to match the number of
+#'                        group means. A warning will be issued if group
+#'                        standard deviations differ substantially beyond what
+#'                        is expected due to sampling error.
+#' @param n.vector        vector; sample sizes for each level of a factor.
+#' @param p.vector        vector; proportion of total sample size in each level
+#'                        of a factor. These proportions should sum to one.
+#' @param factor.levels   integer; number of levels or groups in each factor.
+#'                        For example, for two factors each having two levels
+#'                        or groups use e.g. c(2, 2), for three factors each
+#'                        having two levels or groups use e.g. c(2, 2, 2).
+#' @param r.squared       explanatory power of covariates (R-squared) in the
+#'                        ANCOVA model.
+#' @param k.covariates    integer; number of covariates in the ANCOVA model.
+#' @param contrast.matrix vector or matrix; contrasts should not be confused
+#'                        with the model (design) matrix. Rows of contrast
+#'                        matrix indicate independent vector of contrasts
+#'                        summing to zero. The default contrast matrix is
+#'                        constructed using deviation coding scheme (a.k.a.
+#'                        effect coding). Columns in the contrast matrix
+#'                        indicate number of levels or groups (or cells in
+#'                        factorial designs).
+#' @param power           statistical power, defined as the probability of
+#'                        correctly rejecting a false null hypothesis, denoted
+#'                        as \eqn{1 - \beta}.
+#' @param alpha           type 1 error rate, defined as the probability of
+#'                        incorrectly rejecting a true null hypothesis, denoted
+#'                        as \eqn{\alpha}.
+#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#'                        sample sizes in each cell are NOT rounded up.
+#' @param verbose         \code{1} by default (returns test, hypotheses, and
+#'                        results), if \code{2} a more detailed output is given
+#'                        (plus key parameters and defintions), if \code{0} no
+#'                        output is printed on the console.
+#' @param pretty          logical; whether the output should show Unicode
+#'                        characters (if encoding allows for it). \code{FALSE}
+#'                        by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (F-Test)}
+#'   \item{eta.squared}{(partial) eta-squared.}
+#'   \item{f}{Cohen's f statistic.}
+#'   \item{df1}{numerator degrees of freedom.}
+#'   \item{df2}{denominator degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter for the alternative.}
+#'   \item{null.ncp}{non-centrality parameter for the null.}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n.total}{total sample size.}
+#'
+#' @references
+#'   Shieh, G. (2020). Power analysis and sample size planning in ANCOVA
+#'   designs. *Psychometrika, 85*(1), 101-120.
+#'   https://doi.org/10.1007/s11336-019-09692-3
+#'
+#' @examples
+#'
+#' ###################################################################
+#' ##########################  main effect  ##########################
+#' ###################################################################
+#'
+#' # power for one-way ANCOVA (two levels or groups)
+#' power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
+#'                      sd.vector = c(1, 1), # unadjusted standard deviations
+#'                      n.vector = c(150, 150), # sample sizes
+#'                      r.squared = 0.50, # proportion of variance explained by covariates
+#'                      k.covariates = 1, # number of covariates
+#'                      alpha = 0.05)
+#'
+#'
+#' # sample size for one-way ANCOVA (two levels or groups)
+#' power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
+#'                      sd.vector = c(1, 1), # unadjusted standard deviations
+#'                      p.vector = c(0.50, 0.50), # allocation, should sum to 1
+#'                      r.squared = 0.50,
+#'                      k.covariates = 1,
+#'                      alpha = 0.05,
+#'                      power = 0.80)
+#'
+#' ###################################################################
+#' #######################  interaction effect  ######################
+#' ###################################################################
+#'
+#' # sample size for two-way ANCOVA (2 x 2)
+#' power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), # marginal means
+#'                      sd.vector = c(1, 1, 1, 1), # unadjusted standard deviations
+#'                      p.vector = c(0.25, 0.25, 0.25, 0.25), # allocation, should sum to 1
+#'                      factor.levels = c(2, 2), # 2 by 2 factorial design
+#'                      r.squared = 0.50,
+#'                      k.covariates = 1,
+#'                      alpha = 0.05,
+#'                      power = 0.80)
+#' # Elements of `mu.vector`, `sd.vector`, `n.vector` or `p.vector` should follow this specific order:
+#' #  A1:B1  A1:B2  A2:B1  A2:B2
+#'
+#' ###################################################################
+#' #######################  planned contrasts  #######################
+#' ###################################################################
+#'
+#' #########################
+#' ## dummy coding scheme ##
+#' #########################
+#'
+#' contrast.object <- factorial.contrasts(factor.levels = 3, # one factor w/ 3 levels
+#'                                        coding = "treatment") # use dummy coding scheme
+#'
+#' # get contrast matrix from the contrast object
+#' contrast.matrix <- contrast.object$contrast.matrix
+#'
+#' # calculate sample size given design characteristics
+#' ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
+#'                                       sd.vector = c(1, 1, 1), # unadjusted standard deviations
+#'                                       p.vector = c(1/3, 1/3, 1/3), # allocation, should sum to 1
+#'                                       contrast.matrix = contrast.matrix,
+#'                                       r.squared = 0.50,
+#'                                       k.covariates = 1,
+#'                                       alpha = 0.05,
+#'                                       power = 0.80)
+#'
+#' # power of planned contrasts, adjusted for alpha level
+#' power.t.contrasts(ancova.design, adjust.alpha = "fdr")
+#'
+#' ###########################
+#' ## Helmert coding scheme ##
+#' ###########################
+#'
+#' contrast.object <- factorial.contrasts(factor.levels = 3, # one factor w/ 4 levels
+#'                                        coding = "helmert") # use helmert coding scheme
+#'
+#' # get contrast matrix from the contrast object
+#' contrast.matrix <- contrast.object$contrast.matrix
+#'
+#' # calculate sample size given design characteristics
+#' ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
+#'                                       sd.vector = c(1, 1, 1), # unadjusted standard deviations
+#'                                       p.vector = c(1/3, 1/3, 1/3), # allocation, should sum to 1
+#'                                       contrast.matrix = contrast.matrix,
+#'                                       r.squared = 0.50,
+#'                                       k.covariates = 1,
+#'                                       alpha = 0.05,
+#'                                       power = 0.80)
+#'
+#' # power of planned contrasts
+#' power.t.contrasts(ancova.design)
+#'
+#' ##############################
+#' ## polynomial coding scheme ##
+#' ##############################
+#'
+#' contrast.object <- factorial.contrasts(factor.levels = 3, # one factor w/ 4 levels
+#'                                        coding = "poly") # use polynomial coding scheme
+#'
+#' # get contrast matrix from the contrast object
+#' contrast.matrix <- contrast.object$contrast.matrix
+#'
+#' # calculate sample size given design characteristics
+#' ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
+#'                                       sd.vector = c(1, 1, 1), # unadjusted standard deviations
+#'                                       p.vector = c(1/3, 1/3, 1/3), # allocation, should sum to 1
+#'                                       contrast.matrix = contrast.matrix,
+#'                                       r.squared = 0.50,
+#'                                       k.covariates = 1,
+#'                                       alpha = 0.05,
+#'                                       power = 0.80)
+#'
+#' # power of the planned contrasts
+#' power.t.contrasts(ancova.design)
+#'
+#' ######################
+#' ## custom contrasts ##
+#' ######################
+#'
+#' # custom contrasts
+#' contrast.matrix <- rbind(
+#'   cbind(A1 = 1, A2 = -0.50, A3 = -0.50),
+#'   cbind(A1 = 0.50, A2 = 0.50, A3 = -1)
+#' )
+#' # labels are not required for custom contrasts,
+#' # but they make it easier to understand power.t.contrasts() output
+#'
+#' # calculate sample size given design characteristics
+#' ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
+#'                                       sd.vector = c(1, 1, 1), # unadjusted standard deviations
+#'                                       p.vector = c(1/3, 1/3, 1/3), # allocation, should sum to 1
+#'                                       contrast.matrix = contrast.matrix,
+#'                                       r.squared = 0.50,
+#'                                       k.covariates = 1,
+#'                                       alpha = 0.05,
+#'                                       power = 0.80)
+#'
+#' # power of the planned contrasts
+#' power.t.contrasts(ancova.design)
+#'
+#' @export power.f.ancova.shieh
 power.f.ancova.shieh <- function(mu.vector,
                                  sd.vector,
                                  n.vector = NULL,
@@ -596,12 +1139,19 @@ power.f.ancova.shieh <- function(mu.vector,
 
     } else if (k.covariates == 1) {
 
-      integrand <- function(x) stats::dt(x, (v + 1)) * stats::pf(f.alpha, u, v, n.total * gamma2 / (1 + (k.covariates / (v + 1)) * x ^ 2), lower.tail = FALSE)
+      integrand <- function(x) {
+        stats::dt(x, (v + 1)) * stats::pf(f.alpha, u, v, n.total * gamma2 / (1 + (k.covariates / (v + 1)) * x ^ 2), lower.tail = FALSE)
+      }
       power <- stats::integrate(integrand, lower = -10, upper = 10)$value
 
-      lambda <- ifelse(calculate.lambda,
-                       stats::integrate(function(x) stats::dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2), lower = -Inf, upper = Inf)$value,
-                       NA)
+      if (calculate.lambda) {
+        integrand <- function(x) {
+          stats::dt(x, v) * n.total * gamma2 / (1 + (k.covariates / v) * x ^ 2)
+        }
+        lambda <- stats::integrate(integrand, lower = -Inf, upper = Inf)$value
+      } else {
+        lambda <- NA
+      }
 
     }
 
@@ -707,22 +1257,91 @@ power.f.ancova.shieh <- function(mu.vector,
 
 } # end of power.f.ancova.shieh()
 
-pwrss.f.ancova.shieh <- power.f.ancova.shieh
-
-
-power.t.contrast <- function(mu.vector,
-                             sd.vector,
+#' Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple
+#' Comparisons (T-Tests)
+#'
+#' Calculates power or sample size for a single one-, two-, three-Way ANCOVA
+#' contrast.
+#'
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+#' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
+#'
+#' Formulas are validated using examples and tables in Shieh (2017).
+#'
+#'
+#' @aliases pwrss.t.contrast
+#'
+#' @param mu.vector       vector; adjusted means (or estimated marginal means)
+#'                        for each level of a factor.
+#' @param sd.vector       vector; unadjusted standard deviations for each level
+#'                        of a factor.
+#' @param n.vector        vector; sample sizes for each level of a factor.
+#' @param p.vector        vector; proportion of total sample size in each level
+#'                        of a factor. These proportions should sum to one.
+#' @param r.squared       explanatory power of covariates (R-squared) in the
+#'                        ANCOVA model.
+#' @param k.covariates    Number of covariates in the ANCOVA model.
+#' @param contrast.vector vector; a single contrast in the form of a vector
+#'                        with as many elements as number of levels or groups
+#'                        (or cells in factorial designs). Ignored when 'x' is
+#'                        specified.
+#' @param power           statistical power, defined as the probability of
+#'                        correctly rejecting a false null hypothesis, denoted
+#'                        as \eqn{1 - \beta}.
+#' @param alpha           type 1 error rate, defined as the probability of
+#'                        incorrectly rejecting a true null hypothesis, denoted
+#'                        as \eqn{\alpha}.
+#' @param tukey.kramer    logical; \code{FALSE} by default. If \code{TRUE}
+#'                        adjustments will be made to control Type 1 error.
+#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#'                        sample sizes in each cell are NOT rounded up.
+#' @param verbose         \code{1} by default (returns test, hypotheses, and
+#'                        results), if \code{2} a more detailed output is given
+#'                        (plus key parameters and defintions), if \code{0} no
+#'                        output is printed on the console.
+#' @param pretty          logical; whether the output should show Unicode
+#'                        characters (if encoding allows for it). \code{FALSE}
+#'                        by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (T-Test).}
+#'   \item{psi}{contrast-weighted mean difference.}
+#'   \item{d}{contrast-weighted standardized mean difference.}
+#'   \item{df}{degrees of freedom.}
+#'   \item{t.alpha}{critical values.}
+#'   \item{ncp}{non-centrality parameter for the alternative.}
+#'   \item{null.ncp}{non-centrality parameter for the null.}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n.vector}{sample sizes for each level of a factor.}
+#'   \item{n.total}{total sample size.}
+#'
+#' @references
+#'   Shieh, G. (2017). Power and sample size calculations for contrast analysis
+#'   in ANCOVA. *Multivariate Behavioral Research, 52*(1), 1-11.
+#'   https://doi.org/10.1080/00273171.2016.1219841
+#'
+#' @examples
+#' # dummy coding example (uses the first contrast from a three-level- / two-contrasts-design)
+#' contrast.object <- factorial.contrasts(factor.levels = 3, coding = "treatment", verbose = 0)
+#' contrast.vector <- contrast.object[["contrast.matrix"]][1, ]
+#' power.t.contrast(mu.vector = c(0.15, 0.30, 0.20),
+#'                  sd.vector = c(1,    1,    1),
+#'                  p.vector  = c(1/3,  1/3,  1/3),
+#'                  r.squared = 0.50, k.covariates = 1,
+#'                  contrast.vector = contrast.vector,
+#'                  power = 0.80, alpha = 0.05)
+#'
+#' @export power.t.contrast
+power.t.contrast <- function(mu.vector, sd.vector,
+                             n.vector = NULL, p.vector = NULL,
                              contrast.vector,
-                             n.vector = NULL,
-                             p.vector = NULL,
-                             r.squared = 0,
-                             k.covariates = 1,
+                             r.squared = 0, k.covariates = 1,
                              power = NULL,
-                             alpha = 0.05,
-                             tukey.kramer = FALSE,
-                             ceiling = TRUE,
-                             verbose = 1,
-                             pretty = FALSE) {
+                             alpha = 0.05, tukey.kramer = FALSE,
+                             ceiling = TRUE, verbose = 1, pretty = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -931,13 +1550,115 @@ adjust.alpha <- function(n, alpha = 0.05,
 
 }
 
+
+#' Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple
+#' Comparisons (T-Tests)
+#'
+#' Calculates power or sample size for one-, two-, three-Way ANCOVA contrasts
+#' and multiple comparisons. The \code{pwrss.t.contrasts()} function permits
+#' to test multiple contrasts (multiple comparisons) and also allows adjustment
+#' to alpha due to multiple testing. Furthermore, \code{pwrss.t.contrasts()}
+#' accepts an object returned from the \code{pwrss.f.ancova.shieh()} function
+#' for convenience. Beware that, in this case, all other arguments are ignored
+#' except \code{alpha} and \code{adjust.alpha}.
+#'
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+#' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
+#'
+#' Formulas are validated using examples and tables in Shieh (2017).
+#'
+#'
+#' @aliases pwrss.t.contrasts
+#'
+#' @param x               object; an object returned from the
+#'                        \code{pwrss.f.ancova.shieh()} function.
+#' @param mu.vector       vector; adjusted means (or estimated marginal means)
+#'                        for each level of a factor. Ignored when 'x' is
+#'                        specified.
+#' @param sd.vector       vector; unadjusted standard deviations for each level
+#'                        of a factor. Ignored when 'x' is specified.
+#' @param n.vector        vector; sample sizes for each level of a factor.
+#'                        Ignored when 'x' is specified.
+#' @param p.vector        vector; proportion of total sample size in each level
+#'                        of a factor. These proportions should sum to one.
+#'                        Ignored when 'x' is specified.
+#' @param r.squared       explanatory power of covariates (R-squared) in the
+#'                        ANCOVA model. Ignored when 'x' is specified.
+#' @param k.covariates    Number of covariates in the ANCOVA model. Ignored
+#'                        when 'x' is specified.
+#' @param contrast.matrix vector or matrix; contrasts should not be confused
+#'                        with the model (design) matrix. Rows of contrast
+#'                        matrix indicate independent vector of contrasts
+#'                        summing to zero. The default contrast matrix is
+#'                        constructed using deviation coding scheme (a.k.a.
+#'                        effect coding). Columns in the contrast matrix
+#'                        indicate number of levels or groups (or cells in
+#'                        factorial designs). Ignored when 'x' is specified.
+#' @param power           statistical power, defined as the probability of
+#'                        correctly rejecting a false null hypothesis, denoted
+#'                        as \eqn{1 - \beta}. Ignored when 'x' is specified.
+#' @param alpha           type 1 error rate, defined as the probability of
+#'                        incorrectly rejecting a true null hypothesis, denoted
+#'                        as \eqn{\alpha}. Note that this should be specified
+#'                        even if 'x' is specified. The 'alpha' value within
+#'                        the 'x' object pertains to the omnibus test, NOT the
+#'                        test of contrasts.
+#' @param adjust.alpha    character; one of the methods in c("none", "tukey",
+#'                        "bonferroni", "holm", "hochberg", "hommel", "BH",
+#'                        "BY", "fdr") to control Type 1 error. See
+#'                        \code{?stats::p.adjust}.
+#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#'                        sample sizes in each cell are NOT rounded up.
+#' @param verbose         \code{1} by default (returns test, hypotheses, and
+#'                        results), if \code{2} a more detailed output is given
+#'                        (plus key parameters and defintions), if \code{0} no
+#'                        output is printed on the console.
+#' @param pretty          logical; whether the output should show Unicode
+#'                        characters (if encoding allows for it). \code{FALSE}
+#'                        by default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (T-Test).}
+#'   \item{contrast}{contrast number (one contrast per line).}
+#'   \item{comparison}{which factor levels are compared (one contrast per line).}
+#'   \item{psi}{contrast-weighted mean difference (one contrast per line).}
+#'   \item{d}{contrast-weighted standardized mean difference (one contrast per line).}
+#'   \item{ncp}{non-centrality parameter for the alternative (one contrast per line).}
+#'   \item{df}{degrees of freedom (one contrast per line).}
+#'   \item{t.alpha}{critical values (one contrast per line).}
+#'   \item{n.total}{total sample size (one contrast per line).}
+#'   \item{power}{statistical power \eqn{(1-\beta)} (one contrast per line).}
+#'
+#' @references
+#'   Shieh, G. (2017). Power and sample size calculations for contrast analysis
+#'   in ANCOVA. *Multivariate Behavioral Research, 52*(1), 1-11.
+#'   https://doi.org/10.1080/00273171.2016.1219841
+#'
+#' @examples
+#' # see `?pwrss::power.f.ancova.shieh` for further examples
+#'
+#' # dummy coding example
+#' contrast.object <- factorial.contrasts(factor.levels = 3, coding = "treatment", verbose = 0)
+#' contrast.matrix <- contrast.object[["contrast.matrix"]]
+#' power.t.contrasts(mu.vector = c(0.15, 0.30, 0.20),
+#'                   sd.vector = c(1,    1,    1),
+#'                   p.vector  = c(1/3,  1/3,  1/3),
+#'                   r.squared = 0.50, k.covariates = 1,
+#'                   contrast.matrix = contrast.matrix,
+#'                   power = 0.80,
+#'                   alpha = 0.05, adjust.alpha = "holm")
+#'
+#' @export power.t.contrasts
 power.t.contrasts <- function(x = NULL,
-                              mu.vector = NULL,
-                              sd.vector = NULL,
+                              mu.vector = NULL, sd.vector = NULL,
                               n.vector = NULL, p.vector = NULL,
                               r.squared = 0, k.covariates = 1,
                               contrast.matrix = NULL,
-                              power = NULL, alpha = 0.05,
+                              power = NULL,
+                              alpha = 0.05,
                               adjust.alpha = c("none", "tukey", "bonferroni",
                                                "holm", "hochberg", "hommel",
                                                "BH", "BY", "fdr"),

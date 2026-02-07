@@ -2,7 +2,7 @@
   RC <- ifelse(requested == "n",
                "           \033[34m SAMPLE SIZE CALCULATION \033[0m              ",
                "               \033[34m POWER CALCULATION \033[0m                ")
-               
+
   paste0(paste0("\u2554", strrep("\u2550", 50), "\u2557", "\n"),
          paste0("\u2551", RC,                   "\u2551", "\n"),
          paste0("\u255A", strrep("\u2550", 50), "\u255D", "\n\n"))
@@ -12,7 +12,7 @@
   if (emphasize) {
     paste0(paste0("\033[36m", strrep("\u2500", 52), "\033[0m", "\n"),
            paste0("\033[36m", topic,                "\033[0m", "\n"),
-           paste0("\033[36m", strrep("\u2500", 52), "\033[0m", "\n"))  
+           paste0("\033[36m", strrep("\u2500", 52), "\033[0m", "\n"))
   } else {
     paste0(paste0(strrep("\u2500", 52), "\n"),
            paste0(topic, "\n"),
@@ -26,10 +26,10 @@
     n_pad    <- strrep(" ", 6 - nchar(n_prefix))
     n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
-    sprintf("  %s%sSample Size%s = %s%s%s%s%s\n", c_a[1], n_prefix, n_pad, n_text, c_a[2], c_a[3], c_a[4], c_a[5])  
+    sprintf("  %s%sSample Size%s = %s%s%s%s%s\n", c_a[1], n_prefix, n_pad, n_text, c_a[2], c_a[3], c_a[4], c_a[5])
   } else {
-    "" 
-  }  
+    ""
+  }
 }
 
 .results_pretty <- function(x, digits = 3) {

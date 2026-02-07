@@ -1,4 +1,50 @@
-# exact power
+#' Power Analysis for the Generic Binomial Test
+#'
+#' Calculates power for the generic binomial test with (optional) Type 1 and
+#' Type 2 error plots.
+#'
+#'
+#' @param size        number of trials (zero or more).
+#' @param prob        probability of success on each trial under alternative.
+#' @param null.prob   probability of success on each trial under null.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative direction or type of the hypothesis test: "two.sided",
+#'                    "one.sided", or "two.one.sided". For non-inferiority or
+#'                    superiority tests, add or subtract the margin from the
+#'                    null hypothesis value and use alternative = "one.sided".
+#' @param plot        logical; \code{FALSE} switches off Type 1 and Type 2
+#'                    error plot. \code{TRUE} by default.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{size}{number of trials (zero or more).}
+#'   \item{prob}{probability of success on each trial under alternative.}
+#'   \item{null.prob}{probability of success on each trial under null.}
+#'   \item{binom.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'
+#' @examples
+#' # one-sided
+#' power.binom.test(size = 200, prob = 0.6, null.prob = 0.5,
+#'                  alpha = 0.05, alternative = "one.sided")
+#'
+#' # two-sided
+#' power.binom.test(size = 200, prob = 0.4, null.prob = 0.5,
+#'                  alpha = 0.05, alternative = "two.sided")
+#'
+#' # equivalence
+#' power.binom.test(size = 200, prob = 0.5, null.prob = c(0.4, 0.6),
+#'                  alpha = 0.05, alternative = "two.one.sided")
+#'
+#' @export power.binom.test
 power.binom.test <- function(size,
                              prob,
                              null.prob = 0.5,

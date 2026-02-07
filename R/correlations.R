@@ -2,7 +2,123 @@
 # Steiger's z-test for dependent correlations (Steiger, 1980, p. 247) #
 #######################################################################
 
-power.z.steiger <- function(rho12, rho13, rho23,
+#' Power Analysis for Dependent Correlations (Steiger's Z-Test)
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test
+#' difference between paired correlations (Pearson) using Fisher's
+#' Z-transformation.
+#'
+#' Validated via PASS and G*Power.
+#'
+#'
+#' @aliases power.z.twocors.steiger power.z.steiger
+#'
+#' @param rho12        correlation between variable V1 and V2 (one common index
+#'                     and no common index). Check examples below.
+#' @param rho13        correlation between variable V1 and V3 (one common index
+#'                     and no common index). Check examples below.
+#' @param rho23        correlation between variable V2 and V3 (one common index
+#'                     and no common index). Check examples below.
+#' @param rho14        correlation between variable V1 and V4 (no common index
+#'                     only). Check examples below.
+#' @param rho24        correlation between variable V2 and V4 (no common index
+#'                     only). Check examples below.
+#' @param rho34        correlation between variable V3 and V4 (no common index
+#'                     only). Check examples below.
+#' @param n            integer; sample size.
+#' @param power        statistical power, defined as the probability of
+#'                     correctly rejecting a false null hypothesis, denoted as
+#'                     \eqn{1 - \beta}.
+#' @param alpha        type 1 error rate, defined as the probability of
+#'                     incorrectly rejecting a true null hypothesis, denoted as
+#'                     \eqn{\alpha}.
+#' @param alternative  character; the direction or type of the hypothesis test:
+#'                     "two.sided" or "one.sided".
+#' @param pooled       logical; whether standard error should be pooled.
+#'                     \code{TRUE} by default.
+#' @param common.index logical; whether calculations pertain to one common
+#'                     index. \code{TRUE} means calculations involve
+#'                     correlations with a common index (where both
+#'                     correlations share one variable). \code{FALSE} (default)
+#'                     means calculations pertain to correlations with no
+#'                     common index (where all relevant correlations must be
+#'                     explicitly specified). Check examples below.
+#' @param ceiling      logical; if \code{TRUE} rounds up sample size.
+#' @param verbose      \code{1} by default (returns test, hypotheses, and
+#'                     results), if \code{2} a more detailed output is given
+#'                     (plus key parameters and defintions), if \code{0} no
+#'                     output is printed on the console.
+#' @param pretty       logical; whether the output should show Unicode
+#'                     characters (if encoding allows for it). \code{FALSE} by
+#'                     default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (Z-Test)}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
+#'   \item{n}{sample size for the first and second groups, in the form of
+#'            c(n1, n2).}
+#'
+#' @references
+#'   Steiger, J. H. (1980). Tests for comparing elements of a correlation
+#'   matrix. *Psychological Bulletin, 87*(2), 245-251.
+#'   https://doi.org/10.1037/0033-2909.87.2.245
+#'
+#' @examples
+#' # example data for one common index
+#' # compare cor(V1, V2) to cor(V1, V3)
+#'
+#' # subject    V1       V2      V3
+#' # <int>    <dbl>    <dbl>    <dbl>
+#' #   1       1.2      2.3      0.8
+#' #   2      -0.0      1.1      0.7
+#' #   3       1.9     -0.4     -2.3
+#' #   4       0.7      1.3      0.4
+#' #   5       2.1     -0.1      0.8
+#' #   ...     ...      ...      ...
+#' #   1000   -0.5      2.7     -1.7
+#'
+#' # V1: socio-economic status (common)
+#' # V2: pretest
+#' # V3: post-test
+#'
+#' power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05,
+#'                         n = 1000, power = NULL, alpha = 0.05,
+#'                         alternative = "two.sided",
+#'                         common.index = TRUE)
+#'
+#'
+#' # example data for no common index
+#' # compare cor(V1, V2) to cor(V3, V4)
+#'
+#' # subject    V1       V2       V3       V4
+#' # <int>    <dbl>    <dbl>    <dbl>    <dbl>
+#' #   1       1.2      2.3      0.8      1.2
+#' #   2      -0.0      1.1      0.7      0.9
+#' #   3       1.9     -0.4     -2.3     -0.1
+#' #   4       0.7      1.3      0.4     -0.3
+#' #   5       2.1     -0.1      0.8      2.7
+#' #   ...     ...      ...      ...      ...
+#' #   1000   -0.5      2.7     -1.7      0.8
+#'
+#' # V1: pretest reading
+#' # V2: pretest math
+#' # V3: post-test reading
+#' # V4: post-test math
+#'
+#' power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50,
+#'                         rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
+#'                         n = 1000, power = NULL, alpha = 0.05,
+#'                         alternative = "two.sided",
+#'                         common.index = FALSE)
+#'
+#' @export power.z.twocors.steiger
+power.z.twocors.steiger <- function(rho12, rho13, rho23,
                             rho14 = NULL, rho24 = NULL, rho34 = NULL,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
@@ -193,7 +309,7 @@ power.z.steiger <- function(rho12, rho13, rho23,
                           alternative = alternative)
 
     if (ceiling) n <- ceiling(n)
-    
+
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n")
@@ -251,10 +367,84 @@ power.z.steiger <- function(rho12, rho13, rho23,
                            n = n),
                       class = c("pwrss", "z", "twocors", "paired")))
 
-} # power.z.steiger()
-power.z.twocors.steiger <- power.z.steiger
+} # power.z.twocors.steiger()
+
+#' @export power.z.steiger
+power.z.steiger <- power.z.twocors.steiger
 
 
+#' Power Analysis for Independent Correlations
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test
+#' difference between two independent (Pearson) correlations using Fisher's z
+#' transformation.
+#'
+#' Formulas are validated using PASS and G*Power.
+#'
+#'
+#' @aliases power.z.twocors power.z.twocor pwrss.z.2corrs pwrss.z.2corr
+#'
+#' @param rho1        correlation in the first group.
+#' @param rho2        correlation in the second group.
+#' @param n.ratio     \code{n1 / n2} ratio.
+#' @param n2          sample size in the second group. Sample size in the first
+#'                    group can be calculated as \code{n2*kappa}. By default,
+#'                    \code{n1 = n2} because \code{n.ratio = 1}.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; direction or type of the hypothesis test:
+#'                    "two.sided" or "one.sided".
+#' @param ceiling     logical; whether sample size should be rounded up.
+#'                    \code{TRUE} by default.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (Z-Test)}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}}
+#'   \item{n}{sample size for the first and second groups, in the form of
+#'            c(n1, n2).}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel guc
+#'   analizi \[Statistical power analysis with pwrss R package\]. *Ahi Evran
+#'   Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#'   Chow, S. C., Shao, J., Wang, H., & Lokhnygina, Y. (2018). Sample size
+#'   calculations in clinical research (3rd ed.). Taylor & Francis / CRC.
+#'
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#' # difference between r1 and r2 is different from zero
+#' # it could be -0.10 as well as 0.10
+#' power.z.twocors(rho1 = .20, rho2 = 0.30,
+#'                alpha = 0.05, power = .80,
+#'                alternative = "two.sided")
+#'
+#' # difference between r1 and r2 is greater than zero
+#' power.z.twocors(rho1 = .30, rho2 = 0.20,
+#'                alpha = 0.05, power = .80,
+#'                alternative = "one.sided")
+#'
+#' @export power.z.twocors
 power.z.twocors <- function(rho1, rho2,
                             n2 = NULL, n.ratio = 1,
                             power = NULL, alpha = 0.05,
@@ -282,7 +472,7 @@ power.z.twocors <- function(rho1, rho2,
     if (alternative == "two.sided") {
       M <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
       n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(-1e10, 1e10))$root
-    
+
     } else if (alternative == "one.sided") {
       M <- stats::qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
       n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
@@ -354,13 +544,114 @@ power.z.twocors <- function(rho1, rho2,
                       class = c("pwrss", "z", "twocors", "independent")))
 
 } # power.z.twocors
+
+#' @export power.z.twocor
 power.z.twocor <- power.z.twocors
+
+
+#' @export pwrss.z.2corrs
+pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
+                           alpha = 0.05, kappa = 1,
+                           alternative = c("not equal", "greater", "less"),
+                           n2 = NULL, power = NULL, verbose = TRUE) {
+
+  alternative <- tolower(match.arg(alternative))
+  verbose <- ensure_verbose(verbose)
+
+  check.correlation(r1, r2)
+  if (!is.null(power)) check.proportion(power)
+  if (!is.null(n2)) check.sample.size(n2)
+
+  if (alternative %in% c("less", "greater")) alternative <- "one.sided"
+  if (alternative == "not equal") alternative <- "two.sided"
+
+  twocors.obj <- power.z.twocors(rho1 = r1, rho2 = r2,
+                             n2 = n2, n.ratio = kappa,
+                             power = power, alpha = alpha,
+                             alternative = alternative,
+                             ceiling = TRUE, verbose = verbose)
+
+  # cat("This function will be removed in the future. \n Please use power.z.twocors() function. \n")
+
+  return(invisible(twocors.obj))
+
+} # pwrss.z.2corrs()
 
 
 ##########################
 # one correlation z test #
 ##########################
 
+#' Power Analysis for One-Sample Correlation
+#'
+#' Calculates power or sample size (only one can be NULL at a time) to test a
+#' (Pearson) correlation against a constant using Fisher's z transformation.
+#'
+#' Formulas are validated using PASS and G*Power.
+#'
+#'
+#' @aliases power.z.onecor pwrss.z.corr pwrss.z.cor
+#'
+#' @param rho         correlation.
+#' @param null.rho    correlation when null is true.
+#' @param n           sample size.
+#' @param power       statistical power, defined as the probability of
+#'                    correctly rejecting a false null hypothesis, denoted as
+#'                    \eqn{1 - \beta}.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; direction or type of the hypothesis test:
+#'                    "two.sided" or "one.sided".
+#' @param ceiling     logical; whether sample size should be rounded up.
+#'                    \code{TRUE} by default.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{test}{type of the statistical test (Z-Test)}
+#'   \item{mean}{mean of the alternative distribution.}
+#'   \item{sd}{standard deviation of the alternative distribution.}
+#'   \item{null.mean}{mean of the null distribution.}
+#'   \item{null.sd}{standard deviation of the null distribution.}
+#'   \item{z.alpha}{critical value(s).}
+#'   \item{power}{statistical power\eqn{(1-\beta)}.}
+#'   \item{n}{sample size.}
+#'
+#' @references
+#'   Bulus, M., & Polat, C. (2023). pwrss R paketi ile istatistiksel
+#'   guc analizi \[Statistical power analysis with pwrss R package\]. *Ahi
+#'   Evran Universitesi Kirsehir Egitim Fakultesi Dergisi, 24*(3), 2207-2328.
+#'   https://doi.org/10.29299/kefad.1209913
+#'
+#'   Chow, S. C., Shao, J., Wang, H., & Lokhnygina, Y. (2018). Sample size
+#'   calculations in clinical research (3rd ed.). Taylor & Francis/CRC.
+#'
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#' # expected correlation is 0.20 and it is different from 0
+#' # it could be 0.20 as well as -0.20
+#' power.z.onecor(rho = 0.20,
+#'                power = 0.80,
+#'                alpha = 0.05,
+#'                alternative = "two.sided")
+#'
+#' # expected correlation is 0.20 and it is greater than 0.10
+#' power.z.onecor(rho = 0.20, null = 0.10,
+#'                power = 0.80,
+#'                alpha = 0.05,
+#'                alternative = "one.sided")
+#'
+#'
+#' @export power.z.onecor
 power.z.onecor <- function(rho, null.rho = 0,
                            n = NULL, power = NULL, alpha = 0.05,
                            alternative = c("two.sided", "one.sided"),
@@ -454,7 +745,8 @@ power.z.onecor <- function(rho, null.rho = 0,
 } # power.z.onecor()
 
 
-pwrss.z.cor <- function(r = 0.50, r0 = 0, alpha = 0.05,
+#' @export pwrss.z.corr
+pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
                          alternative = c("not equal", "greater", "less"),
                          n = NULL, power = NULL, verbose = TRUE) {
 
@@ -478,34 +770,3 @@ pwrss.z.cor <- function(r = 0.50, r0 = 0, alpha = 0.05,
   return(invisible(onecor.obj))
 
 } # pwrss.z.corr()
-
-pwrss.z.corr <- pwrss.z.cor
-
-pwrss.z.2cors <- function(r1 = 0.50, r2 = 0.30,
-                           alpha = 0.05, kappa = 1,
-                           alternative = c("not equal", "greater", "less"),
-                           n2 = NULL, power = NULL, verbose = TRUE) {
-
-  alternative <- tolower(match.arg(alternative))
-  verbose <- ensure_verbose(verbose)
-
-  check.correlation(r1, r2)
-  if (!is.null(power)) check.proportion(power)
-  if (!is.null(n2)) check.sample.size(n2)
-
-  if (alternative %in% c("less", "greater")) alternative <- "one.sided"
-  if (alternative == "not equal") alternative <- "two.sided"
-
-  twocors.obj <- power.z.twocors(rho1 = r1, rho2 = r2,
-                             n2 = n2, n.ratio = kappa,
-                             power = power, alpha = alpha,
-                             alternative = alternative,
-                             ceiling = TRUE, verbose = verbose)
-
-  # cat("This function will be removed in the future. \n Please use power.z.twocors() function. \n")
-
-  return(invisible(twocors.obj))
-
-} # pwrss.z.2corrs()
-
-pwrss.z.2corrs <- pwrss.z.2cors

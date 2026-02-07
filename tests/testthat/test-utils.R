@@ -110,21 +110,21 @@ test_that("utils.R works", {
 
     # means.to.d -------------------------------------------------------------------------------------------------------
     expect_equal(suppressWarnings(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30, verbose = 0)),
-                 list(d = 0.223606800, mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, pooled.sd = 11.1803400, var.ratio = 1 / 9,
-                      n1 = 30, n2 = 30, n.ratio = 1, paired = FALSE, rho.paired = 0.5, verbose = 0))
+                 list(parms = list(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n.ratio = 1, paired = FALSE, rho.paired = 0.5, verbose = 0),
+                      d = 0.223606800, pooled.sd = 11.1803400, var.ratio = 1 / 9, n1 = 30, n2 = 30))
     expect_warning(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30, verbose = 0),
                    "Interpretation of Cohen's d may no longer be valid when variances differ beyond sampling error\\.")
     expect_equal(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, n2 = 30, verbose = 0),
-                 list(d = 0.452678730, mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, pooled.sd =  5.52268051, var.ratio = 0.694444444,
-                      n1 = 30, n2 = 30, n.ratio = 1, paired = FALSE, rho.paired = 0.5, verbose = 0))
+                 list(parms = list(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, n.ratio = 1, paired = FALSE, rho.paired = 0.5, verbose = 0),
+                      d = 0.452678730, pooled.sd =  5.52268051, var.ratio = 0.694444444, n1 = 30, n2 = 30))
     expect_equal(suppressWarnings(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30, paired = TRUE, verbose = 0)),
-                 list(d = 0.188982237, mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, pooled.sd = 13.2287566, var.ratio = 1 / 9,
-                      n1 = 30, n2 = 30, n.ratio = 1, paired = TRUE, rho.paired = 0.5, verbose = 0))
+                 list(parms = list(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n.ratio = 1, paired = TRUE, rho.paired = 0.5, verbose = 0),
+                      d = 0.188982237, pooled.sd = 13.2287566, var.ratio = 1 / 9, n1 = 30, n2 = 30))
     expect_warning(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30, paired = TRUE, verbose = 0),
                    "Interpretation of Cohen's d may no longer be valid when variances differ beyond sampling error\\.")
     expect_equal(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, n2 = 30, paired = TRUE, verbose = 0),
-                 list(d = 0.449013255, mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, pooled.sd =  5.56776436, var.ratio = 0.694444444,
-                      n1 = 30, n2 = 30, n.ratio = 1, paired = TRUE, rho.paired = 0.5, verbose = 0))
+                 list(parms = list(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 6, n.ratio = 1, paired = TRUE, rho.paired = 0.5, verbose = 0),
+                      d = 0.449013255, pooled.sd =  5.56776436, var.ratio = 0.694444444, n1 = 30, n2 = 30))
     expect_equal(capture.output(suppressWarnings(means.to.d(mu1 = 20, mu2 = 17.5, sd1 = 5, sd2 = 15, n2 = 30))),
                  c("        d ", "0.2236068 "))
 

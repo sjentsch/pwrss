@@ -1,31 +1,118 @@
+#' Inflate Sample Size for Attrition
+#'
+#'
+#' @param n       sample size.
+#' @param rate    attrition rate.
+#' @param ceiling rounds-up the inflated sample size.
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return inflated sample size.
+#'
+#' @examples
+#' inflate.sample(n = 100, rate = 0.05)
+#'
+#' @export inflate.sample
 inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
   check.sample.size(n)
   n.adj <- n / (1 - rate)
   if (ceiling) n.adj <- ceiling(n.adj)
 
   if (ensure_verbose(verbose) > 0) cat(n.adj)
+
   return(invisible(n.adj))
 } # inflate.sample
 
+
+#' Conversion from Eta-squared to Cohen's f
+#'
+#'
+#' @param eta.squared (Partial) Eta-squared.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @return
+#'   \item{f}{Cohen's f.}
+#'   \item{f.squared}{Cohen's f².}
+#'   \item{eta.squared}{(Partial) Eta-squared.}
+#'
+#' @references
+#'   Cohen, J. (1988). *Statistical power analysis for the behavioral sciences*
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#' etasq.to.f(eta.squared = 0.01) # small
+#' etasq.to.f(eta.squared = 0.06) # medium
+#' etasq.to.f(eta.squared = 0.14) # large
+#'
+#' @export etasq.to.f
 etasq.to.f <- function(eta.squared, verbose = 1) {
   check.nonnegative(eta.squared)
   f.squared <- eta.squared / (1 - eta.squared)
 
   if (ensure_verbose(verbose) > 0) print(c(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
+
   invisible(list(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
 } # etasq.to.f
 
 
+#' Conversion between Cohen's f and Eta-squared
+#'
+#'
+#' @param f           Cohen's f.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
+#' @return
+#'   \item{eta.squared}{(Partial) Eta-squared.}
+#'   \item{f.squared}{Cohen's f².}
+#'   \item{f}{Cohen's f.}
+#'
+#' @references
+#'   Cohen, J. (1988). *Statistical power analysis for the behavioral sciences*
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#' f.to.etasq(f = 0.10) # small
+#' f.to.etasq(f = 0.25) # medium
+#' f.to.etasq(f = 0.40) # large
+#'
+#' @export f.to.etasq
 f.to.etasq <- function(f, verbose = 1) {
   check.nonnegative(f)
   f.squared <- f ^ 2
   eta.squared <- f.squared / (1 + f.squared)
 
   if (ensure_verbose(verbose) > 0) print(c(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
+
   invisible(list(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
 } # f.to.etasq
 
-# Fisher's z transformation
+
+#' Conversion from a correlation to a z-value (Fisher's z-transformation)
+#'
+#'
+#' @param rho     correlation
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{z}{z-value}
+#'   \item{rho}{correlation}
+#'
+#' @examples
+#' cor.to.z(rho = 0.1)
+#' cor.to.z(rho = 0.5)
+#' cor.to.z(rho = 0.9)
+#' cor.to.z(rho = 0.99)
+#'
+#' @export cor.to.z
 cor.to.z <- function(rho, verbose = 1) {
   z <- numeric(length = length(rho))
   for (i in seq_along(rho)) {
@@ -34,9 +121,31 @@ cor.to.z <- function(rho, verbose = 1) {
   }
 
   if (ensure_verbose(verbose) > 0) print(c(z = z, rho = rho))
+
   invisible(list(z = z, rho = rho))
 } # cor.to.z()
 
+
+#' Conversion from a z-value to a correlation (inverse Fisher's z-transformation)
+#'
+#'
+#' @param z       z-value
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{rho}{correlation}
+#'   \item{z}{z-value}
+#'
+#' @examples
+#' z.to.cor(z = 0.1003353)
+#' z.to.cor(z = 0.5493061)
+#' z.to.cor(z = 1.4722193)
+#' z.to.cor(z = 2.6466524)
+#'
+#' @export z.to.cor
 z.to.cor <- function(z, verbose = 1) {
   rho <- numeric(length = length(z))
   for (i in seq_along(z)) {
@@ -51,21 +160,67 @@ z.to.cor <- function(z, verbose = 1) {
 
 
 # Cohen (1988, S. 109)
-# q <.1: no effect;
+# q < .1: no effect;
 # .1 <= q < .3: small effect;
 # .3 <= q < .5: intermediate effect;
 # q =>.5: large effect
 
+#' Conversion from a correlation Difference to Cohen's q
+#'
+#'
+#' @param rho1    first correlation.
+#' @param rho2    second correlation.
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{q}{Cohen's q effect size.}
+#'   \item{delta}{correlation difference: rho1 - rho2.}
+#'   \item{rho1}{first correlation.}
+#'   \item{rho2}{second correlation.}
+#'
+#' @examples
+#' cors.to.q(rho2 = 0.5712027, rho1 = 0.50)
+#' cors.to.q(rho2 = 0.6907068, rho1 = 0.50)
+#' cors.to.q(rho2 = 0.7815365, rho1 = 0.50)
+#'
+#' @export cors.to.q
 cors.to.q <- function(rho1, rho2, verbose = 1) {
   check.correlation(rho1, rho2)
 
   q <- cor.to.z(rho1, FALSE)$z - cor.to.z(rho2, FALSE)$z
 
   if (ensure_verbose(verbose) > 0) print(c(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
+
   invisible(list(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
 } # cors.to.q()
 
 
+#' Conversion from a Cohen's q to a correlation difference
+#'
+#'
+#' @param q       Cohen's q effect size.
+#' @param rho1    first correlation (either rho1 or rho2 needs to be given)
+#' @param rho2    second correlation (either rho1 or rho2 needs to be given)
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{q}{Cohen's q effect size.}
+#'   \item{delta}{correlation difference: rho1 - rho2.}
+#'   \item{rho1}{first correlation.}
+#'   \item{rho2}{second correlation.}
+#'
+#' @examples
+#' q.to.cors(q = 0.10, rho1 = 0.50)
+#' q.to.cors(q = 0.30, rho1 = 0.50)
+#' q.to.cors(q = 0.50, rho1 = 0.50)
+#'
+#' @export q.to.cors
 q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 
   if (!is.null(rho1)) check.correlation(rho1)
@@ -92,6 +247,47 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 
 } # q.to.cors()
 
+
+#' Conversion from Cohen's d to Common Language Effect Size
+#'
+#'
+#' Helper function to convert Cohen's d to common language effect size (or vice
+#' versa). The result is the probability of superiority for independent
+#' samples. It can be interpreted as the probability that a randomly selected
+#' observation from Group 1 exceeds a randomly selected observation from Group
+#' 2. The rationale is the same for paired-samples and one-sample designs, but
+#' the interpretation differs: For paired samples, it can be interpreted as the
+#' probability that the difference score (i.e., the score under Condition 1
+#' minus the score under Condition 2) is greater than zero for a randomly
+#' selected individual. For a one-sample design, it can be interpreted as the
+#' probability that a randomly selected observation is greater than the
+#' reference value (e.g., 0).
+#'
+#' @aliases d.to.cles cles.to.d
+#'
+#' @param d       Cohen's d
+#' @param design  character; one of the "independent", "paired", or
+#'                "one.sample". The default is "independent".
+#' @param cles    common language effect size.
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{d}{Cohen's d}
+#'   \item{cles}{common language effect size.}
+#'
+#' @examples
+#' d.to.cles(0.20) # small
+#' d.to.cles(0.50) # medium
+#' d.to.cles(0.80) # large
+#'
+#' cles.to.d(0.5562315)
+#' cles.to.d(0.6381632)
+#' cles.to.d(0.7141962)
+#'
+#' @export d.to.cles
 d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.numeric(d)
@@ -105,11 +301,13 @@ d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verb
   }
 
   if (ensure_verbose(verbose) > 0) print(c(cles = prob, d = d))
+
   invisible(list(cles = prob, d = d))
 
 } # d.to.cles
 
 
+#' @export cles.to.d
 cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.proportion(cles)
@@ -123,23 +321,70 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
   }
 
   if (ensure_verbose(verbose) > 0) print(c(d = d, cles = cles))
+
   invisible(list(d = d, cles = cles))
 
 } # cles.to.d
 
 
+#' Conversion from Means and Standard Deviations to Cohen's d
+#'
+#' Helper function to convert means and standard deviations to Cohen's d.
+#'
+#'
+#' @param mu1 mean of the first group.
+#' @param mu2 mean of the second group.
+#' @param sd1 standard deviation of the first group.
+#' @param sd2 standard deviation of the second group.
+#' @param n.ratio \code{n1 / n2} ratio (applies to independent samples only).
+#' @param paired if \code{TRUE} paired samples
+#' @param rho.paired correlation between repeated measures for paired samples
+#' (e.g., pretest and post-test).
+#' @param n2 integer; sample size in the second group (or for the single group
+#' in paired samples).
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#' if \code{2} a more detailed output is given (plus key parameters and
+#' defintions), if \code{0} no output is printed on the console.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{d}{Cohen's d}
+#'   \item{pooled.sd}{Pooled standard deviation}
+#'   \item{var.ratio}{Ratio of the variance in the two groups (applies to independent samples only)}
+#'   \item{n1}{Sample size group 1 (applies to independent samples only)}
+#'   \item{n2}{Sample size group 2}
+#'
+#' @examples
+#'
+#'
+#' # means and standard deviations from independent samples
+#' means.to.d(mu1 = 20, mu2 = 17.5,
+#'            sd1 = 5, sd2 = 15,
+#'            n2 = 30, n.ratio = 1)
+#'
+#' # means and standard deviations from paired samples
+#' means.to.d(mu1 = 20, mu2 = 17.5,
+#'            sd1 = 5, sd2 = 15,
+#'            n2 = 30, n.ratio = 1,
+#'            paired = TRUE,
+#'            rho.paired = 0.50)
+#'
+#' @export means.to.d
 means.to.d <- function(mu1, mu2 = 0,
                        sd1 = 1, sd2 = 1,
-                       n2, n.ratio = 1,
+                       n.ratio = 1, n2,
                        paired = FALSE,
                        rho.paired = 0.50,
                        verbose = 1) {
+
+  func.parms <- clean.parms(as.list(environment()))
 
   check.logical(paired)
   check.numeric(mu1, mu2)
   check.correlation(rho.paired)
   check.positive(sd1, sd2, n.ratio)
   check.sample.size(n2)
+  verbose <- ensure_verbose(verbose)
 
   n1 <- n.ratio * n2
 
@@ -159,17 +404,42 @@ means.to.d <- function(mu1, mu2 = 0,
   d <- (mu1 - mu2) / pooled.sd
 
   if (ensure_verbose(verbose) > 0) print(c(d = d))
-  invisible(list(d = d, mu1 = mu1, mu2 = mu2,
-                 sd1 = sd1, sd2 = sd2,
+  invisible(list(parms = func.parms,
+                 d = d,
                  pooled.sd = pooled.sd,
                  var.ratio = var.ratio,
-                 n1 = n1, n2 = n2,
-                 n.ratio = n.ratio,
-                 paired = paired, rho.paired = rho.paired,
-                 verbose = verbose))
+                 n1 = n1, n2 = n2))
 
 } # means.to.d
 
+
+#' Conversion from Probability Difference to Cohen's h
+#'
+#' Helper function to convert probability difference to Cohen's h (and vice
+#' versa).
+#'
+#'
+#' @param prob1   Probability of success in the first group, or under the
+#'                alternative hypothesis in the one-sample case).
+#' @param prob2   Probability of success in the second group, or under the null
+#'                hypothesis in the one-sample case).
+#' @param h       Cohen's h effect size.
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{h}{Cohen's h effect size.}
+#'   \item{prob1}{probability of success in the first group, or under the
+#'                alternative hypothesis in the one-sample case).}
+#'   \item{prob2}{probability of success in the second group, or under the
+#'                null hypothesis in the one-sample case).}
+#'
+#' @examples
+#' probs.to.h(prob1 = 0.56, prob2 = 0.50)
+#'
+#' @export probs.to.h
 probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 
   check.proportion(prob1, prob2)
@@ -182,7 +452,110 @@ probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 
 } # probs.to.h
 
-# Zhang, Cao, and Ahn (2017)
+
+#' Helper function to converts joint probabilities to marginal probabilities
+#' for the McNemar test applied to paired binary data.
+#'
+#'
+#' @param prob1   (marginal) probability of success in case group (or after).
+#' @param prob2   (marginal) probability of success in matched-control group
+#'                (or before).
+#' @param rho     the correlation between case and matched-control, or after
+#'                and before (phi coefficient).
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{prob11}{(joint) probability of success in both groups. 'prob11' and
+#'                 'prob00' are known as concordant probs.}
+#'   \item{prob10}{(joint) probability of success in case (or after) but
+#'                 failure in matched control (or before). 'prob10' and
+#'                 'prob01' are known as discordant probs.}
+#'   \item{prob01}{(joint) probability of failure in case (or after) but
+#'                 success in matched control (or before). prob10' and 'prob01'
+#'                 are known as discordant probs.}
+#'   \item{prob00}{(joint) probability of failure in both groups. 'prob11' and
+#'                 'prob00' are known as concordant probs.}
+#'
+#' @references
+#'   Zhang, S., Cao, J., and Ahn, C. (2017). Inference and sample size
+#'   calculation for clinical trials with incomplete observations of paired
+#'   binary outcomes. *Statistics in Medicine, 36*(4), 581-591.
+#'   https://doi.org/10.1002/sim.7168
+#'
+#' @examples
+#' # example data for a matched case-control design
+#' # subject  case     control
+#' # <int>    <dbl>    <dbl>
+#' #   1        1        1
+#' #   2        0        1
+#' #   3        1        0
+#' #   4        0        1
+#' #   5        1        1
+#' #   ...     ...      ...
+#' #   100      0        0
+#'
+#' # example summary stats
+#' # prob1 = mean(case) which is 0.55
+#' # prob2 = mean(control) which is 0.45
+#' # rho = cor(case, control) which is 0.4141414
+#'
+#'
+#' # example data for a before-after design
+#' # subject  before   after
+#' # <int>    <dbl>    <dbl>
+#' #   1        1        1
+#' #   2        0        1
+#' #   3        1        0
+#' #   4        0        1
+#' #   5        1        1
+#' #   ...     ...      ...
+#' #   100      0        0
+#'
+#' # example summary stats
+#' # prob1 = mean(after) which is 0.55
+#' # prob2 = mean(before) which is 0.45
+#' # rho = cor(after, before) which is 0.4141414
+#'
+#' # convert to a 2 x 2 frequency table
+#' freqs <- matrix(c(30, 10, 20, 40), nrow = 2, ncol = 2)
+#' colnames(freqs) <- c("control_1", "control_0")
+#' rownames(freqs) <- c("case_1", "case_0")
+#' freqs
+#'
+#' # convert to a 2 x 2 proportion table
+#' props <- freqs / sum(freqs)
+#' props
+#'
+#' # discordant pairs (0 and 1, or 1 and 0) in 'props' matrix
+#' # are the sample estimates of prob01 and prob10
+#'
+#'
+#' # we may not have 2 x 2 joint probs
+#' # convert marginal probs to joint probs using summary stats
+#' jp <- joint.probs.2x2(prob1 = 0.55, # mean of case (or after)
+#'                           prob2 = 0.45, # mean of matched control (or before)
+#'                           # correlation b/w matched case-control / before-after
+#'                           rho = 0.4141414)
+#'
+#' # required sample size for exact test
+#' # assuming prob01 and prob10 are population parameters
+#' power.exact.mcnemar(prob01 = jp$prob01,
+#'                     prob10 = jp$prob10,
+#'                     power = 0.80, alpha = 0.05,
+#'                     method = "exact")
+#'
+#' # convert joint probs to marginal probs and calc phi coefficient (rho)
+#' # these values can be used in other procedures
+#' marginal.probs.2x2(prob11 = 0.35, # mean of case (or after)
+#'                     prob10 = 0.20, # mean of matched control (or before)
+#'                     prob01 = 0.10,
+#'                     prob00 = 0.35)
+#'
+#' @export joint.probs.2x2
 joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 
   func.parms <- clean.parms(as.list(environment()))
@@ -220,6 +593,109 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 } # joint.probs.2x2
 
 
+#' Helper function to converts marginal probabilities to joint probabilities
+#' for the McNemar test applied to paired binary data.
+#'
+#'
+#' @param prob11  (joint) probability of success in both groups. 'prob11' and
+#'                'prob00' are known as concordant probs.
+#' @param prob10  (joint) probability of success in case (or after) but failure
+#'                in matched control (or before). 'prob10' and 'prob01' are
+#'                known as discordant probs.
+#' @param prob01  (joint) probability of failure in case (or after) but success
+#'                in matched control (or before). prob10' and 'prob01' are
+#'                known as discordant probs.
+#' @param prob00  (joint) probability of failure in both groups. 'prob11' and
+#'                'prob00' are known as concordant probs.
+#' @param verbose \code{1} by default (returns test, hypotheses, and results),
+#'                if \code{2} a more detailed output is given (plus key
+#'                parameters and defintions), if \code{0} no output is printed
+#'                on the console.
+#'
+#' @return
+#'   \item{parms}{list of parameters used in calculation.}
+#'   \item{prob1}{(marginal) probability of success in case group (or after).}
+#'   \item{prob2}{(marginal) probability of success in matched-control group
+#'                (or before).}
+#'   \item{rho}{the correlation between case and matched-control, or after and
+#'              before (phi coefficient).}
+#'
+#' @references
+#'   Zhang, S., Cao, J., and Ahn, C. (2017). Inference and sample size
+#'   calculation for clinical trials with incomplete observations of paired
+#'   binary outcomes. *Statistics in Medicine, 36*(4), 581-591.
+#'   https://doi.org/10.1002/sim.7168
+#'
+#' @examples
+#' # example data for a matched case-control design
+#' # subject  case     control
+#' # <int>    <dbl>    <dbl>
+#' #   1        1        1
+#' #   2        0        1
+#' #   3        1        0
+#' #   4        0        1
+#' #   5        1        1
+#' #   ...     ...      ...
+#' #   100      0        0
+#'
+#' # example summary stats
+#' # prob1 = mean(case) which is 0.55
+#' # prob2 = mean(control) which is 0.45
+#' # rho = cor(case, control) which is 0.4141414
+#'
+#'
+#' # example data for a before-after design
+#' # subject  before   after
+#' # <int>    <dbl>    <dbl>
+#' #   1        1        1
+#' #   2        0        1
+#' #   3        1        0
+#' #   4        0        1
+#' #   5        1        1
+#' #   ...     ...      ...
+#' #   100      0        0
+#'
+#' # example summary stats
+#' # prob1 = mean(after) which is 0.55
+#' # prob2 = mean(before) which is 0.45
+#' # rho = cor(after, before) which is 0.4141414
+#'
+#' # convert to a 2 x 2 frequency table
+#' freqs <- matrix(c(30, 10, 20, 40), nrow = 2, ncol = 2)
+#' colnames(freqs) <- c("control_1", "control_0")
+#' rownames(freqs) <- c("case_1", "case_0")
+#' freqs
+#'
+#' # convert to a 2 x 2 proportion table
+#' props <- freqs / sum(freqs)
+#' props
+#'
+#' # discordant pairs (0 and 1, or 1 and 0) in 'props' matrix
+#' # are the sample estimates of prob01 and prob10
+#'
+#'
+#' # we may not have 2 x 2 joint probs
+#' # convert marginal probs to joint probs using summary stats
+#' jp <- joint.probs.2x2(prob1 = 0.55, # mean of case (or after)
+#'                           prob2 = 0.45, # mean of matched control (or before)
+#'                           # correlation b/w matched case-control / before-after
+#'                           rho = 0.4141414)
+#'
+#' # required sample size for exact test
+#' # assuming prob01 and prob10 are population parameters
+#' power.exact.mcnemar(prob01 = jp$prob01,
+#'                     prob10 = jp$prob10,
+#'                     power = 0.80, alpha = 0.05,
+#'                     method = "exact")
+#'
+#' # convert joint probs to marginal probs and calc phi coefficient (rho)
+#' # these values can be used in other procedures
+#' marginal.probs.2x2(prob11 = 0.35, # mean of case (or after)
+#'                     prob10 = 0.20, # mean of matched control (or before)
+#'                     prob01 = 0.10,
+#'                     prob00 = 0.35)
+#'
+#' @export marginal.probs.2x2
 marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
   func.parms <- clean.parms(as.list(environment()))
@@ -260,6 +736,99 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
 
 # internal function to get some chisq stat
+
+#' Conversion from Probabilities to Cohen's w
+#'
+#' Helper function to convert (multinomial or product-multinomial)
+#' probabilities to Cohen's w.
+#'
+#'
+#' @param prob.matrix      a vector or matrix of cell probabilities under
+#'                         the alternative hypothesis
+#' @param null.prob.matrix a vector or matrix of cell probabilities under the
+#'                         null hypothesis. Calculated automatically when
+#'                         \code{prob.matrix} is specified. The default can be
+#'                         overwritten by the user via providing a vector of
+#'                         the same size or matrix of the same dimensions as
+#'                         \code{prob.matrix}.
+#' @param verbose          \code{1} by default (returns test, hypotheses, and
+#'                         results), if \code{2} a more detailed output is
+#'                         given (plus key parameters and defintions), if
+#'                         \code{0} no output is printed on the console.
+#'
+#' @return
+#'    \item{w}{Cohen's w effect size. It can be any of Cohen's W, Phi
+#'             coefficient, Cramer's V. Phi coefficient is defined as
+#'             \code{sqrt(X2 / n)} and Cramer's V is defined as
+#'             \code{sqrt(X2 / (n * v))} where \code{v} is
+#'             \code{min(nrow - 1, ncol - 1)} and X2 is the chi-square
+#'             statistic.}
+#' \item{df}{degrees of freedom.}
+#'
+#' @references
+#'   Cohen, J. (1988). *Statistical power analysis for the behavioral sciences*
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#' @examples
+#'   # ---------------------------------------------------------#
+#'   # Example 1: Cohen's W                                     #
+#'   # goodness-of-fit test for 1 x k or k x 1 table            #
+#'   # How many subjects are needed to claim that               #
+#'   # girls choose STEM related majors less than males?       #
+#'   # ---------------------------------------------------------#
+#'
+#'   ## from https://www.aauw.org/resources/research/the-stem-gap/
+#'   ## 28 percent of the  workforce in STEM field is women
+#'   prob.vector <- c(0.28, 0.72)
+#'   null.prob.vector <- c(0.50, 0.50)
+#'   probs.to.w(prob.vector, null.prob.vector)
+#'
+#'   power.chisq.gof(w = 0.44, df = 1,
+#'                   alpha = 0.05, power = 0.80)
+#'
+#'
+#'   # ---------------------------------------------------------#
+#'   # Example 2: Phi Coefficient (or Cramer's V or Cohen's W)  #
+#'   # test of independence for 2 x 2 contingency tables        #
+#'   # How many subjects are needed to claim that               #
+#'   # girls are underdiagnosed with ADHD?                      #
+#'   # ---------------------------------------------------------#
+#'
+#'   ## from https://time.com/growing-up-with-adhd/
+#'   ## 5.6 percent of girls and 13.2 percent of boys are diagnosed with ADHD
+#'   prob.matrix <- rbind(c(0.056, 0.132),
+#'                        c(0.944, 0.868))
+#'   colnames(prob.matrix) <- c("Girl", "Boy")
+#'   rownames(prob.matrix) <- c("ADHD", "No ADHD")
+#'   prob.matrix
+#'
+#'   probs.to.w(prob.matrix)
+#'
+#'   power.chisq.gof(w = 0.1302134, df = 1,
+#'                   alpha = 0.05, power = 0.80)
+#'
+#'
+#'   # --------------------------------------------------------#
+#'   # Example 3: Cramer's V (or Cohen's W)                    #
+#'   # test of independence for j x k contingency tables       #
+#'   # How many subjects are needed to detect the relationship #
+#'   # between depression severity and gender?                 #
+#'   # --------------------------------------------------------#
+#'
+#'   ## from https://doi.org/10.1016/j.jad.2019.11.121
+#'   prob.matrix <- cbind(c(0.6759, 0.1559, 0.1281, 0.0323, 0.0078),
+#'                        c(0.6771, 0.1519, 0.1368, 0.0241, 0.0101))
+#'   rownames(prob.matrix) <- c("Normal", "Mild", "Moderate",
+#'                              "Severe", "Extremely Severe")
+#'   colnames(prob.matrix) <- c("Female", "Male")
+#'   prob.matrix
+#'
+#'   probs.to.w(prob.matrix)
+#'
+#'   power.chisq.gof(w = 0.03022008, df = 4,
+#'                   alpha = 0.05, power = 0.80)
+#'
+#' @export probs.to.w
 probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
 
   if (any(prob.matrix < 0) || any(prob.matrix > 1))
