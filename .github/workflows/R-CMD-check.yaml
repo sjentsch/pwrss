@@ -22,7 +22,7 @@ jobs:
           - {os: windows-latest,  r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-#         - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -39,13 +39,9 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Install protobuf headers
-        if: runner.os == 'Linux'
-        run: sudo apt update -y && sudo apt install -y protobuf-compiler libprotobuf-dev libprotoc-dev
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::XML, any::roxygen2, github::jamovi/jmvcore
+          extra-packages: any::rcmdcheck, any::XML, any::roxygen2
           needs: check
 
       - name: Document
