@@ -48,7 +48,7 @@
 #'                     \eqn{\alpha}.
 #' @param design       character; "independent" (default), "one.sample", or
 #'                     "paired".
-#' @param alternative  character; direction or type of the hypothesis test:
+#' @param alternative  character; the direction or type of the hypothesis test:
 #'                     "two.sided", "one.sided", or "two.one.sided".
 #' @param distribution character; parent distribution: "normal", "uniform",
 #'                     "double.exponential", "laplace", or "logistic".

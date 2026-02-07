@@ -58,7 +58,7 @@
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
 #' @param alternative character; the direction or type of the hypothesis test:
-#'                    "one.sided", "two.sided", "two.one.sided". For
+#'                    "two.sided", "one.sided", or "two.one.sided". For
 #'                    non-inferiority or superiority tests, add or subtract the
 #'                    margin from the null hypothesis value and use
 #'                    \code{alternative = "one.sided"}.
@@ -534,7 +534,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
 #' @param alternative character; the direction or type of the hypothesis test:
-#'                    "one.sided", "two.sided", "two.one.sided". For
+#'                    "two.sided", "one.sided", or "two.one.sided". For
 #'                    non-inferiority or superiority tests, add or subtract the
 #'                    margin from the null hypothesis value and use
 #'                    \code{alternative = "one.sided"}.

@@ -29,9 +29,7 @@ rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
 plot. \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and results),
-if \code{2} a more detailed output is given (plus key
-parameters and defintions), if \code{0} no output is printed
-on the console.}
+if \code{0} no output is printed on the console.}
 
 \item{pretty}{logical; whether the output should show Unicode characters
 (if encoding allows for it). \code{FALSE} by default.}
@@ -44,8 +42,8 @@ Calculates power for the generic chi-square test with (optional) Type 1 and
 Type 2 error plots.
 }
 \examples{
-# power is defined as the probability of observing Chi-square-statistics
-# greater than the critical  value
+# power is defined as the probability of observing a test statistics greater
+# than the critical value
 power.chisq.test(ncp = 20, df = 100, alpha = 0.05)
 
 }

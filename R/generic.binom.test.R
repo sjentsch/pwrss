@@ -10,16 +10,16 @@
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative direction or type of the hypothesis test: "two.sided",
-#'                    "one.sided", or "two.one.sided". For non-inferiority or
-#'                    superiority tests, add or subtract the margin from the
-#'                    null hypothesis value and use alternative = "one.sided".
+#' @param alternative character; the direction or type of the hypothesis test:
+#'                    "two.sided", "one.sided", or "two.one.sided". For
+#'                    non-inferiority or superiority tests, add or subtract the
+#'                    margin from the null hypothesis value and use alternative
+#'                    = "one.sided".
 #' @param plot        logical; \code{FALSE} switches off Type 1 and Type 2
 #'                    error plot. \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
-#'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
-#'                    output is printed on the console.
+#'                    results), if \code{0} no output is printed on the
+#'                    console.
 #' @param pretty      logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.

@@ -4,58 +4,59 @@
 #' error plots.
 #'
 #'
-#' @param ncp non-centrality parameter for the alternative.
-#' @param null.ncp non-centrality parameter for the null. When alternative =
-#' "two.one.sided", the function expects two values in the form c(lower,
-#' upper). If a single value is provided, it is interpreted as the absolute
-#' bound and automatically expanded to c(-value, +value).
-#' @param df degrees of freedom.
-#' @param alpha type 1 error rate, defined as the probability of incorrectly
-#' rejecting a true null hypothesis, denoted as \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
-#' "one.sided", "two.sided", or "two.one.sided". "two.one.sided" is used for
-#' equivalence and minimal effect testing.
-#' @param plot logical; \code{FALSE} switches off Type 1 and Type 2 error plot.
-#' \code{TRUE} by default.
-#' @param verbose \code{1} by default (returns test, hypotheses, and results),
-#' if \code{2} a more detailed output is given (plus key parameters and
-#' defintions), if \code{0} no output is printed on the console.
-#' @param pretty logical; whether the output should show Unicode characters (if
-#' encoding allows for it). \code{FALSE} by default.
+#' @param             ncp non-centrality parameter for the alternative.
+#' @param null.ncp    non-centrality parameter for the null. When alternative =
+#'                    "two.one.sided", the function expects two values in the
+#'                    form `c(lower, upper)`. If a single value is provided, it
+#'                    is interpreted as the absolute bound and automatically
+#'                    expanded to `c(-value, +value)`.
+#' @param df          degrees of freedom.
+#' @param alpha       type 1 error rate, defined as the probability of
+#'                    incorrectly rejecting a true null hypothesis, denoted as
+#'                    \eqn{\alpha}.
+#' @param alternative character; the direction or type of the hypothesis test:
+#'                    "two.sided", "one.sided", or "two.one.sided".
+#'                    "two.one.sided" is used for equivalence and minimal
+#'                    effect testing.
+#' @param plot        logical; \code{FALSE} switches off Type 1 and Type 2
+#'                    error plot. \code{TRUE} by default.
+#' @param verbose     \code{1} by default (returns test, hypotheses, and
+#'                    results), if \code{0} no output is printed on the
+#'                    console.
+#' @param pretty      logical; whether the output should show Unicode
+#'                    characters (if encoding allows for it). \code{FALSE} by
+#'                    default.
 #'
-#' @return \item{df}{degrees of freedom.} \item{ncp}{non-centrality parameter
-#' under alternative.} \item{ncp.null}{non-centrality parameter under null.}
-#' \item{t.alpha}{critical value(s).} \item{power}{statistical power
-#' \eqn{(1-\beta)}.}
+#' @return
+#'   \item{df}{degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter under alternative.}
+#'   \item{ncp.null}{non-centrality parameter under null.}
+#'   \item{t.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
 #'
 #' @examples
 #' # two-sided
-#' # power defined as the probability of observing a test statistic
-#' # greater than the positive critical value OR
-#' # less than the negative critical value
-#' power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
-#'              alternative = "two.sided")
+#' # power defined as the probability of observing test statistics greater
+#' # than the positive critical value OR less than the negative critical value
+#' power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided")
 #'
 #' # one-sided
-#' # power is defined as the probability of observing a test statistic
-#' # greater than the critical value
-#' power.t.test(ncp = 1.96, df = 100, alpha = 0.05,
-#'              alternative = "one.sided")
+#' # power is defined as the probability of observing a test statistic greater
+#' # than the critical value
+#' power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "one.sided")
 #'
 #' # equivalence
-#' # power is defined as the probability of observing a test statistic
-#' # greater than the upper critical value (for the lower bound) AND
-#' # less than the lower critical value (for the upper bound)
-#' power.t.test(ncp = 0, df = 100,
-#'              null.ncp = c(-2, 2), alpha = 0.05,
+#' # power is defined as the probability of observing a test statistic greater
+#' # than the upper critical value (for the lower bound) AND less than the
+#' # lower critical value (for the upper bound)
+#' power.t.test(ncp = 0, null.ncp = c(-2, 2), df = 100, alpha = 0.05,
 #'              alternative = "two.one.sided")
 #'
 #' # minimal effect testing
-#' # power is defined as the probability of observing a test statistic
-#' # greater than the upper critical value (for the upper bound) OR
-#' # less than the lower critical value (for the lower bound).
-#' power.t.test(ncp = 2, df = 100,
-#'              null.ncp = c(-1, 1), alpha = 0.05,
+#' # power is defined as the probability of observing a test statistic greater
+#' # than the upper critical value (for the upper bound) OR less than the lower
+#' # critical value (for the lower bound).
+#' power.t.test(ncp = 2, null.ncp = c(-1, 1), df = 100, alpha = 0.05,
 #'              alternative = "two.one.sided")
 #'
 #' @export power.t.test

@@ -634,8 +634,8 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
-#'                    "two.sided", or "one.sided".
+#' @param alternative character; the direction or type of the hypothesis test:
+#'                    "two.sided" or "one.sided".
 #' @param paired      logical; if \code{TRUE} samples are paired. \code{FALSE}
 #'                    by default.
 #' @param rho.paired  correlation between paired observations.
@@ -778,7 +778,7 @@ power.exact.twoprop <- power.exact.twoprops
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
+#' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided", "one.sided", or "two.one.sided".
 #' @param arcsine     logical; whether arcsine transformation should be
 #'                    applied. Note that this only applies to independent

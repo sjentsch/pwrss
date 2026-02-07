@@ -27,30 +27,30 @@ power.f.test(
 \item{alpha}{type 1 error rate, defined as the probability of incorrectly
 rejecting a true null hypothesis, denoted as \eqn{\alpha}.}
 
-\item{plot}{logical; \code{FALSE} switches off Type 1 and Type 2 error plot.
-\code{TRUE} by default.}
+\item{plot}{logical; \code{FALSE} switches off Type 1 and Type 2 error
+plot. \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and results),
-if \code{2} a more detailed output is given (plus key parameters and
-defintions), if \code{0} no output is printed on the console.}
+if \code{0} no output is printed on the console.}
 
 \item{pretty}{logical; whether the output should show Unicode characters (if
 encoding allows for it). \code{FALSE} by default.}
 }
 \value{
-\item{df1}{numerator degrees of freedom.} \item{df2}{denominator
-degrees of freedom.} \item{ncp}{non-centrality parameter under alternative.}
+\item{df1}{numerator degrees of freedom.}
+\item{df2}{denominator degrees of freedom.}
+\item{ncp}{non-centrality parameter under alternative.}
 \item{ncp.null}{non-centrality parameter under null.}
-\item{f.alpha}{critical value(s).} \item{power}{statistical power
-\eqn{(1-\beta)}.}
+\item{f.alpha}{critical value(s).}
+\item{power}{statistical power \eqn{(1-\beta)}.}
 }
 \description{
 Calculates power for the generic F-Test with (optional) Type 1 and Type 2
 error plots.
 }
 \examples{
-# power is defined as the probability of observing F-statistics
-# greater than the critical value
+# power is defined as the probability of observing a test statistics greater
+# than the critical value
 power.f.test(ncp = 1, df1 = 4, df2 = 100, alpha = 0.05)
 
 }

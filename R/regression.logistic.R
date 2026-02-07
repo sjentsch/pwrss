@@ -59,8 +59,8 @@
 #' @param alpha               type 1 error rate, defined as the probability of
 #'                            incorrectly rejecting a true null hypothesis,
 #'                            denoted as \eqn{\alpha}.
-#' @param alternative         character; direction or type of the hypothesis
-#'                            test: "not equal", "greater", "less"
+#' @param alternative         character; the direction or type of the
+#'                            hypothesis test: "two.sided" or "one.sided".
 #' @param method              character; analytic method.
 #'                            \code{"demidenko(vc)"} stands for Demidenko
 #'                            (2007) procedure with variance correction;

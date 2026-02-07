@@ -3,29 +3,30 @@
 #' Calculates power for the generic F-Test with (optional) Type 1 and Type 2
 #' error plots.
 #'
-#' @param ncp non-centrality parameter for the alternative.
+#' @param          ncp non-centrality parameter for the alternative.
 #' @param null.ncp non-centrality parameter for the null.
-#' @param alpha type 1 error rate, defined as the probability of incorrectly
-#' rejecting a true null hypothesis, denoted as \eqn{\alpha}.
-#' @param df1 integer; numerator degrees of freedom.
-#' @param df2 integer; denominator degrees of freedom.
-#' @param plot logical; \code{FALSE} switches off Type 1 and Type 2 error plot.
-#' \code{TRUE} by default.
-#' @param verbose \code{1} by default (returns test, hypotheses, and results),
-#' if \code{2} a more detailed output is given (plus key parameters and
-#' defintions), if \code{0} no output is printed on the console.
+#' @param alpha    type 1 error rate, defined as the probability of incorrectly
+#'                 rejecting a true null hypothesis, denoted as \eqn{\alpha}.
+#' @param df1      integer; numerator degrees of freedom.
+#' @param df2      integer; denominator degrees of freedom.
+#' @param plot     logical; \code{FALSE} switches off Type 1 and Type 2 error
+#'                 plot. \code{TRUE} by default.
+#' @param verbose  \code{1} by default (returns test, hypotheses, and results),
+#'                 if \code{0} no output is printed on the console.
 #' @param pretty logical; whether the output should show Unicode characters (if
 #' encoding allows for it). \code{FALSE} by default.
 #'
-#' @return \item{df1}{numerator degrees of freedom.} \item{df2}{denominator
-#' degrees of freedom.} \item{ncp}{non-centrality parameter under alternative.}
-#' \item{ncp.null}{non-centrality parameter under null.}
-#' \item{f.alpha}{critical value(s).} \item{power}{statistical power
-#' \eqn{(1-\beta)}.}
+#' @return
+#'   \item{df1}{numerator degrees of freedom.}
+#'   \item{df2}{denominator degrees of freedom.}
+#'   \item{ncp}{non-centrality parameter under alternative.}
+#'   \item{ncp.null}{non-centrality parameter under null.}
+#'   \item{f.alpha}{critical value(s).}
+#'   \item{power}{statistical power \eqn{(1-\beta)}.}
 #'
 #' @examples
-#' # power is defined as the probability of observing F-statistics
-#' # greater than the critical value
+#' # power is defined as the probability of observing a test statistics greater
+#' # than the critical value
 #' power.f.test(ncp = 1, df1 = 4, df2 = 100, alpha = 0.05)
 #'
 #' @export power.f.test

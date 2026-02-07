@@ -396,7 +396,7 @@ power.z.steiger <- power.z.twocors.steiger
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
+#' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
 #' @param ceiling     logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.
@@ -601,7 +601,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
+#' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
 #' @param ceiling     logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.

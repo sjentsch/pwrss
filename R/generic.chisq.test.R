@@ -13,9 +13,7 @@
 #' @param plot     logical; \code{FALSE} switches off Type 1 and Type 2 error
 #'                 plot. \code{TRUE} by default.
 #' @param verbose  \code{1} by default (returns test, hypotheses, and results),
-#'                 if \code{2} a more detailed output is given (plus key
-#'                 parameters and defintions), if \code{0} no output is printed
-#'                 on the console.
+#'                 if \code{0} no output is printed on the console.
 #' @param pretty   logical; whether the output should show Unicode characters
 #'                 (if encoding allows for it). \code{FALSE} by default.
 #'
@@ -23,8 +21,8 @@
 #'   \item{power}{statistical power \eqn{(1-\beta)}.}
 #'
 #' @examples
-#' # power is defined as the probability of observing Chi-square-statistics
-#' # greater than the critical  value
+#' # power is defined as the probability of observing a test statistics greater
+#' # than the critical value
 #' power.chisq.test(ncp = 20, df = 100, alpha = 0.05)
 #'
 #' @export power.chisq.test

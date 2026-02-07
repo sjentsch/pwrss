@@ -20,7 +20,7 @@
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
-#' @param alternative character; direction or type of the hypothesis test:
+#' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
 #' @param method      character; method used for power calculation. "exact"
 #'                    specifies Fisher's exact test, while "approximate" refers
