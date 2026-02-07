@@ -78,8 +78,8 @@ power.z.poisson(
 
 - alternative:
 
-  character; direction or type of the hypothesis test: "not equal",
-  "greater", "less".
+  character; the direction or type of the hypothesis test: "two.sided"
+  or "one.sided".
 
 - method:
 

@@ -61,7 +61,7 @@ power.z.twoprops(
 
 - alternative:
 
-  character; direction or type of the hypothesis test: "two.sided",
+  character; the direction or type of the hypothesis test: "two.sided",
   "one.sided", or "two.one.sided".
 
 - arcsine:

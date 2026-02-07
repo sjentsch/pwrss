@@ -39,10 +39,10 @@ power.binom.test(
 
 - alternative:
 
-  direction or type of the hypothesis test: "two.sided", "one.sided", or
-  "two.one.sided". For non-inferiority or superiority tests, add or
-  subtract the margin from the null hypothesis value and use alternative
-  = "one.sided".
+  character; the direction or type of the hypothesis test: "two.sided",
+  "one.sided", or "two.one.sided". For non-inferiority or superiority
+  tests, add or subtract the margin from the null hypothesis value and
+  use alternative = "one.sided".
 
 - plot:
 

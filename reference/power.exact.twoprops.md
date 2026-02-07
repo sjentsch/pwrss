@@ -55,8 +55,8 @@ power.exact.twoprops(
 
 - alternative:
 
-  character; direction or type of the hypothesis test: "two.sided", or
-  "one.sided".
+  character; the direction or type of the hypothesis test: "two.sided"
+  or "one.sided".
 
 - paired:
 

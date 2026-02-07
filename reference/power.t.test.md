@@ -42,8 +42,8 @@ power.t.test(
 
 - alternative:
 
-  character; direction or type of the hypothesis test: "one.sided",
-  "two.sided", or "two.one.sided". "two.one.sided" is used for
+  character; the direction or type of the hypothesis test: "two.sided",
+  "one.sided", or "two.one.sided". "two.one.sided" is used for
   equivalence and minimal effect testing.
 
 - plot:
