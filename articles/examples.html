@@ -60,7 +60,7 @@
                         <h4 data-toc-skip class="author">Metin
 Bulus</h4>
             
-            <h4 data-toc-skip class="date">2026-02-05</h4>
+            <h4 data-toc-skip class="date">2026-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/metinbulus/pwrss/blob/main/vignettes/examples.Rmd" class="external-link"><code>vignettes/examples.Rmd</code></a></small>
       <div class="d-none name"><code>examples.Rmd</code></div>
@@ -195,7 +195,7 @@ statistic?</p>
 <span><span class="co">#&gt; Multiple R-squared:  0.8268, Adjusted R-squared:  0.8148 </span></span>
 <span><span class="co">#&gt; F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.t.test.html">power.t.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="op">-</span><span class="fl">3.519</span>, <span class="co"># t-value for hp variable</span></span>
+<span><span class="fu"><a href="../reference/power.t.test.html">power.t.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="op">-</span><span class="fl">3.519</span>, <span class="co"># t-value for hp variable</span></span>
 <span>             df <span class="op">=</span> <span class="fl">29</span>, <span class="co"># residual degrees of freedom</span></span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -296,7 +296,7 @@ detect superiority under these criteria?</p>
 <span><span class="va">null.ncp</span> <span class="op">&lt;-</span> <span class="va">margin</span> <span class="op">/</span> <span class="va">std.error</span></span>
 <span></span>
 <span><span class="co"># calculate power</span></span>
-<span><span class="fu"><a href="../reference/generic.t.test.html">power.t.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="va">ncp</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.test.html">power.t.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="va">ncp</span>,</span>
 <span>             null.ncp <span class="op">=</span> <span class="va">null.ncp</span>,</span>
 <span>             df <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="va">g</span> <span class="op">-</span> <span class="fl">2</span>,</span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -382,7 +382,7 @@ statistic for Wool B?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.z.test.html">power.z.test</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="op">-</span><span class="fl">3.994</span>, <span class="co"># z-value for wool B</span></span>
+<span><span class="fu"><a href="../reference/power.z.test.html">power.z.test</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="op">-</span><span class="fl">3.994</span>, <span class="co"># z-value for wool B</span></span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -448,10 +448,10 @@ level of 0.05. What is the power under these criteria?</p>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="co"># sample size</span></span>
 <span></span>
 <span><span class="co"># apply Fisher's Z transformation</span></span>
-<span><span class="va">z.rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conversion.cors.to.q.html">cor.to.z</a></span><span class="op">(</span><span class="va">rs</span><span class="op">)</span><span class="op">$</span><span class="va">z</span></span>
+<span><span class="va">z.rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cor.to.z.html">cor.to.z</a></span><span class="op">(</span><span class="va">rs</span><span class="op">)</span><span class="op">$</span><span class="va">z</span></span>
 <span><span class="co">#&gt;         z       rho </span></span>
 <span><span class="co">#&gt; 0.3095196 0.3000000</span></span>
-<span><span class="va">z.null.rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conversion.cors.to.q.html">cor.to.z</a></span><span class="op">(</span><span class="va">null.rs</span><span class="op">)</span><span class="op">$</span><span class="va">z</span></span>
+<span><span class="va">z.null.rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cor.to.z.html">cor.to.z</a></span><span class="op">(</span><span class="va">null.rs</span><span class="op">)</span><span class="op">$</span><span class="va">z</span></span>
 <span><span class="co">#&gt;   z rho </span></span>
 <span><span class="co">#&gt;   0   0</span></span>
 <span></span>
@@ -462,7 +462,7 @@ level of 0.05. What is the power under these criteria?</p>
 <span><span class="va">ncp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">z.rs</span> <span class="op">-</span> <span class="va">z.null.rs</span><span class="op">)</span> <span class="op">/</span> <span class="va">z.std.error</span></span>
 <span></span>
 <span><span class="co"># calculate power</span></span>
-<span><span class="fu"><a href="../reference/generic.z.test.html">power.z.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="va">ncp</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.test.html">power.z.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="va">ncp</span>,</span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -540,7 +540,7 @@ statistic?</p>
 <span><span class="co">#&gt; Multiple R-squared:  0.2697, Adjusted R-squared:  0.2445 </span></span>
 <span><span class="co">#&gt; F-statistic: 10.71 on 1 and 29 DF,  p-value: 0.002758</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.f.test.html">power.f.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">10.71</span>, <span class="co"># non-centrality under alternative</span></span>
+<span><span class="fu"><a href="../reference/power.f.test.html">power.f.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">10.71</span>, <span class="co"># non-centrality under alternative</span></span>
 <span>             df1 <span class="op">=</span> <span class="fl">1</span>, <span class="co"># numerator degrees of freedom</span></span>
 <span>             df2 <span class="op">=</span> <span class="fl">29</span>, <span class="co"># denominator degrees of freedom</span></span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
@@ -610,7 +610,7 @@ chi-squared test of independence?</p>
 <span><span class="co">#&gt; data:  table</span></span>
 <span><span class="co">#&gt; X-squared = 138.29, df = 9, p-value &lt; 2.2e-16</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.chisq.test.html">power.chisq.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">138.29</span>, <span class="co"># X-squared</span></span>
+<span><span class="fu"><a href="../reference/power.chisq.test.html">power.chisq.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">138.29</span>, <span class="co"># X-squared</span></span>
 <span>                 df <span class="op">=</span> <span class="fl">9</span>, <span class="co"># degrees of freedom</span></span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
 <span>                 plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -687,7 +687,7 @@ difference between the full and reduced models?</p>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.chisq.test.html">power.chisq.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">18.463</span>,</span>
+<span><span class="fu"><a href="../reference/power.chisq.test.html">power.chisq.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="fl">18.463</span>,</span>
 <span>                 df <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                 plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -757,7 +757,7 @@ proportion and sample size?</p>
 <span><span class="co">#&gt; probability of success </span></span>
 <span><span class="co">#&gt;              0.6433824</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/generic.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">n.total</span>, <span class="co"># number of eruptions</span></span>
+<span><span class="fu"><a href="../reference/power.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">n.total</span>, <span class="co"># number of eruptions</span></span>
 <span>                 prob <span class="op">=</span> <span class="va">n.success</span> <span class="op">/</span> <span class="va">n.total</span>, <span class="co"># prob. of occurrence under alt.</span></span>
 <span>                 null.prob <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># prob. of occurrence under null</span></span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -797,7 +797,7 @@ based on a one-sided test procedure with
 a coin is fair.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find the approximate solution</span></span>
-<span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># prob. of head under alt.</span></span>
+<span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># prob. of head under alt.</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.495</span>, <span class="fl">0.505</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
@@ -806,7 +806,7 @@ a coin is fair.</p>
 <span><span class="co">#&gt; [1] 85639</span></span>
 <span></span>
 <span><span class="co"># iterate to find the exact solution</span></span>
-<span><span class="fu"><a href="../reference/generic.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">85632</span>, <span class="co"># number of tosses needed</span></span>
+<span><span class="fu"><a href="../reference/power.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">85632</span>, <span class="co"># number of tosses needed</span></span>
 <span>                 prob <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># prob. of head under alt.</span></span>
 <span>                 null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.495</span>, <span class="fl">0.505</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
@@ -844,7 +844,7 @@ Monte Carlo simulation.</p>
 <p>To reliably detect a type 1 error rate of 0.05:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find the approximate solution</span></span>
-<span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># prob. of head under alt.</span></span>
+<span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># prob. of head under alt.</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.045</span>, <span class="fl">0.055</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
@@ -852,7 +852,7 @@ Monte Carlo simulation.</p>
 <span><span class="co">#&gt; [1] 16272</span></span>
 <span></span>
 <span><span class="co"># iterate to find the exact solution</span></span>
-<span><span class="fu"><a href="../reference/generic.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16424</span>, <span class="co"># number of replications needed</span></span>
+<span><span class="fu"><a href="../reference/power.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16424</span>, <span class="co"># number of replications needed</span></span>
 <span>                 prob <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># prob. of falsely rejecting null</span></span>
 <span>                 null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.045</span>, <span class="fl">0.055</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -881,7 +881,7 @@ Monte Carlo simulation.</p>
 <p>To reliably detect a power rate of 0.80:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find the approximate solution</span></span>
-<span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># prob. of correctly rejecting null</span></span>
+<span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># prob. of correctly rejecting null</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.795</span>, <span class="fl">0.805</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
@@ -889,7 +889,7 @@ Monte Carlo simulation.</p>
 <span><span class="co">#&gt; [1] 54809</span></span>
 <span></span>
 <span><span class="co"># iterate to find the exact solution</span></span>
-<span><span class="fu"><a href="../reference/generic.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">55011</span>, <span class="co"># number of replications needed</span></span>
+<span><span class="fu"><a href="../reference/power.binom.test.html">power.binom.test</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">55011</span>, <span class="co"># number of replications needed</span></span>
 <span>                 prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># prob. of correctly rejecting null</span></span>
 <span>                 null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.795</span>, <span class="fl">0.805</span><span class="op">)</span>, <span class="co"># equivalence margins</span></span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -937,7 +937,7 @@ and alternative distributions, with shaded areas indicating Type 1 error
 <p>Assign results of any <code>pwrss</code> function to an R object and
 pass it to the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>NOTE: In earlier versions of the {pwrss} package, the
@@ -971,7 +971,7 @@ d = -0.20 between the treatment and control groups to be meaningful and
 relevant. What is the minimum required sample size per group, accounting
 for a 0.05 dropout rate in the treatment group?</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                alternative <span class="op">=</span> <span class="st">"one.sided"</span>,</span>
@@ -997,9 +997,9 @@ for a 0.05 dropout rate in the treatment group?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># account for attrition</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">310</span>, rate <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># control</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">310</span>, rate <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># control</span></span>
 <span><span class="co">#&gt; 310</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">310</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># treatment</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">310</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># treatment</span></span>
 <span><span class="co">#&gt; 327</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the required sample size for comparing treatment and control groups on
@@ -1020,7 +1020,7 @@ d = 0.20. The expected variance ratio (female to male) is 1.5, and the
 prevalence ratio (female to male) in the population is 2. What is the
 minimum required sample size per group under these conditions?</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.student.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>              power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>              n.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">1.5</span>,</span>
@@ -1064,7 +1064,7 @@ smallest effect size of interest between the treatment and control
 groups is Cohen’s d = 0.20. What is the minimum required sample size per
 group, accounting for a 0.05 dropout rate in the treatment group?</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  n.ratio <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1095,7 +1095,7 @@ group, accounting for a 0.05 dropout rate in the treatment group?</p>
 <span><span class="co">#&gt;   Type 2 Error (beta)  = 0.200</span></span>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">412</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># treatment</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">412</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># treatment</span></span>
 <span><span class="co">#&gt; 434</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the required sample size for comparing treatment and control groups on a
@@ -1127,7 +1127,7 @@ margin usually takes POSITIVE values.</p>
 <p><br></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.05</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1154,11 +1154,11 @@ margin usually takes POSITIVE values.</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">398</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">398</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 419</span></span>
 <span></span>
 <span><span class="co"># robust parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>              margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.05</span>,</span>
 <span>              n.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1186,7 +1186,7 @@ margin usually takes POSITIVE values.</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.05</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1244,7 +1244,7 @@ usually takes NEGATIVE values.
 <p><br></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1271,11 +1271,11 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1104</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1104</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 1163</span></span>
 <span></span>
 <span><span class="co"># robust parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>              margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>              n.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1303,7 +1303,7 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1355,7 +1355,7 @@ claim equivalence. What is the minimum required sample size to detect an
 effect size of d = 0.20 under this criterion?</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1384,11 +1384,11 @@ effect size of d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3428</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3428</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 3609</span></span>
 <span></span>
 <span><span class="co"># robust parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>              margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>              n.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1418,7 +1418,7 @@ effect size of d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1475,7 +1475,7 @@ minimal practical importance. What is the minimum required sample size
 to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1504,11 +1504,11 @@ to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1400</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1400</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 1474</span></span>
 <span></span>
 <span><span class="co"># robust parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.welch.html">power.t.welch</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>              margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>              n.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>              var.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1538,7 +1538,7 @@ to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1614,7 +1614,7 @@ test with
 = 0.05 and 0.80 power. What is the minimum required sample size under
 this criterion?</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -1640,7 +1640,7 @@ this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.802</span></span>
 <span></span>
 <span><span class="co"># consider an attrition rate of 0.05</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">199</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">199</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 210</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the required sample size for comparing emotional regulation scores in
@@ -1668,7 +1668,7 @@ signed-rank test for paired data, targeting a small effect size (d =
 = 0.05. What is the minimum required sample size under these
 conditions?</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -1698,7 +1698,7 @@ conditions?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># consider an attrition rate of 0.05</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">208</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">208</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 219</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the required sample size for comparing session satisfaction ratings in
@@ -1733,7 +1733,7 @@ margin usually takes POSITIVE values.
 <p><br></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.10</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1760,11 +1760,11 @@ margin usually takes POSITIVE values.
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">619</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">619</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 652</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.10</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1834,7 +1834,7 @@ usually takes NEGATIVE values.
 <p><br></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1861,11 +1861,11 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">627</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">627</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 660</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1932,7 +1932,7 @@ sufficient to claim equivalence. What is the minimum required sample
 size under this criterion?</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -1961,11 +1961,11 @@ size under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">858</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">858</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 904</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2024,7 +2024,7 @@ considered sufficient to claim difference. What is the minimum required
 sample size under this criterion?</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric (an example report is provided below)</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span>, <span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2053,11 +2053,11 @@ sample size under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 0.05 attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">797</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">797</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 839</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2128,7 +2128,7 @@ level of
 = 0.05 and a target power of 0.80. What is the minimum required sample
 size under this criterion?</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -2175,7 +2175,7 @@ a one-tailed test with a significance level of
 = 0.05 and a target power of 0.80. What is the minimum required sample
 size under this criterion?</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="op">-</span><span class="fl">0.20</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -2227,7 +2227,7 @@ test with a significance level of
 size under this configuration?</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2254,7 +2254,7 @@ size under this configuration?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2314,7 +2314,7 @@ under this criterion?</p>
 <span><span class="va">margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">(</span><span class="fl">6.5</span> <span class="op">-</span> <span class="fl">7.5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1.2</span>, <span class="op">(</span><span class="fl">8.5</span> <span class="op">-</span> <span class="fl">7.5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1.2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
 <span>                margin <span class="op">=</span> <span class="va">margin</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2343,7 +2343,7 @@ under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.826</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="va">margin</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2402,7 +2402,7 @@ the minimum required sample size under this criterion?</p>
 <span><span class="va">margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">(</span><span class="fl">6.5</span> <span class="op">-</span> <span class="fl">7.5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1.2</span>, <span class="op">(</span><span class="fl">8.5</span> <span class="op">-</span> <span class="fl">7.5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1.2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># parametric</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
 <span>                margin <span class="op">=</span> <span class="va">margin</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2431,7 +2431,7 @@ the minimum required sample size under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.802</span></span>
 <span></span>
 <span><span class="co"># non-parametric</span></span>
-<span><span class="fu"><a href="../reference/means.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
+<span><span class="fu"><a href="../reference/power.np.wilcoxon.html">power.np.wilcoxon</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>,</span>
 <span>                  margin <span class="op">=</span> <span class="va">margin</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2502,7 +2502,7 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">\alpha = 0.05</annotation></semantics></math>
 and 0.80 power, how many vehicles should be observed?</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fl">0.90</span>, <span class="co"># probability of success under null</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2542,7 +2542,7 @@ observed.</p>
 <p>The arcsine transformation stabilizes variance of proportion
 differences. It can be useful for proportions towards the extreme.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fl">0.90</span>, <span class="co"># probability of success under null</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2577,7 +2577,7 @@ differences. It can be useful for proportions towards the extreme.</p>
 samples by accounting for the discrete nature of the outcome, resulting
 in more accurate test statistics.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fl">0.90</span>, <span class="co"># probability of success under null</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2616,7 +2616,7 @@ critical values. This can be changed via <code>std.error</code>
 argument. For null values close to zero or one, it is more appropriate
 to use the <a href="#one-prop-exact">exact test</a>.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.oneprop.html">power.z.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.80</span>, <span class="co"># probability of success under alternative</span></span>
 <span>                null.prob <span class="op">=</span> <span class="fl">0.90</span>, <span class="co"># probability of success under null</span></span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2657,7 +2657,7 @@ finds a minimum rate of 2 in 1000 as problematic. The research division
 plan a one-sided test with a significance level of 0.05 and 0.80 power.
 What is the minimum required sample size under this criterion?</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.oneprop.html">power.exact.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.002</span>, <span class="co"># probability of success under alternative</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.exact.oneprop.html">power.exact.oneprop</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.002</span>, <span class="co"># probability of success under alternative</span></span>
 <span>                    null.prob <span class="op">=</span> <span class="fl">0</span>, <span class="co"># probability of success under null</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2713,7 +2713,7 @@ yields power calculations that are acceptably accurate.
 <p>Here is an example that compares the two approaches:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># z-test approach</span></span>
-<span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>, prob2 <span class="op">=</span> <span class="fl">0.50</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>, prob2 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>, arcsine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
@@ -2738,12 +2738,12 @@ yields power calculations that are acceptably accurate.
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># find Cohen's h</span></span>
-<span><span class="fu"><a href="../reference/conversion.probs.to.h.html">probs.to.h</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>, prob2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/probs.to.h.html">probs.to.h</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>, prob2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         h     prob1     prob2 </span></span>
 <span><span class="co">#&gt; 0.2013579 0.6000000 0.5000000</span></span>
 <span></span>
 <span><span class="co"># t-test approach</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2013579</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2013579</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -2799,7 +2799,7 @@ near 50% and that is fine.
 </div>
 <p><br></p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2833,7 +2833,7 @@ power. Results indicated that a minimum of 540 participants are needed
 per group (1080 total).</p>
 <p><strong>Arcsine transformation</strong>:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2862,7 +2862,7 @@ per group (1080 total).</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span></code></pre></div>
 <p><strong>Continuity correction</strong>:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2892,7 +2892,7 @@ per group (1080 total).</p>
 <p><strong>Calculate the standard error using the unpooled standard
 deviations</strong>:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2941,7 +2941,7 @@ one-sided test with
 = 0.05 and 0.80 power, what is the minimum number of patrons needed in
 each group?</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.exact.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.exact.twoprops.html">power.exact.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.60</span>,</span>
 <span>                     prob2 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                     power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                     alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -2992,7 +2992,7 @@ significance level, 0.80 power, and a 0.05 attrition rate for both
 groups, what is the minimum required sample size to evaluate
 non-inferiority under this criterion?</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>                 margin <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3021,7 +3021,7 @@ non-inferiority under this criterion?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 5% attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">914</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">914</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 963</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to estimate
 the minimum required sample size to evaluate non-inferiority of a new
@@ -3051,7 +3051,7 @@ scenario with a 50% usage rate in the standard treatment group. Using a
 0.80 power, and a 5% attrition rate for both groups, what is the minimum
 required sample size to test for superiority under these conditions?</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.45</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.45</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                 margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.01</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3080,7 +3080,7 @@ required sample size to test for superiority under these conditions?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># consider 5% attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3852</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3852</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 4055</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to estimate
 the minimum required sample size to evaluate the superiority of a new
@@ -3124,7 +3124,7 @@ test with a 0.05 significance level and 0.80 power. What is the minimum
 required number of applications to process per group to test for
 equivalence under these conditions?</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.02</span>, <span class="fl">0.02</span><span class="op">)</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3185,7 +3185,7 @@ produces a gender difference of at least 1% in either direction. Using a
 two one-sided test with 0.05 significance level, 0.80 power, what is the
 minimum required number of complete applications to process?</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.13</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.13</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.01</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3254,7 +3254,7 @@ expected 10% increase (from 40% to 50%). A two-sided test,
 = 0.05, and 0.80 power is planned to estimate the minimum required
 sample size for the newly recruited group.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.50</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twoprops.html">power.z.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                 prob2 <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -3305,7 +3305,7 @@ McNemar’s test. All other parameters remain unchanged; however, an
 additional 13 subjects need to be matched to maintain the desired
 power.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/proportions.twoprops.html">power.exact.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.50</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.exact.twoprops.html">power.exact.twoprops</a></span><span class="op">(</span>prob1 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                     prob2 <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                     power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                     alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -3359,7 +3359,7 @@ size that warrants attention. They plan a one-sided test with
 = 0.05 and 0.80 power. What is the minimum required sample size under
 these criteria?</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/correlations.one.html">power.z.onecor</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.onecor.html">power.z.onecor</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>               null.rho <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -3410,7 +3410,7 @@ acceptably accurate.
 <p>Here is an example that compares the two approaches:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># z-test approach</span></span>
-<span><span class="fu"><a href="../reference/correlations.two.html">power.z.twocors</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.20</span>, rho2 <span class="op">=</span> <span class="fl">0.10</span>, power <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.z.twocors.html">power.z.twocors</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.20</span>, rho2 <span class="op">=</span> <span class="fl">0.10</span>, power <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -3432,12 +3432,12 @@ acceptably accurate.
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># find Cohen's q</span></span>
-<span><span class="fu"><a href="../reference/conversion.cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.20</span>, rho2 <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.20</span>, rho2 <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         q     delta      rho1      rho2 </span></span>
 <span><span class="co">#&gt; 0.1023972 0.1000000 0.2000000 0.1000000</span></span>
 <span></span>
 <span><span class="co"># t-test approach</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.1023972</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.1023972</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -3487,7 +3487,7 @@ to use a one-sided test with
 = 0.05 and 0.80 power. What is the minimum required sample size under
 these criteria?</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/correlations.two.html">power.z.twocors</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.twocors.html">power.z.twocors</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                rho2 <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -3513,12 +3513,12 @@ these criteria?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.701</span></span>
 <span></span>
 <span><span class="co"># calculate Cohen's h</span></span>
-<span><span class="fu"><a href="../reference/conversion.cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.10</span>, rho2 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.10</span>, rho2 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         q     delta      rho1      rho2 </span></span>
 <span><span class="co">#&gt; 0.1003353 0.1000000 0.1000000 0.0000000</span></span>
 <span></span>
 <span><span class="co"># t-test approximation</span></span>
-<span><span class="fu"><a href="../reference/means.student.welch.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.1003353</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.1003353</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                alternative <span class="op">=</span> <span class="st">"one.sided"</span><span class="op">)</span></span>
@@ -3596,7 +3596,7 @@ these criteria?</p>
 <span><span class="co"># V2: pre-test</span></span>
 <span><span class="co"># V3: post-test</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/correlations.steiger.html">power.z.twocors.steiger</a></span><span class="op">(</span>rho12 <span class="op">=</span> <span class="fl">0.50</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.twocors.steiger.html">power.z.twocors.steiger</a></span><span class="op">(</span>rho12 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                        rho13 <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                        rho23 <span class="op">=</span> <span class="fl">0.70</span>,</span>
 <span>                        power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3626,12 +3626,12 @@ these criteria?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># calculate the effect size</span></span>
-<span><span class="fu"><a href="../reference/conversion.cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.40</span>, rho2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.40</span>, rho2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          q      delta       rho1       rho2 </span></span>
 <span><span class="co">#&gt; -0.1256572 -0.1000000  0.4000000  0.5000000</span></span>
 <span></span>
 <span><span class="co"># adjust the sample for 5% attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">286</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">286</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 302</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the minimum sample size required to detect a meaningful reduction in the
@@ -3695,7 +3695,7 @@ these criteria?</p>
 <span><span class="co"># V3: post-test reading</span></span>
 <span><span class="co"># V4: post-test math</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/correlations.steiger.html">power.z.twocors.steiger</a></span><span class="op">(</span>rho12 <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># cor(V1, V2)</span></span>
+<span><span class="fu"><a href="../reference/power.z.twocors.steiger.html">power.z.twocors.steiger</a></span><span class="op">(</span>rho12 <span class="op">=</span> <span class="fl">0.50</span>, <span class="co"># cor(V1, V2)</span></span>
 <span>                        rho13 <span class="op">=</span> <span class="fl">0.70</span>,</span>
 <span>                        rho23 <span class="op">=</span> <span class="fl">0.40</span>,</span>
 <span>                        rho14 <span class="op">=</span> <span class="fl">0.40</span>,</span>
@@ -3728,12 +3728,12 @@ these criteria?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># calculate the effect size</span></span>
-<span><span class="fu"><a href="../reference/conversion.cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.60</span>, rho2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.60</span>, rho2 <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        q    delta     rho1     rho2 </span></span>
 <span><span class="co">#&gt; 0.143841 0.100000 0.600000 0.500000</span></span>
 <span></span>
 <span><span class="co"># adjust the sample for 5% attrition rate</span></span>
-<span><span class="fu"><a href="../reference/utils.attrition.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">317</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/inflate.sample.html">inflate.sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">317</span>, rate <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 334</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to determine
 the minimum sample size required to detect a meaningful increase in the
@@ -3801,7 +3801,7 @@ variables (can be a combination of binary or continuous).</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
 = 0.10. What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.f.html">power.f.regression</a></span><span class="op">(</span>r.squared <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.regression.html">power.f.regression</a></span><span class="op">(</span>r.squared <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>, <span class="co"># number of total predictors</span></span>
 <span>                   power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                   alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
@@ -3856,7 +3856,7 @@ at 0.05 (<code>margin = 0.05</code>), representing the largest effect
 size considered practically null. What is the minimum required sample
 size under these conditions?</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.f.html">power.f.regression</a></span><span class="op">(</span>r.squared <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.regression.html">power.f.regression</a></span><span class="op">(</span>r.squared <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                   power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3921,7 +3921,7 @@ What is the minimum required sample size under these criteria?</p>
 Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}X_{3} + \beta_{4}X_{4} + \beta_{5}X_{5} + r, \quad r \sim N(0, \sigma ^ 2)
 </annotation></semantics></math></p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.f.html">power.f.regression</a></span><span class="op">(</span>r.squared.change <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.regression.html">power.f.regression</a></span><span class="op">(</span>r.squared.change <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">5</span>, <span class="co"># number of total predictors</span></span>
 <span>                   k.tested <span class="op">=</span> <span class="fl">2</span>, <span class="co"># number of tested predictors</span></span>
 <span>                   power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -3988,7 +3988,7 @@ at 0.05 (<code>margin = 0.05</code>), representing the largest effect
 size considered practically null. What is the minimum required sample
 size under these conditions?</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.f.html">power.f.regression</a></span><span class="op">(</span>r.squared.change <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.regression.html">power.f.regression</a></span><span class="op">(</span>r.squared.change <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">5</span>, <span class="co"># number of total predictors</span></span>
 <span>                   k.tested <span class="op">=</span> <span class="fl">2</span>, <span class="co"># number of tested predictors</span></span>
@@ -4074,7 +4074,7 @@ standardized regression coefficient for <code>beta</code> because
 <code>sd.predictor = 1</code> and <code>sd.outcome = 1</code> by
 default.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                   r.squared <span class="op">=</span> <span class="fl">0.30</span>,</span>
 <span>                   power <span class="op">=</span> <span class="fl">.80</span>,</span>
@@ -4110,7 +4110,7 @@ of <code>sd.outcome = 12</code> for the outcome and a standard deviation
 of <code>sd.predictor = 4</code> for the main predictor. What is the
 minimum required sample size?</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.60</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.60</span>,</span>
 <span>                   sd.outcome <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>,</span>
@@ -4153,7 +4153,7 @@ proportion of subjects in one of the groups.</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                   r.squared <span class="op">=</span> <span class="fl">0.30</span>,</span>
@@ -4200,7 +4200,7 @@ POSITIVE values.
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   null.beta <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="op">-</span><span class="fl">0.05</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
@@ -4249,7 +4249,7 @@ values.
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   null.beta <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
@@ -4291,7 +4291,7 @@ sample size?</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   null.beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
@@ -4334,7 +4334,7 @@ minimum required sample size?</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.linear.t.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
+<span><span class="fu"><a href="../reference/power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                   margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>                   sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                   k.total <span class="op">=</span> <span class="fl">3</span>,</span>
@@ -4431,7 +4431,7 @@ output).</p>
 <h3 id="probability-specification">Probability Specification<a class="anchor" aria-label="anchor" href="#probability-specification"></a>
 </h3>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>prob <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4466,7 +4466,7 @@ output).</p>
 </h3>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><msub><mi>P</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mn>1</mn></mrow></mfrac><mi>/</mi><mfrac><msub><mi>P</mi><mn>0</mn></msub><mrow><mn>1</mn><mo>−</mo><msub><mi>P</mi><mn>0</mn></msub></mrow></mfrac><mo>=</mo><mfrac><mn>0.10</mn><mrow><mn>1</mn><mo>−</mo><mn>0.10</mn></mrow></mfrac><mi>/</mi><mfrac><mn>0.15</mn><mrow><mn>1</mn><mo>−</mo><mn>0.15</mn></mrow></mfrac><mo>=</mo><mn>0.6296</mn></mrow><annotation encoding="application/x-tex">OR = \frac{P_1}{1 - P1} / \frac{P_0}{1 - P_0} = \frac{0.10}{1 - 0.10} / \frac{0.15}{1 - 0.15} = 0.6296</annotation></semantics></math></p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>odds.ratio <span class="op">=</span> <span class="fl">0.6296</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>odds.ratio <span class="op">=</span> <span class="fl">0.6296</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4501,7 +4501,7 @@ output).</p>
 </h3>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>1</mn></msub><mo>=</mo><mi>l</mi><mi>n</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>P</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mn>1</mn></mrow></mfrac><mi>/</mi><mfrac><msub><mi>P</mi><mn>0</mn></msub><mrow><mn>1</mn><mo>−</mo><msub><mi>P</mi><mn>0</mn></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>l</mi><mi>n</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0.6296</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>−</mo><mn>0.4626</mn></mrow><annotation encoding="application/x-tex">\beta_1 = ln(\frac{P_1}{1 - P1} / \frac{P_0}{1 - P_0}) = ln(0.6296) = -0.4626</annotation></semantics></math></p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4542,7 +4542,7 @@ example the mean is 20 and the standard deviation is 8.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="st">"normal"</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4577,7 +4577,7 @@ the main predictor can be binary (e.g. treatment / control groups).
 Often half of the sample is assigned to the treatment group and the
 other half to the control (<code>prob = 0.50</code> by default).</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4618,7 +4618,7 @@ allocation rate is 40%. What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="st">"bernoulli"</span>, prob <span class="op">=</span> <span class="fl">0.40</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.logistic.html">power.z.logistic</a></span><span class="op">(</span>beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.4626</span>,</span>
 <span>                 base.prob <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                 r.squared.predictor <span class="op">=</span> <span class="fl">0.20</span>,</span>
 <span>                 power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -4690,7 +4690,7 @@ standard software output).</p>
 <h3 id="regression-coefficient-1">Regression Coefficient<a class="anchor" aria-label="anchor" href="#regression-coefficient-1"></a>
 </h3>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.poisson.html">power.z.poisson</a></span><span class="op">(</span>beta0 <span class="op">=</span> <span class="fl">0.50</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.poisson.html">power.z.poisson</a></span><span class="op">(</span>beta0 <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                beta1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.10</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4723,7 +4723,7 @@ standard software output).</p>
 <h3 id="rate-ratio-specification">Rate Ratio Specification<a class="anchor" aria-label="anchor" href="#rate-ratio-specification"></a>
 </h3>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
 <span>                rate.ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4760,7 +4760,7 @@ X</strong>:</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="st">"normal"</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
 <span>                rate.ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4791,7 +4791,7 @@ X</strong>:</p>
 <p>The function accommodates other types of distribution. For example,
 the main predictor can be binary (e.g. treatment / control groups).</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/regression.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.z.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
 <span>                rate.ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4824,7 +4824,7 @@ predictor X</strong> (<code>prob = 0.40</code>):</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="st">"bernoulli"</span>, prob <span class="op">=</span> <span class="fl">0.40</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.poisson.html">power.z.poisson</a></span><span class="op">(</span>base.rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.50</span><span class="op">)</span>,</span>
 <span>                rate.ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.10</span><span class="op">)</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4905,7 +4905,7 @@ non-trivial and is taken into account in the function by default. Thus,
 results may seem different from other software outputs.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># mediation model with base R-squared values</span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -4940,7 +4940,7 @@ argument will be ignored.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># base R-squared values are 0 (zero)</span></span>
 <span><span class="co"># do not specify 'cp'</span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  r.squared.mediator <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                  r.squared.outcome <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -4979,7 +4979,7 @@ influence the outcome through some mediators.</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of subjects in one of the groups</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                  power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5017,7 +5017,7 @@ requested.</p>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of subjects in one of the groups</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                  n <span class="op">=</span> <span class="fl">300</span>,</span>
@@ -5045,7 +5045,7 @@ requested.</p>
 <span><span class="co">#&gt;   Type 2 Error (beta)  = 0.416</span></span>
 <span><span class="co">#&gt;   Statistical Power    = 0.584  &lt;&lt;</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                  n <span class="op">=</span> <span class="fl">300</span>,</span>
@@ -5083,7 +5083,7 @@ mediator and outcome models can be specified via
 arguments.</p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># continuous X</span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  r.squared.mediator <span class="op">=</span> <span class="fl">0.50</span>,</span>
 <span>                  r.squared.outcome <span class="op">=</span> <span class="fl">0.50</span>,</span>
@@ -5122,7 +5122,7 @@ the outcome model only.</p>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of subjects in one of the groups</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/regression.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
 <span>                  r.squared.outcome <span class="op">=</span> <span class="fl">0.50</span>,</span>
@@ -5177,7 +5177,7 @@ between treatment and control groups (two levels) translating into
 (<code>eta.squared = 0.059</code>). Means are not adjusted for any
 covariates. What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.059</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.059</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
@@ -5211,7 +5211,7 @@ covariates. What is the minimum required sample size?</p>
 <code>factor.levels = c(2,2)</code>. What is the minimum required sample
 size?</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.03</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
@@ -5246,7 +5246,7 @@ socio-economic status (Factor C: three levels). Thus,
 <code>factor.levels = c(2, 2, 3)</code>. What is the minimum required
 sample size?</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
@@ -5280,7 +5280,7 @@ is meaningfully different from a null value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>η</mi><mtext mathvariant="normal">Null</mtext><mn>2</mn></msubsup><mo>=</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">\eta^2_{\text{Null}} = 0.01</annotation></semantics></math>,
 we can specify <code>null.eta.squared = 0.01</code>.</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>               null.eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5316,7 +5316,7 @@ as in the earlier example. Means and standard deviations are not
 adjusted for any covariates. What is the minimum required sample
 size?</p>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.keppel.html">power.f.ancova.keppel</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of means</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.keppel.html">power.f.ancova.keppel</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of means</span></span>
 <span>                      sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># vector of standard deviations</span></span>
 <span>                      p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0.50</span><span class="op">)</span>, <span class="co"># sample allocation rates</span></span>
 <span>                      power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5376,7 +5376,7 @@ into
 The test is administered at a single time point; thus, the number of
 repeated measures is 1. What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.059</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.059</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5415,7 +5415,7 @@ control group. The researcher also expects a correlation of 0.50 between
 pre-test and post-test scores. What is the minimum required sample
 size?</p>
 <div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.022</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.022</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5455,7 +5455,7 @@ number of repeated measures is 2. The researcher also expects a
 correlation of 0.50 between pre-test and post-test scores. What is the
 minimum required sample size?</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.038</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.038</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5488,7 +5488,7 @@ There is both treatment and control groups. The researcher also expects
 a correlation of 0.50 between pre-test and post-test scores. What is the
 minimum required sample size?</p>
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.022</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.022</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5524,7 +5524,7 @@ groups. The researcher also expects a correlation of 0.50 between
 pre-test and post-test scores. What is the minimum required sample
 size?</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5562,7 +5562,7 @@ use the adjusted
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">\eta^2 = 0.05</annotation></semantics></math>
 but specify <code>rho.within = NA</code>.</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -5598,7 +5598,7 @@ is meaningfully different from a null value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>η</mi><mtext mathvariant="normal">Null</mtext><mn>2</mn></msubsup><mo>=</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">\eta^2_{\text{Null}} = 0.01</annotation></semantics></math>,
 we can specify <code>null.eta.squared = 0.01</code>.</p>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anova.mixed.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.mixed.anova.html">power.f.mixed.anova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                    null.eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># c("between", "within")</span></span>
 <span>                    power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5644,7 +5644,7 @@ we can specify <code>null.eta.squared = 0.01</code>.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mn>0.048</mn></mrow><annotation encoding="application/x-tex">\eta^2 = 0.048</annotation></semantics></math>.
 What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.048</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.048</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>               k.covariates <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5683,7 +5683,7 @@ for interaction of treatment / control (Factor A) with gender (Factor B)
 adjusted for the pre-test (<code>k.covariates = 1</code>). What is the
 minimum required sample size?</p>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>               k.covariates <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5718,7 +5718,7 @@ and socio-economic status (Factor C: three levels) adjusted for the
 pre-test (<code>k.covariates = 1</code>). What is the minimum required
 sample size?</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
 <span>               k.covariates <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -5753,7 +5753,7 @@ is meaningfully different from a null value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>η</mi><mtext mathvariant="normal">Null</mtext><mn>2</mn></msubsup><mo>=</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">\eta^2_{\text{Null}} = 0.01</annotation></semantics></math>,
 we can specify <code>null.eta.squared = 0.01</code>.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.048</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.html">power.f.ancova</a></span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.048</span>,</span>
 <span>               null.eta.squared <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>               factor.levels <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>               k.covariates <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -5795,7 +5795,7 @@ This translates into a partial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mn>0.048</mn></mrow><annotation encoding="application/x-tex">\eta^2 = 0.048</annotation></semantics></math>.
 What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.keppel.html">power.f.ancova.keppel</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.318</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.keppel.html">power.f.ancova.keppel</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.318</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
 <span>                      sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># vector of unadjusted standard deviations</span></span>
 <span>                      p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0.50</span><span class="op">)</span>, <span class="co"># sample allocation rates</span></span>
 <span>                      r.squared <span class="op">=</span> <span class="fl">0.50</span>,</span>
@@ -5837,7 +5837,7 @@ This translates into a partial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mn>0.048</mn></mrow><annotation encoding="application/x-tex">\eta^2 = 0.048</annotation></semantics></math>.
 What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.318</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.318</span>, <span class="fl">0</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
 <span>                      sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># vector of unadjusted standard deviations</span></span>
 <span>                      p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0.50</span><span class="op">)</span>, <span class="co"># sample allocation rates</span></span>
 <span>                      r.squared <span class="op">=</span> <span class="fl">0.50</span>,</span>
@@ -5876,7 +5876,7 @@ unit standard deviation for each. This translates into a partial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mn>0.02</mn></mrow><annotation encoding="application/x-tex">\eta^2 = 0.02</annotation></semantics></math>.
 What is the minimum required sample size?</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.30</span>, <span class="fl">0.09</span>, <span class="fl">0.05</span>, <span class="fl">0.245</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.30</span>, <span class="fl">0.09</span>, <span class="fl">0.05</span>, <span class="fl">0.245</span><span class="op">)</span>, <span class="co"># vector of adjusted means</span></span>
 <span>                     sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># vector of unadjusted standard deviations</span></span>
 <span>                     p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span><span class="op">)</span>, <span class="co"># sample allocation rates</span></span>
 <span>                     factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -5914,7 +5914,7 @@ What is the minimum required sample size?</p>
 <h3 id="dummy-coding">Dummy Coding<a class="anchor" aria-label="anchor" href="#dummy-coding"></a>
 </h3>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
+<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                                 coding <span class="op">=</span> <span class="st">"treatment"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    A1 A2 A3</span></span>
 <span><span class="co">#&gt; A1  1  0 -1</span></span>
@@ -5924,7 +5924,7 @@ What is the minimum required sample size?</p>
 <span><span class="va">contrast.matrix</span> <span class="op">&lt;-</span> <span class="va">contr.obj</span><span class="op">$</span><span class="va">contrast.matrix</span></span>
 <span></span>
 <span><span class="co"># calculate sample size given design characteristics</span></span>
-<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
 <span>                               sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># unadjusted standard deviations</span></span>
 <span>                               p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>, <span class="co"># sample allocation rate</span></span>
 <span>                               contrast.matrix <span class="op">=</span> <span class="va">contrast.matrix</span>,</span>
@@ -5953,7 +5953,7 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># power of planned contrasts, adjusted for alpha level</span></span>
-<span><span class="fu">power.t.contrasts</span><span class="op">(</span><span class="va">design</span>, adjust.alpha <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.contrasts.html">power.t.contrasts</a></span><span class="op">(</span><span class="va">design</span>, adjust.alpha <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -5977,7 +5977,7 @@ What is the minimum required sample size?</p>
 <h3 id="helmert-coding">Helmert Coding<a class="anchor" aria-label="anchor" href="#helmert-coding"></a>
 </h3>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
+<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                                 coding <span class="op">=</span> <span class="st">"helmert"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        A1     A2    A3</span></span>
 <span><span class="co">#&gt; A1 -0.500  0.500 0.000</span></span>
@@ -5987,7 +5987,7 @@ What is the minimum required sample size?</p>
 <span><span class="va">contrast.matrix</span> <span class="op">&lt;-</span> <span class="va">contr.obj</span><span class="op">$</span><span class="va">contrast.matrix</span></span>
 <span></span>
 <span><span class="co"># calculate sample size given design characteristics</span></span>
-<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
 <span>                               sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># unadjusted standard deviations</span></span>
 <span>                               p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>, <span class="co"># allocation, should sum to 1</span></span>
 <span>                               contrast.matrix <span class="op">=</span> <span class="va">contrast.matrix</span>,</span>
@@ -6016,7 +6016,7 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># power of planned contrasts</span></span>
-<span><span class="fu">power.t.contrasts</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.contrasts.html">power.t.contrasts</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -6040,7 +6040,7 @@ What is the minimum required sample size?</p>
 <h3 id="polynomial-coding">Polynomial Coding<a class="anchor" aria-label="anchor" href="#polynomial-coding"></a>
 </h3>
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
+<code class="sourceCode R"><span><span class="va">contr.obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/factorial.contrasts.html">factorial.contrasts</a></span><span class="op">(</span>factor.levels <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                                 coding <span class="op">=</span> <span class="st">"poly"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         A1     A2    A3</span></span>
 <span><span class="co">#&gt; A.L -0.707  0.000 0.707</span></span>
@@ -6050,7 +6050,7 @@ What is the minimum required sample size?</p>
 <span><span class="va">contrast.matrix</span> <span class="op">&lt;-</span> <span class="va">contr.obj</span><span class="op">$</span><span class="va">contrast.matrix</span></span>
 <span></span>
 <span><span class="co"># calculate sample size given design characteristics</span></span>
-<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
 <span>                               sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># unadjusted standard deviations</span></span>
 <span>                               p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>, <span class="co"># allocation, should sum to 1</span></span>
 <span>                               contrast.matrix <span class="op">=</span> <span class="va">contrast.matrix</span>,</span>
@@ -6079,7 +6079,7 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># power of the planned contrasts</span></span>
-<span><span class="fu">power.t.contrasts</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.contrasts.html">power.t.contrasts</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -6112,7 +6112,7 @@ What is the minimum required sample size?</p>
 <span><span class="co"># but they make it easier to understand power.t.contrasts() output</span></span>
 <span></span>
 <span><span class="co"># calculate sample size given design characteristics</span></span>
-<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/power.f.ancova.shieh.html">power.f.ancova.shieh</a></span><span class="op">(</span>mu.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span><span class="op">)</span>, <span class="co"># marginal means</span></span>
 <span>                               sd.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># unadjusted standard deviations</span></span>
 <span>                               p.vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>, <span class="co"># allocation, should sum to 1</span></span>
 <span>                               contrast.matrix <span class="op">=</span> <span class="va">contrast.matrix</span>,</span>
@@ -6141,7 +6141,7 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
 <span></span>
 <span><span class="co"># power of the planned contrasts</span></span>
-<span><span class="fu">power.t.contrasts</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/power.t.contrasts.html">power.t.contrasts</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -6180,12 +6180,12 @@ assume 50% is women and 50% is men.</p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prob.matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.28</span>, <span class="fl">0.72</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/conversion.probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    w   df </span></span>
 <span><span class="co">#&gt; 0.44 1.00</span></span>
 <span><span class="co"># Degrees of freedom is k - 1 for Cohen's w.</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/proportions.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.44</span>,</span>
+<span><span class="fu"><a href="../reference/power.chisq.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.44</span>,</span>
 <span>                df <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
@@ -6228,12 +6228,12 @@ article).</p>
 <span><span class="co">#&gt; ADHD    0.056 0.132</span></span>
 <span><span class="co">#&gt; No ADHD 0.944 0.868</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/conversion.probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         w        df </span></span>
 <span><span class="co">#&gt; 0.1302134 1.0000000</span></span>
 <span><span class="co"># Degrees of freedom is 1 for Phi coefficient.</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/proportions.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.1302134</span>,</span>
+<span><span class="fu"><a href="../reference/power.chisq.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.1302134</span>,</span>
 <span>                df <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
@@ -6277,12 +6277,12 @@ depression severity and gender? Check the original article at <a href="https://d
 <span><span class="co">#&gt; Severe           0.0323 0.0241</span></span>
 <span><span class="co">#&gt; Extremely Severe 0.0078 0.0101</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/conversion.probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/probs.to.w.html">probs.to.w</a></span><span class="op">(</span>prob.matrix <span class="op">=</span> <span class="va">prob.matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          w         df </span></span>
 <span><span class="co">#&gt; 0.03022008 4.00000000</span></span>
 <span><span class="co"># Degrees of freedom is (nrow - 1) * (ncol - 1) for Cramer's V.</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/proportions.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.03022008</span>,</span>
+<span><span class="fu"><a href="../reference/power.chisq.gof.html">power.chisq.gof</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">0.03022008</span>,</span>
 <span>                df <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>                alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
