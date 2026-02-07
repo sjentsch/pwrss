@@ -23,7 +23,7 @@
 .nline_pretty <- function(x, digits = 3, c_a = rep("", 5)) {
   if (any(c("n", "n.total", "n.paired") %in% names(x))) {
     n_prefix <- ifelse(utils::hasName(x, "n.total") && !utils::hasName(x, "n"), "Total ", ifelse(utils::hasName(x, "n.paired"), "Paired ", ""))
-    n_pad    <- strrep(" ", 6 - nchar(n_prefix))
+    n_pad    <- strrep(" ", 7 - nchar(n_prefix))
     n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
     sprintf("  %s%sSample Size%s = %s%s%s%s%s\n", c_a[1], n_prefix, n_pad, n_text, c_a[2], c_a[3], c_a[4], c_a[5])
@@ -39,9 +39,9 @@
 
   paste0(.topic_pretty("Results"),
          .nline_pretty(x, digits, c_a),
-         sprintf("  Type 1 Error (\u03B1)  = %.*f\n", digits, x$alpha),
-         sprintf("  Type 2 Error (\u03B2)  = %.*f\n", digits, 1 - x$power),
-         sprintf("  %sStatistical Power = %.*f%s%s%s%s\n\n", c_a[6], digits, x$power, c_a[7], c_a[8], c_a[9], c_a[10]))
+         sprintf("  Type 1 Error (\u03B1)   = %.*f\n", digits, x$alpha),
+         sprintf("  Type 2 Error (\u03B2)   = %.*f\n", digits, 1 - x$power),
+         sprintf("  %sStatistical Power  = %.*f%s%s%s%s\n\n", c_a[6], digits, x$power, c_a[7], c_a[8], c_a[9], c_a[10]))
 }
 
 .print.pwrss.logistic <- function(x, digits = 3, verbose = 1, ...) {

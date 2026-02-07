@@ -94,10 +94,10 @@ test_that("regression.linear.R works", {
                            "────────────────────────────────────────────────────",
                            "Results",
                            "────────────────────────────────────────────────────",
-                           "  \033[34mSample Size       = 66\033[0m  \033[1;35m◄◄\033[0m",
-                           "  Type 1 Error (α)  = 0.050",
-                           "  Type 2 Error (β)  = 0.199",
-                           "  Statistical Power = 0.801", ""))
+                           "  \033[34mSample Size        = 66\033[0m  \033[1;35m◄◄\033[0m",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.199",
+                           "  Statistical Power  = 0.801", ""))
     expect_equal(crrPnD, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -120,10 +120,10 @@ test_that("regression.linear.R works", {
                            "────────────────────────────────────────────────────",
                            "Results",
                            "────────────────────────────────────────────────────",
-                           "  \033[34mSample Size       = 66\033[0m  \033[1;35m◄◄\033[0m",
-                           "  Type 1 Error (α)  = 0.050",
-                           "  Type 2 Error (β)  = 0.199",
-                           "  Statistical Power = 0.801", "",
+                           "  \033[34mSample Size        = 66\033[0m  \033[1;35m◄◄\033[0m",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.199",
+                           "  Statistical Power  = 0.801", "",
                            "\033[36m────────────────────────────────────────────────────\033[0m",
                            "\033[36mDefinitions\033[0m",
                            "\033[36m────────────────────────────────────────────────────\033[0m",
@@ -252,10 +252,10 @@ test_that("regression.linear.R works", {
                            "────────────────────────────────────────────────────",
                            "Results",
                            "────────────────────────────────────────────────────",
-                           "  \033[34mSample Size       = 140\033[0m  \033[1;35m◄◄\033[0m",
-                           "  Type 1 Error (α)  = 0.050",
-                           "  Type 2 Error (β)  = 0.198",
-                           "  Statistical Power = 0.802", ""))
+                           "  \033[34mSample Size        = 140\033[0m  \033[1;35m◄◄\033[0m",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.198",
+                           "  Statistical Power  = 0.802", ""))
     expect_equal(crrPnD, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -278,10 +278,10 @@ test_that("regression.linear.R works", {
                            "────────────────────────────────────────────────────",
                            "Results",
                            "────────────────────────────────────────────────────",
-                           "  \033[34mSample Size       = 140\033[0m  \033[1;35m◄◄\033[0m",
-                           "  Type 1 Error (α)  = 0.050",
-                           "  Type 2 Error (β)  = 0.198",
-                           "  Statistical Power = 0.802", "",
+                           "  \033[34mSample Size        = 140\033[0m  \033[1;35m◄◄\033[0m",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.198",
+                           "  Statistical Power  = 0.802", "",
                            "\033[36m────────────────────────────────────────────────────\033[0m",
                            "\033[36mDefinitions\033[0m",
                            "\033[36m────────────────────────────────────────────────────\033[0m",
@@ -398,8 +398,6 @@ test_that("regression.linear.R works", {
     expect_warning(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.01, power = 0.80, verbose = 0),
                  "`r.squared` is possibly larger.")
 
-    # pwrss.z.mean, pwrss.z.2means, pwrss.z.regression (not longer supported) ------------------------------------------
-    expect_error(pwrss.z.mean(),       "This function is no longer available. Please use `power.t.student\\(\\)`.")
-    expect_error(pwrss.z.2means(),     "This function is no longer available. Please use `power.t.student\\(\\)` or `power.t.welch\\(\\)`.")
+    # pwrss.z.regression (not longer supported) ------------------------------------------------------------------------
     expect_error(pwrss.z.regression(), "This function is no longer available. Please use `power.t.regression\\(\\)`.")
 })

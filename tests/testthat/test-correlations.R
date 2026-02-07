@@ -42,10 +42,10 @@ test_that("correlations.R works", {
                            "────────────────────────────────────────────────────",
                            "Results",
                            "────────────────────────────────────────────────────",
-                           "  Sample Size       = 1000",
-                           "  Type 1 Error (α)  = 0.050",
-                           "  Type 2 Error (β)  = 0.253",
-                           "  \033[34mStatistical Power = 0.747\033[0m  \033[1;35m◄◄\033[0m", ""))
+                           "  Sample Size        = 1000",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.253",
+                           "  \033[34mStatistical Power  = 0.747\033[0m  \033[1;35m◄◄\033[0m", ""))
 
     crrRes <- power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55, n = 1000,
                                       power = NULL, alpha = 0.05, alternative = "two.sided", common.index = FALSE, verbose = 0)
