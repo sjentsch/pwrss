@@ -1,15 +1,16 @@
 ^\.git$
 ^\.github$
 ^\.lintr$
+^\.prepare4CRAN$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^_pkgdown\.yml$
 ^codemeta\.json$
 ^doc$
 ^docs$
 ^Meta$
 ^LICENSE$
 ^pkgdown$
+^_pkgdown\.yml$
 ^README\.md$
 ^README\.Rmd$
 
