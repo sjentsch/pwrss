@@ -39,7 +39,7 @@ correctly rejecting a false null hypothesis, denoted as
 incorrectly rejecting a true null hypothesis, denoted as
 \eqn{\alpha}.}
 
-\item{alternative}{character; direction or type of the hypothesis test:
+\item{alternative}{character; the direction or type of the hypothesis test:
 "two.sided" or "one.sided".}
 
 \item{ceiling}{logical; whether sample size should be rounded up.

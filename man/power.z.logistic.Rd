@@ -62,8 +62,8 @@ R-squared from that model.}
 incorrectly rejecting a true null hypothesis,
 denoted as \eqn{\alpha}.}
 
-\item{alternative}{character; direction or type of the hypothesis
-test: "not equal", "greater", "less"}
+\item{alternative}{character; the direction or type of the
+hypothesis test: "two.sided" or "one.sided".}
 
 \item{method}{character; analytic method.
 \code{"demidenko(vc)"} stands for Demidenko

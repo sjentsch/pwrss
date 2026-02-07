@@ -36,8 +36,8 @@ except when some sort of correction is applied.}
 incorrectly rejecting a true null hypothesis, denoted as
 \eqn{\alpha}.}
 
-\item{alternative}{character; direction or type of the hypothesis test:
-"one.sided", "two.sided", or "two.one.sided".
+\item{alternative}{character; the direction or type of the hypothesis test:
+"two.sided", "one.sided", or "two.one.sided".
 "two.one.sided" is used for equivalence and minimal
 effect testing.}
 

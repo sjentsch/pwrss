@@ -90,8 +90,8 @@ denoted as \eqn{1 - \beta}.}
 incorrectly rejecting a true null hypothesis,
 denoted as \eqn{\alpha}.}
 
-\item{alternative}{character; direction or type of the hypothesis
-test: "two.sided" or "one.sided".}
+\item{alternative}{character; the direction or type of the
+hypothesis test: "two.sided" or "one.sided".}
 
 \item{method}{character; "sobel", "aroian", "goodman", "joint"
 or "monte.carlo". "joint" and "monte.carlo"
