@@ -197,7 +197,7 @@ props
 # post-hoc exact power
 power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
                     n.paired = 100, alpha = 0.05,
-                    method = "exact", alt = "two.sided")
+                    alternative = "two.sided", method = "exact")
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
@@ -225,7 +225,7 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 # assuming prob01 and prob10 are population parameters
 power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
                     power = 0.80, alpha = 0.05,
-                    method = "exact", alt = "two.sided")
+                    alternative = "two.sided", method = "exact")
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
