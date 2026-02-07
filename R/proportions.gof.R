@@ -69,8 +69,7 @@
 #' null.prob.vector <- c(0.50, 0.50)
 #' probs.to.w(prob.vector, null.prob.vector)
 #'
-#' power.chisq.gof(w = 0.44, df = 1,
-#'                 alpha = 0.05, power = 0.80)
+#' power.chisq.gof(w = 0.44, df = 1, power = 0.80, alpha = 0.05)
 #'
 #'
 #' # ---------------------------------------------------------#
@@ -90,8 +89,7 @@
 #'
 #' probs.to.w(prob.matrix)
 #'
-#' power.chisq.gof(w = 0.1302134, df = 1,
-#'                 alpha = 0.05, power = 0.80)
+#' power.chisq.gof(w = 0.1302134, df = 1, power = 0.80, alpha = 0.05)
 #'
 #'
 #' # --------------------------------------------------------#
@@ -111,8 +109,7 @@
 #'
 #' probs.to.w(prob.matrix)
 #'
-#' power.chisq.gof(w = 0.03022008, df = 4,
-#'                 alpha = 0.05, power = 0.80)
+#' power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 #'
 #' @export power.chisq.gof
 power.chisq.gof <- function(w, null.w = 0, df,
@@ -121,8 +118,9 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
   func.parms <- clean.parms(as.list(environment()))
 
-  check.positive(w, df)
+  check.positive(w)
   check.nonnegative(null.w)
+  check.positive(df)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
@@ -220,36 +218,42 @@ power.chisq.gof <- function(w, null.w = 0, df,
 } # end of power.chisq.gof()
 
 #' @export pwrss.chisq.gofit
-pwrss.chisq.gofit <- function(p1 = c(0.50, 0.50),
-                              p0 = probs.to.w(p1, verbose = 0)$null.prob.matrix,
-                              w = probs.to.w(p1, p0, verbose = 0)$w,
-                              df = probs.to.w(p1, p0, verbose = 0)$df,
+pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
+                              w = NULL, df = NULL,
                               n = NULL, power = NULL,
                               alpha = 0.05, verbose = TRUE) {
 
   verbose <- ensure_verbose(verbose)
-  user.parms.names <- names(as.list(match.call()))
+  arg.names <- names(as.list(match.call()))
 
-  check.proportion(alpha)
-  check.positive(w)
-  check.sample.size(df)
+  # p1, p0, w, and df are checked below
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
+  check.proportion(alpha)
 
-  if ("p1" %in% user.parms.names && "w" %in% user.parms.names)
-    warning("Ignoring any specifications to `p1`, or `p0`.", call. = FALSE)
-  if ("w" %in% user.parms.names && !("df" %in% user.parms.names))
-    stop("Specify `df`.", call. = FALSE)
-  if (is.vector(p1)) {
-    if (length(p1) != length(p0))
-      stop("Length of `p1` and `p0` should match.", call. = FALSE)
-    if (sum(p1) != 1 || sum(p0) != 1)
-      stop("Cell probabilities should sum to 1.", call. = FALSE)
-  } else if (is.matrix(p1)) {
-    if (any(dim(p1) != dim(p0)))
-      stop("Dimensions of `p1` and `p0` differ.", call. = FALSE)
-  } else {
-    stop("Incorrect value for `p1`.", call. = FALSE)
+  if (!("w" %in% arg.names) && "p1" %in% arg.names) {
+    if (is.vector(p1)) {
+      if (!is.null(p0)) check.same.lengths(p0, p1)
+      if (sum(p1) != 1 || (!is.null(p0) && sum(p0) != 1))
+        stop("Cell probabilities in `p1` (and `p0` if given) should sum to 1.", call. = FALSE)    
+    } else if (is.matrix(p1)) {
+      if (!is.null(p0) && !identical(dim(p1), dim(p0)))
+        stop("Dimensions of `p1` and `p0` do not match up.", call. = FALSE)
+      if (!all(apply(p1, 2, sum) == 1) || (!is.null(p0) && !all(apply(p0, 2, sum) == 1)))
+        stop("Cell probabilities (per column) in `p1` (and `p0` if given) should sum to 1.", call. = FALSE)
+    } else {
+      stop("`p1` needs to be either a vector or a matrix.", call. = FALSE)
+    }
+    mtxW <- probs.to.w(p1, p0, verbose = 0)
+    w <- mtxW$w
+    if (is.null(df)) df <- mtxW$df
+  } else if ("w" %in% arg.names) {
+    if (any(c("p1", "p0") %in% arg.names))
+      warning("Ignoring any specifications to `p1`, or `p0`.", call. = FALSE)
+    if (!("df" %in% arg.names))
+      stop("You need to specify both `w` and `df`.", call. = FALSE)
+    check.positive(w)
+    check.positive(df)
   }
 
   gof.obj <- power.chisq.gof(w = w, null.w = 0, df = df,
