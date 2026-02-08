@@ -211,142 +211,102 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   # asymptotic variances
   var.beta <- function(beta0, beta1, distribution) {
 
-    # asymptotic variances
     if (tolower(distribution$dist) == "normal") {
 
-      mean <- distribution$mean
-      sd <- distribution$sd
-      min.norm <- stats::qnorm(.0000001, mean = mean, sd = sd)
-      max.norm <- stats::qnorm(.9999999, mean = mean, sd = sd)
+      min <- stats::qnorm(.0000001, mean = distribution$mean, sd = distribution$sd)
+      max <- stats::qnorm(.9999999, mean = distribution$mean, sd = distribution$sd)
 
-      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dnorm(x, mean = mean, sd = sd) * exp(b0 + b1 * x)
-      mu  <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
-      beta0s <- log(mu)
-
-      # variance under null
-      i00 <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0s, 0)$value
-      i01 <- stats::integrate(dstFnc, min.norm, max.norm, 1, beta0s, 0)$value
-      i11 <- stats::integrate(dstFnc, min.norm, max.norm, 2, beta0s, 0)$value
-      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
-
-      # variance under alternative
-      i00 <- stats::integrate(dstFnc, min.norm, max.norm, 0, beta0,  beta1)$value
-      i01 <- stats::integrate(dstFnc, min.norm, max.norm, 1, beta0,  beta1)$value
-      i11 <- stats::integrate(dstFnc, min.norm, max.norm, 2, beta0,  beta1)$value
-      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+      # define the distribution function and use integration (calcInt == FALSE)
+      dist.func <- function(x) stats::dnorm(x, mean = distribution$mean, sd = distribution$sd)
+      calcInt <- FALSE
 
     } else if (tolower(distribution$dist) == "poisson") {
 
-      lambda <- distribution$lambda
-      max.pois <- stats::qpois(.999999999, lambda = lambda) # maximum value
+      min <- 0
+      max <- stats::qpois(.999999999, lambda = distribution$lambda)
 
-      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dpois(x, lambda = lambda) * exp(b0 + b1 * x)
-      mu  <- sum(sapply(0:max.pois, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
-      beta0s <- log(mu)
-
-      # variance under null
-      i00 <- sum(sapply(0:max.pois, dstFnc, 0, beta0s, 0),     na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, dstFnc, 1, beta0s, 0),     na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, dstFnc, 2, beta0s, 0),     na.rm = TRUE)
-      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
-
-      # variance under alternative
-      i00 <- sum(sapply(0:max.pois, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
-      i01 <- sum(sapply(0:max.pois, dstFnc, 1, beta0,  beta1), na.rm = TRUE)
-      i11 <- sum(sapply(0:max.pois, dstFnc, 2, beta0,  beta1), na.rm = TRUE)
-      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+      # define the distribution function and use summation (calcInt == TRUE)
+      dist.func <- function(x) stats::dpois(x, lambda = distribution$lambda)
+      calcInt <- TRUE
 
     } else if (tolower(distribution$dist) == "uniform") {
 
       min <- distribution$min
       max <- distribution$max
 
-      # variance under null
-      mu  <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
-      i01 <- stats::integrate(function(x) x ^ 1 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
-      i11 <- stats::integrate(function(x) x ^ 2 * stats::dunif(x, min = min, max = max) * exp(beta0.star + beta1.star * x), min, max)$value
-      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
-
-      # variance under alternative
-      i00 <- stats::integrate(function(x) x ^ 0 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      i01 <- stats::integrate(function(x) x ^ 1 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      i11 <- stats::integrate(function(x) x ^ 2 * stats::dunif(x, min = min, max = max) * exp(beta0 + beta1 * x), min, max)$value
-      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+      # define the distribution function and use integration (calcInt == FALSE)
+      dist.func <- function(x) stats::dunif(x, min = min, max = max)
+      calcInt <- FALSE
 
     } else if (tolower(distribution$dist) == "exponential") {
 
-      rate <- distribution$rate
-      max.exp <- stats::qexp(.9999999, rate = rate)
+      min <- 0
+      max <- stats::qexp(.9999999, rate = distribution$rate)
 
-      # variance under null
-      mu  <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
-      i01 <- stats::integrate(function(x) x ^ 1 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
-      i11 <- stats::integrate(function(x) x ^ 2 * stats::dexp(x, rate = rate) * exp(beta0.star + beta1.star * x), 0, max.exp)$value
-      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
-
-      # variance under alternative
-      i00 <- stats::integrate(function(x) x ^ 0 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      i01 <- stats::integrate(function(x) x ^ 1 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      i11 <- stats::integrate(function(x) x ^ 2 * stats::dexp(x, rate = rate) * exp(beta0 + beta1 * x), 0, max.exp)$value
-      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+      # define the distribution function and use integration (calcInt == FALSE)
+      dist.func <- function(x) stats::dexp(x, rate = distribution$rate)
+      calcInt <- FALSE
 
     } else if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
 
-      size <- ifelse(tolower(distribution$dist) == "bernoulli", 1, distribution$size)
-      prob <- distribution$prob
+      min <- 0
+      max <- ifelse(tolower(distribution$dist) == "bernoulli", 1, distribution$size)
 
-      # define the distribution function and calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      dstFnc <- function(x, e, b0, b1) x ^ e * stats::dbinom(x, size = size, prob = prob) * exp(b0 + b1 * x)
-      mu  <- sum(sapply(0:size, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
-      beta0s <- log(mu)
-
-      # variance under null
-      i00 <- sum(sapply(0:size, dstFnc, 0, beta0s, 0),     na.rm = TRUE)
-      i01 <- sum(sapply(0:size, dstFnc, 1, beta0s, 0),     na.rm = TRUE)
-      i11 <- sum(sapply(0:size, dstFnc, 2, beta0s, 0),     na.rm = TRUE)
-      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
-
-      # variance under alternative
-      i00 <- sum(sapply(0:size, dstFnc, 0, beta0,  beta1), na.rm = TRUE)
-      i01 <- sum(sapply(0:size, dstFnc, 1, beta0,  beta1), na.rm = TRUE)
-      i11 <- sum(sapply(0:size, dstFnc, 2, beta0,  beta1), na.rm = TRUE)
-      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+      # define the distribution function and use summation (calcInt == TRUE)
+      dist.func <- function(x) stats::dbinom(x, size = max, prob = distribution$prob)
+      calcInt <- TRUE
 
     } else if (tolower(distribution$dist) == "lognormal") {
 
-      meanlog <- distribution$meanlog
-      sdlog <- distribution$sdlog
-      min.lnorm <- stats::qlnorm(.0000001, meanlog = meanlog, sdlog = sdlog)
-      max.lnorm <- stats::qlnorm(.9999999, meanlog = meanlog, sdlog = sdlog)
+      min <- stats::qlnorm(.0000001, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      max <- stats::qlnorm(.9999999, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+
+      # define the distribution function and use integration (calcInt == FALSE)
+      dist.func <- function(x) stats::dlnorm(x, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      calcInt <- FALSE
+
+    }
+
+    # carry out the actual calculations
+    # [1] define the variance function
+    var.func <- function(x, e, b0, b1) x ^ e * dist.func(x) * exp(b0 + b1 * x)
+
+    # [2A] use summation to “integrate” integer sequences OR
+    if (calcInt) {
+
+      # calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      mu  <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1), na.rm = TRUE)
+      beta0s <- log(mu)
 
       # variance under null
-      mu  <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
-      beta0.star <- log(mu)
-      beta1.star <- 0
-      i00 <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
-      i01 <- stats::integrate(function(x) { x ^ 1 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
-      i11 <- stats::integrate(function(x) { x ^ 2 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0.star + beta1.star * x) }, min.lnorm, max.lnorm)$value
+      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0s, 0),     na.rm = TRUE)
+      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0s, 0),     na.rm = TRUE)
+      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0s, 0),     na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
       # variance under alternative
-      i00 <- stats::integrate(function(x) { x ^ 0 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
-      i01 <- stats::integrate(function(x) { x ^ 1 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
-      i11 <- stats::integrate(function(x) { x ^ 2 * stats::dlnorm(x, meanlog = meanlog, sdlog = sdlog) *
-                                             exp(beta0 + beta1 * x) }, min.lnorm, max.lnorm)$value
+      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1), na.rm = TRUE)
+      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0,  beta1), na.rm = TRUE)
+      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0,  beta1), na.rm = TRUE)
+      var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
+
+    # [2B] use integration for real numbers
+    } else {
+
+      # calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      mu  <- stats::integrate(var.func, min, max, 0, beta0,  beta1)$value
+      beta0s <- log(mu)
+
+      # variance under null
+      i00 <- stats::integrate(var.func, min, max, 0, beta0s, 0)$value
+      i01 <- stats::integrate(var.func, min, max, 1, beta0s, 0)$value
+      i11 <- stats::integrate(var.func, min, max, 2, beta0s, 0)$value
+      var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
+
+      # variance under alternative
+      i00 <- stats::integrate(var.func, min, max, 0, beta0,  beta1)$value
+      i01 <- stats::integrate(var.func, min, max, 1, beta0,  beta1)$value
+      i11 <- stats::integrate(var.func, min, max, 2, beta0,  beta1)$value
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     }
