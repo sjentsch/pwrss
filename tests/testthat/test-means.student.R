@@ -1,8 +1,6 @@
 test_that("means.student.R works", {
-    # power.t.student
+    # power.t.student (= pwrss.t.mean / pwrss.t.2means)
     # power.t.welch
-    # pwrss.t.mean
-    # pwrss.t.2means
 
     # pwrss.z.mean, pwrss.z.2means (not longer supported) --------------------------------------------------------------
     expect_error(pwrss.z.mean(),   "This function is no longer available. Please use `power.t.student\\(\\)`.")

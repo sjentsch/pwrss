@@ -86,8 +86,7 @@ prob.vector <- c(0.28, 0.72)
 null.prob.vector <- c(0.50, 0.50)
 probs.to.w(prob.vector, null.prob.vector)
 
-power.chisq.gof(w = 0.44, df = 1,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.44, df = 1, power = 0.80, alpha = 0.05)
 
 
 # ---------------------------------------------------------#
@@ -107,8 +106,7 @@ prob.matrix
 
 probs.to.w(prob.matrix)
 
-power.chisq.gof(w = 0.1302134, df = 1,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.1302134, df = 1, power = 0.80, alpha = 0.05)
 
 
 # --------------------------------------------------------#
@@ -128,8 +126,7 @@ prob.matrix
 
 probs.to.w(prob.matrix)
 
-power.chisq.gof(w = 0.03022008, df = 4,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 
 }
 \references{
