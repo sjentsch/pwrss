@@ -611,7 +611,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
 
     print.obj <- list(requested = requested,
                       test = "Linear Regression Coefficient (T-Test)",
-                      alt = alternative,
+                      alternative = alternative,
                       std.beta = std.beta,
                       std.null.beta = std.null.beta,
                       std.margin = std.margin,

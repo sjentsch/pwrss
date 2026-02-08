@@ -448,7 +448,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
     print.obj <- list(requested = requested, test = test,
                       d = d, null.d = null.d, margin = margin,
                       alpha = alpha, t.alpha = t.alpha,
-                      alt = alternative, n = n, df = df,
+                      alternative = alternative, n = n, df = df,
                       ncp.alternative = ncp,
                       ncp.null = null.ncp,
                       power = power)
@@ -720,10 +720,12 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
     test <- "Welch's T-Test (Independent Samples)"
 
-    print.obj <- list(requested = requested, test = test,
-                      d = d, se.d = se.d, null.d = null.d, margin = margin,
+    print.obj <- list(requested = requested,
+                      test = test,
+                      d = d, se.d = se.d, null.d = null.d,
+                      margin = margin,
                       alpha = alpha, t.alpha = t.alpha,
-                      alt = alternative, n = n, df = df,
+                      alternative = alternative, n = n, df = df,
                       ncp.alternative = ncp,
                       ncp.null = null.ncp,
                       power = power)

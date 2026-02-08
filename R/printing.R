@@ -1,3 +1,4 @@
+# helper and formatting functions --------------------------------------------------------------------------------------
 .header_ascii <- function(requested) {
   RC <- ifelse(requested == "n",
                "             SAMPLE SIZE CALCULATION              ",
@@ -13,6 +14,31 @@
   paste0(paste0(strrep("-", 52), "\n"),
          paste0(topic, "\n"),
          paste0(strrep("-", 52), "\n"))
+}
+
+.keyparms_ascii <- function(x, parmlist, digits) {
+
+}
+
+.sign_h0 <- function(alt = c("two.sided", "one.sided"), less = FALSE) {
+  alt <- match.arg(alt)
+
+  ifelse(alt == "two.sided", " =", ifelse(less, ">=", "<="))
+}
+
+.sign_h1 <- function(alt = c("two.sided", "one.sided"), less = FALSE) {
+  alt <- match.arg(alt)
+
+  ifelse(alt == "two.sided", "!=", ifelse(less, " <", " >"))
+}
+
+.hypotheses_ascii <- function(h0_text, h1_text) {
+  if (length(h0_text) > 1) h0_text <- paste(h0_text, collapse = paste0("\n", strrep(" ", 20)))
+  if (length(h1_text) > 1) h1_text <- paste(h1_text, collapse = paste0("\n", strrep(" ", 20)))
+
+  paste0(.topic_ascii("Hypotheses"),
+         sprintf("  H0 (Null Claim) : %s\n",   h0_text),
+         sprintf("  H1 (Alt. Claim) : %s\n\n", h1_text))
 }
 
 .results_ascii <- function(x, digits = 3) {
@@ -33,6 +59,12 @@
          sprintf("  Statistical Power    = %.*f%s\n\n", digits, x$power, ifelse(x$requested == "power", "  <<", "")))
 }
 
+.defs_ascii <- function() {
+
+}
+
+
+# print functions ------------------------------------------------------------------------------------------------------
 .print.ascii.pwrss.logistic <- function(x, digits = 3, verbose = 1, ...) {
 
   cat(.header_ascii(x$requested))
@@ -40,17 +72,9 @@
   cat("  Method          : ", x$method, "\n", sep = "")
   cat("  Predictor Dist. : ", x$dist, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim) : Odds Ratio = 1\n")
-    cat("  H1 (Alt. Claim) : Odds Ratio != 1\n\n")
-  } else if (x$alt == "one.sided" && x$odds.ratio > 1) {
-    cat("  H0 (Null Claim) : Odds Ratio <= 1\n")
-    cat("  H1 (Alt. Claim) : Odds Ratio >  1\n\n")
-  } else if (x$alt == "one.sided" && x$odds.ratio < 1) {
-    cat("  H0 (Null Claim) : Odds Ratio >= 1\n")
-    cat("  H1 (Alt. Claim) : Odds Ratio <  1\n\n")
-  }
+  h0_text <- paste("Odds Ratio", .sign_h0(x$alternative, x$odds.ratio < 1), "1")
+  h1_text <- paste("Odds Ratio", .sign_h1(x$alternative, x$odds.ratio < 1), "1")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -78,6 +102,8 @@
 } # .print.ascii.pwrss.logistic()
 
 
+
+
 .print.ascii.pwrss.poisson <- function(x, digits = 3, verbose = 1, ...) {
 
   cat(.header_ascii(x$requested))
@@ -85,17 +111,9 @@
   cat("  Method          : ", x$method, "\n", sep = "")
   cat("  Predictor Dist. : ", x$dist, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt ==  "two.sided") {
-    cat("  H0 (Null Claim) : Rate Ratio = 1 \n")
-    cat("  H1 (Alt. Claim) : Rate Ratio != 1 \n\n")
-  } else if (x$alt == "one.sided" && x$rate.ratio > 1) {
-    cat("  H0 (Null Claim) : Rate Ratio <= 1 \n")
-    cat("  H1 (Alt. Claim) : Rate Ratio >  1 \n\n")
-  } else if (x$alt == "one.sided" && x$rate.ratio < 1) {
-    cat("  H0 (Null Claim) : Rate Ratio >= 1 \n")
-    cat("  H1 (Alt. Claim) : Rate Ratio <  1 \n\n")
-  }
+  h0_text <- paste("Rate Ratio", .sign_h0(x$alternative, x$rate.ratio < 1), "1")
+  h1_text <- paste("Rate Ratio", .sign_h1(x$alternative, x$rate.ratio < 1), "1")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -127,38 +145,17 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt ==  "two.sided") {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : beta - null.beta = 0 \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta != 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : beta - null.beta = margin \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta != margin \n\n")
-    }
-  } else if (x$alt == "one.sided" && x$ncp.alternative > x$ncp.null) {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : beta - null.beta <= 0 \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta >  0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : beta - null.beta <= margin \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta >  margin \n\n")
-    }
-  } else if (x$alt == "one.sided" && x$ncp.alternative < x$ncp.null) {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : beta - null.beta >= 0 \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta <  0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : beta - null.beta >= margin \n")
-      cat("  H1 (Alt. Claim) : beta - null.beta <  margin \n\n")
-    }
-  } else if (x$alt == "two.one.sided" && (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null))) {
-    cat("  H0 (Null Claim) : beta - null.beta <= min(margin) or \n                    beta - null.beta >= max(margin) \n")
-    cat("  H1 (Alt. Claim) : beta - null.beta > min(margin) and \n                    beta - null.beta < max(margin)\n\n")
-  } else if (x$alt == "two.one.sided" && (x$ncp.alternative < min(x$ncp.null) || x$ncp.alternative > max(x$ncp.null))) {
-    cat("  H0 (Null Claim) : beta - null.beta >= min(margin) and \n                    beta - null.beta <= max(margin) \n")
-    cat("  H1 (Alt. Claim) : beta - null.beta < min(margin) or \n                    beta - null.beta > max(margin) \n\n")
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("beta - null.beta", .sign_h0(x$alternative, x$ncp.alternative < x$ncp.null), ifelse(x$margin == 0, "0", "margin"))
+    h1_text <- paste("beta - null.beta", .sign_h1(x$alternative, x$ncp.alternative < x$ncp.null), ifelse(x$margin == 0, "0", "margin"))
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null))) {
+    h0_text <- c("beta - null.beta <= min(margin) or",  "beta - null.beta >= max(margin)")
+    h1_text <- c("beta - null.beta  > min(margin) and", "beta - null.beta  < max(margin)")
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative < min(x$ncp.null) || x$ncp.alternative > max(x$ncp.null))) {
+    h0_text <- c("beta - null.beta >= min(margin) and", "beta - null.beta <= max(margin)")
+    h1_text <- c("beta - null.beta  < min(margin) or",  "beta - null.beta  > max(margin)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -193,24 +190,10 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$k.tested < x$k.total) {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : Change in R-squared = 0 \n")
-      cat("  H1 (Alt. Claim) : Change in R-squared > 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : 0 <= Change in R-squared <= margin \n")
-      cat("  H1 (Alt. Claim) : Change in R-squared > margin \n\n")
-    }
-  } else {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : R-squared = 0 \n")
-      cat("  H1 (Alt. Claim) : R-squared > 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : 0 <= R-squared <= margin \n")
-      cat("  H1 (Alt. Claim) : R-squared > margin \n\n")
-    }
-  }
+  rsq_text <- ifelse(x$k.tested < x$k.total, "Change in R-squared", "R-squared")
+  h0_text <- ifelse(x$margin == 0, sprintf("%s = 0", rsq_text), sprintf("0 <= %s <= margin", rsq_text))
+  h1_text <- ifelse(x$margin == 0, sprintf("%s > 0", rsq_text), sprintf("%s > margin",       rsq_text))
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -249,19 +232,9 @@
   cat(x$test, "\n\n", sep = "")
   cat("  Method            : ", method, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim)   : beta[a*b] = 0 \n")
-    cat("  H1 (Alt. Claim)   : beta[a*b] != 0 \n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$std.beta.indirect < 0) {
-      cat("  H0 (Null Claim)   : beta[a*b] >= 0 \n")
-      cat("  H1 (Alt. Claim)   : beta[a*b] < 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim)   : beta[a*b] <= 0 \n")
-      cat("  H1 (Alt. Claim)   : beta[a*b] > 0 \n\n")
-    }
-  }
+  h0_text <- paste("beta[a*b]", .sign_h0(x$alternative, x$std.beta.indirect < 0), "0")
+  h1_text <- paste("beta[a*b]", .sign_h1(x$alternative, x$std.beta.indirect < 0), "0")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -301,42 +274,17 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    if (any(x$margin == 0)) {
-      cat("  H0 (Null Claim) : d - null.d = 0 \n")
-      cat("  H1 (Alt. Claim) : d - null.d != 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : d - null.d = margin \n")
-      cat("  H1 (Alt. Claim) : d - null.d != margin \n\n")
-    }
-  } else if (x$alt == "one.sided") {
-    if (x$ncp.alternative < x$ncp.null) {
-      if (x$margin == 0) {
-        cat("  H0 (Null Claim) : d - null.d >= 0 \n")
-        cat("  H1 (Alt. Claim) : d - null.d < 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : d - null.d >= margin \n")
-        cat("  H1 (Alt. Claim) : d - null.d < margin \n\n")
-      }
-    } else {
-      if (any(x$margin == 0)) {
-        cat("  H0 (Null Claim) : d - null.d <= 0 \n")
-        cat("  H1 (Alt. Claim) : d - null.d > 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : d - null.d <= margin \n")
-        cat("  H1 (Alt. Claim) : d - null.d > margin \n\n")
-      }
-    }
-  } else {
-    if (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null)) {
-      cat("  H0 (Null Claim) : d - null.d <= min(margin) or \n                    d - null.d >= max(margin) \n")
-      cat("  H1 (Alt. Claim) : d - null.d > min(margin) and \n                    d - null.d < max(margin) \n\n")
-    } else {
-      cat("  H0 (Null Claim  : d - null.d >= min(margin) and \n                    d - null.d <= max(margin) \n")
-      cat("  H1 (Alt. Claim) : d - null.d < min(margin) or \n                    d - null.d > max(margin) \n\n")
-    }
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("d - null.d", .sign_h0(x$alternative, x$ncp.alternative < x$ncp.null), ifelse(x$margin == 0, "0", "margin"))
+    h1_text <- paste("d - null.d", .sign_h1(x$alternative, x$ncp.alternative < x$ncp.null), ifelse(x$margin == 0, "0", "margin"))
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null))) {
+    h0_text <- c("d - null.d <= min(margin) or",  "d - null.d >= max(margin)")
+    h1_text <- c("d - null.d  > min(margin) and", "d - null.d  < max(margin)")
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative < min(x$ncp.null) || x$ncp.alternative > max(x$ncp.null))) {
+    h0_text <- c("d - null.d >= min(margin) and", "d - null.d <= max(margin)")
+    h1_text <- c("d - null.d  < min(margin) or",  "d - null.d  > max(margin)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -376,53 +324,20 @@
   cat("  Method       : ", method, "\n", sep = "")
   cat("  Distribution : ", dist, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    if (x$margin == 0) {
-      cat("  H0 (Null Claim) : d - null.d = 0 \n")
-      cat("  H1 (Alt. Claim) : d - null.d != 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : d - null.d = margin \n")
-      cat("  H1 (Alt. Claim) : d - null.d != margin \n\n")
-    }
-  } else if (x$alt == "one.sided") {
-    if (x$method == "guenther") {
-      is.less <- x$ncp < x$null.ncp
-    } else {
-      is.less <- x$mean < x$null.mean
-    }
-    if (is.less) {
-      if (x$margin == 0) {
-        cat("  H0 (Null Claim) : d - null.d >= 0 \n")
-        cat("  H1 (Alt. Claim) : d - null.d < 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : d - null.d >= margin \n")
-        cat("  H1 (Alt. Claim) : d - null.d < margin \n\n")
-      }
-    } else {
-      if (x$margin == 0) {
-        cat("  H0 (Null Claim) : d - null.d <= 0 \n")
-        cat("  H1 (Alt. Claim) : d - null.d > 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : d - null.d <= margin \n")
-        cat("  H1 (Alt. Claim) : d - null.d > margin \n\n")
-      }
-    }
-  } else {
-    if (x$method == "guenther") {
-      is.equivalent <- x$ncp > min(x$null.ncp) && x$ncp < max(x$null.ncp)
-    } else {
-      is.equivalent <- x$mean > min(x$null.mean) && x$mean < max(x$null.mean)
-    }
-
-    if (is.equivalent) {
-      cat("  H0 (Null Claim) : d - null.d <= min(margin) or \n                    d - null.d >= max(margin) \n")
-      cat("  H1 (Alt. Claim) : d - null.d > min(margin) and \n                    d - null.d < max(margin) \n\n")
-    } else {
-      cat("  H0 (Null Claim  : d - null.d >= min(margin) and \n                    d - null.d <= max(margin) \n")
-      cat("  H1 (Alt. Claim) : d - null.d < min(margin) or \n                    d - null.d > max(margin) \n\n")
-    }
+  is.less <- ifelse(x$method == "guenther", x$ncp < x$null.ncp, x$mean < x$null.mean)
+  is.eqvl <- ifelse(x$method == "guenther", x$ncp > min(x$null.ncp) && x$ncp < max(x$null.ncp),
+                                            x$mean > min(x$null.mean) && x$mean < max(x$null.mean))
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("d - null.d", .sign_h0(x$alternative, is.less), ifelse(x$margin == 0, "0", "margin"))
+    h1_text <- paste("d - null.d", .sign_h1(x$alternative, is.less), ifelse(x$margin == 0, "0", "margin"))
+  } else if (x$alternative == "two.one.sided" &&  is.eqvl) {
+    h0_text <- c("d - null.d <= min(margin) or",  "d - null.d >= max(margin)")
+    h1_text <- c("d - null.d  > min(margin) and", "d - null.d  < max(margin)")
+  } else if (x$alternative == "two.one.sided" && !is.eqvl) {
+    h0_text <- c("d - null.d >= min(margin) and", "d - null.d <= max(margin)")
+    h1_text <- c("d - null.d  < min(margin) or",  "d - null.d  > max(margin)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -457,9 +372,7 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  cat("  H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) \n")
-  cat("  H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)\n\n")
+  cat(.hypotheses_ascii("P[i,j]  = P0[i,j] for all (i,j)", "P[i,j] != P0[i,j] for some (i,j)"))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -491,14 +404,8 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$ncp.null > 0) {
-    cat("  H0 (Null Claim)   : 0 <= ncp <= null.ncp \n")
-    cat("  H1 (Alt. Claim)   : ncp > null.ncp \n\n")
-  } else {
-    cat("  H0 (Null Claim)   : ncp = null.ncp \n")
-    cat("  H1 (Alt. Claim)   : ncp > null.ncp \n\n")
-  }
+  cat(.hypotheses_ascii(ifelse(x$ncp.null == 0, "ncp = 0", "0 <= ncp <= null.ncp"),
+                        ifelse(x$ncp.null == 0, "ncp > 0", "ncp > null.ncp")))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -526,27 +433,17 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim) : ncp = null.ncp \n")
-    cat("  H1 (Alt. Claim) : ncp != null.ncp \n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$ncp.alternative < x$ncp.null) {
-      cat("  H0 (Null Claim) : ncp >= null.ncp \n")
-      cat("  H1 (Alt. Claim) : ncp < null.ncp \n\n")
-    } else {
-      cat("  H0 (Null Claim) : ncp <= null.ncp \n")
-      cat("  H1 (Alt. Claim) : ncp > null.ncp \n\n")
-    }
-  } else {
-    if (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null)) {
-      cat("  H0 (Null Claim) : ncp <= min(null.ncp) or \n                    ncp >= max(null.ncp) \n")
-      cat("  H1 (Alt. Claim) : ncp > min(null.ncp) and \n                    ncp < max(null.ncp) \n\n")
-    } else {
-      cat("  H0 (Null Claim) : ncp >= min(null.ncp) and \n                    ncp <= max(null.ncp) \n")
-      cat("  H1 (Alt. Claim) : ncp < min(null.ncp) or \n                    ncp > max(null.ncp) \n\n")
-    }
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("ncp", .sign_h0(x$alternative, x$ncp.alternative < x$ncp.null), "null.ncp")
+    h1_text <- paste("ncp", .sign_h1(x$alternative, x$ncp.alternative < x$ncp.null), "null.ncp")
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative > min(x$ncp.null) && x$ncp.alternative < max(x$ncp.null))) {
+    h0_text <- c("ncp <= min(null.ncp) or",  "ncp >= max(null.ncp)")
+    h1_text <- c("ncp  > min(null.ncp) and", "ncp  < max(null.ncp)")
+  } else if (x$alternative == "two.one.sided" && (x$ncp.alternative < min(x$ncp.null) || x$ncp.alternative > max(x$ncp.null))) {
+    h0_text <- c("ncp >= min(null.ncp) and", "ncp <= max(null.ncp)")
+    h1_text <- c("ncp  < min(null.ncp) or",  "ncp  > max(null.ncp)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -575,27 +472,17 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim) : mean = null.mean \n")
-    cat("  H1 (Alt. Claim) : mean != null.mean \n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$mean.alternative < x$mean.null) {
-      cat("  H0 (Null Claim) : mean >= null.mean \n")
-      cat("  H1 (Alt. Claim) : mean < null.mean \n\n")
-    } else {
-      cat("  H0 (Null Claim) : mean <= null.mean \n")
-      cat("  H1 (Alt. Claim) : mean > null.mean \n\n")
-    }
-  } else {
-    if (x$mean.alternative > min(x$mean.null) && x$mean.alternative < max(x$mean.null)) {
-      cat("  H0 (Null Claim) : mean <= min(null.mean) or \n                    mean >= max(null.mean) \n")
-      cat("  H1 (Alt. Claim) : mean > min(null.mean) and \n                    mean < max(null.mean) \n\n")
-    } else {
-      cat("  H0 (Null Claim) : mean >= min(null.mean) and \n                    mean <= max(null.mean) \n")
-      cat("  H1 (Alt. Claim) : mean < min(null.mean) or \n                    mean > max(null.mean) \n\n")
-    }
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("mean", .sign_h0(x$alternative, x$mean.alternative < x$mean.null), "null.mean")
+    h1_text <- paste("mean", .sign_h1(x$alternative, x$mean.alternative < x$mean.null), "null.mean")
+  } else if (x$alternative == "two.one.sided" && (x$mean.alternative > min(x$mean.null) && x$mean.alternative < max(x$mean.null))) {
+    h0_text <- c("mean <= min(null.mean) or",  "mean >= max(null.mean)")
+    h1_text <- c("mean  > min(null.mean) and", "mean  < max(null.mean)")
+  } else if (x$alternative == "two.one.sided" && (x$mean.alternative < min(x$mean.null) || x$mean.alternative > max(x$mean.null))) {
+    h0_text <- c("mean >= min(null.mean) and", "mean <= max(null.mean)")
+    h1_text <- c("mean  < min(null.mean) or",  "mean  > max(null.mean)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -621,27 +508,9 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim) : prob = null.prob \n")
-    cat("  H1 (Alt. Claim) : prob != null.prob \n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$prob.alt < x$prob.null) {
-      cat("  H0 (Null Claim) : prob >= null.prob \n")
-      cat("  H1 (Alt. Claim) : prob < null.prob \n\n")
-    } else {
-      cat("  H0 (Null Claim) : prob <= null.prob \n")
-      cat("  H1 (Alt. Claim) : prob > null.prob \n\n")
-    }
-  } else {
-    if (x$prob.alt  > min(x$prob.null) && x$prob.alt < max(x$prob.null)) {
-      cat("  H0 (Null Claim) : prob <= min(null.prob) or \n                    prob >= max(null.prob) \n")
-      cat("  H1 (Alt. Claim) : prob > min(null.prob) and \n                    prob < max(null.prob) \n\n")
-    } else {
-      cat("  H0 (Null Claim) : prob >= min(null.prob) and \n                    prob <= max(null.prob) \n")
-      cat("  H1 (Alt. Claim) : prob < min(null.prob) or \n                    prob > max(null.prob) \n\n")
-    }
-  }
+  h0_text <- paste("prob", .sign_h0(x$alternative, x$prob.alt < x$prob.null), "null.prob")
+  h1_text <- paste("prob", .sign_h1(x$alternative, x$prob.alt < x$prob.null), "null.prob")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -668,14 +537,8 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$ncp.null > 0) {
-    cat("  H0 (Null Claim) : 0 <= ncp <= null.ncp \n")
-    cat("  H1 (Alt. Claim) : ncp > null.ncp \n\n")
-  } else {
-    cat("  H0 (Null Claim) : ncp = null.ncp \n")
-    cat("  H1 (Alt. Claim) : ncp > null.ncp \n\n")
-  }
+  cat(.hypotheses_ascii(ifelse(x$ncp.null == 0, "ncp = 0", "0 <= ncp <= null.ncp"),
+                        ifelse(x$ncp.null == 0, "ncp > 0", "ncp > null.ncp")))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -704,14 +567,8 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$null.ncp == 0) {
-    cat("  H0 (Null Claim) : eta.squared = 0 \n")
-    cat("  H1 (Alt. Claim) : eta.squared > 0 \n\n")
-  } else {
-    cat("  H0 (Null Claim) : 0 <= eta.squared <= null.eta.squared \n")
-    cat("  H1 (Alt. Claim) : eta.squared > null.eta.squared\n\n")
-  }
+  cat(.hypotheses_ascii(ifelse(x$null.ncp == 0, "eta.squared = 0", "0 <= eta.squared <= null.eta.squared"),
+                        ifelse(x$null.ncp == 0, "eta.squared > 0", "eta.squared > eta.squared")))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -741,9 +598,7 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  cat("  H0 (Null Claim) : psi = 0 \n")
-  cat("  H1 (Alt. Claim) : psi != 0 \n\n")
+  cat(.hypotheses_ascii("psi  = 0", "psi != 0"))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -772,9 +627,7 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  cat("  H0 (Null Claim) : psi = 0 \n")
-  cat("  H1 (Alt. Claim) : psi != 0 \n\n")
+  cat(.hypotheses_ascii("psi  = 0", "psi != 0"))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -820,42 +673,17 @@
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", method, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    if (any(x$margin == 0)) {
-      cat("  H0 (Null Claim) : prob1 - prob2 = 0 \n")
-      cat("  H1 (Alt. Claim) : prob1 - prob2 != 0 \n\n")
-    } else {
-      cat("  H0 (Null Claim) : prob1 - prob2 = margin \n")
-      cat("  H1 (Alt. Claim) : prob1 - prob2 != margin \n\n")
-    }
-  } else if (x$alt == "one.sided") {
-    if (x$delta < 0) {
-      if (any(x$margin == 0)) {
-        cat("  H0 (Null Claim) : prob1 - prob2 >= 0 \n")
-        cat("  H1 (Alt. Claim) : prob1 - prob2 < 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : prob1 - prob2 >= margin \n")
-        cat("  H1 (Alt. Claim) : prob1 - prob2 < margin \n\n")
-      }
-    } else {
-      if (any(x$margin == 0)) {
-        cat("  H0 (Null Claim) : prob1 - prob2 <= 0 \n")
-        cat("  H1 (Alt. Claim) : prob1 - prob2 > 0 \n\n")
-      } else {
-        cat("  H0 (Null Claim) : prob1 - prob2 <= margin \n")
-        cat("  H1 (Alt. Claim) : prob1 - prob2 > margin \n\n")
-      }
-    }
-  } else {
-    if (x$delta > min(x$margin) && x$delta < max(x$margin)) {
-      cat("  H0 (Null Claim) : prob1 - prob2 <= min(margin) or \n                    prob1 - prob2 >= max(margin) \n")
-      cat("  H1 (Alt. Claim) : prob1 - prob2 > min(margin) and \n                    prob1 - prob2 < max(margin) \n\n")
-    } else {
-      cat("  H0 (Null Claim) : prob1 - prob2 >= min(margin) and \n                    prob1 - prob2 <= max(margin) \n")
-      cat("  H1 (Alt. Claim) : prob1 - prob2 < min(margin) or \n                    prob1 - prob2 > max(margin) \n\n")
-    }
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("prob1 - prob2", .sign_h0(x$alternative, x$delta < x$margin), ifelse(x$margin == 0, "0", "margin"))
+    h1_text <- paste("prob1 - prob2", .sign_h1(x$alternative, x$delta < x$margin), ifelse(x$margin == 0, "0", "margin"))
+  } else if (x$alternative == "two.one.sided" && (x$delta > min(x$margin) && x$delta < max(x$ncp.null))) {
+    h0_text <- c("prob1 - prob2 <= min(margin) or",  "prob1 - prob2 >= max(margin)")
+    h1_text <- c("prob1 - prob2  > min(margin) and", "prob1 - prob2  < max(margin)")
+  } else if (x$alternative == "two.one.sided" && (x$delta < min(x$margin) || x$delta > max(x$x$margin))) {
+    h0_text <- c("prob1 - prob2 >= min(margin) and", "prob1 - prob2 <= max(margin)")
+    h1_text <- c("prob1 - prob2  < min(margin) or",  "prob1 - prob2  > max(margin)")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -897,19 +725,9 @@
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", method, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim) : prob10 - prob01 = 0\n")
-    cat("  H1 (Alt. Claim) : prob10 - prob01 != 0\n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$delta < 0) {
-      cat("  H0 (Null Claim) : prob10 - prob01 >= 0\n")
-      cat("  H1 (Alt. Claim) : prob10 - prob01 < 0\n\n")
-    } else {
-      cat("  H0 (Null Claim) : prob10 - prob01 <= 0\n")
-      cat("  H1 (Alt. Claim) : prob10 - prob01 > 0\n\n")
-    }
-  }
+  h0_text <- paste("prob10 - prob01", .sign_h0(x$alternative, x$delta < 0), "0")
+  h1_text <- paste("prob10 - prob01", .sign_h1(x$alternative, x$delta < 0), "0")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -941,8 +759,6 @@
 } # .print.ascii.pwrss.mcnemar()
 
 
-
-
 .print.ascii.pwrss.oneprop <- function(x, digits = 3, verbose = 1, ...) {
 
   cat(.header_ascii(x$requested))
@@ -962,27 +778,17 @@
     cat("  Standard Error         : Calculated From ", stderr, "\n\n", sep = "")
   }
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    cat("  H0 (Null Claim)        : prob - null.prob = 0\n")
-    cat("  H1 (Alt. Claim)        : prob - null.prob != 0\n\n")
-  } else if (x$alt == "one.sided") {
-    if (x$delta < 0) {
-      cat("  H0 (Null Claim)        : prob - null.prob >= 0\n")
-      cat("  H1 (Alt. Claim)        : prob - null.prob < 0\n\n")
-    } else {
-      cat("  H0 (Null Claim)        : prob - null.prob <= 0\n")
-      cat("  H1 (Alt. Claim)        : prob - null.prob > 0\n\n")
-    }
-  } else if (x$alt == "two.one.sided") {
-    if (x$delta[1] > 0 && x$delta[2] < 0) {
-      cat("  H0 (Null Claim)        : prob - min(null.prob) <= 0 or \n                           prob - max(null.prob) >= 0\n")
-      cat("  H1 (Alt. Claim)        : prob - min(null.prob) > 0 and \n                           prob - max(null.prob) < 0\n\n")
-    } else {
-      cat("  H0 (Null Claim)        : prob - min(null.prob) >= 0 and \n                           prob - max(null.prob) <= 0\n")
-      cat("  H1 (Alt. Claim)        : prob - min(null.prob) < 0 or \n                           prob - max(null.prob) > 0\n\n")
-    }
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("prob - null.prob", .sign_h0(x$alternative, x$delta < 0), "0")
+    h1_text <- paste("prob - null.prob", .sign_h1(x$alternative, x$delta < 0), "0")
+  } else if (x$alternative == "two.one.sided" && (x$delta[1] > 0 && x$delta[2] < 0)) {
+    h0_text <- c("prob - min(null.prob) <= 0 or",  "prob - max(null.prob) >= 0")
+    h1_text <- c("prob - min(null.prob)  > 0 and", "prob - max(null.prob)  < 0")
+  } else if (x$alternative == "two.one.sided" && (x$delta[1] < 0 || x$delta[2] > 0)) {
+    h0_text <- c("prob - min(null.prob) >= 0 and", "prob - max(null.prob) <= 0")
+    h1_text <- c("prob - min(null.prob)  < 0 or",  "prob - max(null.prob)  > 0")
   }
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -1022,34 +828,9 @@
   cat(x$test, "\n\n", sep = "")
   cat("  Common Index    : ", x$common, "\n\n", sep = "")
 
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    if (x$common) {
-      cat("  H0 (Null Claim) : rho12 - rho13 = 0\n")
-      cat("  H1 (Alt. Claim) : rho12 - rho13 != 0\n\n")
-    } else {
-      cat("  H0 (Null Claim) : rho12 - rho34 = 0\n")
-      cat("  H1 (Alt. Claim) : rho12 - rho34 != 0\n\n")
-    }
-  } else if (x$alt == "one.sided") {
-    if (x$delta < 0) {
-      if (x$common) {
-        cat("  H0 (Null Claim) : rho12 - rho13 >= 0\n")
-        cat("  H1 (Alt. Claim) : rho12 - rho13 < 0\n\n")
-      } else {
-        cat("  H0 (Null Claim) : rho12 - rho34 >= 0\n")
-        cat("  H1 (Alt. Claim) : rho12 - rho34 < 0\n\n")
-      }
-    } else {
-      if (x$common) {
-        cat("  H0 (Null Claim) : rho12 - rho13 <= 0\n")
-        cat("  H1 (Alt. Claim) : rho12 - rho13 > 0\n\n")
-      } else {
-        cat("  H0 (Null Claim) : rho12 - rho34 <= 0\n")
-        cat("  H1 (Alt. Claim) : rho12 - rho34 > 0\n\n")
-      }
-    }
-  }
+  h0_text <- paste("rho12 -", ifelse(x$common, "rho13", "rho34"), .sign_h0(x$alternative, x$delta < 0), "0")
+  h1_text <- paste("rho12 -", ifelse(x$common, "rho13", "rho34"), .sign_h1(x$alternative, x$delta < 0), "0")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))
@@ -1088,35 +869,10 @@
 
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n")
-
-  cat(.topic_ascii("Hypotheses"))
-  if (x$alt == "two.sided") {
-    if (x$design %in% c("independent", "paired")) {
-      cat("  H0 (Null Claim) : rho1 - rho2 = 0\n")
-      cat("  H1 (Alt. Claim) : rho1 - rho2 != 0\n\n")
-    } else {
-      cat("  H0 (Null Claim) : rho -  null.rho = 0\n")
-      cat("  H1 (Alt. Claim) : rho -  null.rho != 0\n\n")
-    }
-  } else if (x$alt == "one.sided") {
-    if (x$delta < 0) {
-      if (x$design %in% c("independent", "paired")) {
-        cat("  H0 (Null Claim) : rho1 - rho2 >= 0\n")
-        cat("  H1 (Alt. Claim) : rho1 - rho2 < 0\n\n")
-      } else {
-        cat("  H0 (Null Claim) : rho -  null.rho >= 0\n")
-        cat("  H1 (Alt. Claim) : rho -  null.rho < 0\n\n")
-      }
-    } else {
-      if (x$design %in% c("independent", "paired")) {
-        cat("  H0 (Null Claim) : rho1 - rho2 <= 0\n")
-        cat("  H1 (Alt. Claim) : rho1 - rho2 > 0\n\n")
-      } else {
-        cat("  H0 (Null Claim) : rho -  null.rho <= 0\n")
-        cat("  H1 (Alt. Claim) : rho -  null.rho > 0\n\n")
-      }
-    }
-  }
+  
+  h0_text <- paste(ifelse(x$design == "one.sample", "rho - null.rho", "rho1 - rho2"), .sign_h0(x$alternative, x$delta < 0), "0")
+  h1_text <- paste(ifelse(x$design == "one.sample", "rho - null.rho", "rho1 - rho2"), .sign_h1(x$alternative, x$delta < 0), "0")
+  cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
     cat(.topic_ascii("Key Parameters"))

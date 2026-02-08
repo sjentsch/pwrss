@@ -436,7 +436,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
     print.obj <- c(list(requested = requested, test = test,
                       design = design, method = method, dist = distribution,
                       d = d, null.d = null.d, margin = margin,
-                      alpha = alpha, alt = alternative, n = n), list.out)
+                      alpha = alpha, alternative = alternative, n = n), list.out)
 
     if (pretty) {
       .print.pwrss.wilcoxon(print.obj, verbose = verbose)
