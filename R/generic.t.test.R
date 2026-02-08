@@ -23,8 +23,9 @@
 #' @param plot        logical; \code{FALSE} switches off Type 1 and Type 2
 #'                    error plot. \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
-#'                    results), if \code{0} no output is printed on the
-#'                    console.
+#'                    results), if \code{2} a more detailed output is given
+#'                    (plus key parameters and defintions), if \code{0} no
+#'                    output is printed on the console.
 #' @param pretty      logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.

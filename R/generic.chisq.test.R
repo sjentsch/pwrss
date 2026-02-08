@@ -15,7 +15,9 @@
 #' @param plot     logical; \code{FALSE} switches off Type 1 and Type 2 error
 #'                 plot. \code{TRUE} by default.
 #' @param verbose  \code{1} by default (returns test, hypotheses, and results),
-#'                 if \code{0} no output is printed on the console.
+#'                 if \code{2} a more detailed output is given (plus key
+#'                 parameters and defintions), if \code{0} no output is printed
+#'                 on the console.
 #' @param pretty   logical; whether the output should show Unicode characters
 #'                 (if encoding allows for it). \code{FALSE} by default.
 #'
@@ -31,19 +33,12 @@
 power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
                              plot = TRUE, verbose = 1, pretty = FALSE) {
 
-  check.positive(df)
+  check.positive(ncp, df)
+  check.nonnegative(null.ncp)
   check.proportion(alpha)
+  check.logical(plot, pretty)
+  verbose <- ensure_verbose(verbose)
 
-  ifelse(is.numeric(ncp) || length(ncp) == 1 || ncp >= 0,
-         valid.ncp <- TRUE,
-         valid.ncp <- FALSE)
-
-  ifelse(is.numeric(null.ncp) || length(null.ncp) == 1 || all(null.ncp >= 0),
-         valid.null.ncp <- TRUE,
-         valid.null.ncp <- FALSE)
-
-  if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-    stop("`ncp` or `null.ncp` must be numeric, positive, and of length one.", call. = FALSE)
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
@@ -57,7 +52,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
 
   }
 
-  if (ensure_verbose(verbose) > 0) {
+  if (verbose > 0) {
 
     print.obj <- list(test = "Generic Chi-square Test",
                       requested = "power",
