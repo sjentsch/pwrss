@@ -130,8 +130,7 @@ probs.to.w(prob.vector, null.prob.vector)
 #>    w   df 
 #> 0.44 1.00 
 
-power.chisq.gof(w = 0.44, df = 1,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.44, df = 1, power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -176,8 +175,7 @@ probs.to.w(prob.matrix)
 #>         w        df 
 #> 0.1302134 1.0000000 
 
-power.chisq.gof(w = 0.1302134, df = 1,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.1302134, df = 1, power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -225,8 +223,7 @@ probs.to.w(prob.matrix)
 #>          w         df 
 #> 0.03022008 4.00000000 
 
-power.chisq.gof(w = 0.03022008, df = 4,
-                alpha = 0.05, power = 0.80)
+power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
