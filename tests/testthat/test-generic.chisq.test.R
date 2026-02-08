@@ -1,4 +1,102 @@
 test_that("generic.chisq.test.R works", {
-    # power.chisq.test
+    # power.chisq.test -------------------------------------------------------------------------------------------------
+    crrOut <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE))
+    crrDtl <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, verbose = 2))
+    crrPty <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, pretty = TRUE))
+    crrPnD <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, verbose = 2, pretty = TRUE))
+    expect_equal(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, verbose = 0),
+                 list(power = 0.381376391, ncp = 20, null.ncp = 0, alpha = 0.05, df = 100, chisq.crit = 124.342113))
+    expect_equal(crrOut, c("+--------------------------------------------------+",
+                           "|                POWER CALCULATION                 |",
+                           "+--------------------------------------------------+", "",
+                           "Generic Chi-square Test", "",
+                           "----------------------------------------------------",
+                           "Hypotheses",
+                           "----------------------------------------------------",
+                           "  H0 (Null Claim)   : ncp = null.ncp ",
+                           "  H1 (Alt. Claim)   : ncp > null.ncp ", "",
+                           "----------------------------------------------------",
+                           "Results",
+                           "----------------------------------------------------",
+                           "  Type 1 Error (alpha) = 0.050",
+                           "  Type 2 Error (beta)  = 0.619",
+                           "  Statistical Power    = 0.381  <<", ""))
+    expect_equal(crrDtl, c("+--------------------------------------------------+",
+                           "|                POWER CALCULATION                 |",
+                           "+--------------------------------------------------+", "",
+                           "Generic Chi-square Test", "",
+                           "----------------------------------------------------",
+                           "Hypotheses",
+                           "----------------------------------------------------",
+                           "  H0 (Null Claim)   : ncp = null.ncp ",
+                           "  H1 (Alt. Claim)   : ncp > null.ncp ", "",
+                           "----------------------------------------------------",
+                           "Key Parameters",
+                           "----------------------------------------------------",
+                           "  Degrees of Freedom     = 100",
+                           "  Non-centrality of Alt. = 20.000",
+                           "  Non-centrality of Null = 0.000",
+                           "  Critical Value         = 124.342", "",
+                           "----------------------------------------------------",
+                           "Results",
+                           "----------------------------------------------------",
+                           "  Type 1 Error (alpha) = 0.050",
+                           "  Type 2 Error (beta)  = 0.619",
+                           "  Statistical Power    = 0.381  <<", "",
+                           "----------------------------------------------------",
+                           "Definitions",
+                           "----------------------------------------------------",
+                           "  ncp      : Non-centrality parameter of alt. ",
+                           "  null.ncp : Non-centrality parameter of null ", ""))
+    expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
+                           "║               \033[34m POWER CALCULATION \033[0m                ║",
+                           "╚══════════════════════════════════════════════════╝", "",
+                           "Generic Chi-square Test", "",
+                           "────────────────────────────────────────────────────",
+                           "Hypotheses",
+                           "────────────────────────────────────────────────────",
+                           "  H₀ (Null)         : λ = λ₀ ",
+                           "  H₁ (Alternative)  : λ > λ₀ ", "",
+                           "────────────────────────────────────────────────────",
+                           "Results",
+                           "────────────────────────────────────────────────────",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.619",
+                           "  \033[34mStatistical Power  = 0.381\033[0m  \033[1;35m◄◄\033[0m", ""))
+    expect_equal(crrPnD, c("╔══════════════════════════════════════════════════╗",
+                           "║               \033[34m POWER CALCULATION \033[0m                ║",
+                           "╚══════════════════════════════════════════════════╝", "",
+                           "Generic Chi-square Test", "",
+                           "────────────────────────────────────────────────────",
+                           "Hypotheses",
+                           "────────────────────────────────────────────────────",
+                           "  H₀ (Null)         : λ = λ₀ ",
+                           "  H₁ (Alternative)  : λ > λ₀ ", "",
+                           "────────────────────────────────────────────────────",
+                           "Key Parameters",
+                           "────────────────────────────────────────────────────",
+                           "  df                = 100",
+                           "  λ                 = 20.000 ",
+                           "  λ₀                 = 0.000 ",
+                           "  Inv-χ²(α, λ₀)      = 124.342 ", "",
+                           "────────────────────────────────────────────────────",
+                           "Results",
+                           "────────────────────────────────────────────────────",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.619",
+                           "  \033[34mStatistical Power  = 0.381\033[0m  \033[1;35m◄◄\033[0m", "",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "\033[36mDefinitions\033[0m",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "\033[36m  λ   : Non-centrality parameter under alternative",
+                           "\033[0m\033[36m  λ₀ : Non-centrality parameter under null", "", "\033[0m"))
 
+    expect_equal(power.chisq.test(ncp = 20, null.ncp = 10, df = 10, alpha = 0.05, plot = FALSE, verbose = 0),
+                 list(power = 0.31365895, ncp = 20, null.ncp = 10, alpha = 0.05, df = 10, chisq.crit = 34.0886349))
+
+    expect_equal(power.chisq.test(ncp = 20, df = 17, alpha = 0.05, plot = FALSE, verbose = 0),
+                 list(power = 0.80744863, ncp = 20, null.ncp = 0, alpha = 0.05, df = 17, chisq.crit = 27.5871116))
+
+    expect_error(power.chisq.test(ncp = 1, null.ncp = 11, df = 17, alpha = 0.05, plot = FALSE, verbose = 0),
+                 "`ncp` should be greater than or equal to `null.ncp`.")
 })
