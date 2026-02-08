@@ -4,6 +4,8 @@
 #' Type 2 error plots.
 #'
 #'
+#' @aliases power.chisq
+#'
 #' @param ncp      non-centrality parameter for the alternative.
 #' @param null.ncp non-centrality parameter for the null.
 #' @param df       integer; degrees of freedom. For example, for the test of

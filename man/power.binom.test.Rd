@@ -2,6 +2,7 @@
 % Please edit documentation in R/generic.binom.test.R
 \name{power.binom.test}
 \alias{power.binom.test}
+\alias{power.binom}
 \title{Power Analysis for the Generic Binomial Test}
 \usage{
 power.binom.test(

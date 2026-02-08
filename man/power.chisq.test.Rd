@@ -2,6 +2,7 @@
 % Please edit documentation in R/generic.chisq.test.R
 \name{power.chisq.test}
 \alias{power.chisq.test}
+\alias{power.chisq}
 \title{Statistical Power for the Generic Chi-Square Test}
 \usage{
 power.chisq.test(

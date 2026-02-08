@@ -2,6 +2,7 @@
 % Please edit documentation in R/generic.z.test.R
 \name{power.z.test}
 \alias{power.z.test}
+\alias{power.z}
 \title{Statistical Power for the Generic z-Test}
 \usage{
 power.z.test(

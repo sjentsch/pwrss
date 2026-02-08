@@ -4,6 +4,8 @@
 #' error plots.
 #'
 #'
+#' @aliases power.z
+#'
 #' @param             mean mean of the alternative.
 #' @param sd          standard deviation of the alternative. Do not change this
 #'                    value except when some sort of variance correction is

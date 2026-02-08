@@ -4,6 +4,8 @@
 #' Type 2 error plots.
 #'
 #'
+#' @aliases power.binom
+#'
 #' @param size        number of trials (zero or more).
 #' @param prob        probability of success on each trial under alternative.
 #' @param null.prob   probability of success on each trial under null.
@@ -54,28 +56,20 @@ power.binom.test <- function(size,
                              verbose = 1,
                              pretty = FALSE) {
 
-  check.proportion(prob, alpha)
-  check.logical(plot)
-
   alternative <- tolower(match.arg(alternative))
 
+  check.proportion(prob, alpha)
+  check.vector(null.prob, check.proportion, ifelse(alternative == "two.one.sided", 2, 1))
+  check.logical(plot, pretty)
+  verbose <- ensure_verbose(verbose)
+
   if (any(!is.numeric(size)) || any(size < 0) || any(!(abs(size - round(size)) < .Machine$double.eps ^ 0.5)))
-    stop("Incorrect value for `size`.", call. = FALSE)
-
-  if (alternative == "two.one.sided") {
-    if (isFALSE(all(is.numeric(null.prob))) || any(null.prob < 0) || any(null.prob > 1))
-      stop("Incorrect value for `null.prob`.", call. = FALSE)
-    if (length(null.prob) != 2)
-      stop("Provide null margins in the form of null.prob = c(lower, upper)", call. = FALSE)
-  } else {
-    if (isFALSE(all(is.numeric(null.prob))) || length(null.prob) != 1 || any(null.prob < 0) || any(null.prob > 1))
-      stop("Incorrect value for `null.prob`.", call. = FALSE)
-  }
+    stop("Argument `size` does not have a valid value (integer-like, >= 0, and finite).", call. = FALSE)
 
   if (alternative == "two.one.sided") {
 
-    if (length(null.prob) != 2) stop("Null specification is not consistent with equivalence testing.", call. = FALSE)
-    if (null.prob[1] > null.prob[2]) stop("Lower margin is greater than the upper margin?", call. = FALSE)
+    if (null.prob[1] > null.prob[2])
+      stop("Lower margin (first value) of `null.prob` must not be greater than the upper margin (second value).", call. = FALSE)
 
     if (prob > min(null.prob) && prob < max(null.prob)) {
       # equivalence
@@ -167,26 +161,17 @@ power.binom.test <- function(size,
 
     }
 
-  } else {
-
-    stop("Incorrect `alternative` specification.", call. = FALSE)
-
   }
 
 
   if (plot) {
 
-    if (length(size) > 1 || length(prob) > 1 || length(null.prob) > 2 || length(alpha) > 1)
-      stop("Plotting is not available for multiple values", call. = FALSE)
-
-    suppressWarnings({
-      .plot.binom.t1t2(size = size, prob = prob, null.prob = null.prob,
-                       alpha = approx.alpha, alternative = alternative)
-    }) # supressWarnings
+    suppressWarnings(.plot.binom.t1t2(size = size, prob = prob, null.prob = null.prob,
+                                      alpha = approx.alpha, alternative = alternative))
 
   }
 
-  if (ensure_verbose(verbose) > 0) {
+  if (verbose > 0) {
 
     print.obj <- list(test = "Generic Binomial Test",
                       requested = "power",

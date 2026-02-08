@@ -2,6 +2,7 @@
 % Please edit documentation in R/generic.t.test.R
 \name{power.t.test}
 \alias{power.t.test}
+\alias{power.t}
 \title{Statistical Power for the Generic t-Test}
 \usage{
 power.t.test(

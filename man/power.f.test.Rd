@@ -2,6 +2,7 @@
 % Please edit documentation in R/generic.f.test.R
 \name{power.f.test}
 \alias{power.f.test}
+\alias{power.f}
 \title{Statistical Power for the Generic F-Test}
 \usage{
 power.f.test(

@@ -4,6 +4,8 @@
 #' error plots.
 #'
 #'
+#' @aliases power.t
+#'
 #' @param             ncp non-centrality parameter for the alternative.
 #' @param null.ncp    non-centrality parameter for the null. When alternative =
 #'                    "two.one.sided", the function expects two values in the
