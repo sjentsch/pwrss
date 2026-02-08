@@ -1131,8 +1131,9 @@ power.f.ancova.shieh <- function(mu.vector,
       sd.beta <- sqrt((shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1)))
       lower.beta <- max(0, mean.beta - 10 * sd.beta)
 
-      integrand <- function(x) { stats::dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) *
-                                 stats::pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE) }
+      integrand <- function(x) {
+        stats::dbeta(x, shape1 = (v + 1) / 2, shape2 = k.covariates / 2) * stats::pf(f.alpha, u, v, n.total * gamma2 * x, lower.tail = FALSE)
+      }
       power <- stats::integrate(integrand, lower = lower.beta, upper = 1)$value
 
       lambda <- ifelse(calculate.lambda, n.total * gamma2 * (v + 1) / (v + 1 + k.covariates), NA)
@@ -1428,10 +1429,12 @@ power.t.contrast <- function(mu.vector, sd.vector,
       }
       power <- stats::integrate(integrand, lower = lower.beta, upper = 1)$value
 
-      lambda <-  ifelse(calculate.lambda,
-                        stats::integrate(function(x) { stats::dbeta(x, (v + 1) / 2, k.covariates / 2) *
-                                                (sqrt(x) * psi / sqrt(sigma2_error * a)) }, lower.beta, 1)$value,
-                        NA)
+      if (calculate.lambda) {
+        integrand <- function(x) stats::dbeta(x, (v + 1) / 2, k.covariates / 2) * (sqrt(x) * psi / sqrt(sigma2_error * a))
+        lambda <- stats::integrate(integrand, lower.beta, 1)$value
+      } else {
+        lambda <- NA
+      }
 
     } else {
 

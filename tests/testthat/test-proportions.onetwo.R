@@ -114,7 +114,7 @@ test_that("proportions.onetwo.R works", {
                            "\033[0m\033[36m  Odds(P₀)  : P₀ / (1 - P₀) ",
                            "\033[0m\033[36m  P        : Probability of success under alternative ",
                            "\033[0m\033[36m  P₀        : Probability of success under null ", "", "\033[0m"))
-        
+
     crrRes <- power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided", verbose = 0)
     crrOut <- capture.output(power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided"))
     crrDtl <- capture.output(power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided", verbose = 2))
@@ -552,7 +552,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrOut, c("+--------------------------------------------------+",
                            "|                POWER CALCULATION                 |",
                            "+--------------------------------------------------+", "",
-                           "Independent Proportions" , "",
+                           "Independent Proportions", "",
                            "  Method          : Fisher's Exact", "",
                            "----------------------------------------------------",
                            "Hypotheses",
@@ -569,7 +569,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrDtl, c("+--------------------------------------------------+",
                            "|                POWER CALCULATION                 |",
                            "+--------------------------------------------------+", "",
-                           "Independent Proportions" , "",
+                           "Independent Proportions", "",
                            "  Method          : Fisher's Exact", "",
                            "----------------------------------------------------",
                            "Hypotheses",

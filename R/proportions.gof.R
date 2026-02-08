@@ -235,7 +235,7 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
     if (is.vector(p1)) {
       if (!is.null(p0)) check.same.lengths(p0, p1)
       if (sum(p1) != 1 || (!is.null(p0) && sum(p0) != 1))
-        stop("Cell probabilities in `p1` (and `p0` if given) should sum to 1.", call. = FALSE)    
+        stop("Cell probabilities in `p1` (and `p0` if given) should sum to 1.", call. = FALSE)
     } else if (is.matrix(p1)) {
       if (!is.null(p0) && !identical(dim(p1), dim(p0)))
         stop("Dimensions of `p1` and `p0` do not match up.", call. = FALSE)

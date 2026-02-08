@@ -13,5 +13,3 @@ ensure_verbose <- function(verbose = NULL) {
     1
   }
 }
-
-

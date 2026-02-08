@@ -116,7 +116,7 @@ power.f.mixed.anova(eta.squared = 0.022,
                     factor.levels = c(1, 2), # 1 between 2 within
                     rho.within = 0.50,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 # if effect size is already adjusted for correlation
 # use 'rho.within = NA'
@@ -124,7 +124,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
                     factor.levels = c(1, 2), # 1 between 2 within
                     rho.within = NA,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 ##########################################################
 # post-test only design with treatment and control groups #
@@ -136,7 +136,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
 power.f.mixed.anova(eta.squared = 0.059,
                     factor.levels = c(2, 1),  # 2 between 1 within
                     effect = "between",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 
 #############################################################
@@ -151,7 +151,7 @@ power.f.mixed.anova(eta.squared = 0.038,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "between",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 # a researcher is expecting an interaction effect
 # (between groups and time) of Eta-squared = 0.01
@@ -159,7 +159,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "interaction",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 # a researcher is expecting an interaction effect
 # (between groups and time) of Eta-squared = 0.01
@@ -167,7 +167,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 
 }
 \references{

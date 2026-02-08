@@ -311,7 +311,6 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
   type <- tolower(match.arg(type))
   verbose <- ensure_verbose(verbose)
 
-  arg.names <- names(as.list(match.call()))
   f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
   if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)

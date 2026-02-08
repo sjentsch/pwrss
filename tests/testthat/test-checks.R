@@ -50,7 +50,7 @@ test_that("checks.R works", {
                  "All elements of `rnorm\\(100\\)` need to be valid logical values \\(TRUE or FALSE\\)")
     expect_error(check.vector(runif(100, -2, 2), check.correlation),
                  "All elements of `runif\\(100, -2, 2\\)` need to be valid correlation values \\(numeric, >= -1, and <= 1\\)")
-    
+
     # check.same.lengths
     expect_null(check.same.lengths(rnorm(100), runif(100), sample(100, 100), seq(100)))
     expect_null(check.same.lengths(rnorm(100), runif(100), NULL, seq(100), NULL))

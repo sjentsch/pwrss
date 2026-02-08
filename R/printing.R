@@ -23,7 +23,7 @@
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
     n_line   <- sprintf("  %sSample Size%s = %s%s\n", n_prefix, n_pad, n_text,  ifelse(x$requested == "n",     "  <<", ""))
   } else {
-    n_line = ""
+    n_line <- ""
   }
 
   paste0(.topic_ascii("Results"),

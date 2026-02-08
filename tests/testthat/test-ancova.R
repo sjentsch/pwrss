@@ -141,7 +141,7 @@ test_that("ancova.R works", {
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", df1 = 1, df2 = 252, ncp = 7.91752577, null.ncp = 0, f.alpha = 3.87862445,
                       power = 0.800416655, n.total = 256))
-    
+
     crrRes <- power.f.ancova(eta.squared = 0.048, factor.levels = 2, k.covariates = 1, alpha = 0.05, power = .80, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
     expect_equal(names(crrRes),
@@ -152,7 +152,7 @@ test_that("ancova.R works", {
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", df1 = 1, df2 = 155, ncp = 7.96638655, null.ncp = 0, f.alpha = 3.90215432,
                       power = 0.8009416, n.total = 158))
-     
+
     crrRes <- power.f.ancova(eta.squared = 0.020, factor.levels = c(2, 2), k.covariates = 1, alpha = 0.05, power = .80, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
     expect_equal(names(crrRes),
@@ -652,7 +652,7 @@ test_that("ancova.R works", {
                            "  Type 1 Error (α)   = 0.050",
                            "  Type 2 Error (β)   = 0.316",
                            "  \033[34mStatistical Power  = 0.684\033[0m  \033[1;35m◄◄\033[0m", ""))
-    
+
     crrRes <- power.f.ancova.shieh(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.50, 2), r.squared = 0.50,
                                    k.covariates = 1, alpha = 0.05, power = 0.80, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "ancova", "shieh"))
@@ -680,7 +680,7 @@ test_that("ancova.R works", {
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.0195109904, f = 0.141064681, df1 = 1, df2 = 394, ncp = 7.91989924,
                       null.ncp = 0, f.alpha = 3.86516859, power = 0.801596275, n.vector = c(199, 199), n.total = 398))
- 
+
     crrRes <- power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), sd.vector = rep(1, 4), p.vector = rep(0.25, 4),
                                    factor.levels = c(2, 2), r.squared = 0.50, k.covariates = 1, alpha = 0.05,
                                    power = 0.80, verbose = -1)
@@ -710,7 +710,7 @@ test_that("ancova.R works", {
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", eta.squared = 0.0012482409, f = 0.035352524, df1 = 1, df2 = 6279,
                       ncp = 7.85874841, null.ncp = 0, f.alpha = 3.84294023, power = 0.800373625, n.vector = rep(786, 8), n.total = 6288))
-     
+
     mtxCnt <- factorial.contrasts(factor.levels = 3, coding = "treatment", verbose = 0)$contrast.matrix
     crrRes <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3),
                                    contrast.matrix = mtxCnt, r.squared = 0.50, k.covariates = 1, alpha = 0.05,
@@ -826,7 +826,7 @@ test_that("ancova.R works", {
                            "\033[0m\033[36m  d         : Standardized contrast estimate ", "", "\033[0m"))
 
     mtxCnt <- factorial.contrasts(factor.levels = 3, coding = "helmert", verbose = 0)$contrast.matrix
-    crrRes <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1/3, 3),
+    crrRes <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3),
                                    contrast.matrix = mtxCnt, r.squared = 0.50, k.covariates = 1, alpha = 0.05,
                                    power = 0.80, verbose = 0)
     crrCnt <- power.t.contrasts(crrRes, verbose = 0)
@@ -993,7 +993,7 @@ test_that("ancova.R works", {
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A1 <=> A2 A3", "A1 A2 <=> A3"), psi = c(-0.1, 0.025),
                       d = c(-0.141421356, 0.035355339), ncp = c(-2.806340906, 2.804411203), df = c(1769, 28310),
-                      t.alpha = c(1.961305911, 1.960047784), n.total = c(1773, 28314), power = c( 0.800904361, 0.800764602)))
+                      t.alpha = c(1.961305911, 1.960047784), n.total = c(1773, 28314), power = c(0.800904361, 0.800764602)))
 
     crrCnt <- do.call(power.t.contrast,
                       c(crrRes[["parms"]][c("mu.vector", "sd.vector", "p.vector", "r.squared", "k.covariates", "alpha")],
@@ -1121,7 +1121,7 @@ test_that("ancova.R works", {
                            "\033[36m  ψ    : Contrast est. defined as ∑(contrastᵢ * μᵢ) ",
                            "\033[0m\033[36m  d    : Standardized contrast estimate ",
                            "\033[0m\033[36m  λ    : Non-centrality parameter under alternative ",
-                           "\033[0m\033[36m  λ₀  : Non-centrality parameter under null ","", "\033[0m"))
+                           "\033[0m\033[36m  λ₀  : Non-centrality parameter under null ", "", "\033[0m"))
 
     mtxCnt <- c(A1 = 1, A2 = -0.50, A3 = -0.50)
     expect_equal(power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(400, 3), alpha = 0.05,
@@ -1132,7 +1132,7 @@ test_that("ancova.R works", {
                                   r.squared = 0.50, k.covariates = 1, alpha = 0.05, power = 0.8, verbose = 0)[-1],
                  power.t.contrast(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.5, 2),
                                   contrast.vector = matrix(c(1, -1), ncol = 2), r.squared = 0.50, k.covariates = 1,
-                                  alpha = 0.05, power = 0.8, verbose = 0)[-1])                                  
+                                  alpha = 0.05, power = 0.8, verbose = 0)[-1])
 
     expect_error(power.f.ancova.shieh(mu.vector = NULL, r.squared = 0.50, k.covariates = 1, alpha = 0.05, verbose = 0),
                  "Provide a vector of means \\(`mu.vector`\\) with its length equal to the number of groups.")

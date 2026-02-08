@@ -229,7 +229,7 @@ test_that("anova.mixed.R works", {
                                          n = 120, alpha = 0.05, verbose = 0))
     expect_equal(crrRes, pwrss.f.rmanova(f2 = 0.0224948875, n.levels = 1, n.rm = 2, corr.rm = 0.50, type = "within",
                                          n = 120, alpha = 0.05, verbose = 0))
-    
+
     crrRes <- suppressWarnings(power.f.mixed.anova(eta.squared = 0.08255, factor.levels = c(1, 2), rho.within = NA,
                                                    effect = "within", power = 0.80, alpha = 0.05, verbose = 0))
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))
@@ -265,7 +265,7 @@ test_that("anova.mixed.R works", {
                  list(test = "F", effect = "B(2)|W(1)", df1 = 1, df2 = 126, ncp = 8.0255048, null.ncp = 0,
                       f.alpha = 3.9163246, power = 0.8027032, n.total = 128))
     expect_equal(crrOut[5], "Analysis of Variance (F-Test)")
-    
+
     crrRes <- power.f.mixed.anova(eta.squared = 0.059, factor.levels = c(2, 1), effect = "between", alpha = 0.05,
                                   n.total = 128, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))
@@ -276,7 +276,7 @@ test_that("anova.mixed.R works", {
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(1)", df1 = 1, df2 = 126, ncp = 8.0255048, null.ncp = 0,
                       f.alpha = 3.9163246, power = 0.8027032, n.total = 128))
-     
+
     crrRes <- power.f.mixed.anova(eta.squared = 0.038, factor.levels = c(2, 2),  rho.within = 0.50, effect = "between",
                                   power = 0.80, alpha = 0.05, verbose = 0)
     crrOut <- capture.output(power.f.mixed.anova(eta.squared = 0.038, factor.levels = c(2, 2),  rho.within = 0.50,
@@ -301,7 +301,7 @@ test_that("anova.mixed.R works", {
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(2)", df1 = 1, df2 = 150, ncp = 8.005544, null.ncp = 0,
                       f.alpha = 3.9042019, power = 0.802695047, n.total = 152))
-     
+
     crrRes <- power.f.mixed.anova(eta.squared = 0.01, factor.levels = c(2, 2), rho.within = 0.50, effect = "interaction",
                                   power = 0.80, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))
@@ -323,7 +323,7 @@ test_that("anova.mixed.R works", {
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2):W(2)", df1 = 1, df2 = 196, ncp = 8.00, null.ncp = 0,
                       f.alpha = 3.889341, power = 0.8036086, n.total = 198))
-     
+
     crrRes <- power.f.mixed.anova(eta.squared = 0.01, factor.levels = c(2, 2), rho.within = 0.50, effect = "within",
                                   power = 0.80, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))

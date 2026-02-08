@@ -720,7 +720,6 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
   check.correlation(rho.paired)
   check.logical(ceiling, pretty)
   verbose <- ensure_verbose(verbose)
-  requested <- check.n_power(n2, power)
 
   if (paired) {
 

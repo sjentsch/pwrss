@@ -125,7 +125,7 @@ test_that("proportions.mcnemar.R works", {
                            "\033[36m  OR : P₁₀ / P₀₁ ",
                            "\033[0m\033[36m  P₁  : Prob. of {1,0} among discordant pairs under alt. ",
                            "\033[0m\033[36m  P₀  : Prob. of {1,0} among discordant pairs under null ", "", "\033[0m"))
-     
+
     crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n.paired = 100, alpha = 0.05, alternative = "one.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
@@ -178,7 +178,7 @@ test_that("proportions.mcnemar.R works", {
                       verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "z", delta = 0.1, odds.ratio = 2, size = 150, prob = 2/3, null.prob = 0.5,
+                 list(test = "z", delta = 0.1, odds.ratio = 2, size = 150, prob = 2 / 3, null.prob = 0.5,
                       binom.alpha = 85, mean = 4.1241548, sd = 1, null.mean = 0, null.sd = 1, z.alpha = 1.64485363,
                       alpha = 0.05, power = 0.993418, n.paired = 500))
 
