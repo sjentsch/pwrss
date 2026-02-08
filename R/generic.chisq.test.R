@@ -46,11 +46,8 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
 
   power <- stats::pchisq(chisq.alpha, df = df, ncp = ncp, lower.tail = FALSE)
 
-  if (plot) {
-
+  if (plot)
     .plot.chisq.t1t2(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha)
-
-  }
 
   if (verbose > 0) {
 

@@ -193,18 +193,16 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     #   stop("Plotting is not available when the standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
 
     try(silent = TRUE,
-        suppressWarnings({
-          .plot.t.t1t2(ncp = mean, null.ncp = null.mean, df = Inf, alpha = alpha, alternative = alternative)
-        }) # supressWarnings
+        suppressWarnings(.plot.t.t1t2(ncp = mean, null.ncp = null.mean, df = Inf, alpha = alpha, alternative = alternative))
     ) # try
 
   }
 
-  if (ensure_verbose(verbose) > 0) {
+  if (verbose > 0) {
 
     print.obj <- list(test = "Generic Z-Test",
                       requested = "power",
-                      alt = alternative,
+                      alternative = alternative,
                       mean.alternative = mean,
                       sd.alternative = sd,
                       mean.null = null.mean,

@@ -38,34 +38,23 @@
 power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
                          plot = TRUE, verbose = 1, pretty = FALSE) {
 
+  check.positive(ncp)
+  check.nonnegative(null.ncp)
   check.positive(df1, df2)
   check.proportion(alpha)
+  check.logical(plot, pretty)
+  verbose <- ensure_verbose(verbose)
 
-  ifelse(is.numeric(ncp) || length(ncp) == 1 || ncp >= 0,
-         valid.ncp <- TRUE,
-         valid.ncp <- FALSE)
-
-  ifelse(is.numeric(null.ncp) || length(null.ncp) == 1 || all(null.ncp >= 0),
-         valid.null.ncp <- TRUE,
-         valid.null.ncp <- FALSE)
-
-  if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-    stop("`ncp` or `null.ncp` must be numeric, positive, and of length one.", call. = FALSE)
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
   f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.ncp, lower.tail = FALSE)
   power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = ncp, lower.tail = FALSE)
 
-  if (plot) {
+  if (plot)
+    suppressWarnings(.plot.f.t1t2(ncp = ncp, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha))
 
-    suppressWarnings({
-      .plot.f.t1t2(ncp = ncp, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha)
-    }) # supressWarnings
-
-  }
-
-  if (ensure_verbose(verbose) > 0) {
+  if (verbose > 0) {
 
     print.obj <- list(test = "Generic F-Test",
                       requested = "power",

@@ -164,13 +164,8 @@ power.binom.test <- function(size,
 
   }
 
-
-  if (plot) {
-
-    suppressWarnings(.plot.binom.t1t2(size = size, prob = prob, null.prob = null.prob,
-                                      alpha = approx.alpha, alternative = alternative))
-
-  }
+  if (plot)
+    suppressWarnings(.plot.binom.t1t2(size = size, prob = prob, null.prob = null.prob, alpha = approx.alpha, alternative = alternative))
 
   if (verbose > 0) {
 
@@ -178,7 +173,7 @@ power.binom.test <- function(size,
                       requested = "power",
                       size = size,
                       alpha = approx.alpha,
-                      alt = alternative,
+                      alternative = alternative,
                       prob.alternative = prob,
                       prob.null = null.prob,
                       binom.alpha = binom.alpha,

@@ -164,19 +164,14 @@ power.t.test <- function(ncp, null.ncp = 0,
 
   }
 
-  if (plot) {
-
-    suppressWarnings({
-      .plot.t.t1t2(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, alternative = alternative)
-    }) # supressWarnings
-
-  }
+  if (plot)
+    suppressWarnings(.plot.t.t1t2(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, alternative = alternative))
 
   if (ensure_verbose(verbose) > 0) {
 
     print.obj <- list(test = "Generic T-Test",
                       requested = "power",
-                      alt = alternative,
+                      alternative = alternative,
                       ncp.alternative = ncp,
                       ncp.null = null.ncp,
                       t.alpha = t.alpha,
