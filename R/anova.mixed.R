@@ -89,7 +89,7 @@
 #'                     factor.levels = c(1, 2), # 1 between 2 within
 #'                     rho.within = 0.50,
 #'                     effect = "within",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #' # if effect size is already adjusted for correlation
 #' # use 'rho.within = NA'
@@ -97,7 +97,7 @@
 #'                     factor.levels = c(1, 2), # 1 between 2 within
 #'                     rho.within = NA,
 #'                     effect = "within",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #' ##########################################################
 #' # post-test only design with treatment and control groups #
@@ -109,7 +109,7 @@
 #' power.f.mixed.anova(eta.squared = 0.059,
 #'                     factor.levels = c(2, 1),  # 2 between 1 within
 #'                     effect = "between",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #'
 #' #############################################################
@@ -124,7 +124,7 @@
 #'                     factor.levels = c(2, 2),  # 2 between 2 within
 #'                     rho.within = 0.50,
 #'                     effect = "between",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #' # a researcher is expecting an interaction effect
 #' # (between groups and time) of Eta-squared = 0.01
@@ -132,7 +132,7 @@
 #'                     factor.levels = c(2, 2),  # 2 between 2 within
 #'                     rho.within = 0.50,
 #'                     effect = "interaction",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #' # a researcher is expecting an interaction effect
 #' # (between groups and time) of Eta-squared = 0.01
@@ -140,7 +140,7 @@
 #'                     factor.levels = c(2, 2),  # 2 between 2 within
 #'                     rho.within = 0.50,
 #'                     effect = "within",
-#'                     alpha = 0.05, power = 0.80)
+#'                     power = 0.80, alpha = 0.05)
 #'
 #' @export power.f.mixed.anova
 power.f.mixed.anova <- function(eta.squared,
@@ -165,23 +165,17 @@ power.f.mixed.anova <- function(eta.squared,
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n.total, power)
 
-  for (i in 1:2) {
-    factor.type.check <- factor.type[i]
-    if (!is.character(factor.type.check) || !(factor.type.check %in% c("between", "within")))
-      stop(paste("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'),",
-                 "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
-                 "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
-  }
-
+  if (!all(c("between", "within") %in% factor.type))
+    stop(paste("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'),",
+               "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
+               "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
   if (length(factor.levels) != 2 || length(factor.type) != 2)
     stop("Excatly two factors are allowed in this procedure.", call. = FALSE)
-  if (all(factor.type == "within") || all(factor.type == "between"))
-    stop("Two `within` or two `between` factors are not allowed in this procedure.", call. = FALSE)
 
   n.levels.between <- factor.levels[which(tolower(factor.type) == "between")]
   n.levels.within <- factor.levels[which(tolower(factor.type) == "within")]
   if (n.levels.within > 1 && epsilon <  1 / (n.levels.within - 1))
-    stop("Incorrect value for the non-sphericity correction factor (epsilon).", call. = FALSE)
+    stop("Incorrect value for the non-sphericity correction factor (`epsilon`).", call. = FALSE)
 
   f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
@@ -202,41 +196,6 @@ power.f.mixed.anova <- function(eta.squared,
 
   }
 
-  ss.mixed <- function(f.squared, null.f.squared, n.levels.between, n.levels.within, epsilon, alpha, power, effect) {
-
-    n.min <- n.levels.between + 1
-
-    n.total <- try(silent = TRUE,
-                   stats::uniroot(function(n.total) {
-                     if (effect == "between") {
-                       df1 <- n.levels.between - 1
-                       df2 <- n.total - n.levels.between
-                     } else if (effect == "within") {
-                       df1 <- (n.levels.within - 1) * epsilon
-                       df2 <- (n.total - n.levels.between) * (n.levels.within - 1) * epsilon
-                     } else if (effect == "interaction") {
-                       df1 <- (n.levels.between - 1) * (n.levels.within - 1) * epsilon
-                       df2 <- (n.total - n.levels.between) * (n.levels.within - 1) * epsilon
-                     } else {
-                       stop("Unknown effect", call. = FALSE)
-                     }
-                     u <- df1
-                     v <- df2
-                     lambda <- f.squared * n.total * epsilon
-                     null.lambda <- null.f.squared * n.total * epsilon
-                     f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
-
-                     power - stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
-
-                   }, interval = c(n.min, 1e10))$root
-                   ) # try
-
-    if (inherits(n.total, "try-error") || n.total == 1e+10) stop("Design is not feasible.", call. = FALSE)
-
-    n.total
-
-  }
-
   pwr.mixed <- function(f.squared, null.f.squared, n.total,
                         n.levels.between, n.levels.within, epsilon, alpha, effect) {
 
@@ -249,8 +208,6 @@ power.f.mixed.anova <- function(eta.squared,
     } else if (effect == "interaction") {
       df1 <- (n.levels.between - 1) * (n.levels.within - 1) * epsilon
       df2 <- (n.total - n.levels.between) * (n.levels.within - 1) * epsilon
-    } else {
-      stop("Unknown effect", call. = FALSE)
     }
 
     u <- df1
@@ -265,6 +222,24 @@ power.f.mixed.anova <- function(eta.squared,
          df1 = u, df2 = v, f.alpha = f.alpha)
 
   } # pwr.mixed()
+
+  ss.mixed <- function(f.squared, null.f.squared, n.levels.between, n.levels.within, epsilon, alpha, power, effect) {
+
+    n.min <- n.levels.between + 1
+
+    n.total <- try(silent = TRUE,
+                   stats::uniroot(function(n.total) {
+                     power - pwr.mixed(f.squared, null.f.squared, n.total, n.levels.between, n.levels.within,
+                                       epsilon, alpha, effect)$power
+                   }, interval = c(n.min, 1e10))$root
+                   ) # try
+
+    if (inherits(n.total, "try-error") || n.total == 1e+10)
+      stop("Design is not feasible.", call. = FALSE)
+
+    n.total
+
+  }
 
   if (requested == "n") {
 
@@ -312,8 +287,8 @@ power.f.mixed.anova <- function(eta.squared,
   } # verbose
 
   invisible(structure(list(parms = func.parms,
-                           effect = effect_bw,
                            test = "F",
+                           effect = effect_bw,
                            df1 = df1,
                            df2 = df2,
                            ncp = ncp,
@@ -338,10 +313,6 @@ pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
 
   arg.names <- names(as.list(match.call()))
   f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
-  if ("repmeasures.r" %in% arg.names)
-    stop("`repmeasures.r` argument is obsolete, use `corr.rm` instead", call. = FALSE)
-  if ("n.measurements" %in% arg.names)
-    stop("`n.measurements` argument is obsolete, use `n.rm` instead", call. = FALSE)
   if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
   } else if (utils::hasName(f2_eta2, "f2")) {
