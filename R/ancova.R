@@ -159,7 +159,7 @@ power.f.ancova <- function(eta.squared,
   func.parms <- clean.parms(as.list(environment()))
 
   check.nonnegative(eta.squared, null.eta.squared, k.covariates)
-  check.vector(factor.levels, check.sample.size, 1)
+  check.vector(factor.levels, check.factor.level, 1)
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)

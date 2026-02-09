@@ -14,8 +14,7 @@ power.z.test(
   alternative = c("two.sided", "one.sided", "two.one.sided"),
   plot = TRUE,
   verbose = 1,
-  pretty = FALSE,
-  ...
+  pretty = FALSE
 )
 }
 \arguments{
