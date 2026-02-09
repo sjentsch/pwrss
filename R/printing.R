@@ -508,8 +508,16 @@
   cat(.header_ascii(x$requested))
   cat(x$test, "\n\n", sep = "")
 
-  h0_text <- paste("prob", .sign_h0(x$alternative, x$prob.alt < x$prob.null), "null.prob")
-  h1_text <- paste("prob", .sign_h1(x$alternative, x$prob.alt < x$prob.null), "null.prob")
+  if (x$alternative %in% c("one.sided", "two.sided")) {
+    h0_text <- paste("prob", .sign_h0(x$alternative, x$prob.alt < x$prob.null), "null.prob")
+    h1_text <- paste("prob", .sign_h1(x$alternative, x$prob.alt < x$prob.null), "null.prob")
+  } else if (x$alternative == "two.one.sided" && (x$prob.alt > min(x$prob.null) && x$prob.alt < max(x$prob.null))) {
+    h0_text <- c("prob <= min(null.prob) or",  "prob >= max(null.prob)")
+    h1_text <- c("prob  > min(null.prob) and", "prob  < max(null.prob)")
+  } else if (x$alternative == "two.one.sided" && (x$prob.alt < min(x$prob.null) || x$prob.alt > max(x$prob.null))) {
+    h0_text <- c("prob >= min(null.prob) and", "prob <= max(null.prob)")
+    h1_text <- c("prob  < min(null.prob) or",  "prob  > max(null.prob)")
+  }
   cat(.hypotheses_ascii(h0_text, h1_text))
 
   if (verbose == 2) {
