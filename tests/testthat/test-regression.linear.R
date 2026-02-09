@@ -380,6 +380,9 @@ test_that("regression.linear.R works", {
                  list(test = "t", std.beta = 0, std.null.beta = 0, std.margin = c(-0.023570226, 0.023570226), df = 10786,
                       t.alpha = c(-1.28172913, 1.28172913), ncp = 0, null.ncp = c(-2.926615680, 2.926615680),
                       power = 0.800034768, n = 10792))
+    expect_equal(crrRes[-1],
+                 power.t.regression(beta = 0, margin = 0.05, alternative = "two.one.sided", sd.predictor = sqrt(2 / 3 * 1 / 3),
+                                    k.total = 5, r.squared = 0.30, n = 10792, verbose = 0)[-1])
 
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, verbose = 0),
                  "`n` and `power` cannot be NULL at the same time.")
@@ -387,12 +390,9 @@ test_that("regression.linear.R works", {
                  "Exactly / only one of the parameters `n` or `power` should be NULL.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = -0.01, power = 0.80, verbose = 0),
                  "Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.")
-    expect_error(power.t.regression(beta = 0, margin = 0.05, alternative = "two.one.sided", sd.predictor = 0.5, k.total = 5,
-                                    r.squared = 0.30, power = 0.8, verbose = 0),
-                 "Specify `margin` in the form of margin = c\\(lower, upper\\).")
     expect_error(power.t.regression(beta = 0, margin = c(-0.05, 0.05), alternative = "one.sided", sd.predictor = 0.5, k.total = 5,
                                     r.squared = 0.30, power = 0.8, verbose = 0),
-                 "Specify only one value for the `margin`.")
+                 "If `alternative` is \"two.sided\" or \"one.sided\", `margin` must be of length one.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.999, power = 0.80, verbose = 0),
                  "Design is not feasible.")
     expect_warning(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.01, power = 0.80, verbose = 0),

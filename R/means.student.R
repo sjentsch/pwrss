@@ -330,7 +330,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   func.parms <- clean.parms(as.list(environment()))
 
   check.numeric(d, null.d)
-  check.vector(margin, check.numeric, 1)
+  margin <- check.margins(margin, check.numeric, alternative)
   if (!is.null(n2)) check.sample.size(n2)
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
@@ -338,15 +338,6 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   check.logical(ceiling, pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
-
-  if (alternative == "two.one.sided") {
-    if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
-    if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
-  } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `margin`", call. = FALSE)
-    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
-    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
-  }
 
   pwr.student <- function(d, null.d, margin, n2, n.ratio,
                           alpha, alternative,
@@ -597,7 +588,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   func.parms <- clean.parms(as.list(environment()))
 
   check.numeric(d, null.d, var.ratio)
-  check.vector(margin, check.numeric, 1)
+  margin <- check.margins(margin, check.numeric, alternative)
   check.positive(n.ratio)
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
@@ -605,15 +596,6 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   check.logical(ceiling, pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
-
-  if (alternative == "two.one.sided") {
-    if (length(margin) == 1) margin <- c(min(c(-margin, margin)), max(c(-margin, margin)))
-    if (length(margin) > 2) stop("Provide margins in the form of margin = c(lower, upper)", call. = FALSE)
-  } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1) stop("Incorrect value for `null.d`", call. = FALSE)
-    # if (alternative %in% c("two.sided", "one.sided") && d == null.d)
-    #   stop("`alternative` = 'two.sided' or 'one.sided' but `d` = `null.d`", call. = FALSE)
-  }
 
   # variance ratio constraint
   vrc <- function(var.ratio, n2, n.ratio) {

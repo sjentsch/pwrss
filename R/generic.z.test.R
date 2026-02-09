@@ -72,119 +72,46 @@
 #' @export power.z.test
 power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
                          alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
-                         plot = TRUE, verbose = 1, pretty = FALSE, ...) {
-
-  old.args <- list(...) # just arguments in ...
-  names.old.args <- names(old.args)
-
-  if ("ncp" %in% names.old.args) {
-    if (is.null(mean)) {
-      check.numeric(old.args$ncp)
-      mean <- old.args$ncp
-    } else {
-      stop("Both the new argument `mean` and the deprecated argument `ncp` were provided. Please specify only one.", call. = FALSE)
-    }
-  }
-
-  check.proportion(alpha)
-  check.positive(sd)
+                         plot = TRUE, verbose = 1, pretty = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
+
+  check.numeric(mean)
+  check.positive(sd)
+  null.mean <- check.margins(null.mean, check.numeric, alternative)
+  check.positive(null.sd)
+  check.proportion(alpha)
+  check.logical(plot, pretty)
+  verbose <- ensure_verbose(verbose)
 
   # calculate statistical power
   if (alternative == "two.sided") {
 
-    ifelse(is.numeric(mean) && length(mean) == 1,
-           valid.mean <- TRUE,
-           valid.mean <- FALSE)
-
-    ifelse(is.numeric(null.mean) && length(null.mean) == 1,
-           valid.null.mean <- TRUE,
-           valid.null.mean <- FALSE)
-
-    if (isFALSE(valid.mean) || isFALSE(valid.null.mean))
-      stop("`mean` or `null.mean` must be numeric and of length one for the two-sided test.", call. = FALSE)
-
-    # if (mean < null.mean) stop("`mean` must be equal or greater than `null.mean` for the two-sided test.", .call = FALSE)
-
-    z.alpha.upper <- stats::qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = FALSE)
-    z.alpha.lower <- stats::qnorm(alpha / 2, mean = null.mean, sd = null.sd, lower.tail = TRUE)
-    z.alpha <- c(z.alpha.lower, z.alpha.upper)
-
-    power <-  stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-      stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
-
+    z.alpha <- c(stats::qnorm(alpha / 2,  mean = null.mean,      sd = null.sd, lower.tail = TRUE),
+                 stats::qnorm(alpha / 2,  mean = null.mean,      sd = null.sd, lower.tail = FALSE))
+    power   <-   stats::pnorm(z.alpha[1], mean = mean,           sd = sd,      lower.tail = TRUE) +
+                 stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
 
   } else if (alternative == "one.sided") {
 
-    ifelse(is.numeric(mean) && length(mean) == 1,
-           valid.mean <- TRUE,
-           valid.mean <- FALSE)
+    lower.tail <- mean < null.mean
+    z.alpha <- stats::qnorm(alpha,        mean = null.mean,      sd = null.sd, lower.tail = lower.tail)
+    power   <- stats::pnorm(z.alpha,      mean = mean,           sd = sd,      lower.tail = lower.tail)
 
-    ifelse(is.numeric(null.mean) && length(null.mean) == 1,
-           valid.null.mean <- TRUE,
-           valid.null.mean <- FALSE)
+  } else if (alternative == "two.one.sided" && (mean > min(null.mean) && mean < max(null.mean))) {  # equivalence test
 
-    if (isFALSE(valid.mean) || isFALSE(valid.null.mean))
-      stop("`mean` or `null.mean` must be numeric and of length one for the one-sided test.", call. = FALSE)
-    # if (any(mean < null.mean) && alternative == "greater")
-    #   stop("`alternative` = 'greater' but `mean` < `null.mean`.", call. = FALSE)
-    # if (any(mean > null.mean) && alternative == "less")
-    #   stop("`alternative` = 'less' but `mean` > `null.mean.", call. = FALSE)
+    z.alpha <- c(stats::qnorm(alpha,      mean = min(null.mean), sd = null.sd, lower.tail = FALSE),
+                 stats::qnorm(alpha,      mean = max(null.mean), sd = null.sd, lower.tail = TRUE))
+    power   <-   stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = TRUE) +
+                 stats::pnorm(z.alpha[1], mean = mean,           sd = sd,      lower.tail = FALSE) - 1
+    power[power < 0] <- 0
 
-    ifelse(mean > null.mean,
-           lower.tail <- FALSE,
-           lower.tail <- TRUE)
-    z.alpha <- stats::qnorm(alpha, mean = null.mean, sd = null.sd, lower.tail = lower.tail) # if mean > null.mean
-    power <- stats::pnorm(z.alpha, mean = mean, sd = sd, lower.tail = lower.tail) # if mean > null.mean
+  } else if (alternative == "two.one.sided" && (mean < min(null.mean) || mean > max(null.mean))) {  # minimum effect test
 
-  } else if (alternative == "two.one.sided") {
-
-    ifelse(is.numeric(mean) && length(mean) == 1,
-           valid.mean <- TRUE,
-           valid.mean <- FALSE)
-
-    ifelse(is.numeric(null.mean) && length(null.mean) %in% c(1, 2),
-           valid.null.mean <- TRUE,
-           valid.null.mean <- FALSE)
-
-    if (isFALSE(valid.mean))
-      stop("`mean` must be numeric and of length one for equivalence tests.", call. = FALSE)
-    if (isFALSE(valid.null.mean))
-      stop(paste("`null.mean` must be numeric and of length one (absolute value) or length two (with lower and upper",
-                 "bounds) for the equivalence test."), call. = FALSE)
-
-    if (length(null.mean) == 1) null.mean <- c(min(c(-null.mean, null.mean)), max(-null.mean, null.mean))
-
-    # equivalence test
-    if (mean > min(null.mean) && mean < max(null.mean)) {
-
-      z.alpha.upper <- stats::qnorm(alpha, mean = min(null.mean), sd = null.sd, lower.tail = FALSE)
-      z.alpha.lower <- stats::qnorm(alpha, mean = max(null.mean), sd = null.sd, lower.tail = TRUE)
-      z.alpha <- c(z.alpha.upper, z.alpha.lower)
-
-      power <- stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-        stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE) - 1
-
-      power[power < 0] <- 0
-
-    }
-
-    # minimum effect test
-    if (mean < min(null.mean) || mean > max(null.mean)) {
-
-      z.alpha.lower <- stats::qnorm(alpha / 2, mean = min(null.mean), sd = null.sd, lower.tail = TRUE)
-      z.alpha.upper <- stats::qnorm(alpha / 2, mean = max(null.mean), sd = null.sd, lower.tail = FALSE)
-      z.alpha <- c(z.alpha.lower, z.alpha.upper)
-
-      power <- stats::pnorm(z.alpha.lower, mean = mean, sd = sd, lower.tail = TRUE) +
-        stats::pnorm(z.alpha.upper, mean = mean, sd = sd, lower.tail = FALSE)
-
-    }
-
-  } else {
-
-    stop("Not a valid hypothesis type.", call. = FALSE)
+    z.alpha <- c(stats::qnorm(alpha / 2,  mean = min(null.mean), sd = null.sd, lower.tail = TRUE),
+                 stats::qnorm(alpha / 2,  mean = max(null.mean), sd = null.sd, lower.tail = FALSE))
+    power   <-   stats::pnorm(z.alpha[1], mean = mean,           sd = sd,      lower.tail = TRUE) +
+                 stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
 
   }
 
@@ -200,7 +127,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   if (verbose > 0) {
 
-    print.obj <- list(test = "Generic Z-Test",
+    print.obj <- list(test = "Generic z-Test",
                       requested = "power",
                       alternative = alternative,
                       mean.alternative = mean,

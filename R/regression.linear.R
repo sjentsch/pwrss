@@ -515,7 +515,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   func.parms <- clean.parms(as.list(environment()))
 
   check.numeric(beta, null.beta)
-  check.vector(margin, check.numeric, 1)
+  margin <- check.margins(margin, check.numeric, alternative)
   check.positive(sd.predictor, sd.outcome, k.total)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
@@ -528,14 +528,6 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
     stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
   if (r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
     warning("`r.squared` is possibly larger.", call. = FALSE)
-
-  if (alternative == "two.one.sided") {
-    if (length(margin) != 2) stop("Specify `margin` in the form of margin = c(lower, upper).", call. = FALSE)
-  } else {
-    if (length(margin) != 1) stop("Specify only one value for the `margin`.", call. = FALSE)
-    # if (beta == null.beta)
-    #   stop("`beta` takes a value different from `null.beta` for 'one.sided' or 'two.sided' tests.", call. = FALSE)
-  }
 
   pwr.t.reg <- function(beta, null.beta, margin,
                         sd.outcome, sd.predictor,

@@ -68,108 +68,52 @@ power.t.test <- function(ncp, null.ncp = 0,
                          alternative = c("two.sided", "one.sided", "two.one.sided"),
                          plot = TRUE, verbose = 1, pretty = FALSE) {
 
+  alternative <- tolower(match.arg(alternative))
+
+  check.numeric(ncp)
+  null.ncp <- check.margins(null.ncp, check.numeric, alternative)
   check.positive(df)
   check.proportion(alpha)
-
-  alternative <- tolower(match.arg(alternative))
+  check.logical(plot, pretty)
+  verbose <- ensure_verbose(verbose)
 
   # calculate statistical power
   if (alternative == "two.sided") {
 
-    ifelse(is.numeric(ncp) && length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
-
-    ifelse(is.numeric(null.ncp) && length(null.ncp) == 1,
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
-
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-      stop("`ncp` or `null.ncp` must be numeric and of length one for the two-sided test.", call. = FALSE)
-    # if (ncp < null.ncp) stop("`ncp` must be equal or greater than `null.ncp` for the two-sided test.", .call = FALSE)
-
-    t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
-    t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
-    t.alpha <- c(t.alpha.lower, t.alpha.upper)
-    power <-  stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-      stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
+    t.alpha <- c(stats::qt(alpha / 2,  df = df, ncp = null.ncp,      lower.tail = TRUE),
+                 stats::qt(alpha / 2,  df = df, ncp = null.ncp,      lower.tail = FALSE))
+    power   <-   stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = TRUE) +
+                 stats::pt(t.alpha[2], df = df, ncp = ncp,           lower.tail = FALSE)
 
   } else if (alternative == "one.sided") {
 
-    ifelse(is.numeric(ncp) || length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
+    lower.tail <- ncp < null.ncp
+    t.alpha <- stats::qt(alpha,        df = df, ncp = null.ncp,      lower.tail = lower.tail)
+    power   <- stats::pt(t.alpha,      df = df, ncp = ncp,           lower.tail = lower.tail) 
 
-    ifelse(is.numeric(null.ncp) || length(null.ncp) == 1,
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
+  } else if (alternative == "two.one.sided" && (ncp > min(null.ncp) && ncp < max(null.ncp))) {  # equivalence test
 
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-      stop("`ncp` or `null.ncp` must be numeric and of length one for the one-sided test.", call. = FALSE)
-    # if (any(ncp < null.ncp) && alternative == "greater") stop("`alternative` = 'greater' but `ncp` < `null.ncp`.", call. = FALSE)
-    # if (any(ncp > null.ncp) && alternative == "less") stop("`alternative` = 'less' but `ncp` > `null.ncp`.", call. = FALSE)
+    t.alpha <- c(stats::qt(alpha,      df = df, ncp = min(null.ncp), lower.tail = FALSE),
+                 stats::qt(alpha,      df = df, ncp = max(null.ncp), lower.tail = TRUE))
+    power   <-   stats::pt(t.alpha[2], df = df, ncp = ncp,           lower.tail = TRUE) +
+                 stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = FALSE) - 1
+    power[power < 0] <- 0
 
-    ifelse(ncp > null.ncp,
-           lower.tail <- FALSE,
-           lower.tail <- TRUE)
-    t.alpha <- stats::qt(alpha, df = df, ncp = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
-    power <- stats::pt(t.alpha, df = df, ncp = ncp, lower.tail = lower.tail) # if ncp > null.ncp
+  } else if (alternative == "two.one.sided" && (ncp < min(null.ncp) || ncp > max(null.ncp))) {  # minimum effect test
 
-  } else if (alternative == "two.one.sided") {
-
-    ifelse(is.numeric(ncp) && length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
-
-    ifelse(is.numeric(null.ncp) && length(null.ncp) %in% c(1, 2),
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
-
-    if (isFALSE(valid.ncp)) stop("`ncp` must be numeric and of length one for equivalence tests.", call. = FALSE)
-    if (isFALSE(valid.null.ncp))
-      stop(paste("`null.ncp` must be numeric and of length one (absolute value) or length two (with lower and upper",
-                 "bounds) for the equivalence test."), call. = FALSE)
-
-    if (length(null.ncp) == 1) null.ncp <- c(min(c(-null.ncp, null.ncp)), max(-null.ncp, null.ncp))
-
-    # equivalence test
-    if (ncp > min(null.ncp) && ncp < max(null.ncp)) {
-
-      t.alpha.upper <- stats::qt(alpha, df = df, ncp = min(null.ncp), lower.tail = FALSE)
-      t.alpha.lower <- stats::qt(alpha, df = df, ncp = max(null.ncp), lower.tail = TRUE)
-      t.alpha <- c(t.alpha.upper, t.alpha.lower)
-
-      power <- stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-        stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE) - 1
-
-      power[power < 0] <- 0
-
-    }
-
-    # minimum effect test
-    if (ncp < min(null.ncp) || ncp > max(null.ncp)) {
-
-      t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = min(null.ncp), lower.tail = TRUE)
-      t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = max(null.ncp), lower.tail = FALSE)
-      t.alpha <- c(t.alpha.lower, t.alpha.upper)
-
-      power <- stats::pt(t.alpha.lower, df = df, ncp = ncp, lower.tail = TRUE) +
-        stats::pt(t.alpha.upper, df = df, ncp = ncp, lower.tail = FALSE)
-
-    }
-
-  } else {
-
-    stop("Not a valid hypothesis type.", call. = FALSE)
+    t.alpha <- c(stats::qt(alpha / 2,  df = df, ncp = min(null.ncp), lower.tail = TRUE),
+                 stats::qt(alpha / 2,  df = df, ncp = max(null.ncp), lower.tail = FALSE))
+    power   <-   stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = TRUE) +
+                 stats::pt(t.alpha[2], df = df, ncp = ncp,           lower.tail = FALSE)
 
   }
 
   if (plot)
     suppressWarnings(.plot.t.t1t2(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, alternative = alternative))
 
-  if (ensure_verbose(verbose) > 0) {
+  if (verbose > 0) {
 
-    print.obj <- list(test = "Generic T-Test",
+    print.obj <- list(test = "Generic t-Test",
                       requested = "power",
                       alternative = alternative,
                       ncp.alternative = ncp,
@@ -185,7 +129,6 @@ power.t.test <- function(ncp, null.ncp = 0,
     }
 
   } # verbose
-
 
   return(invisible(list(alternative = alternative, ncp = ncp, null.ncp = null.ncp,
                         df = df, alpha = alpha, t.alpha = t.alpha, power = power)))

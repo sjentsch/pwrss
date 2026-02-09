@@ -71,18 +71,13 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   func.parms <- clean.parms(as.list(environment()))
 
   check.proportion(prob)
-  # null.prob is checked below
+  null.prob <- check.margins(null.prob, check.proportion, alternative)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
-
-  len.null.prob <- ifelse(alternative == "two.one.sided", 2, 1)
-  if (length(null.prob) != len.null.prob)
-    stop(sprintf("`null.prob` must have the length %d if `alternative` is \"%s\".", len.null.prob, alternative), call. = FALSE)
-  check.vector(null.prob, check.proportion, len.null.prob)
 
   ss.exact <- function(prob, null.prob, power, alpha, alternative) {
 
@@ -310,18 +305,13 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   func.parms <- clean.parms(as.list(environment()))
 
   check.proportion(prob)
-  # null.prob is checked below
+  null.prob <- check.margins(null.prob, check.proportion, alternative)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(arcsine, correct, ceiling, pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
-
-  len.null.prob <- ifelse(alternative == "two.one.sided", 2, 1)
-  if (length(null.prob) != len.null.prob)
-    stop(sprintf("`null.prob` must have the length %d if `alternative` is \"%s\".", len.null.prob, alternative), call. = FALSE)
-  check.vector(null.prob, check.proportion, len.null.prob)
 
   if (alternative == "two.one.sided" && std.error == "null") {
     std.error <- "alternative"

@@ -21,7 +21,7 @@ check.correlation <- function(...) {
   if (any(!check))
     stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
 
-} # check.correlations()
+} # check.correlation()
 
 check.logical <- function(...) {
 
@@ -88,11 +88,14 @@ check.numeric <- function(...) {
 
 } # check.positive
 
-check.vector <- function(x, fnc, min.length = 2) {
+check.vector <- function(x, fnc, min.length = 2, max.length = Inf) {
 
   var.name <- deparse(substitute(x), nlines = 1)
-  if (!is.vector(x) || length(x) < min.length)
-    stop(sprintf("`%s` neeeds to be a vector with a length of at least %d.", var.name, min.length), call. = FALSE)
+  if (!is.vector(x) || length(x) < min.length || length(x) > max.length) {
+    length.msg <- paste0(ifelse(min.length != max.length, "at least ", ""), sprintf("%d", min.length),
+                         ifelse(max.length < Inf && min.length != max.length, sprintf(" and maximally %d", max.length), ""))
+    stop(sprintf("`%s` neeeds to be a vector with a length of %s.", var.name, length.msg), call. = FALSE)
+  }
 
   fnc.name <- deparse(substitute(fnc), nlines = 1)
   err.msg <- sprintf("All elements of `%s` need to be valid %s values (%s)", var.name, fnc2type(fnc.name), valid.cond(fnc.name))
@@ -122,6 +125,33 @@ check.same.lengths <- function(...) {
     )
 
 } # check.same.lengths
+
+check.margins <- function(x, fnc, alternative = "two.sided") {
+
+  var.name <- deparse(substitute(x), nlines = 1)
+
+  fnc.name <- deparse(substitute(fnc), nlines = 1)
+  err.msg <- sprintf("All elements of `%s` need to be valid %s values (%s)", var.name, fnc2type(fnc.name), valid.cond(fnc.name))
+  tryCatch(invisible(sapply(x, fnc, 1)),
+           error = function(e) stop(err.msg, call. = FALSE))
+
+  # if a margin needs order (typically the case for proportions), it can't be duplicated and the order needs checking
+  needs_order <- fnc.name %in% c("check.proportion")
+
+  # ensure correct length and correct values of the variable
+  if (alternative %in% c("two.sided", "one.sided") && length(x) != 1) {
+    stop(paste0("If `alternative` is \"two.sided\" or \"one.sided\", `", var.name, "` must be of length one."), call. = FALSE)
+  } else if (alternative == "two.one.sided" && !needs_order && length(x) == 1 && x != 0) {
+    x <- abs(x) * c(-1, 1) # assumes equidistance from zero; if x is 0, a scalar is generated (thus: `x != 0` above)
+  } else if (alternative == "two.one.sided" && (length(x) != 2 || (needs_order && x[1] > x[2]))) {
+    stop(paste0("If `alternative` is \"two.one.sided\", `", var.name, "` must be of ",
+                ifelse(!needs_order, "length one (absolute value, that must be different from 0), or ", ""), "length two ",
+                "(lower and upper bounds", ifelse(needs_order, ", with the upper bound being larger than the lower bound", ""), ")."),
+         call. = FALSE)
+  }
+
+  x
+}
 
 check.correlation.matrix <- function(x) {
 
@@ -185,7 +215,8 @@ format_errmsg <- function(names = c(), fnc.name = NULL) {
 }
 
 fnc2type <- function(fnc.name = "") {
-  gsub("factor.level", "factor level", gsub("sample.size", "sample size", gsub("nonnegative", "non-negative", gsub("check.", "", fnc.name))))
+  gsub("factor.level", "factor level", gsub("nonnegative", "non-negative", gsub("sample.size", "sample size",
+    gsub("check.", "", fnc.name))))
 }
 
 valid.cond <- function(fnc.name = "") {
@@ -204,7 +235,7 @@ valid.cond <- function(fnc.name = "") {
   } else if (fnc.name == "check.numeric") {
     "numeric, and finite"
   } else {
-    stop(sprintf("% is not a valid check-function", fnc.name), call. = FALSE)
+    stop(sprintf("%s is not a valid check-function", fnc.name), call. = FALSE)
   }
 }
 

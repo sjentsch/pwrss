@@ -231,9 +231,10 @@ test_that("proportions.onetwo.R works", {
                            "\033[0m\033[36m  P₀        : Probability of success under null ", "", "\033[0m"))
 
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = c(0.40, 0.50), alpha = 0.05, n = 500, alternative = "one.sided"),
-                 "`null.prob` must have the length 1 if `alternative` is \"one.sided\".")
+                 "If `alternative` is \"two.sided\" or \"one.sided\", `null.prob` must be of length one.")
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "two.one.sided"),
-                 "`null.prob` must have the length 2 if `alternative` is \"two.one.sided\".")
+                 paste("If `alternative` is \"two.one.sided\", `null.prob` must be of length two \\(lower and upper bounds,",
+                       "with the upper bound being larger than the lower bound\\)."))
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = 1.2, alpha = 0.05, n = 500, alternative = "one.sided"),
                  "All elements of `null.prob` need to be valid proportion values \\(numeric, >= 0, and <= 1\\)")
 
@@ -524,9 +525,10 @@ test_that("proportions.onetwo.R works", {
                    "`std.error` = \"null\" is ignored. Using \"alternative\" for equivalence or minimal effect testing.")
 
     expect_error(power.z.oneprop(prob = 0.45, null.prob = c(0.40, 0.50), alpha = 0.05, n = 500, alternative = "one.sided"),
-                 "`null.prob` must have the length 1 if `alternative` is \"one.sided\".")
+                 "If `alternative` is \"two.sided\" or \"one.sided\", `null.prob` must be of length one.")
     expect_error(power.z.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "two.one.sided"),
-                 "`null.prob` must have the length 2 if `alternative` is \"two.one.sided\".")
+                 paste("If `alternative` is \"two.one.sided\", `null.prob` must be of length two \\(lower and upper bounds,",
+                       "with the upper bound being larger than the lower bound\\)."))
     expect_error(power.z.oneprop(prob = 0.45, null.prob = 1.2, alpha = 0.05, n = 500, alternative = "one.sided"),
                  "All elements of `null.prob` need to be valid proportion values \\(numeric, >= 0, and <= 1\\)")
     expect_error(pwrss.z.prop(p = 0.45, p0 = 0.50, margin = 1, alpha = 0.05, power = 0.80, alternative = "less", verbose = FALSE),
