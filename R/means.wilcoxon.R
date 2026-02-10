@@ -31,15 +31,15 @@
 #' \code{pwrss.np.2groups()} will remain available for some time.
 #'
 #'
-#' @aliases power.np.wilcoxon power.np.wilcox pwrss.np.2means pwrss.np.2groups
+#' @aliases power.np.wilcoxon power.np.wilcox pwrss.np.2groups
 #'
 #' @param d            Cohen's d or Hedges' g.
 #' @param null.d       Cohen's d or Hedges' g under null, typically 0 (zero).
 #' @param margin       margin - ignorable \code{d} - \code{null.d} difference.
-#' @param n2           integer; sample size in the second group (or for the
-#'                     single group in paired samples or one-sample)
 #' @param n.ratio      \code{n1 / n2} ratio (applies to independent samples
 #'                     only)
+#' @param n2           integer; sample size in the second group (or for the
+#'                     single group in paired samples or one-sample)
 #' @param power        statistical power, defined as the probability of
 #'                     correctly rejecting a false null hypothesis, denoted as
 #'                     \eqn{1 - \beta}.
@@ -191,7 +191,7 @@
 #'
 #' @export power.np.wilcoxon
 power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
-                              n2 = NULL, n.ratio = 1, power = NULL, alpha = 0.05,
+                              n.ratio = 1, n2 = NULL, power = NULL, alpha = 0.05,
                               alternative = c("two.sided", "one.sided", "two.one.sided"),
                               design = c("independent", "paired", "one.sample"),
                               distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
@@ -205,26 +205,17 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   func.parms <- clean.parms(as.list(environment()))
 
   check.numeric(d, null.d)
-
-  if (!is.null(n2)) check.sample.size(n2)
+  check.margins(margin, check.numeric, alternative)
   check.positive(n.ratio)
+  if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, pretty)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
-  if (alternative == "two.one.sided") {
-    if (isFALSE(all(is.numeric(margin))) || any(margin < -10) || any(margin > 10))
-      stop("Possibly incorrect value for `margin`.", call. = FALSE)
-    if (length(margin) != 2)
-      stop("Provide null margins in the form of margin = c(lower, upper).", call. = FALSE)
-    # if (prob - null.prob < margin[1] ||  prob - null.prob > margin[2])
-    #   stop("`prob` should be between lower and upper null margins)", call. = FALSE)
-  } else {
-    if (isFALSE(all(is.numeric(margin))) || length(margin) != 1 || any(margin < -10) || any(margin > 10))
-      stop("Possibly incorrect value for `margin`.", call. = FALSE)
-  }
+  if (any(abs(margin) > 10))
+      stop("Possibly incorrect value for `margin` (should be within -10 ... 10).", call. = FALSE)
 
   independent <- (design == "independent")
 
@@ -306,60 +297,20 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
   # ifelse(method == "noether", w.adj <- 1, w.adj <- w)
 
-  # get power or sample size
-  if (requested == "power") {
+  # calculate sample size
+  if (requested == "n") {
 
-    # apply wilcoxon adjustment
-    n1 <- n2 * n.ratio
-    n1 <- n1 / w
-    n2 <- n2 / w
-
-    pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
-                          n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                          independent = independent, alternative = alternative,
-                          method = method)
-
-    if (method == "guenther") {
-      list.out <- list(power = pwr.obj$power,
-                       t.alpha = pwr.obj$t.alpha,
-                       ncp = pwr.obj$ncp,
-                       null.ncp = pwr.obj$null.ncp,
-                       df = pwr.obj$df)
-    } else if (method == "noether") {
-      list.out <- list(power = pwr.obj$power,
-                       z.alpha = pwr.obj$z.alpha,
-                       mean = pwr.obj$mean,
-                       sd = 1,
-                       null.mean = pwr.obj$null.mean,
-                       null.sd = 1,
-                       df = Inf)
-    }
-
-    if (list.out$power < 0) stop("Design is not feasible.", call. = FALSE)
-
-    # reverse wilcoxon adjustment
-    n1.star <- n1 * w
-    n2.star <- n2 * w
-
-    if (ceiling) {
-      n1.star <- ceiling(n1.star)
-      n2.star <- ceiling(n2.star)
-    }
-
-  } else if (requested == "n") {
+    H1_H0.min <- 0.001
+    lambda.max <- 4
 
     if (method == "noether") {
 
-      H1_H0.min <- 0.001
-      lambda.max <- 4
       propss <- n.ratio / (n.ratio + 1)
       n.tot.max <- (lambda.max / (sqrt(12 * propss * (1 - propss)) * (H1_H0.min))) ^ 2
       n2.max <- n.tot.max / (1 + n.ratio)
 
     } else {
 
-      H1_H0.min <- 0.001
-      lambda.max <- 4
       if (independent) {
         n2.max <- (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2
       } else {
@@ -384,46 +335,41 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
               }) # supressWarnings
     ) # try
 
-    if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n1 <- n2 * n.ratio
+    if (inherits(n2, "try-error") || n2 == 1e10)
+      stop("Design is not feasible.", call. = FALSE)
 
     # reverse wilcoxon adjustment
-    n1.star <- n1 * w
-    n2.star <- n2 * w
+    n2 <- ifelse(ceiling, ceiling(n2 * w), n2 * w)
 
-    if (ceiling) {
-      n1.star <- ceiling(n1.star)
-      n2.star <- ceiling(n2.star)
-    }
+  }
 
-    pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
-                          n2 = n2.star / w, n.ratio = n.ratio, alpha = alpha,
-                          independent = independent, alternative = alternative,
-                          method = method)
+  pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
+                        n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
+                        independent = independent, alternative = alternative,
+                        method = method)
 
-    if (method == "guenther") {
-      list.out <- list(power = pwr.obj$power,
-                       t.alpha = pwr.obj$t.alpha,
-                       ncp = pwr.obj$ncp,
-                       null.ncp = pwr.obj$null.ncp,
-                       df = pwr.obj$df)
-    } else if (method == "noether") {
-      list.out <- list(power = pwr.obj$power,
-                       z.alpha = pwr.obj$z.alpha,
-                       mean = pwr.obj$mean,
-                       sd = 1,
-                       null.mean = pwr.obj$null.mean,
-                       null.sd = 1,
-                       df = Inf)
-    }
+  if (pwr.obj$power < 0) stop("Design is not feasible.", call. = FALSE)
 
-    if (list.out$power < 0) stop("Design is not feasible", call. = FALSE)
+  n1 <- ifelse(ceiling, ceiling(n2 * n.ratio), n2 * n.ratio)
+  if (independent) n <- c(n1 = n1, n2 = n2) else n <- n2
 
-  } # get power or sample size
-
-  ifelse(independent, n <- c(n1 = n1.star, n2 = n2.star), n <- n2.star)
-  # ifelse(independent, n <- c(n1 = n1, n2 = n2), n <- n2)
+  if (method == "guenther") {
+    list.out <- list(n = n,
+                     power = pwr.obj$power,
+                     t.alpha = pwr.obj$t.alpha,
+                     ncp = pwr.obj$ncp,
+                     null.ncp = pwr.obj$null.ncp,
+                     df = pwr.obj$df)
+  } else if (method == "noether") {
+    list.out <- list(n = n,
+                     power = pwr.obj$power,
+                     z.alpha = pwr.obj$z.alpha,
+                     mean = pwr.obj$mean,
+                     sd = 1,
+                     null.mean = pwr.obj$null.mean,
+                     null.sd = 1,
+                     df = Inf)
+  }
 
   if (verbose > 0) {
 
@@ -434,9 +380,10 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                   test <- "Wilcoxon Signed-Rank Test (One Sample)"))
 
     print.obj <- c(list(requested = requested, test = test,
-                      design = design, method = method, dist = distribution,
-                      d = d, null.d = null.d, margin = margin,
-                      alpha = alpha, alternative = alternative, n = n), list.out)
+                        design = design, method = method, dist = distribution,
+                        d = d, null.d = null.d, margin = margin,
+                        alpha = alpha, alternative = alternative),
+                   list.out)
 
     if (pretty) {
       .print.pwrss.wilcoxon(print.obj, verbose = verbose)
@@ -447,8 +394,8 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   }
 
   invisible(structure(c(list(parms = func.parms,
-                             test = ifelse(method == "noether", "z", "t"),
-                             n = n), list.out),
+                             test = ifelse(method == "noether", "z", "t")),
+                        list.out),
                       class = c("pwrss", "np", "wilcoxon", ifelse(method == "noether", "z", "t"))))
 
 } # end of pwrss.np.wilcoxon()
@@ -526,7 +473,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                                   ceiling = TRUE,
                                   verbose = verbose)
 
-  # cat("This function will be removed in the future. \n Please use power.np.wilcox() function. \n")
+  # cat("This function will be removed in the future. \n Please use `power.np.wilcoxon()`. \n")
 
   return(invisible(wilcox.obj))
 
@@ -534,5 +481,5 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
 
 #' @export pwrss.np.2means
 pwrss.np.2means <- function(...) {
-  stop("This function is no longer available. Please use `power.np.wilcox()`.", call. = FALSE)
+  stop("This function is no longer available. Please use `power.np.wilcoxon()`.", call. = FALSE)
 }
