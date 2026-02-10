@@ -408,14 +408,11 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                      power = power, n.ratio = n.ratio,
                      alpha = alpha, alternative = alternative,
                      design = design, claim.basis = claim.basis)
+    n2 <- ifelse(ceiling, ceiling(n2), n2)
 
   }
 
-  n1 <- n.ratio * n2
-  if (ceiling) {
-    n1 <- ceiling(n1)
-    n2 <- ceiling(n2)
-  }
+  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
   ifelse(design == "independent", n <- c(n1 = n1, n2 = n2), n <- n2)
 
   # calculate power (if requested == "power") or update it (if requested == "n")
@@ -677,14 +674,11 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
     n2 <- ss.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n.ratio = n.ratio,
                    power = power, alpha = alpha, alternative = alternative, claim.basis = claim.basis)
+    n2 <- ifelse(ceiling, ceiling(n2), n2)
 
   }
 
-  n1 <- n.ratio * n2
-  if (ceiling) {
-    n1 <- ceiling(n1)
-    n2 <- ceiling(n2)
-  }
+  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
   n <- c(n1 = n1, n2 = n2)
 
   # calculate power (if requested == "power") or update it (if requested == "n")
