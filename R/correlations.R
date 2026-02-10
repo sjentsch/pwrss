@@ -182,11 +182,12 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
   if (common.index) {
 
     if (any(c("rho14", "rho24", "rho34") %in% names(as.list(match.call()))))
-      warning("Ignoring `rho14` `rho24`, or `rho34` because common.index = TRUE.", call. = FALSE)
+      warning("Ignoring `rho14` `rho24`, or `rho34` because `common.index` is TRUE.", call. = FALSE)
 
     check.correlation(rho12, rho13, rho23)
 
-    if (alternative == "two.sided" && rho12 == rho13) stop("alternative = 'two.sided' but rho12 = rho13.", call. = FALSE)
+    if (alternative == "two.sided" && rho12 == rho13)
+      stop("`common.index` is TRUE and `alternative` is \"two.sided\" but `rho12` = `rho13`.", call. = FALSE)
 
     cor.mat <- matrix(c(1, rho12, rho13,
                            rho12, 1, rho23,
@@ -204,11 +205,6 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
       cov.ab.ac.0 <- psi.ab.ac.0 / (1 - rho.bar.ab.ac ^ 2) ^ 2 # both = (rho12 + rho13) / 2 when pooled
       # sigma.ab.ac.0 <- sqrt((2 - 2 * cov.ab.ac.0) / (n - 3))
 
-      ## under alt
-      psi.ab.ac.1 <- rho23 * (1 - rho12 ^ 2 - rho13 ^ 2) - 0.50 * (rho12 * rho13) * (1 - rho12 ^ 2 - rho13 ^ 2 - rho23 ^ 2)
-      cov.ab.ac.1 <- psi.ab.ac.1 / ((1 - rho12 ^ 2) * (1 - rho13 ^ 2))
-      # sigma.ab.ac.1 <- sqrt((2 - 2 * cov.ab.ac.1) / (n - 3))
-
     } else {
 
       ## under null
@@ -216,12 +212,12 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
       cov.ab.ac.0 <- psi.ab.ac.0 / ((1 - rho12 ^ 2) * (1 - rho12 ^ 2)) # rho12 = rho13
       # sigma.ab.ac.0 <- sqrt((2 - 2 * cov.ab.ac.0) / (n - 3))
 
-      ## under alt
-      # psi.ab.ac.1 <- rho23 * (1 - rho12 ^ 2 - rho13 ^ 2) - 0.50 * (rho12 * rho13) * (1 - rho12 ^ 2 - rho13 ^ 2 - rho23 ^ 2)
-      cov.ab.ac.1 <- psi.ab.ac.1 / ((1 - rho12 ^ 2) * (1 - rho13 ^ 2))
-      # sigma.ab.ac.1 <- sqrt((2 - 2 * cov.ab.ac.1) / (n - 3))
-
     } # if pooled
+
+    ## under alt
+    psi.ab.ac.1 <- rho23 * (1 - rho12 ^ 2 - rho13 ^ 2) - 0.50 * (rho12 * rho13) * (1 - rho12 ^ 2 - rho13 ^ 2 - rho23 ^ 2)
+    cov.ab.ac.1 <- psi.ab.ac.1 / ((1 - rho12 ^ 2) * (1 - rho13 ^ 2))
+    # sigma.ab.ac.1 <- sqrt((2 - 2 * cov.ab.ac.1) / (n - 3))
 
     # z.ab <- cor.to.z(rho12)
     # z.ac <- cor.to.z(rho13)
@@ -238,7 +234,8 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
     check.correlation(rho14, rho24, rho34)
 
-    if (alternative == "two.sided" && rho12 == rho34) stop("`alternative` = 'two.sided' but `rho12` = `rho34`.", call. = FALSE)
+    if (alternative == "two.sided" && rho12 == rho34)
+      stop("`common.index` is FALSE and `alternative` = \"two.sided\" but `rho12` = `rho34`.", call. = FALSE)
 
     cor.mat <- matrix(c(1, rho12, rho13, rho14,
                              rho12, 1, rho23, rho24,
@@ -303,10 +300,8 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
   if (requested == "n") {
 
-    n <- ss.steiger(rho1 = rho1, rho2 = rho2,
-                          cov.null = cov.null, cov.alt = cov.alt,
-                          power = power, alpha = alpha,
-                          alternative = alternative)
+    n <- ss.steiger(rho1 = rho1, rho2 = rho2, cov.null = cov.null, cov.alt = cov.alt,
+                    power = power, alpha = alpha, alternative = alternative)
 
     if (ceiling) n <- ceiling(n)
 
@@ -341,8 +336,8 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                        mean.null = mean.null,
                        sd.null = sd.null,
                        z.alpha = z.alpha,
-                       power = power,
-                       n = n)
+                       n = n,
+                       power = power)
 
     if (pretty) {
       .print.pwrss.steiger(print.obj, verbose = verbose)
@@ -363,8 +358,8 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                            null.sd = sd.null,
                            alternative = alternative,
                            z.alpha = z.alpha,
-                           power = power,
-                           n = n),
+                           n = n,
+                           power = power),
                       class = c("pwrss", "z", "twocors", "paired")))
 
 } # power.z.twocors.steiger()
@@ -435,13 +430,13 @@ power.z.steiger <- power.z.twocors.steiger
 #' @examples
 #' # difference between r1 and r2 is different from zero
 #' # it could be -0.10 as well as 0.10
-#' power.z.twocors(rho1 = .20, rho2 = 0.30,
-#'                alpha = 0.05, power = .80,
+#' power.z.twocors(rho1 = 0.20, rho2 = 0.30,
+#'                power = 0.80, alpha = 0.05,
 #'                alternative = "two.sided")
 #'
 #' # difference between r1 and r2 is greater than zero
-#' power.z.twocors(rho1 = .30, rho2 = 0.20,
-#'                alpha = 0.05, power = .80,
+#' power.z.twocors(rho1 = 0.30, rho2 = 0.20,
+#'                power = 0.80, alpha = 0.05,
 #'                alternative = "one.sided")
 #'
 #' @export power.z.twocors
@@ -474,24 +469,21 @@ power.z.twocors <- function(rho1, rho2,
       n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(-1e10, 1e10))$root
 
     } else if (alternative == "one.sided") {
-      M <- stats::qnorm(alpha, mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
+      M <- stats::qnorm(alpha,     mean = 0, sd = 1, lower.tail = FALSE) + stats::qnorm(beta, mean = 0, sd = 1, lower.tail = FALSE)
       n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
     }
 
+    n2 <- ifelse(ceiling, ceiling(n2), n2)
   }
 
-  n1 <- n.ratio * n2
-  if (ceiling) {
-    n2 <- ceiling(n2)
-    n1 <- ceiling(n1)
-  }
+  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
 
   lambda <- (z1 - z2) / sqrt(1 / (n1 - 3) + 1 / (n2 - 3))
   if (alternative == "two.sided") {
     z.alpha <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * c(-1, 1)
-    power <- 1 - stats::pnorm(z.alpha[2], mean = abs(lambda), sd = 1) + stats::pnorm(z.alpha[1], mean = abs(lambda), sd = 1)
+    power <- 1 - stats::pnorm(z.alpha[2],   mean = abs(lambda), sd = 1) + stats::pnorm(z.alpha[1], mean = abs(lambda), sd = 1)
   } else if (alternative == "one.sided") {
-    z.alpha <- stats::qnorm(alpha / 2, mean = 0, sd = 1, lower.tail = FALSE) * ifelse(lambda < 0, -1, 1)
+    z.alpha <- stats::qnorm(alpha,     mean = 0, sd = 1, lower.tail = FALSE) * ifelse(lambda < 0, -1, 1)
     power <- 1 - stats::pnorm(abs(z.alpha), mean = abs(lambda), sd = 1)
   }
 
@@ -645,7 +637,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 #'                alternative = "two.sided")
 #'
 #' # expected correlation is 0.20 and it is greater than 0.10
-#' power.z.onecor(rho = 0.20, null = 0.10,
+#' power.z.onecor(rho = 0.20, null.rho = 0.10,
 #'                power = 0.80,
 #'                alpha = 0.05,
 #'                alternative = "one.sided")
