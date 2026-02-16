@@ -211,8 +211,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -237,8 +237,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -264,13 +264,13 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 473 and 237  <<
+#>   Sample Size          = 474 and 237  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
 #>   Statistical Power    = 0.801
@@ -297,8 +297,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= 0 
-#>   H1 (Alt. Claim) : d - null.d > 0 
+#>   H0 (Null)        : d - null.d <= 0
+#>   H1 (Alternative) : d - null.d  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -323,8 +323,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= 0 
-#>   H1 (Alt. Claim) : d - null.d > 0 
+#>   H0 (Null)        : d - null.d <= 0
+#>   H1 (Alternative) : d - null.d  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -350,8 +350,8 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= 0 
-#>   H1 (Alt. Claim) : d - null.d > 0 
+#>   H0 (Null)        : d - null.d <= 0
+#>   H1 (Alternative) : d - null.d  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -384,8 +384,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -411,8 +411,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -439,8 +439,8 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -473,8 +473,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -500,8 +500,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -528,8 +528,8 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -563,10 +563,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -592,10 +592,10 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -622,10 +622,10 @@ power.t.welch(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -660,8 +660,8 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -686,8 +686,8 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -717,8 +717,8 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= 0 
-#>   H1 (Alt. Claim) : d - null.d < 0 
+#>   H0 (Null)        : d - null.d >= 0
+#>   H1 (Alternative) : d - null.d  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -743,8 +743,8 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= 0 
-#>   H1 (Alt. Claim) : d - null.d < 0 
+#>   H0 (Null)        : d - null.d >= 0
+#>   H1 (Alternative) : d - null.d  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -776,8 +776,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -803,8 +803,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -835,8 +835,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -862,8 +862,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -897,10 +897,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -926,10 +926,10 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results

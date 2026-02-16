@@ -15,8 +15,7 @@ power.z.test(
   alternative = c("two.sided", "one.sided", "two.one.sided"),
   plot = TRUE,
   verbose = 1,
-  pretty = FALSE,
-  ...
+  pretty = FALSE
 )
 ```
 
@@ -62,18 +61,14 @@ power.z.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `0` no
-  output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
   logical; whether the output should show Unicode characters (if
   encoding allows for it). `FALSE` by default.
-
-- ...:
-
-  legacy inputs will be mapped to their corresponding arguments
-  (silent). e.g. `ncp`
 
 ## Value
 
@@ -113,13 +108,13 @@ power.z.test(mean = 1.96, alpha = 0.05, alternative = "two.sided")
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic Z-Test
+#> Generic z-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : mean = null.mean 
-#>   H1 (Alt. Claim) : mean != null.mean 
+#>   H0 (Null)        : mean  = null.mean
+#>   H1 (Alternative) : mean != null.mean
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -138,13 +133,13 @@ power.z.test(mean = 1.96, alpha = 0.05, alternative = "one.sided")
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic Z-Test
+#> Generic z-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : mean <= null.mean 
-#>   H1 (Alt. Claim) : mean > null.mean 
+#>   H0 (Null)        : mean <= null.mean
+#>   H1 (Alternative) : mean  > null.mean
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -165,15 +160,15 @@ power.z.test(mean = 0, null.mean = c(-2, 2), alpha = 0.05,
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic Z-Test
+#> Generic z-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : mean <= min(null.mean) or 
-#>                     mean >= max(null.mean) 
-#>   H1 (Alt. Claim) : mean > min(null.mean) and 
-#>                     mean < max(null.mean) 
+#>   H0 (Null)        : mean <= min(null.mean) or
+#>                      mean >= max(null.mean)
+#>   H1 (Alternative) : mean  > min(null.mean) and
+#>                      mean  < max(null.mean)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -194,15 +189,15 @@ power.z.test(mean = 2, null.mean = c(-1, 1), alpha = 0.05,
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic Z-Test
+#> Generic z-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : mean >= min(null.mean) and 
-#>                     mean <= max(null.mean) 
-#>   H1 (Alt. Claim) : mean < min(null.mean) or 
-#>                     mean > max(null.mean) 
+#>   H0 (Null)        : mean >= min(null.mean) and
+#>                      mean <= max(null.mean)
+#>   H1 (Alternative) : mean  < min(null.mean) or
+#>                      mean  > max(null.mean)
 #> 
 #> ----------------------------------------------------
 #> Results

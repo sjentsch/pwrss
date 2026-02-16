@@ -197,8 +197,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -225,8 +225,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -255,8 +255,8 @@ power.t.regression(beta = 0.20, # Cohen's d
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= margin 
-#>   H1 (Alt. Claim) : beta - null.beta >  margin 
+#>   H0 (Null)        : beta - null.beta <= margin
+#>   H1 (Alternative) : beta - null.beta  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -285,8 +285,8 @@ power.t.regression(beta = 0.20, # Cohen's d
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= margin 
-#>   H1 (Alt. Claim) : beta - null.beta >  margin 
+#>   H0 (Null)        : beta - null.beta <= margin
+#>   H1 (Alternative) : beta - null.beta  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -315,10 +315,10 @@ power.t.regression(beta = 0, # Cohen's d
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= min(margin) or 
-#>                     beta - null.beta >= max(margin) 
-#>   H1 (Alt. Claim) : beta - null.beta > min(margin) and 
-#>                     beta - null.beta < max(margin)
+#>   H0 (Null)        : beta - null.beta <= min(margin) or
+#>                      beta - null.beta >= max(margin)
+#>   H1 (Alternative) : beta - null.beta  > min(margin) and
+#>                      beta - null.beta  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results

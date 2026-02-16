@@ -177,8 +177,8 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -207,8 +207,8 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -243,8 +243,8 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -292,8 +292,8 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -315,8 +315,8 @@ power.t.contrasts(ancova.design, adjust.alpha = "fdr")
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -357,8 +357,8 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -380,8 +380,8 @@ power.t.contrasts(ancova.design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -422,8 +422,8 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -445,8 +445,8 @@ power.t.contrasts(ancova.design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -486,8 +486,8 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -509,8 +509,8 @@ power.t.contrasts(ancova.design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results

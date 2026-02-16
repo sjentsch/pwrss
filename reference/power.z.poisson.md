@@ -201,8 +201,8 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -230,8 +230,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -260,8 +260,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -291,8 +291,8 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -320,8 +320,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -350,8 +350,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results

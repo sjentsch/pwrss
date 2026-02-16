@@ -170,13 +170,13 @@ calculations in clinical research (3rd ed.). Taylor &amp; Francis/CRC.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> One-Sample Correlation </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> One-Sample Correlation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : rho -  null.rho = 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : rho -  null.rho != 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : rho - null.rho  = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : rho - null.rho != 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -188,7 +188,7 @@ calculations in clinical research (3rd ed.). Taylor &amp; Francis/CRC.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># expected correlation is 0.20 and it is greater than 0.10</span></span></span>
-<span class="r-in"><span><span class="fu">power.z.onecor</span><span class="op">(</span>rho <span class="op">=</span> <span class="fl">0.20</span>, null <span class="op">=</span> <span class="fl">0.10</span>,</span></span>
+<span class="r-in"><span><span class="fu">power.z.onecor</span><span class="op">(</span>rho <span class="op">=</span> <span class="fl">0.20</span>, null.rho <span class="op">=</span> <span class="fl">0.10</span>,</span></span>
 <span class="r-in"><span>               power <span class="op">=</span> <span class="fl">0.80</span>,</span></span>
 <span class="r-in"><span>               alpha <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
 <span class="r-in"><span>               alternative <span class="op">=</span> <span class="st">"one.sided"</span><span class="op">)</span></span></span>
@@ -196,13 +196,13 @@ calculations in clinical research (3rd ed.). Taylor &amp; Francis/CRC.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> One-Sample Correlation </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> One-Sample Correlation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : rho -  null.rho &lt;= 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : rho -  null.rho &gt; 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : rho - null.rho &lt;= 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : rho - null.rho  &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>

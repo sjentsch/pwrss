@@ -155,8 +155,8 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -182,8 +182,8 @@ power.f.ancova(eta.squared = 0.111, # effect size that is already adjusted for c
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -211,8 +211,8 @@ power.t.regression(beta = 0.50,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results

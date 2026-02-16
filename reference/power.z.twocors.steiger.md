@@ -183,13 +183,13 @@ power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05,
 #> 
 #> Dependent Correlations
 #> 
-#>   Common Index    : TRUE
+#>   Common Index : TRUE
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho12 - rho13 = 0
-#>   H1 (Alt. Claim) : rho12 - rho13 != 0
+#>   H0 (Null)        : rho12 - rho13  = 0
+#>   H1 (Alternative) : rho12 - rho13 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -230,13 +230,13 @@ power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50,
 #> 
 #> Dependent Correlations
 #> 
-#>   Common Index    : FALSE
+#>   Common Index : FALSE
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho12 - rho34 = 0
-#>   H1 (Alt. Claim) : rho12 - rho34 != 0
+#>   H0 (Null)        : rho12 - rho34  = 0
+#>   H1 (Alternative) : rho12 - rho34 != 0
 #> 
 #> ----------------------------------------------------
 #> Results

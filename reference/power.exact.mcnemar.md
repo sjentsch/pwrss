@@ -204,13 +204,13 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 #> 
 #> Paired Proportions
 #> 
-#>   Method          : McNemar's Exact
+#>   Method : McNemar's Exact
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob10 - prob01 = 0
-#>   H1 (Alt. Claim) : prob10 - prob01 != 0
+#>   H0 (Null)        : prob10 - prob01  = 0
+#>   H1 (Alternative) : prob10 - prob01 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -232,13 +232,13 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 #> 
 #> Paired Proportions
 #> 
-#>   Method          : McNemar's Exact
+#>   Method : McNemar's Exact
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob10 - prob01 = 0
-#>   H1 (Alt. Claim) : prob10 - prob01 != 0
+#>   H0 (Null)        : prob10 - prob01  = 0
+#>   H1 (Alternative) : prob10 - prob01 != 0
 #> 
 #> ----------------------------------------------------
 #> Results

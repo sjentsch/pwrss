@@ -95,8 +95,9 @@ error plot. <code>TRUE</code> by default.</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><code>1</code> by default (returns test, hypotheses, and
-results), if <code>0</code> no output is printed on the
-console.</p></dd>
+results), if <code>2</code> a more detailed output is given
+(plus key parameters and defintions), if <code>0</code> no
+output is printed on the console.</p></dd>
 
 
 <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
@@ -141,8 +142,8 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : prob &lt;= null.prob </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : prob &gt; null.prob </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob &lt;= null.prob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob  &gt; null.prob</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -165,8 +166,8 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : prob = null.prob </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : prob != null.prob </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob  = null.prob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob != null.prob</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -189,10 +190,10 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : prob &lt;= min(null.prob) or </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     prob &gt;= max(null.prob) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : prob &gt; min(null.prob) and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     prob &lt; max(null.prob) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob &lt;= min(null.prob) or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      prob &gt;= max(null.prob)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob  &gt; min(null.prob) and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      prob  &lt; max(null.prob)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>

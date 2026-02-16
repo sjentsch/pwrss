@@ -178,13 +178,13 @@ https://doi.org/10.29299/kefad.1209913
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -205,13 +205,13 @@ https://doi.org/10.29299/kefad.1209913
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results

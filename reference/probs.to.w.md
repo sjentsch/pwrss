@@ -76,8 +76,8 @@ sciences* (2nd ed.). Lawrence Erlbaum Associates.
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -122,8 +122,8 @@ sciences* (2nd ed.). Lawrence Erlbaum Associates.
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -171,8 +171,8 @@ sciences* (2nd ed.). Lawrence Erlbaum Associates.
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results

@@ -48,8 +48,9 @@ power.f.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `0` no
-  output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -98,8 +99,8 @@ power.f.test(ncp = 1, df1 = 4, df2 = 100, alpha = 0.05)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp = null.ncp 
-#>   H1 (Alt. Claim) : ncp > null.ncp 
+#>   H0 (Null)        : ncp = 0
+#>   H1 (Alternative) : ncp > 0
 #> 
 #> ----------------------------------------------------
 #> Results

@@ -162,13 +162,13 @@ power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50)
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Fisher's Exact
+#>   Method : Fisher's Exact
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 = 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 != 0 
+#>   H0 (Null)        : prob1 - prob2  = 0
+#>   H1 (Alternative) : prob1 - prob2 != 0
 #> 
 #> ----------------------------------------------------
 #> Results

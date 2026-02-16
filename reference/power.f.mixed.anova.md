@@ -165,7 +165,7 @@ power.f.mixed.anova(eta.squared = 0.022,
                     factor.levels = c(1, 2), # 1 between 2 within
                     rho.within = 0.50,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -175,8 +175,8 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -193,7 +193,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
                     factor.levels = c(1, 2), # 1 between 2 within
                     rho.within = NA,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> Warning: Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
@@ -204,8 +204,8 @@ power.f.mixed.anova(eta.squared = 0.08255,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -226,7 +226,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
 power.f.mixed.anova(eta.squared = 0.059,
                     factor.levels = c(2, 1),  # 2 between 1 within
                     effect = "between",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -236,8 +236,8 @@ power.f.mixed.anova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -261,7 +261,7 @@ power.f.mixed.anova(eta.squared = 0.038,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "between",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -271,8 +271,8 @@ power.f.mixed.anova(eta.squared = 0.038,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -289,7 +289,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "interaction",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -299,8 +299,8 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -317,7 +317,7 @@ power.f.mixed.anova(eta.squared = 0.01,
                     factor.levels = c(2, 2),  # 2 between 2 within
                     rho.within = 0.50,
                     effect = "within",
-                    alpha = 0.05, power = 0.80)
+                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -327,8 +327,8 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results

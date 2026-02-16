@@ -227,13 +227,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -255,13 +255,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -284,13 +284,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -317,13 +317,13 @@ power.z.mediation(beta.a = 0.40,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -346,13 +346,13 @@ power.z.mediation(beta.a = 0.40,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -375,13 +375,13 @@ power.z.mediation(beta.a = 0.40,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results

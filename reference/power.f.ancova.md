@@ -152,8 +152,8 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -177,8 +177,8 @@ power.f.regression(r.squared = 0.059,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : R-squared = 0 
-#>   H1 (Alt. Claim) : R-squared > 0 
+#>   H0 (Null)        : R-squared = 0
+#>   H1 (Alternative) : R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -204,8 +204,8 @@ power.t.regression(beta = 0.50, r.squared = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -227,8 +227,8 @@ power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -259,8 +259,8 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -287,8 +287,8 @@ power.f.regression(r.squared = 0.03,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Change in R-squared = 0 
-#>   H1 (Alt. Claim) : Change in R-squared > 0 
+#>   H0 (Null)        : Change in R-squared = 0
+#>   H1 (Alternative) : Change in R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -321,8 +321,8 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -354,8 +354,8 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results

@@ -60,7 +60,7 @@
                         <h4 data-toc-skip class="author">Metin
 Bulus</h4>
             
-            <h4 data-toc-skip class="date">2026-02-08</h4>
+            <h4 data-toc-skip class="date">2026-02-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/metinbulus/pwrss/blob/main/vignettes/examples.Rmd" class="external-link"><code>vignettes/examples.Rmd</code></a></small>
       <div class="d-none name"><code>examples.Rmd</code></div>
@@ -68,13 +68,7 @@ Bulus</h4>
 
     
     
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-047X5R7P7R');
-</script><style type="text/css">
+<style type="text/css">
 div.tocify {
   width: 30%;
   max-width: 260px;
@@ -85,13 +79,7 @@ div.tocify {
   line-height: 20px;
 }
 
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 35px;
-  text-indent: 0;
-}
-
-.tocify-subheader .tocify-subheader .tocify-item {
+.tocify-subheader, .tocify-item {
   font-size: 0.90em;
   padding-left: 70px;
   text-indent: 0;
@@ -124,8 +112,9 @@ reporting these issues. If I have missed anyone who has provided similar
 feedback, please let me know.</p>
 <p>Error reports from (alphabetic order): <br> Adrian Olszewski (bug
 report); Catherine (Kate) Crespi (bug report); dpnichols811 (GitHub
-profile) (bug report); Fred Oswald (typo report); Jarrod Hadfield (bug
-report); Leszek Gawarecki (typo report); Roland Thijs (typo report)</p>
+profile, bug report); Fred Oswald (typo report); Jarrod Hadfield (bug
+report); Leszek Gawarecki (typo report); liegepr (GitHub profile, bug
+report); Roland Thijs (typo report)</p>
 <p>Please send any bug reports, feedback, or questions to <a href="mailto:bulusmetin@gmail.com">bulusmetin [at] gmail.com</a></p>
 <p><br></p>
 <div class="section level2">
@@ -200,18 +189,18 @@ statistic?</p>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Generic T-Test</span></span>
+<span><span class="co">#&gt; Generic t-Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : ncp = null.ncp </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : ncp != null.ncp </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : ncp  = null.ncp</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : ncp != null.ncp</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -306,13 +295,13 @@ detect superiority under these criteria?</p>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Generic T-Test</span></span>
+<span><span class="co">#&gt; Generic t-Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : ncp &lt;= null.ncp </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : ncp &gt; null.ncp </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : ncp &lt;= null.ncp</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : ncp  &gt; null.ncp</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -386,18 +375,18 @@ statistic for Wool B?</p>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="co"># type 1 error rate</span></span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Generic Z-Test</span></span>
+<span><span class="co">#&gt; Generic z-Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : mean = null.mean </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : mean != null.mean </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : mean  = null.mean</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : mean != null.mean</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -462,22 +451,22 @@ level of 0.05. What is the power under these criteria?</p>
 <span><span class="va">ncp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">z.rs</span> <span class="op">-</span> <span class="va">z.null.rs</span><span class="op">)</span> <span class="op">/</span> <span class="va">z.std.error</span></span>
 <span></span>
 <span><span class="co"># calculate power</span></span>
-<span><span class="fu"><a href="../reference/power.z.test.html">power.z.test</a></span><span class="op">(</span>ncp <span class="op">=</span> <span class="va">ncp</span>,</span>
+<span><span class="fu"><a href="../reference/power.z.test.html">power.z.test</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">ncp</span>,</span>
 <span>             alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Generic Z-Test</span></span>
+<span><span class="co">#&gt; Generic z-Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : mean = null.mean </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : mean != null.mean </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : mean  = null.mean</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : mean != null.mean</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -554,8 +543,8 @@ statistic?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : ncp = null.ncp </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : ncp &gt; null.ncp </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : ncp = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : ncp &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -623,8 +612,8 @@ chi-squared test of independence?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : ncp = null.ncp </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : ncp &gt; null.ncp </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : ncp = ncp.null</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : ncp &gt; ncp.null</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -691,7 +680,7 @@ difference between the full and reduced models?</p>
 <span>                 df <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                 plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -701,8 +690,8 @@ difference between the full and reduced models?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : ncp = null.ncp </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : ncp &gt; null.ncp </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : ncp = ncp.null</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : ncp &gt; ncp.null</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -763,7 +752,7 @@ proportion and sample size?</p>
 <span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                 alternative <span class="op">=</span> <span class="st">"one.sided"</span>,</span>
 <span>                 plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; |                POWER CALCULATION                 |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
@@ -773,8 +762,8 @@ proportion and sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob &lt;= null.prob </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob &gt; null.prob </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob &lt;= null.prob</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob  &gt; null.prob</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -821,10 +810,10 @@ a coin is fair.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob &lt;= min(null.prob) or </span></span>
-<span><span class="co">#&gt;                     prob &gt;= max(null.prob) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob &gt; min(null.prob) and </span></span>
-<span><span class="co">#&gt;                     prob &lt; max(null.prob) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob &lt;= min(null.prob) or</span></span>
+<span><span class="co">#&gt;                      prob &gt;= max(null.prob)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob  &gt; min(null.prob) and</span></span>
+<span><span class="co">#&gt;                      prob  &lt; max(null.prob)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -867,10 +856,10 @@ Monte Carlo simulation.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob &lt;= min(null.prob) or </span></span>
-<span><span class="co">#&gt;                     prob &gt;= max(null.prob) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob &gt; min(null.prob) and </span></span>
-<span><span class="co">#&gt;                     prob &lt; max(null.prob) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob &lt;= min(null.prob) or</span></span>
+<span><span class="co">#&gt;                      prob &gt;= max(null.prob)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob  &gt; min(null.prob) and</span></span>
+<span><span class="co">#&gt;                      prob  &lt; max(null.prob)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -904,10 +893,10 @@ Monte Carlo simulation.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob &lt;= min(null.prob) or </span></span>
-<span><span class="co">#&gt;                     prob &gt;= max(null.prob) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob &gt; min(null.prob) and </span></span>
-<span><span class="co">#&gt;                     prob &lt; max(null.prob) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob &lt;= min(null.prob) or</span></span>
+<span><span class="co">#&gt;                      prob &gt;= max(null.prob)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob  &gt; min(null.prob) and</span></span>
+<span><span class="co">#&gt;                      prob  &lt; max(null.prob)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -939,7 +928,7 @@ pass it to the <code><a href="https://rdrr.io/r/graphics/plot.default.html" clas
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/power.t.student.html">power.t.student</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.20</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>NOTE: In earlier versions of the {pwrss} package, the
 <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function generated multiple panel plots for ANCOVA
 designs and mediation models. This feature is no longer supported, as
@@ -985,8 +974,8 @@ for a 0.05 dropout rate in the treatment group?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &gt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1035,13 +1024,13 @@ minimum required sample size per group under these conditions?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   Sample Size          = 517 and 259  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   Sample Size          = 518 and 259  &lt;&lt;</span></span>
 <span><span class="co">#&gt;   Type 1 Error (alpha) = 0.050</span></span>
 <span><span class="co">#&gt;   Type 2 Error (beta)  = 0.199</span></span>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span></code></pre></div>
@@ -1084,8 +1073,8 @@ group, accounting for a 0.05 dropout rate in the treatment group?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1142,8 +1131,8 @@ margin usually takes POSITIVE values.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1174,8 +1163,8 @@ margin usually takes POSITIVE values.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1205,8 +1194,8 @@ margin usually takes POSITIVE values.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1259,8 +1248,8 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1291,8 +1280,8 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1322,8 +1311,8 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1370,10 +1359,10 @@ effect size of d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1404,10 +1393,10 @@ effect size of d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1437,10 +1426,10 @@ effect size of d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1490,10 +1479,10 @@ to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1524,15 +1513,15 @@ to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   Sample Size          = 841 and 421  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   Sample Size          = 842 and 421  &lt;&lt;</span></span>
 <span><span class="co">#&gt;   Type 1 Error (alpha) = 0.050</span></span>
 <span><span class="co">#&gt;   Type 2 Error (beta)  = 0.199</span></span>
 <span><span class="co">#&gt;   Statistical Power    = 0.801</span></span>
@@ -1557,10 +1546,10 @@ to detect an effect size of Cohen’s d = 0.20 under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1628,8 +1617,8 @@ this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1686,8 +1675,8 @@ conditions?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1748,8 +1737,8 @@ margin usually takes POSITIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1782,8 +1771,8 @@ margin usually takes POSITIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1849,8 +1838,8 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1883,8 +1872,8 @@ usually takes NEGATIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1947,10 +1936,10 @@ size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -1983,10 +1972,10 @@ size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2039,10 +2028,10 @@ sample size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2075,10 +2064,10 @@ sample size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2142,8 +2131,8 @@ size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2193,8 +2182,8 @@ size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2242,8 +2231,8 @@ size under this configuration?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2272,8 +2261,8 @@ size under this configuration?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2329,10 +2318,10 @@ under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2361,10 +2350,10 @@ under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2417,10 +2406,10 @@ the minimum required sample size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2449,10 +2438,10 @@ the minimum required sample size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim  : d - null.d &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     d - null.d &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     d - null.d &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      d - null.d &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      d - null.d  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2521,8 +2510,8 @@ and 0.80 power, how many vehicles should be observed?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)        : prob - null.prob &gt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)        : prob - null.prob &lt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob - null.prob &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob - null.prob  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2562,8 +2551,8 @@ differences. It can be useful for proportions towards the extreme.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)        : prob - null.prob &gt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)        : prob - null.prob &lt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob - null.prob &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob - null.prob  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2597,8 +2586,8 @@ in more accurate test statistics.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)        : prob - null.prob &gt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)        : prob - null.prob &lt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob - null.prob &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob - null.prob  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2636,8 +2625,8 @@ to use the <a href="#one-prop-exact">exact test</a>.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)        : prob - null.prob &gt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)        : prob - null.prob &lt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob - null.prob &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob - null.prob  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2673,8 +2662,8 @@ What is the minimum required sample size under this criterion?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)        : prob - null.prob &lt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)        : prob - null.prob &gt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob - null.prob &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob - null.prob  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2721,13 +2710,13 @@ yields power calculations that are acceptably accurate.
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2 != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2753,8 +2742,8 @@ yields power calculations that are acceptably accurate.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2810,13 +2799,13 @@ near 50% and that is fine.
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2845,13 +2834,13 @@ per group (1080 total).</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2874,13 +2863,13 @@ per group (1080 total).</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2904,13 +2893,13 @@ deviations</strong>:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -2952,13 +2941,13 @@ each group?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Fisher's Exact</span></span>
+<span><span class="co">#&gt;   Method : Fisher's Exact</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3004,13 +2993,13 @@ non-inferiority under this criterion?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &gt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &lt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &gt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &lt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3063,13 +3052,13 @@ required sample size to test for superiority under these conditions?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &gt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &lt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &gt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &lt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3136,15 +3125,15 @@ equivalence under these conditions?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     prob1 - prob2 &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     prob1 - prob2 &lt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      prob1 - prob2 &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      prob1 - prob2  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3197,15 +3186,15 @@ minimum required number of complete applications to process?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Independent Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob1 - prob2 &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     prob1 - prob2 &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob1 - prob2 &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     prob1 - prob2 &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob1 - prob2 &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      prob1 - prob2 &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob1 - prob2  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      prob1 - prob2  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3267,13 +3256,13 @@ sample size for the newly recruited group.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Paired Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : Normal Approximation</span></span>
+<span><span class="co">#&gt;   Method : Normal Approximation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob10 - prob01 = 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob10 - prob01 != 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob10 - prob01  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob10 - prob01 != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3318,13 +3307,13 @@ power.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Paired Proportions</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method          : McNemar's Exact</span></span>
+<span><span class="co">#&gt;   Method : McNemar's Exact</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : prob10 - prob01 = 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : prob10 - prob01 != 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : prob10 - prob01  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : prob10 - prob01 != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3368,13 +3357,13 @@ these criteria?</p>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; One-Sample Correlation </span></span>
+<span><span class="co">#&gt; One-Sample Correlation</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : rho -  null.rho &lt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : rho -  null.rho &gt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : rho - null.rho &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : rho - null.rho  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3415,13 +3404,13 @@ acceptably accurate.
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Independent Correlations </span></span>
+<span><span class="co">#&gt; Independent Correlations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : rho1 - rho2 = 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : rho1 - rho2 != 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : rho1 - rho2  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : rho1 - rho2 != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3447,8 +3436,8 @@ acceptably accurate.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3496,21 +3485,21 @@ these criteria?</p>
 <span><span class="co">#&gt; |             SAMPLE SIZE CALCULATION              |</span></span>
 <span><span class="co">#&gt; +--------------------------------------------------+</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Independent Correlations </span></span>
+<span><span class="co">#&gt; Independent Correlations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : rho1 - rho2 &lt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : rho1 - rho2 &gt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : rho1 - rho2 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : rho1 - rho2  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt;   Sample Size          = 1232 and 1232  &lt;&lt;</span></span>
 <span><span class="co">#&gt;   Type 1 Error (alpha) = 0.050</span></span>
-<span><span class="co">#&gt;   Type 2 Error (beta)  = 0.299</span></span>
-<span><span class="co">#&gt;   Statistical Power    = 0.701</span></span>
+<span><span class="co">#&gt;   Type 2 Error (beta)  = 0.200</span></span>
+<span><span class="co">#&gt;   Statistical Power    = 0.800</span></span>
 <span></span>
 <span><span class="co"># calculate Cohen's h</span></span>
 <span><span class="fu"><a href="../reference/cors.to.q.html">cors.to.q</a></span><span class="op">(</span>rho1 <span class="op">=</span> <span class="fl">0.10</span>, rho2 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
@@ -3531,8 +3520,8 @@ these criteria?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : d - null.d &lt;= 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : d - null.d &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : d - null.d &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : d - null.d  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3609,13 +3598,13 @@ these criteria?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Dependent Correlations</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Common Index    : TRUE</span></span>
+<span><span class="co">#&gt;   Common Index : TRUE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : rho12 - rho13 &lt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : rho12 - rho13 &gt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : rho12 - rho13 &lt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : rho12 - rho13  &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3711,13 +3700,13 @@ these criteria?</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Dependent Correlations</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Common Index    : FALSE</span></span>
+<span><span class="co">#&gt;   Common Index : FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : rho12 - rho34 &gt;= 0</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : rho12 - rho34 &lt; 0</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : rho12 - rho34 &gt;= 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : rho12 - rho34  &lt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3814,8 +3803,8 @@ variables (can be a combination of binary or continuous).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : R-squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : R-squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : R-squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : R-squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3870,8 +3859,8 @@ size under these conditions?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : 0 &lt;= R-squared &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : R-squared &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : 0 &lt;= R-squared &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : R-squared &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -3935,8 +3924,8 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}X_{3} + \beta_{4}X_{4
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Change in R-squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Change in R-squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Change in R-squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Change in R-squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4003,8 +3992,8 @@ size under these conditions?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : 0 &lt;= Change in R-squared &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Change in R-squared &gt; margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : 0 &lt;= Change in R-squared &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Change in R-squared &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4089,8 +4078,8 @@ default.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4127,8 +4116,8 @@ minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4169,8 +4158,8 @@ proportion of subjects in one of the groups.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4218,8 +4207,8 @@ POSITIVE values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta &gt;  margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4267,8 +4256,8 @@ values.
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta &lt;= margin </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta &gt;  margin </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta &lt;= margin</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta  &gt; margin</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4309,10 +4298,10 @@ sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta &lt;= min(margin) or </span></span>
-<span><span class="co">#&gt;                     beta - null.beta &gt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta &gt; min(margin) and </span></span>
-<span><span class="co">#&gt;                     beta - null.beta &lt; max(margin)</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta &lt;= min(margin) or</span></span>
+<span><span class="co">#&gt;                      beta - null.beta &gt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta  &gt; min(margin) and</span></span>
+<span><span class="co">#&gt;                      beta - null.beta  &lt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4351,10 +4340,10 @@ minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : beta - null.beta &gt;= min(margin) and </span></span>
-<span><span class="co">#&gt;                     beta - null.beta &lt;= max(margin) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : beta - null.beta &lt; min(margin) or </span></span>
-<span><span class="co">#&gt;                     beta - null.beta &gt; max(margin) </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta - null.beta &gt;= min(margin) and</span></span>
+<span><span class="co">#&gt;                      beta - null.beta &lt;= max(margin)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta - null.beta  &lt; min(margin) or</span></span>
+<span><span class="co">#&gt;                      beta - null.beta  &gt; max(margin)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4450,8 +4439,8 @@ output).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4485,8 +4474,8 @@ output).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4520,8 +4509,8 @@ output).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4561,8 +4550,8 @@ example the mean is 20 and the standard deviation is 8.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4596,8 +4585,8 @@ other half to the control (<code>prob = 0.50</code> by default).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4637,8 +4626,8 @@ allocation rate is 40%. What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Odds Ratio = 1</span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Odds Ratio != 1</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Odds Ratio (OR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Odds Ratio (OR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4708,8 +4697,8 @@ standard software output).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Rate Ratio = 1 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Rate Ratio != 1 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Rate Ratio (RR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Rate Ratio (RR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4741,8 +4730,8 @@ standard software output).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Rate Ratio = 1 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Rate Ratio != 1 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Rate Ratio (RR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Rate Ratio (RR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4778,8 +4767,8 @@ X</strong>:</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Rate Ratio = 1 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Rate Ratio != 1 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Rate Ratio (RR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Rate Ratio (RR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4809,8 +4798,8 @@ the main predictor can be binary (e.g. treatment / control groups).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Rate Ratio = 1 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Rate Ratio != 1 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Rate Ratio (RR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Rate Ratio (RR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4842,8 +4831,8 @@ predictor X</strong> (<code>prob = 0.40</code>):</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : Rate Ratio = 1 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : Rate Ratio != 1 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : Rate Ratio (RR)  = 1</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : Rate Ratio (RR) != 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4861,7 +4850,7 @@ predictor X</strong> (<code>prob = 0.40</code>):</p>
 <hr>
 <p>A simple mediation model can be constructed as in the figure.</p>
 <div class="float">
-<img src="reference/figures/med.png" alt="Simple Mediation Model"><div class="figcaption">Simple Mediation Model</div>
+<img src="figures/med.png" alt="Simple Mediation Model"><div class="figcaption">Simple Mediation Model</div>
 </div>
 <p>Regression models take the form of</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>M</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>β</mi><mrow><mn>0</mn><mi>M</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mi>a</mi></msub><mi>X</mi><mo>+</mo><mi>e</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>Y</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>β</mi><mrow><mn>0</mn><mi>Y</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mi>b</mi></msub><mi>M</mi><mo>+</mo><msub><mi>β</mi><mrow><mi>c</mi><mi>p</mi></mrow></msub><mi>X</mi><mo>+</mo><mi>ϵ</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
@@ -4916,13 +4905,13 @@ results may seem different from other software outputs.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Sobel</span></span>
+<span><span class="co">#&gt;   Method : Sobel</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4953,13 +4942,13 @@ argument will be ignored.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Sobel</span></span>
+<span><span class="co">#&gt;   Method : Sobel</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -4991,13 +4980,13 @@ influence the outcome through some mediators.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Sobel</span></span>
+<span><span class="co">#&gt;   Method : Sobel</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5029,13 +5018,13 @@ requested.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Joint</span></span>
+<span><span class="co">#&gt;   Method : Joint</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5057,13 +5046,13 @@ requested.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Monte Carlo</span></span>
+<span><span class="co">#&gt;   Method : Monte Carlo</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5096,13 +5085,13 @@ arguments.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Sobel</span></span>
+<span><span class="co">#&gt;   Method : Sobel</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5135,13 +5124,13 @@ the outcome model only.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Indirect Effect in a Mediation Model</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Method            : Sobel</span></span>
+<span><span class="co">#&gt;   Method : Sobel</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : beta[a*b] = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : beta[a*b] != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : beta[a*b]  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : beta[a*b] != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5190,8 +5179,8 @@ covariates. What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5224,8 +5213,8 @@ size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5259,8 +5248,8 @@ sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5294,8 +5283,8 @@ we can specify <code>null.eta.squared = 0.01</code>.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : 0 &lt;= eta.squared &lt;= null.eta.squared </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; null.eta.squared</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : 0 &lt;= eta.squared &lt;= null.eta.squared</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; null.eta.squared</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5330,8 +5319,8 @@ size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5390,8 +5379,8 @@ repeated measures is 1. What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5430,8 +5419,8 @@ size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5470,8 +5459,8 @@ minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5503,8 +5492,8 @@ minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5539,8 +5528,8 @@ size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5577,8 +5566,8 @@ but specify <code>rho.within = NA</code>.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5614,8 +5603,8 @@ we can specify <code>null.eta.squared = 0.01</code>.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : 0 &lt;= eta.squared &lt;= null.eta.squared </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; null.eta.squared</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : 0 &lt;= eta.squared &lt;= null.eta.squared</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; null.eta.squared</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5658,8 +5647,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5697,8 +5686,8 @@ minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5732,8 +5721,8 @@ sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5768,8 +5757,8 @@ we can specify <code>null.eta.squared = 0.01</code>.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : 0 &lt;= eta.squared &lt;= null.eta.squared </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; null.eta.squared</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : 0 &lt;= eta.squared &lt;= null.eta.squared</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; null.eta.squared</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5811,8 +5800,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5853,8 +5842,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5893,8 +5882,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5941,8 +5930,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -5963,8 +5952,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : psi = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : psi != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : psi  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : psi != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6004,8 +5993,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6026,8 +6015,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : psi = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : psi != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : psi  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : psi != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6067,8 +6056,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6089,8 +6078,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : psi = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : psi != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : psi  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : psi != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6129,8 +6118,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : eta.squared = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : eta.squared &gt; 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : eta.squared = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : eta.squared &gt; 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6151,8 +6140,8 @@ What is the minimum required sample size?</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim) : psi = 0 </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim) : psi != 0 </span></span>
+<span><span class="co">#&gt;   H0 (Null)        : psi  = 0</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : psi != 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6198,8 +6187,8 @@ assume 50% is women and 50% is men.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6246,8 +6235,8 @@ article).</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>
@@ -6295,8 +6284,8 @@ depression severity and gender? Check the original article at <a href="https://d
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Hypotheses</span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
-<span><span class="co">#&gt;   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) </span></span>
-<span><span class="co">#&gt;   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)</span></span>
+<span><span class="co">#&gt;   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)</span></span>
+<span><span class="co">#&gt;   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt; Results</span></span>

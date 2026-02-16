@@ -213,7 +213,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># 1 between 2 within</span></span></span>
 <span class="r-in"><span>                    rho.within <span class="op">=</span> <span class="fl">0.50</span>,</span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"within"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
@@ -223,8 +223,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -241,7 +241,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># 1 between 2 within</span></span></span>
 <span class="r-in"><span>                    rho.within <span class="op">=</span> <span class="cn">NA</span>,</span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"within"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
@@ -252,8 +252,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -274,7 +274,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span><span class="fu">power.f.mixed.anova</span><span class="op">(</span>eta.squared <span class="op">=</span> <span class="fl">0.059</span>,</span></span>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,  <span class="co"># 2 between 1 within</span></span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"between"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
@@ -284,8 +284,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -309,7 +309,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,  <span class="co"># 2 between 2 within</span></span></span>
 <span class="r-in"><span>                    rho.within <span class="op">=</span> <span class="fl">0.50</span>,</span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"between"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
@@ -319,8 +319,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -337,7 +337,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,  <span class="co"># 2 between 2 within</span></span></span>
 <span class="r-in"><span>                    rho.within <span class="op">=</span> <span class="fl">0.50</span>,</span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"interaction"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
@@ -347,8 +347,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -365,7 +365,7 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-in"><span>                    factor.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,  <span class="co"># 2 between 2 within</span></span></span>
 <span class="r-in"><span>                    rho.within <span class="op">=</span> <span class="fl">0.50</span>,</span></span>
 <span class="r-in"><span>                    effect <span class="op">=</span> <span class="st">"within"</span>,</span></span>
-<span class="r-in"><span>                    alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                    power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
@@ -375,8 +375,8 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : eta.squared = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : eta.squared &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : eta.squared = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : eta.squared &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>

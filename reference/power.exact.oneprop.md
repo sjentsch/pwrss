@@ -127,8 +127,8 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -154,8 +154,8 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results

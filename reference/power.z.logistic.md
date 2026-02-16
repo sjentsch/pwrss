@@ -212,8 +212,8 @@ power.z.logistic(base.prob = 0.15, prob = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -240,8 +240,8 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -268,8 +268,8 @@ power.z.logistic(beta0 = -1.734601, beta1 = 0.3483067,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -297,8 +297,8 @@ power.z.logistic(base.prob = 0.15, beta1 = 0.3483067,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -331,8 +331,8 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -360,8 +360,8 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -415,8 +415,8 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results

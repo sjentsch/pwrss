@@ -146,8 +146,8 @@ power.f.regression(r.squared = 0.15,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : R-squared = 0 
-#>   H1 (Alt. Claim) : R-squared > 0 
+#>   H0 (Null)        : R-squared = 0
+#>   H1 (Alternative) : R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -173,8 +173,8 @@ power.f.regression(r.squared.change = 0.10, # R-squared change
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Change in R-squared = 0 
-#>   H1 (Alt. Claim) : Change in R-squared > 0 
+#>   H0 (Null)        : Change in R-squared = 0
+#>   H1 (Alternative) : Change in R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results

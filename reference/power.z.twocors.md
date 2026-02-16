@@ -130,20 +130,20 @@ Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 ``` r
 # difference between r1 and r2 is different from zero
 # it could be -0.10 as well as 0.10
-power.z.twocors(rho1 = .20, rho2 = 0.30,
-               alpha = 0.05, power = .80,
+power.z.twocors(rho1 = 0.20, rho2 = 0.30,
+               power = 0.80, alpha = 0.05,
                alternative = "two.sided")
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Independent Correlations 
+#> Independent Correlations
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho1 - rho2 = 0
-#>   H1 (Alt. Claim) : rho1 - rho2 != 0
+#>   H0 (Null)        : rho1 - rho2  = 0
+#>   H1 (Alternative) : rho1 - rho2 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -155,27 +155,27 @@ power.z.twocors(rho1 = .20, rho2 = 0.30,
 #> 
 
 # difference between r1 and r2 is greater than zero
-power.z.twocors(rho1 = .30, rho2 = 0.20,
-               alpha = 0.05, power = .80,
+power.z.twocors(rho1 = 0.30, rho2 = 0.20,
+               power = 0.80, alpha = 0.05,
                alternative = "one.sided")
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Independent Correlations 
+#> Independent Correlations
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho1 - rho2 <= 0
-#>   H1 (Alt. Claim) : rho1 - rho2 > 0
+#>   H0 (Null)        : rho1 - rho2 <= 0
+#>   H1 (Alternative) : rho1 - rho2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 1088 and 1088  <<
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.299
-#>   Statistical Power    = 0.701
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 #> 
 ```

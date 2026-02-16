@@ -53,8 +53,9 @@ power.t.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `0` no
-  output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -95,13 +96,13 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided")
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic T-Test
+#> Generic t-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp = null.ncp 
-#>   H1 (Alt. Claim) : ncp != null.ncp 
+#>   H0 (Null)        : ncp  = null.ncp
+#>   H1 (Alternative) : ncp != null.ncp
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -120,13 +121,13 @@ power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "one.sided")
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic T-Test
+#> Generic t-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp <= null.ncp 
-#>   H1 (Alt. Claim) : ncp > null.ncp 
+#>   H0 (Null)        : ncp <= null.ncp
+#>   H1 (Alternative) : ncp  > null.ncp
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -147,15 +148,15 @@ power.t.test(ncp = 0, null.ncp = c(-2, 2), df = 100, alpha = 0.05,
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic T-Test
+#> Generic t-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp <= min(null.ncp) or 
-#>                     ncp >= max(null.ncp) 
-#>   H1 (Alt. Claim) : ncp > min(null.ncp) and 
-#>                     ncp < max(null.ncp) 
+#>   H0 (Null)        : ncp <= min(null.ncp) or
+#>                      ncp >= max(null.ncp)
+#>   H1 (Alternative) : ncp  > min(null.ncp) and
+#>                      ncp  < max(null.ncp)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -176,15 +177,15 @@ power.t.test(ncp = 2, null.ncp = c(-1, 1), df = 100, alpha = 0.05,
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic T-Test
+#> Generic t-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp >= min(null.ncp) and 
-#>                     ncp <= max(null.ncp) 
-#>   H1 (Alt. Claim) : ncp < min(null.ncp) or 
-#>                     ncp > max(null.ncp) 
+#>   H0 (Null)        : ncp >= min(null.ncp) and
+#>                      ncp <= max(null.ncp)
+#>   H1 (Alternative) : ncp  < min(null.ncp) or
+#>                      ncp  > max(null.ncp)
 #> 
 #> ----------------------------------------------------
 #> Results

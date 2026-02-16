@@ -11,8 +11,8 @@ power.np.wilcoxon(
   d,
   null.d = 0,
   margin = 0,
-  n2 = NULL,
   n.ratio = 1,
+  n2 = NULL,
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -39,14 +39,14 @@ power.np.wilcoxon(
 
   margin - ignorable `d` - `null.d` difference.
 
+- n.ratio:
+
+  `n1 / n2` ratio (applies to independent samples only)
+
 - n2:
 
   integer; sample size in the second group (or for the single group in
   paired samples or one-sample)
-
-- n.ratio:
-
-  `n1 / n2` ratio (applies to independent samples only)
 
 - power:
 
@@ -229,8 +229,8 @@ power.np.wilcoxon(d = 0.25,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -259,8 +259,8 @@ power.np.wilcoxon(d = 0.25,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= 0 
-#>   H1 (Alt. Claim) : d - null.d > 0 
+#>   H0 (Null)        : d - null.d <= 0
+#>   H1 (Alternative) : d - null.d  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -290,8 +290,8 @@ power.np.wilcoxon(d = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -321,8 +321,8 @@ power.np.wilcoxon(d = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -353,10 +353,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -387,8 +387,8 @@ power.np.wilcoxon(d = -0.25,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -417,8 +417,8 @@ power.np.wilcoxon(d = -0.25,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= 0 
-#>   H1 (Alt. Claim) : d - null.d < 0 
+#>   H0 (Null)        : d - null.d >= 0
+#>   H1 (Alternative) : d - null.d  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -448,8 +448,8 @@ power.np.wilcoxon(d = -0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= margin 
-#>   H1 (Alt. Claim) : d - null.d < margin 
+#>   H0 (Null)        : d - null.d >= margin
+#>   H1 (Alternative) : d - null.d  < margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -479,8 +479,8 @@ power.np.wilcoxon(d = -0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= margin 
-#>   H1 (Alt. Claim) : d - null.d < margin 
+#>   H0 (Null)        : d - null.d >= margin
+#>   H1 (Alternative) : d - null.d  < margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -511,10 +511,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results

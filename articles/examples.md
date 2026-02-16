@@ -28,9 +28,9 @@ feedback, please let me know.
 
 Error reports from (alphabetic order):  
 Adrian Olszewski (bug report); Catherine (Kate) Crespi (bug report);
-dpnichols811 (GitHub profile) (bug report); Fred Oswald (typo report);
-Jarrod Hadfield (bug report); Leszek Gawarecki (typo report); Roland
-Thijs (typo report)
+dpnichols811 (GitHub profile, bug report); Fred Oswald (typo report);
+Jarrod Hadfield (bug report); Leszek Gawarecki (typo report); liegepr
+(GitHub profile, bug report); Roland Thijs (typo report)
 
 Please send any bug reports, feedback, or questions to [bulusmetin
 \[at\] gmail.com](mailto:bulusmetin@gmail.com)
@@ -109,19 +109,19 @@ power.t.test(ncp = -3.519, # t-value for hp variable
              plot = TRUE)
 ```
 
-![](examples_files/figure-html/unnamed-chunk-5-1.png)
+![](examples_files/figure-html/unnamed-chunk-4-1.png)
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
     #> +--------------------------------------------------+
     #> 
-    #> Generic T-Test
+    #> Generic t-Test
     #> 
     #> ----------------------------------------------------
     #> Hypotheses
     #> ----------------------------------------------------
-    #>   H0 (Null Claim) : ncp = null.ncp 
-    #>   H1 (Alt. Claim) : ncp != null.ncp 
+    #>   H0 (Null)        : ncp  = null.ncp
+    #>   H1 (Alternative) : ncp != null.ncp
     #> 
     #> ----------------------------------------------------
     #> Results
@@ -211,13 +211,13 @@ power.t.test(ncp = ncp,
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> Generic T-Test
+#> Generic t-Test
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp <= null.ncp 
-#>   H1 (Alt. Claim) : ncp > null.ncp 
+#>   H0 (Null)        : ncp <= null.ncp
+#>   H1 (Alternative) : ncp  > null.ncp
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -289,19 +289,19 @@ power.z.test(mean = -3.994, # z-value for wool B
              plot = TRUE)
 ```
 
-![](examples_files/figure-html/unnamed-chunk-7-1.png)
+![](examples_files/figure-html/unnamed-chunk-6-1.png)
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
     #> +--------------------------------------------------+
     #> 
-    #> Generic Z-Test
+    #> Generic z-Test
     #> 
     #> ----------------------------------------------------
     #> Hypotheses
     #> ----------------------------------------------------
-    #>   H0 (Null Claim) : mean = null.mean 
-    #>   H1 (Alt. Claim) : mean != null.mean 
+    #>   H0 (Null)        : mean  = null.mean
+    #>   H1 (Alternative) : mean != null.mean
     #> 
     #> ----------------------------------------------------
     #> Results
@@ -363,25 +363,25 @@ z.std.error <- sqrt(1.06 / (n - 3))
 ncp <- (z.rs - z.null.rs) / z.std.error
 
 # calculate power
-power.z.test(ncp = ncp,
+power.z.test(mean = ncp,
              alpha = 0.05,
              alternative = "two.sided",
              plot = TRUE)
 ```
 
-![](examples_files/figure-html/unnamed-chunk-8-1.png)
+![](examples_files/figure-html/unnamed-chunk-7-1.png)
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
     #> +--------------------------------------------------+
     #> 
-    #> Generic Z-Test
+    #> Generic z-Test
     #> 
     #> ----------------------------------------------------
     #> Hypotheses
     #> ----------------------------------------------------
-    #>   H0 (Null Claim) : mean = null.mean 
-    #>   H1 (Alt. Claim) : mean != null.mean 
+    #>   H0 (Null)        : mean  = null.mean
+    #>   H1 (Alternative) : mean != null.mean
     #> 
     #> ----------------------------------------------------
     #> Results
@@ -452,8 +452,8 @@ power.f.test(ncp = 10.71, # non-centrality under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : ncp = null.ncp 
-#>   H1 (Alt. Claim) : ncp > null.ncp 
+#>   H0 (Null)        : ncp = 0
+#>   H1 (Alternative) : ncp > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -517,8 +517,8 @@ power.chisq.test(ncp = 138.29, # X-squared
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : ncp = null.ncp 
-#>   H1 (Alt. Claim)   : ncp > null.ncp 
+#>   H0 (Null)        : ncp = ncp.null
+#>   H1 (Alternative) : ncp > ncp.null
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -580,7 +580,7 @@ power.chisq.test(ncp = 18.463,
                  plot = TRUE)
 ```
 
-![](examples_files/figure-html/unnamed-chunk-11-1.png)
+![](examples_files/figure-html/unnamed-chunk-10-1.png)
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -591,8 +591,8 @@ power.chisq.test(ncp = 18.463,
     #> ----------------------------------------------------
     #> Hypotheses
     #> ----------------------------------------------------
-    #>   H0 (Null Claim)   : ncp = null.ncp 
-    #>   H1 (Alt. Claim)   : ncp > null.ncp 
+    #>   H0 (Null)        : ncp = ncp.null
+    #>   H1 (Alternative) : ncp > ncp.null
     #> 
     #> ----------------------------------------------------
     #> Results
@@ -651,7 +651,7 @@ power.binom.test(size = n.total, # number of eruptions
                  plot = TRUE)
 ```
 
-![](examples_files/figure-html/unnamed-chunk-12-1.png)
+![](examples_files/figure-html/unnamed-chunk-11-1.png)
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -662,8 +662,8 @@ power.binom.test(size = n.total, # number of eruptions
     #> ----------------------------------------------------
     #> Hypotheses
     #> ----------------------------------------------------
-    #>   H0 (Null Claim) : prob <= null.prob 
-    #>   H1 (Alt. Claim) : prob > null.prob 
+    #>   H0 (Null)        : prob <= null.prob
+    #>   H1 (Alternative) : prob  > null.prob
     #> 
     #> ----------------------------------------------------
     #> Results
@@ -708,10 +708,10 @@ power.binom.test(size = 85632, # number of tosses needed
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob <= min(null.prob) or 
-#>                     prob >= max(null.prob) 
-#>   H1 (Alt. Claim) : prob > min(null.prob) and 
-#>                     prob < max(null.prob) 
+#>   H0 (Null)        : prob <= min(null.prob) or
+#>                      prob >= max(null.prob)
+#>   H1 (Alternative) : prob  > min(null.prob) and
+#>                      prob  < max(null.prob)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -757,10 +757,10 @@ power.binom.test(size = 16424, # number of replications needed
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob <= min(null.prob) or 
-#>                     prob >= max(null.prob) 
-#>   H1 (Alt. Claim) : prob > min(null.prob) and 
-#>                     prob < max(null.prob) 
+#>   H0 (Null)        : prob <= min(null.prob) or
+#>                      prob >= max(null.prob)
+#>   H1 (Alternative) : prob  > min(null.prob) and
+#>                      prob  < max(null.prob)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -797,10 +797,10 @@ power.binom.test(size = 55011, # number of replications needed
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob <= min(null.prob) or 
-#>                     prob >= max(null.prob) 
-#>   H1 (Alt. Claim) : prob > min(null.prob) and 
-#>                     prob < max(null.prob) 
+#>   H0 (Null)        : prob <= min(null.prob) or
+#>                      prob >= max(null.prob)
+#>   H1 (Alternative) : prob  > min(null.prob) and
+#>                      prob  < max(null.prob)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -834,7 +834,7 @@ power.t.student(d = 0.20, power = 0.80) |>
   plot()
 ```
 
-![](examples_files/figure-html/unnamed-chunk-16-1.png)
+![](examples_files/figure-html/unnamed-chunk-15-1.png)
 
 NOTE: In earlier versions of the {pwrss} package, the
 [`plot()`](https://rdrr.io/r/graphics/plot.default.html) function
@@ -882,8 +882,8 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d >= 0 
-#>   H1 (Alt. Claim) : d - null.d < 0 
+#>   H0 (Null)        : d - null.d >= 0
+#>   H1 (Alternative) : d - null.d  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -934,13 +934,13 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 517 and 259  <<
+#>   Sample Size          = 518 and 259  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
 #>   Statistical Power    = 0.801
@@ -985,8 +985,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1045,8 +1045,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1077,8 +1077,8 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1108,8 +1108,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1164,8 +1164,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1196,8 +1196,8 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1227,8 +1227,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1276,10 +1276,10 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1310,10 +1310,10 @@ power.t.welch(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1343,10 +1343,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1397,10 +1397,10 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1431,15 +1431,15 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 841 and 421  <<
+#>   Sample Size          = 842 and 421  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
 #>   Statistical Power    = 0.801
@@ -1464,10 +1464,10 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1533,8 +1533,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1589,8 +1589,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1653,8 +1653,8 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1687,8 +1687,8 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1756,8 +1756,8 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1790,8 +1790,8 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1857,10 +1857,10 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1893,10 +1893,10 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1952,10 +1952,10 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -1988,10 +1988,10 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2054,8 +2054,8 @@ power.t.student(d = 0.40,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2105,8 +2105,8 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2152,8 +2152,8 @@ power.t.student(d = 0.40,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2182,8 +2182,8 @@ power.np.wilcoxon(d = 0.40,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= margin 
-#>   H1 (Alt. Claim) : d - null.d > margin 
+#>   H0 (Null)        : d - null.d <= margin
+#>   H1 (Alternative) : d - null.d  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2237,10 +2237,10 @@ power.t.student(d = d,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d <= min(margin) or
+#>                      d - null.d >= max(margin)
+#>   H1 (Alternative) : d - null.d  > min(margin) and
+#>                      d - null.d  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2269,10 +2269,10 @@ power.np.wilcoxon(d = d,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= min(margin) or 
-#>                     d - null.d >= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d > min(margin) and 
-#>                     d - null.d < max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2326,10 +2326,10 @@ power.t.student(d = d,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2358,10 +2358,10 @@ power.np.wilcoxon(d = d,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim  : d - null.d >= min(margin) and 
-#>                     d - null.d <= max(margin) 
-#>   H1 (Alt. Claim) : d - null.d < min(margin) or 
-#>                     d - null.d > max(margin) 
+#>   H0 (Null)        : d - null.d >= min(margin) and
+#>                      d - null.d <= max(margin)
+#>   H1 (Alternative) : d - null.d  < min(margin) or
+#>                      d - null.d  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2430,8 +2430,8 @@ power.z.oneprop(prob = 0.80, # probability of success under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2476,8 +2476,8 @@ power.z.oneprop(prob = 0.80, # probability of success under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2515,8 +2515,8 @@ power.z.oneprop(prob = 0.80, # probability of success under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2558,8 +2558,8 @@ power.z.oneprop(prob = 0.80, # probability of success under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob >= 0
-#>   H1 (Alt. Claim)        : prob - null.prob < 0
+#>   H0 (Null)        : prob - null.prob >= 0
+#>   H1 (Alternative) : prob - null.prob  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2596,8 +2596,8 @@ power.exact.oneprop(prob = 0.002, # probability of success under alternative
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)        : prob - null.prob <= 0
-#>   H1 (Alt. Claim)        : prob - null.prob > 0
+#>   H0 (Null)        : prob - null.prob <= 0
+#>   H1 (Alternative) : prob - null.prob  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2645,13 +2645,13 @@ power.z.twoprops(prob1 = 0.60, prob2 = 0.50,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 = 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 != 0 
+#>   H0 (Null)        : prob1 - prob2  = 0
+#>   H1 (Alternative) : prob1 - prob2 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2677,8 +2677,8 @@ power.t.student(d = 0.2013579, power = 0.80)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2736,13 +2736,13 @@ power.z.twoprops(prob1 = 0.15,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2775,13 +2775,13 @@ power.z.twoprops(prob1 = 0.15,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2807,13 +2807,13 @@ power.z.twoprops(prob1 = 0.15,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2839,13 +2839,13 @@ power.z.twoprops(prob1 = 0.15,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2886,13 +2886,13 @@ power.exact.twoprops(prob1 = 0.60,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Fisher's Exact
+#>   Method : Fisher's Exact
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= 0 
-#>   H1 (Alt. Claim) : prob1 - prob2 > 0 
+#>   H0 (Null)        : prob1 - prob2 <= 0
+#>   H1 (Alternative) : prob1 - prob2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2939,13 +2939,13 @@ power.z.twoprops(prob1 = 0.01,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 >= margin 
-#>   H1 (Alt. Claim) : prob1 - prob2 < margin 
+#>   H0 (Null)        : prob1 - prob2 >= margin
+#>   H1 (Alternative) : prob1 - prob2  < margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -2999,13 +2999,13 @@ power.z.twoprops(prob1 = 0.45,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 >= margin 
-#>   H1 (Alt. Claim) : prob1 - prob2 < margin 
+#>   H0 (Null)        : prob1 - prob2 >= margin
+#>   H1 (Alternative) : prob1 - prob2  < margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3073,15 +3073,15 @@ power.z.twoprops(prob1 = 0.10,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 <= min(margin) or 
-#>                     prob1 - prob2 >= max(margin) 
-#>   H1 (Alt. Claim) : prob1 - prob2 > min(margin) and 
-#>                     prob1 - prob2 < max(margin) 
+#>   H0 (Null)        : prob1 - prob2 <= min(margin) or
+#>                      prob1 - prob2 >= max(margin)
+#>   H1 (Alternative) : prob1 - prob2  > min(margin) and
+#>                      prob1 - prob2  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3132,15 +3132,15 @@ power.z.twoprops(prob1 = 0.13,
 #> 
 #> Independent Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob1 - prob2 >= min(margin) and 
-#>                     prob1 - prob2 <= max(margin) 
-#>   H1 (Alt. Claim) : prob1 - prob2 < min(margin) or 
-#>                     prob1 - prob2 > max(margin) 
+#>   H0 (Null)        : prob1 - prob2 >= min(margin) and
+#>                      prob1 - prob2 <= max(margin)
+#>   H1 (Alternative) : prob1 - prob2  < min(margin) or
+#>                      prob1 - prob2  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3201,13 +3201,13 @@ power.z.twoprops(prob1 = 0.50,
 #> 
 #> Paired Proportions
 #> 
-#>   Method          : Normal Approximation
+#>   Method : Normal Approximation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob10 - prob01 = 0
-#>   H1 (Alt. Claim) : prob10 - prob01 != 0
+#>   H0 (Null)        : prob10 - prob01  = 0
+#>   H1 (Alternative) : prob10 - prob01 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3253,13 +3253,13 @@ power.exact.twoprops(prob1 = 0.50,
 #> 
 #> Paired Proportions
 #> 
-#>   Method          : McNemar's Exact
+#>   Method : McNemar's Exact
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob10 - prob01 = 0
-#>   H1 (Alt. Claim) : prob10 - prob01 != 0
+#>   H0 (Null)        : prob10 - prob01  = 0
+#>   H1 (Alternative) : prob10 - prob01 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3302,13 +3302,13 @@ power.z.onecor(rho = 0.20,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-Sample Correlation 
+#> One-Sample Correlation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho -  null.rho <= 0
-#>   H1 (Alt. Claim) : rho -  null.rho > 0
+#>   H0 (Null)        : rho - null.rho <= 0
+#>   H1 (Alternative) : rho - null.rho  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3350,13 +3350,13 @@ power.z.twocors(rho1 = 0.20, rho2 = 0.10, power = .80)
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Independent Correlations 
+#> Independent Correlations
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho1 - rho2 = 0
-#>   H1 (Alt. Claim) : rho1 - rho2 != 0
+#>   H0 (Null)        : rho1 - rho2  = 0
+#>   H1 (Alternative) : rho1 - rho2 != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3382,8 +3382,8 @@ power.t.student(d = 0.1023972, power = 0.80)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d = 0 
-#>   H1 (Alt. Claim) : d - null.d != 0 
+#>   H0 (Null)        : d - null.d  = 0
+#>   H1 (Alternative) : d - null.d != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3432,21 +3432,21 @@ power.z.twocors(rho1 = 0.10,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Independent Correlations 
+#> Independent Correlations
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho1 - rho2 <= 0
-#>   H1 (Alt. Claim) : rho1 - rho2 > 0
+#>   H0 (Null)        : rho1 - rho2 <= 0
+#>   H1 (Alternative) : rho1 - rho2  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 1232 and 1232  <<
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.299
-#>   Statistical Power    = 0.701
+#>   Type 2 Error (beta)  = 0.200
+#>   Statistical Power    = 0.800
 
 # calculate Cohen's h
 cors.to.q(rho1 = 0.10, rho2 = 0)
@@ -3467,8 +3467,8 @@ power.t.student(d = 0.1003353,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : d - null.d <= 0 
-#>   H1 (Alt. Claim) : d - null.d > 0 
+#>   H0 (Null)        : d - null.d <= 0
+#>   H1 (Alternative) : d - null.d  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3544,13 +3544,13 @@ power.z.twocors.steiger(rho12 = 0.50,
 #> 
 #> Dependent Correlations
 #> 
-#>   Common Index    : TRUE
+#>   Common Index : TRUE
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho12 - rho13 <= 0
-#>   H1 (Alt. Claim) : rho12 - rho13 > 0
+#>   H0 (Null)        : rho12 - rho13 <= 0
+#>   H1 (Alternative) : rho12 - rho13  > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3644,13 +3644,13 @@ power.z.twocors.steiger(rho12 = 0.50, # cor(V1, V2)
 #> 
 #> Dependent Correlations
 #> 
-#>   Common Index    : FALSE
+#>   Common Index : FALSE
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho12 - rho34 >= 0
-#>   H1 (Alt. Claim) : rho12 - rho34 < 0
+#>   H0 (Null)        : rho12 - rho34 >= 0
+#>   H1 (Alternative) : rho12 - rho34  < 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3733,8 +3733,8 @@ power.f.regression(r.squared = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : R-squared = 0 
-#>   H1 (Alt. Claim) : R-squared > 0 
+#>   H0 (Null)        : R-squared = 0
+#>   H1 (Alternative) : R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3777,8 +3777,8 @@ power.f.regression(r.squared = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : 0 <= R-squared <= margin 
-#>   H1 (Alt. Claim) : R-squared > margin 
+#>   H0 (Null)        : 0 <= R-squared <= margin
+#>   H1 (Alternative) : R-squared > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3827,8 +3827,8 @@ power.f.regression(r.squared.change = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Change in R-squared = 0 
-#>   H1 (Alt. Claim) : Change in R-squared > 0 
+#>   H0 (Null)        : Change in R-squared = 0
+#>   H1 (Alternative) : Change in R-squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3877,8 +3877,8 @@ power.f.regression(r.squared.change = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : 0 <= Change in R-squared <= margin 
-#>   H1 (Alt. Claim) : Change in R-squared > margin 
+#>   H0 (Null)        : 0 <= Change in R-squared <= margin
+#>   H1 (Alternative) : Change in R-squared > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3936,8 +3936,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -3974,8 +3974,8 @@ power.t.regression(beta = 0.60,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4015,8 +4015,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta = 0 
-#>   H1 (Alt. Claim) : beta - null.beta != 0 
+#>   H0 (Null)        : beta - null.beta  = 0
+#>   H1 (Alternative) : beta - null.beta != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4063,8 +4063,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= margin 
-#>   H1 (Alt. Claim) : beta - null.beta >  margin 
+#>   H0 (Null)        : beta - null.beta <= margin
+#>   H1 (Alternative) : beta - null.beta  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4111,8 +4111,8 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= margin 
-#>   H1 (Alt. Claim) : beta - null.beta >  margin 
+#>   H0 (Null)        : beta - null.beta <= margin
+#>   H1 (Alternative) : beta - null.beta  > margin
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4153,10 +4153,10 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta <= min(margin) or 
-#>                     beta - null.beta >= max(margin) 
-#>   H1 (Alt. Claim) : beta - null.beta > min(margin) and 
-#>                     beta - null.beta < max(margin)
+#>   H0 (Null)        : beta - null.beta <= min(margin) or
+#>                      beta - null.beta >= max(margin)
+#>   H1 (Alternative) : beta - null.beta  > min(margin) and
+#>                      beta - null.beta  < max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4195,10 +4195,10 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : beta - null.beta >= min(margin) and 
-#>                     beta - null.beta <= max(margin) 
-#>   H1 (Alt. Claim) : beta - null.beta < min(margin) or 
-#>                     beta - null.beta > max(margin) 
+#>   H0 (Null)        : beta - null.beta >= min(margin) and
+#>                      beta - null.beta <= max(margin)
+#>   H1 (Alternative) : beta - null.beta  < min(margin) or
+#>                      beta - null.beta  > max(margin)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4276,8 +4276,8 @@ power.z.logistic(prob = 0.10,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4312,8 +4312,8 @@ power.z.logistic(odds.ratio = 0.6296,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4348,8 +4348,8 @@ power.z.logistic(beta1 = -0.4626,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4390,8 +4390,8 @@ power.z.logistic(beta1 = -0.4626,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4429,8 +4429,8 @@ power.z.logistic(beta1 = -0.4626,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4474,8 +4474,8 @@ power.z.logistic(beta1 = -0.4626,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Odds Ratio = 1
-#>   H1 (Alt. Claim) : Odds Ratio != 1
+#>   H0 (Null)        : Odds Ratio (OR)  = 1
+#>   H1 (Alternative) : Odds Ratio (OR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4539,8 +4539,8 @@ power.z.poisson(beta0 = 0.50,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4572,8 +4572,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4609,8 +4609,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4643,8 +4643,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4679,8 +4679,8 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : Rate Ratio = 1 
-#>   H1 (Alt. Claim) : Rate Ratio != 1 
+#>   H0 (Null)        : Rate Ratio (RR)  = 1
+#>   H1 (Alternative) : Rate Ratio (RR) != 1
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4700,7 +4700,7 @@ power.z.poisson(base.rate = exp(0.50),
 
 A simple mediation model can be constructed as in the figure.
 
-![Simple Mediation Model](reference/figures/med.png)
+![Simple Mediation Model](figures/med.png)
 
 Simple Mediation Model
 
@@ -4746,13 +4746,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4785,13 +4785,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4824,13 +4824,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4862,13 +4862,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Joint
+#>   Method : Joint
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4890,13 +4890,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Monte Carlo
+#>   Method : Monte Carlo
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4929,13 +4929,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -4971,13 +4971,13 @@ power.z.mediation(beta.a = 0.25,
 #> 
 #> Indirect Effect in a Mediation Model
 #> 
-#>   Method            : Sobel
+#>   Method : Sobel
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : beta[a*b] = 0 
-#>   H1 (Alt. Claim)   : beta[a*b] != 0 
+#>   H0 (Null)        : beta[a*b]  = 0
+#>   H1 (Alternative) : beta[a*b] != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5027,8 +5027,8 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5060,8 +5060,8 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5094,8 +5094,8 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5129,8 +5129,8 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : 0 <= eta.squared <= null.eta.squared 
-#>   H1 (Alt. Claim) : eta.squared > null.eta.squared
+#>   H0 (Null)        : 0 <= eta.squared <= null.eta.squared
+#>   H1 (Alternative) : eta.squared > null.eta.squared
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5164,8 +5164,8 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # vector of means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5229,8 +5229,8 @@ power.f.mixed.anova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5268,8 +5268,8 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5308,8 +5308,8 @@ power.f.mixed.anova(eta.squared = 0.038,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5343,8 +5343,8 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5380,8 +5380,8 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5414,8 +5414,8 @@ power.f.mixed.anova(eta.squared = 0.05,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5451,8 +5451,8 @@ power.f.mixed.anova(eta.squared = 0.05,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : 0 <= eta.squared <= null.eta.squared 
-#>   H1 (Alt. Claim) : eta.squared > null.eta.squared
+#>   H0 (Null)        : 0 <= eta.squared <= null.eta.squared
+#>   H1 (Alternative) : eta.squared > null.eta.squared
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5494,8 +5494,8 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5531,8 +5531,8 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5565,8 +5565,8 @@ power.f.ancova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5601,8 +5601,8 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : 0 <= eta.squared <= null.eta.squared 
-#>   H1 (Alt. Claim) : eta.squared > null.eta.squared
+#>   H0 (Null)        : 0 <= eta.squared <= null.eta.squared
+#>   H1 (Alternative) : eta.squared > null.eta.squared
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5640,8 +5640,8 @@ power.f.ancova.keppel(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5681,8 +5681,8 @@ power.f.ancova.shieh(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5721,8 +5721,8 @@ power.f.ancova.shieh(mu.vector = c(0.30, 0.09, 0.05, 0.245), # vector of adjuste
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5767,8 +5767,8 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5789,8 +5789,8 @@ power.t.contrasts(design, adjust.alpha = "fdr")
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5830,8 +5830,8 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5852,8 +5852,8 @@ power.t.contrasts(design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5893,8 +5893,8 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5915,8 +5915,8 @@ power.t.contrasts(design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5955,8 +5955,8 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : eta.squared = 0 
-#>   H1 (Alt. Claim) : eta.squared > 0 
+#>   H0 (Null)        : eta.squared = 0
+#>   H1 (Alternative) : eta.squared > 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -5977,8 +5977,8 @@ power.t.contrasts(design)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : psi = 0 
-#>   H1 (Alt. Claim) : psi != 0 
+#>   H0 (Null)        : psi  = 0
+#>   H1 (Alternative) : psi != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -6029,8 +6029,8 @@ power.chisq.gof(w = 0.44,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -6081,8 +6081,8 @@ power.chisq.gof(w = 0.1302134,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -6133,8 +6133,8 @@ power.chisq.gof(w = 0.03022008,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results

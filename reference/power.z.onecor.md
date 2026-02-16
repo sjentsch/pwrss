@@ -132,13 +132,13 @@ power.z.onecor(rho = 0.20,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-Sample Correlation 
+#> One-Sample Correlation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho -  null.rho = 0
-#>   H1 (Alt. Claim) : rho -  null.rho != 0
+#>   H0 (Null)        : rho - null.rho  = 0
+#>   H1 (Alternative) : rho - null.rho != 0
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -150,7 +150,7 @@ power.z.onecor(rho = 0.20,
 #> 
 
 # expected correlation is 0.20 and it is greater than 0.10
-power.z.onecor(rho = 0.20, null = 0.10,
+power.z.onecor(rho = 0.20, null.rho = 0.10,
                power = 0.80,
                alpha = 0.05,
                alternative = "one.sided")
@@ -158,13 +158,13 @@ power.z.onecor(rho = 0.20, null = 0.10,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-Sample Correlation 
+#> One-Sample Correlation
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : rho -  null.rho <= 0
-#>   H1 (Alt. Claim) : rho -  null.rho > 0
+#>   H0 (Null)        : rho - null.rho <= 0
+#>   H1 (Alternative) : rho - null.rho  > 0
 #> 
 #> ----------------------------------------------------
 #> Results

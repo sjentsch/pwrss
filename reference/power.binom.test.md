@@ -51,8 +51,9 @@ power.binom.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `0` no
-  output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -97,8 +98,8 @@ power.binom.test(size = 200, prob = 0.6, null.prob = 0.5,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob <= null.prob 
-#>   H1 (Alt. Claim) : prob > null.prob 
+#>   H0 (Null)        : prob <= null.prob
+#>   H1 (Alternative) : prob  > null.prob
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -121,8 +122,8 @@ power.binom.test(size = 200, prob = 0.4, null.prob = 0.5,
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob = null.prob 
-#>   H1 (Alt. Claim) : prob != null.prob 
+#>   H0 (Null)        : prob  = null.prob
+#>   H1 (Alternative) : prob != null.prob
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -145,10 +146,10 @@ power.binom.test(size = 200, prob = 0.5, null.prob = c(0.4, 0.6),
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim) : prob <= min(null.prob) or 
-#>                     prob >= max(null.prob) 
-#>   H1 (Alt. Claim) : prob > min(null.prob) and 
-#>                     prob < max(null.prob) 
+#>   H0 (Null)        : prob <= min(null.prob) or
+#>                      prob >= max(null.prob)
+#>   H1 (Alternative) : prob  > min(null.prob) and
+#>                      prob  < max(null.prob)
 #> 
 #> ----------------------------------------------------
 #> Results

@@ -44,8 +44,9 @@ power.chisq.test(
 
 - verbose:
 
-  `1` by default (returns test, hypotheses, and results), if `0` no
-  output is printed on the console.
+  `1` by default (returns test, hypotheses, and results), if `2` a more
+  detailed output is given (plus key parameters and defintions), if `0`
+  no output is printed on the console.
 
 - pretty:
 
@@ -74,8 +75,8 @@ power.chisq.test(ncp = 20, df = 100, alpha = 0.05)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : ncp = null.ncp 
-#>   H1 (Alt. Claim)   : ncp > null.ncp 
+#>   H0 (Null)        : ncp = ncp.null
+#>   H1 (Alternative) : ncp > ncp.null
 #> 
 #> ----------------------------------------------------
 #> Results

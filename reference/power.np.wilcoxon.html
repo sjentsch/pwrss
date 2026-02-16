@@ -53,8 +53,8 @@ available:</p>
 <span>  <span class="va">d</span>,</span>
 <span>  null.d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  margin <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  n2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  n.ratio <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  n2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span>, <span class="st">"two.one.sided"</span><span class="op">)</span>,</span>
@@ -83,14 +83,14 @@ available:</p>
 <dd><p>margin - ignorable <code>d</code> - <code>null.d</code> difference.</p></dd>
 
 
-<dt id="arg-n-">n2<a class="anchor" aria-label="anchor" href="#arg-n-"></a></dt>
-<dd><p>integer; sample size in the second group (or for the
-single group in paired samples or one-sample)</p></dd>
-
-
 <dt id="arg-n-ratio">n.ratio<a class="anchor" aria-label="anchor" href="#arg-n-ratio"></a></dt>
 <dd><p><code>n1 / n2</code> ratio (applies to independent samples
 only)</p></dd>
+
+
+<dt id="arg-n-">n2<a class="anchor" aria-label="anchor" href="#arg-n-"></a></dt>
+<dd><p>integer; sample size in the second group (or for the
+single group in paired samples or one-sample)</p></dd>
 
 
 <dt id="arg-power">power<a class="anchor" aria-label="anchor" href="#arg-power"></a></dt>
@@ -258,8 +258,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d  = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d != 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -288,8 +288,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &lt;= 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &gt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -319,8 +319,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &lt;= margin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &gt; margin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -350,8 +350,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= margin </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; margin </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &lt;= margin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &gt; margin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -382,10 +382,10 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &gt;= min(margin) and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      d - null.d &lt;= max(margin)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &lt; min(margin) or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      d - null.d  &gt; max(margin)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -416,8 +416,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d = 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d != 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d  = 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d != 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -446,8 +446,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &gt;= 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &lt; 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &gt;= 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &lt; 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -477,8 +477,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &gt;= margin </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &lt; margin </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &gt;= margin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &lt; margin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -508,8 +508,8 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &gt;= margin </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &lt; margin </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &gt;= margin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &lt; margin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -540,10 +540,10 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : d - null.d &lt;= min(margin) or </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &gt;= max(margin) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : d - null.d &gt; min(margin) and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     d - null.d &lt; max(margin) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : d - null.d &gt;= min(margin) and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      d - null.d &lt;= max(margin)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : d - null.d  &lt; min(margin) or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      d - null.d  &gt; max(margin)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>

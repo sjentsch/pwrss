@@ -140,8 +140,8 @@ power.chisq.gof(w = 0.44, df = 1, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -185,8 +185,8 @@ power.chisq.gof(w = 0.1302134, df = 1, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results
@@ -233,8 +233,8 @@ power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Hypotheses
 #> ----------------------------------------------------
-#>   H0 (Null Claim)   : P[i,j] = P0[i,j] for all (i,j) 
-#>   H1 (Alt. Claim)   : P[i,j] != P0[i,j] for some (i,j)
+#>   H0 (Null)        : P[i,j]  = P0[i,j] for all (i,j)
+#>   H1 (Alternative) : P[i,j] != P0[i,j] for some (i,j)
 #> 
 #> ----------------------------------------------------
 #> Results

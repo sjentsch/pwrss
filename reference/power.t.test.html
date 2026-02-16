@@ -98,8 +98,9 @@ error plot. <code>TRUE</code> by default.</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><code>1</code> by default (returns test, hypotheses, and
-results), if <code>0</code> no output is printed on the
-console.</p></dd>
+results), if <code>2</code> a more detailed output is given
+(plus key parameters and defintions), if <code>0</code> no
+output is printed on the console.</p></dd>
 
 
 <dt id="arg-pretty">pretty<a class="anchor" aria-label="anchor" href="#arg-pretty"></a></dt>
@@ -140,13 +141,13 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic T-Test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : ncp = null.ncp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : ncp != null.ncp </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp  = null.ncp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp != null.ncp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -165,13 +166,13 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic T-Test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : ncp &lt;= null.ncp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : ncp &gt; null.ncp </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &lt;= null.ncp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &gt; null.ncp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -192,15 +193,15 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic T-Test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : ncp &lt;= min(null.ncp) or </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     ncp &gt;= max(null.ncp) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : ncp &gt; min(null.ncp) and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     ncp &lt; max(null.ncp) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &lt;= min(null.ncp) or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp &gt;= max(null.ncp)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &gt; min(null.ncp) and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp  &lt; max(null.ncp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
@@ -221,15 +222,15 @@ default.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic T-Test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null Claim) : ncp &gt;= min(null.ncp) and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     ncp &lt;= max(null.ncp) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alt. Claim) : ncp &lt; min(null.ncp) or </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     ncp &gt; max(null.ncp) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &gt;= min(null.ncp) and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp &lt;= max(null.ncp)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &lt; min(null.ncp) or</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp  &gt; max(null.ncp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
