@@ -1011,6 +1011,14 @@ test_that("printing.R works", {
                            "\033[36m────────────────────────────────────────────────────\033[0m",
                            "  \033[36mλ  : Non-centrality parameter under alternative\033[0m",
                            "  \033[36mλ₀ : Non-centrality parameter under null\033[0m", ""))
+
+    crrAsc <- capture.output(power.t.test(ncp = 1.96, df = Inf, alpha = 0.05, alternative = "two.sided", plot = FALSE, verbose = 2))
+    expect_false(any(grepl("Degrees of Freedom", crrAsc)))
+    expect_equal(length(crrAsc), 32)
+    expect_equal(crrAsc[c(18, 24:25)], c("  Critical Value         = -1.960 and 1.960",
+                                         "  Type 2 Error (beta)  = 0.500",
+                                         "  Statistical Power    = 0.500  <<"))
+
     # ------------------------------------------------------------------------------------------------------------------
 
 
@@ -1778,7 +1786,7 @@ test_that("printing.R works", {
                            "────────────────────────────────────────────────────",
                            "Key Parameters",
                            "────────────────────────────────────────────────────",
-                           "  P₁ – P₂         = 0.200",
+                           "  P₁ - P₂         = 0.200",
                            "  Odds Ratio (OR) = 2.250", "",
                            "────────────────────────────────────────────────────",
                            "Results",
@@ -1845,7 +1853,7 @@ test_that("printing.R works", {
                            "────────────────────────────────────────────────────",
                            "Key Parameters",
                            "────────────────────────────────────────────────────",
-                           "  P₁ – P₂         = 0.100",
+                           "  P₁ - P₂         = 0.100",
                            "  Odds Ratio (OR) = 1.556", "",
                            "────────────────────────────────────────────────────",
                            "Results",
@@ -1911,7 +1919,7 @@ test_that("printing.R works", {
                            "────────────────────────────────────────────────────",
                            "Key Parameters",
                            "────────────────────────────────────────────────────",
-                           "  P₁ – P₂         = 0.050",
+                           "  P₁ - P₂         = 0.050",
                            "  Odds Ratio (OR) = 1.238", "",
                            "────────────────────────────────────────────────────",
                            "Results",
@@ -1979,7 +1987,7 @@ test_that("printing.R works", {
                            "────────────────────────────────────────────────────",
                            "Key Parameters",
                            "────────────────────────────────────────────────────",
-                           "  P₁ – P₂         = 0.050",
+                           "  P₁ - P₂         = 0.050",
                            "  Odds Ratio (OR) = 1.238",
                            "  μ               = 1.635",
                            "  μ₀              = 0",
@@ -2052,7 +2060,7 @@ test_that("printing.R works", {
                            "────────────────────────────────────────────────────",
                            "Key Parameters",
                            "────────────────────────────────────────────────────",
-                           "  P₁ – P₂         = 0.050",
+                           "  P₁ - P₂         = 0.050",
                            "  Odds Ratio (OR) = 1.238",
                            "  μ               = 2.490",
                            "  μ₀              = 0",
@@ -2223,6 +2231,77 @@ test_that("printing.R works", {
                            "  \033[36mOR : P₁₀ / P₀₁\033[0m",
                            "  \033[36mP₁  : Prob. of {1,0} among discordant pairs under alt.\033[0m",
                            "  \033[36mP₀  : Prob. of {1,0} among discordant pairs under null\033[0m", ""))
+
+    crrAsc <- capture.output(power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n = 300, alpha = 0.05, alternative = "two.sided",
+                             method = "approximate", verbose = 2))
+    expect_equal(crrAsc, c("+--------------------------------------------------+",
+                           "|                POWER CALCULATION                 |",
+                           "+--------------------------------------------------+", "",
+                           "Paired Proportions", "",
+                           "  Method : Normal Approximation", "",
+                           "----------------------------------------------------",
+                           "Hypotheses",
+                           "----------------------------------------------------",
+                           "  H0 (Null)        : prob10 - prob01  = 0",
+                           "  H1 (Alternative) : prob10 - prob01 != 0", "",
+                           "----------------------------------------------------",
+                           "Key Parameters",
+                           "----------------------------------------------------",
+                           "  Odds Ratio      =  2",
+                           "  prob10 - prob01 =  0.100",
+                           "  Mean of Alt.    =  3.183",
+                           "  Mean of Null    =  0",
+                           "  Critical Value  = -1.960 and 1.960", "",
+                           "----------------------------------------------------",
+                           "Results",
+                           "----------------------------------------------------",
+                           "  Paired Sample Size   = 300",
+                           "  Type 1 Error (alpha) = 0.050",
+                           "  Type 2 Error (beta)  = 0.111",
+                           "  Statistical Power    = 0.889  <<", "",
+                           "----------------------------------------------------",
+                           "Definitions",
+                           "----------------------------------------------------",
+                           "  Odds Ratio  : prob10 / prob01",
+                           "  prob10      : Joint prob. of observing {1,0}",
+                           "  prob01      : Joint prob. of observing {0,1}",
+                           "  prob10 | DP : Conditional prob. of observing {1,0}",
+                           "                among DP, prob10 / (prob10 + prob01)",
+                           "  DP          : Discordant pairs", ""))
+
+    crrPty <- capture.output(power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n = 300, alpha = 0.05, alternative = "two.sided",
+                             method = "approximate", verbose = 2, pretty = TRUE))
+    expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
+                           "║               \033[34m POWER CALCULATION \033[0m                ║",
+                           "╚══════════════════════════════════════════════════╝", "",
+                           "Paired Proportions", "",
+                           "  Method : Normal Approximation", "",
+                           "────────────────────────────────────────────────────",
+                           "Hypotheses",
+                           "────────────────────────────────────────────────────",
+                           "  H₀ (Null)        : P₁₀ - P₀₁ = 0",
+                           "  H₁ (Alternative) : P₁₀ - P₀₁ ≠ 0", "",
+                           "────────────────────────────────────────────────────",
+                           "Key Parameters",
+                           "────────────────────────────────────────────────────",
+                           "  Odds Ratio (OR) =  2",
+                           "  P₁₀ - P₀₁       =  0.100",
+                           "  μ₁              =  3.183",
+                           "  μ₀              =  0",
+                           "  Z⁻¹(α, μ₀)       = -1.960 and 1.960", "",
+                           "────────────────────────────────────────────────────",
+                           "Results",
+                           "────────────────────────────────────────────────────",
+                           "  Paired Sample Size = 300",
+                           "  Type 1 Error (α)   = 0.050",
+                           "  Type 2 Error (β)   = 0.111",
+                           "  \033[34mStatistical Power  = 0.889\033[0m  \033[1;35m◄◄\033[0m", "",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "\033[36mDefinitions\033[0m",
+                           "\033[36m────────────────────────────────────────────────────\033[0m",
+                           "  \033[36mOR : P₁₀ / P₀₁\033[0m",
+                           "  \033[36mμ₁  : Mean of the alternative distribution\033[0m",
+                           "  \033[36mμ₀  : Mean of the null distribution\033[0m", ""))
     # ------------------------------------------------------------------------------------------------------------------
 
 

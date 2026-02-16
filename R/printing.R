@@ -747,10 +747,11 @@
   cat(.hypotheses(h0_text, h1_text, pretty))
 
   if (verbose == 2) {
-    #               | var.name        |  ascii                  |  pretty
-    parms_vec <-   c("delta",            "prob1 - prob2",   "P\u2081 – P\u2082",
+    #               | var.name         |  ascii           |  pretty
+    parms_vec <-   c("delta",            "prob1 - prob2",   "P\u2081 - P\u2082",
                      "odds.ratio",       "Odds Ratio (OR)", "Odds Ratio (OR)")
     if (x$method == "z") {
+      #             | var.name         |  ascii           |  pretty
       parms_vec <- c(parms_vec,
                      "mean.alternative", "Mean of Alt.",    "\u03BC",
                      "mean.null",        "Mean of Null",    "\u03BC\u2080\u2009",
@@ -778,7 +779,7 @@
                     "Odds(prob2) : prob2 / (1 - prob2)",
                       "Odds(P\u2082) : P\u2082 / (1 - P\u2082)")
     if (x$method == "z" && pretty) {
-      #            | only pretty (ascii is not required and thus empty - "")
+      #            |     pretty (ascii is not required and thus empty - "")
       defs_vec <- c(defs_vec,
                     "", "\u03BC\u2009       : Mean of the alternative distribution",
                     "", "\u03BC\u2080       : Mean of the null distribution")
