@@ -27,14 +27,6 @@ knitr::opts_chunk$set(echo = TRUE,
                       out.width = "100%")
 ```
 
-```{js, echo=FALSE}
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-047X5R7P7R');
-```
-
 ```{css, echo=FALSE}
 div.tocify {
   width: 30%;
@@ -46,13 +38,7 @@ div.tocify {
   line-height: 20px;
 }
 
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 35px;
-  text-indent: 0;
-}
-
-.tocify-subheader .tocify-subheader .tocify-item {
+.tocify-subheader, .tocify-item {
   font-size: 0.90em;
   padding-left: 70px;
   text-indent: 0;
@@ -89,10 +75,11 @@ This open-source project has benefited from users who have taken the time to rep
 Error reports from (alphabetic order): <br>
 Adrian Olszewski (bug report);
 Catherine (Kate) Crespi (bug report);
-dpnichols811 (GitHub profile) (bug report);
+dpnichols811 (GitHub profile, bug report);
 Fred Oswald (typo report);
 Jarrod Hadfield (bug report);
 Leszek Gawarecki (typo report);
+liegepr (GitHub profile, bug report);
 Roland Thijs (typo report)
 
 Please send any bug reports, feedback, or questions to [bulusmetin [at] gmail.com](mailto:bulusmetin@gmail.com)
@@ -244,7 +231,7 @@ z.std.error <- sqrt(1.06 / (n - 3))
 ncp <- (z.rs - z.null.rs) / z.std.error
 
 # calculate power
-power.z.test(ncp = ncp,
+power.z.test(mean = ncp,
              alpha = 0.05,
              alternative = "two.sided",
              plot = TRUE)
@@ -1794,7 +1781,7 @@ power.z.poisson(base.rate = exp(0.50),
 
 A simple mediation model can be constructed as in the figure.
 
-![Simple Mediation Model](reference/figures/med.png)
+![Simple Mediation Model](./figures/med.png)
 
 Regression models take the form of
 
