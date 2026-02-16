@@ -30,8 +30,6 @@
 #'                    results), if \code{2} a more detailed output is given
 #'                    (plus key parameters and defintions), if \code{0} no
 #'                    output is printed on the console.
-#' @param ...         legacy inputs will be mapped to their corresponding
-#'                    arguments (silent). e.g. \code{ncp}
 #' @param pretty      logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.

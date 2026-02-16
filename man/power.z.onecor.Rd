@@ -75,7 +75,7 @@ power.z.onecor(rho = 0.20,
                alternative = "two.sided")
 
 # expected correlation is 0.20 and it is greater than 0.10
-power.z.onecor(rho = 0.20, null = 0.10,
+power.z.onecor(rho = 0.20, null.rho = 0.10,
                power = 0.80,
                alpha = 0.05,
                alternative = "one.sided")

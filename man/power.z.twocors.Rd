@@ -77,13 +77,13 @@ Formulas are validated using PASS and G*Power.
 \examples{
 # difference between r1 and r2 is different from zero
 # it could be -0.10 as well as 0.10
-power.z.twocors(rho1 = .20, rho2 = 0.30,
-               alpha = 0.05, power = .80,
+power.z.twocors(rho1 = 0.20, rho2 = 0.30,
+               power = 0.80, alpha = 0.05,
                alternative = "two.sided")
 
 # difference between r1 and r2 is greater than zero
-power.z.twocors(rho1 = .30, rho2 = 0.20,
-               alpha = 0.05, power = .80,
+power.z.twocors(rho1 = 0.30, rho2 = 0.20,
+               power = 0.80, alpha = 0.05,
                alternative = "one.sided")
 
 }

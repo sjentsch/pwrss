@@ -52,9 +52,6 @@ output is printed on the console.}
 \item{pretty}{logical; whether the output should show Unicode
 characters (if encoding allows for it). \code{FALSE} by
 default.}
-
-\item{...}{legacy inputs will be mapped to their corresponding
-arguments (silent). e.g. \code{ncp}}
 }
 \value{
 \item{mean}{mean of the alternative distribution.}

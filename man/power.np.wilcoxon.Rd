@@ -3,8 +3,8 @@
 \name{power.np.wilcoxon}
 \alias{power.np.wilcoxon}
 \alias{power.np.wilcox}
-\alias{pwrss.np.2means}
 \alias{pwrss.np.2groups}
+\alias{pwrss.np.2means}
 \title{Power Analysis for Non-parametric Rank-Based Tests (One-Sample, Independent,
 and Paired Designs)}
 \usage{
@@ -12,8 +12,8 @@ power.np.wilcoxon(
   d,
   null.d = 0,
   margin = 0,
-  n2 = NULL,
   n.ratio = 1,
+  n2 = NULL,
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -32,11 +32,11 @@ power.np.wilcoxon(
 
 \item{margin}{margin - ignorable \code{d} - \code{null.d} difference.}
 
-\item{n2}{integer; sample size in the second group (or for the
-single group in paired samples or one-sample)}
-
 \item{n.ratio}{\code{n1 / n2} ratio (applies to independent samples
 only)}
+
+\item{n2}{integer; sample size in the second group (or for the
+single group in paired samples or one-sample)}
 
 \item{power}{statistical power, defined as the probability of
 correctly rejecting a false null hypothesis, denoted as

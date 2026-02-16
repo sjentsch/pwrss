@@ -31,7 +31,7 @@
 #' \code{pwrss.np.2groups()} will remain available for some time.
 #'
 #'
-#' @aliases power.np.wilcoxon power.np.wilcox pwrss.np.2groups
+#' @aliases power.np.wilcox pwrss.np.2groups pwrss.np.2means
 #'
 #' @param d            Cohen's d or Hedges' g.
 #' @param null.d       Cohen's d or Hedges' g under null, typically 0 (zero).
