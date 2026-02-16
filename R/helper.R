@@ -18,8 +18,8 @@ isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.e
 
 save_png <- function(code, width = 800, height = 800) {
   path <- tempfile(fileext = ".png")
-  png(path, width = width, height = height)
-  on.exit(dev.off())
+  grDevices::png(path, width = width, height = height)
+  on.exit(grDevices::dev.off())
   code
 
   path
