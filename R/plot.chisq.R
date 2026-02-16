@@ -85,10 +85,13 @@
 
 
 
-.plot.chisq.t1t2 <- function(ncp, null.ncp = 0, df, alpha,
+.plot.chisq.t1t2 <- function(ncp, null.ncp = 0, df, alpha = 0.05,
                              plot.main = NULL, plot.sub = NULL) {
 
-  if (length(ncp) > 1) stop("not a valid plotting option", call. = FALSE)
+  check.numeric(ncp)
+  check.proportion(alpha)
+  if (!is.numeric(df) || length(df) != 1 || df < 1 || !is.finite(df))
+    stop("`df` must be numeric, finite, have a value of at least 1 and have a length of 1.", call. = FALSE)  
 
   chisq.alpha <- stats::qchisq(alpha, df = df, ncp = null.ncp, lower.tail = FALSE)
   y.chisq.alpha <- stats::dchisq(chisq.alpha, df = df, ncp = null.ncp)

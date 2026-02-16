@@ -83,24 +83,12 @@
 
   alternative <- tolower(match.arg(alternative))
 
+  check.numeric(ncp)
+  null.ncp <- check.margins(null.ncp, check.numeric, alternative)
+  check.proportion(alpha)
+
   # critical t line segment coordinates
   if (alternative == "two.one.sided") {
-
-    ifelse(is.numeric(ncp) && length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
-
-    ifelse(is.numeric(null.ncp) && length(null.ncp) %in% c(1, 2),
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
-
-    if (isFALSE(valid.ncp))
-      stop("`ncp` must be numeric and of length one for equivalence tests.", call. = FALSE)
-    if (isFALSE(valid.null.ncp))
-      stop(paste("`null.ncp` must be numeric and of length one (absolute value) or length two (with lower and",
-                 "upper bounds) for the equivalence test."), call. = FALSE)
-
-    if (length(null.ncp) == 1) null.ncp <- c(min(c(-null.ncp, null.ncp)), max(-null.ncp, null.ncp))
 
     # equivalence test
     if (ncp > min(null.ncp) && ncp < max(null.ncp)) {
@@ -126,36 +114,13 @@
 
   } else if (alternative == "two.sided") {
 
-    ifelse(is.numeric(ncp) && length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
-
-    ifelse(is.numeric(null.ncp) && length(null.ncp) == 1,
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
-
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-      stop("`ncp` or `null.ncp` must be numeric, positive (absolute value), and of length one for the two-sided test.", call. = FALSE)
-    # if (ncp < null.ncp) stop("`ncp` must be equal or greater than `null.ncp` for the two-sided test.", .call = FALSE)
-
     t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
     t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
     t.alpha <- rbind(t.alpha.lower, t.alpha.upper)
 
     yt.alpha <- stats::dt(t.alpha, df = df, ncp = null.ncp)
 
-  } else {
-
-    ifelse(is.numeric(ncp) && length(ncp) == 1,
-           valid.ncp <- TRUE,
-           valid.ncp <- FALSE)
-
-    ifelse(is.numeric(null.ncp) && length(null.ncp) == 1,
-           valid.null.ncp <- TRUE,
-           valid.null.ncp <- FALSE)
-
-    if (isFALSE(valid.ncp) || isFALSE(valid.null.ncp))
-      stop("`ncp` or `null.ncp` must be numeric and of length one for the one-sided test.", call. = FALSE)
+  } else if (alternative == "one.sided") {
 
     ifelse(ncp > null.ncp,
            lower.tail <- FALSE,

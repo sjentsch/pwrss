@@ -5,6 +5,9 @@
 #' @exportS3Method
 plot.pwrss <- function(x, ...) {
 
+  if ("defunct" %in% class(x))
+    stop("Plotting is no longer available for this type of object.", call. = FALSE)
+
   if (all(c("pwrss", "t") %in% class(x))) {
 
     # student, welch, wilcoxon, regression
@@ -17,8 +20,6 @@ plot.pwrss <- function(x, ...) {
 
   } else if (all(c("pwrss", "z") %in% class(x))) {
 
-    if ("defunct" %in% class(x)) stop("Plotting is no longer available for this type of object.", call. = FALSE)
-
     # proportions, correlations, logistic, poisson, mediation
     power.z.test(mean = x$mean,
                  sd = x$sd,
@@ -30,9 +31,10 @@ plot.pwrss <- function(x, ...) {
 
   } else if (all(c("pwrss", "exact") %in% class(x))) {
 
-    if (any(c("mcnemar", "fisher") %in% class(x))) stop("Plotting is not available for Fisher's or McNemar's exact test.", call. = FALSE)
+    if (any(c("mcnemar", "fisher") %in% class(x)))
+      stop("Plotting is not available for Fisher's or McNemar's exact test.", call. = FALSE)
 
-    # proportions
+    # proportions.onetwo (only exact.oneprop)
     power.binom.test(size = ceiling(x$size),
                      prob = x$prob,
                      null.prob = x$null.prob,
@@ -42,7 +44,7 @@ plot.pwrss <- function(x, ...) {
 
   } else if (all(c("pwrss", "f") %in% class(x))) {
 
-    # ancova, keppel, shieh, mixed anova, regression
+    # ancova, keppel, shieh, mixed.anova, regression
     power.f.test(ncp = x$ncp,
                  null.ncp = x$null.ncp,
                  df1 = x$df1,

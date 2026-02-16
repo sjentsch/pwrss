@@ -84,10 +84,15 @@
 } # end of .paint.f.dist()
 
 
-.plot.f.t1t2 <- function(ncp, null.ncp = 0, df1, df2, alpha,
+.plot.f.t1t2 <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
                          plot.main = NULL, plot.sub = NULL) {
 
-  if (length(ncp) > 1) stop("Not a valid plotting option.", call. = FALSE)
+  check.numeric(ncp, null.ncp)
+  if (!is.numeric(df1) || length(df1) != 1 || df1 < 1 || !is.finite(df1))
+    stop("`df1` must be numeric, finite, have a value of at least 1 and have a length of 1.", call. = FALSE)  
+  if (!is.numeric(df2) || length(df2) != 1 || df2 < 1 || !is.finite(df2))
+    stop("`df2` must be numeric, finite, have a value of at least 1 and have a length of 1.", call. = FALSE)  
+  check.proportion(alpha)
 
   f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.ncp, lower.tail = FALSE)
   yf.alpha <- stats::df(f.alpha, df1 = df1, df2 = df2, ncp = null.ncp)

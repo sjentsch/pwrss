@@ -107,17 +107,26 @@
 
 }
 
-.plot.binom.t1t2 <- function(size, prob, null.prob = 0.50, alpha, alternative,
+.plot.binom.t1t2 <- function(size, prob, null.prob = 0.50, alpha = 0.05,
+                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                              plot.main = NULL, plot.sub = NULL) {
 
-  if (size < 10) stop("Number of trials should be greater than 10 for plotting", call. = FALSE)
+  alternative <- tolower(match.arg(alternative))
 
-  # critical t line segment coordinates
+  check.sample.size(size)
+  check.proportion(prob)
+  # null.prob checked below
+  check.proportion(alpha)
+
+  if (size < 10)
+    stop("Number of trials should be greater than 10 for plotting.", call. = FALSE)
+
+  if (alternative == "two.one.sided" && length(null.prob) == 1)
+    null.prob <- rbind(prob - abs(null.prob - prob), prob + abs(null.prob - prob))
+  check.margins(null.prob, check.proportion, alternative)
+
+  # critical binom line segment coordinates
   if (alternative == "two.one.sided") {
-
-    if (length(null.prob) == 1) null.prob <- rbind(prob - abs(null.prob - prob), prob + abs(null.prob - prob))
-    if (length(null.prob) == 2 && is.vector(null.prob)) null.prob <- rbind(min(null.prob), max(null.prob))
-    if (length(null.prob) > 2) stop("Not a valid plotting option.", call. = FALSE)
 
     if (prob > min(null.prob) && prob < max(null.prob)) {
       # equivalence
@@ -152,8 +161,6 @@
 
   } else if (alternative == "two.sided") {
 
-    if (length(prob) > 1) stop("Not a valid plotting option.", call. = FALSE)
-
     q.binom.lower <- stats::qbinom(alpha / 2, size = size, prob = null.prob, lower.tail = TRUE)
     p.binom.lower <- stats::pbinom(q.binom.lower, size = size, prob = null.prob, lower.tail = TRUE)
     if (p.binom.lower > alpha / 2) q.binom.lower <- q.binom.lower - 1
@@ -167,8 +174,6 @@
     y.binom.alpha <- stats::dbinom(q.binom.alpha, size = size, prob = null.prob)
 
   } else if (alternative == "one.sided") {
-
-    if (length(prob) > 1) stop("Not a valid plotting option.", call. = FALSE)
 
     if (prob < null.prob) {
       # less
