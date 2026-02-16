@@ -5,12 +5,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^codemeta\.json$
+^CONTRIBUTING.md$
 ^doc$
 ^docs$
-^Meta$
 ^LICENSE$
+^Meta$
 ^pkgdown$
 ^_pkgdown\.yml$
 ^README\.md$
 ^README\.Rmd$
-
