@@ -1,4 +1,4 @@
-# Contributing to jmvReadWrite
+# Contributing to pwrss
 
 ## Opening issues
 
