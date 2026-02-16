@@ -77,7 +77,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
   check.numeric(mean)
   check.positive(sd)
   null.mean <- check.margins(null.mean, check.numeric, alternative)
-  check.positive(null.sd)
+  check.nonnegative(null.sd)
   check.proportion(alpha)
   check.logical(plot, pretty)
   verbose <- ensure_verbose(verbose)

@@ -85,6 +85,8 @@
 
   check.numeric(ncp)
   null.ncp <- check.margins(null.ncp, check.numeric, alternative)
+  if (!is.numeric(df) || length(df) != 1 || df < 1)
+    stop("`df` must be numeric, have a value of at least 1 and have a length of 1.", call. = FALSE)
   check.proportion(alpha)
 
   # critical t line segment coordinates

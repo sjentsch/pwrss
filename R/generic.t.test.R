@@ -72,7 +72,8 @@ power.t.test <- function(ncp, null.ncp = 0,
 
   check.numeric(ncp)
   null.ncp <- check.margins(null.ncp, check.numeric, alternative)
-  check.positive(df)
+  if (!is.numeric(df) || length(df) != 1 || df < 1)
+    stop("`df` must be numeric, have a value of at least 1 and have a length of 1.", call. = FALSE)
   check.proportion(alpha)
   check.logical(plot, pretty)
   verbose <- ensure_verbose(verbose)
