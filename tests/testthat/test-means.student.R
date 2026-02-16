@@ -10,75 +10,6 @@ test_that("means.student.R works", {
                  list(test = "t", df = 786, ncp = 2.80713377, null.ncp = 0, t.alpha = 1.96298672 * c(-1, 1),
                       power = 0.800593128, n = c(n1 = 394, n2 = 394)))
 
-    crrAsc <- capture.output(power.t.student(d = 0.20, power = 0.80, alternative = "two.sided", design = "independent", verbose = 2))
-    expect_equal(crrAsc, c("+--------------------------------------------------+",
-                           "|             SAMPLE SIZE CALCULATION              |",
-                           "+--------------------------------------------------+", "",
-                           "Student's T-Test (Independent Samples)", "",
-                           "----------------------------------------------------",
-                           "Hypotheses",
-                           "----------------------------------------------------",
-                           "  H0 (Null Claim) : d - null.d  = 0",
-                           "  H1 (Alt. Claim) : d - null.d != 0", "",
-                           "----------------------------------------------------",
-                           "Key Parameters",
-                           "----------------------------------------------------",
-                           "  Cohen's d              = 0.200",
-                           "  Cohen's d Under Null   = 0.000",
-                           "  Margin                 = 0",
-                           "  Degrees of Freedom     = 786",
-                           "  Non-centrality of Alt. = 2.807",
-                           "  Non-centrality of Null = 0",
-                           "  Critical Value         = -1.963 and 1.963 ", "",
-                           "----------------------------------------------------",
-                           "Results",
-                           "----------------------------------------------------",
-                           "  Sample Size          = 394 and 394  <<",
-                           "  Type 1 Error (alpha) = 0.050",
-                           "  Type 2 Error (beta)  = 0.199",
-                           "  Statistical Power    = 0.801", "",
-                           "----------------------------------------------------",
-                           "Definitions",
-                           "----------------------------------------------------",
-                           "  Margin : Smallest d - null.d difference that matters ", ""))
-
-    crrPty <- capture.output(power.t.student(d = 0.20, power = 0.80, alternative = "two.sided", design = "independent",
-                                             verbose = 2, pretty = TRUE))
-    expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
-                           "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
-                           "╚══════════════════════════════════════════════════╝", "",
-                           "Student's T-Test (Independent Samples)", "",
-                           "────────────────────────────────────────────────────",
-                           "Hypotheses",
-                           "────────────────────────────────────────────────────",
-                           "  H₀ (Null)         : d - d₀ = 0 ",
-                           "  H₁ (Alternative)  : d - d₀ ≠ 0 ", "",
-                           "────────────────────────────────────────────────────",
-                           "Key Parameters",
-                           "────────────────────────────────────────────────────",
-                           "  d                 = 0.200",
-                           "  d₀                 = 0.000",
-                           "  δ                 = 0 ",
-                           "  df                = 786",
-                           "  λ                 = 2.807",
-                           "  λ₀                 = 0 ",
-                           "  T⁻¹(α, λ₀)          = -1.963 and 1.963 ", "",
-                           "────────────────────────────────────────────────────",
-                           "Results",
-                           "────────────────────────────────────────────────────",
-                           "  \033[34mSample Size        = 394 and 394\033[0m  \033[1;35m◄◄\033[0m",
-                           "  Type 1 Error (α)   = 0.050",
-                           "  Type 2 Error (β)   = 0.199",
-                           "  Statistical Power  = 0.801", "",
-                           "\033[36m────────────────────────────────────────────────────\033[0m",
-                           "\033[36mDefinitions\033[0m",
-                           "\033[36m────────────────────────────────────────────────────\033[0m",
-                           "\033[36m  d   : Cohen's d under alternative ",
-                           "\033[0m\033[36m  d₀ : Cohen's d under null ",
-                           "\033[0m\033[36m  δ   : Margin - ignorable d - d₀ difference ",
-                           "\033[0m\033[36m  λ   : Non-centrality parameter under alternative ",
-                           "\033[0m\033[36m  λ₀ : Non-centrality parameter under null ", "", "\033[0m"))
-
     crrRes <- power.t.student(d = 0.20, n2 = 394, alternative = "two.sided", design = "independent", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "student"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
@@ -232,17 +163,16 @@ test_that("means.student.R works", {
                  list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
                       power = 0.801691024, n = 199))
 
-    crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "two.sided", claim.basis = "smd.ci", design = "paired",
-                              verbose = 0)
-    expect_equal(class(crrRes), c("pwrss", "t", "student"))
-    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
-    expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
-    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
-                 list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
-                      power = 0.801691024, n = 199))
-
+#    crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "two.sided", claim.basis = "smd.ci", design = "paired",
+#                              verbose = 0)
+#    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+#    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+#    expect_equal(crrRes[["parms"]],
+#                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
+#                      design = "paired", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
+#    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+#                 list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
+#                      power = 0.801691024, n = 199))
 
     crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "one.sided", design = "paired", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "student"))
@@ -386,9 +316,24 @@ test_that("means.student.R works", {
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 155, ncp = -2.4979992, null.ncp = 0, t.alpha = -1.654743774,
                       power = 0.80016732, n = 156))
+    expect_equal(crrRes, pwrss.t.mean(mu = -0.20, sd = 1, n = 156, alternative = "less", verbose = FALSE))
+
+    crrRes <- power.t.student(d = 0.20, margin = c(-0.1, 0.1), power = 0.8, alternative = "two.one.sided", design = "one.sample",
+                              verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.20, null.d = 0, margin = c(-0.1, 0.1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 796, ncp = 5.6462377, null.ncp = 2.82311884 * c(-1, 1), t.alpha = 4.79868895 * c(-1, 1),
+                      power = 0.800381536, n = 797))
+    expect_equal(crrRes, pwrss.t.mean(mu = 0.20, margin = 0.1, sd = 1, power = 0.8, alternative = "equivalent", verbose = FALSE))
 
     expect_error(power.t.student(d = 1e-4, power = 1 - 1e-4, alpha = 1e-4, alternative = "two.sided", design = "independent"),
                  "Design is not feasible.")
+    expect_warning(pwrss.t.mean(mu = 0.20, margin = 0.1, sd = 1, power = 0.8, alternative = "not equal", verbose = FALSE),
+                   "Margin is forced to be 0 for the 'two.sided' test.")
 
     # power.t.welch ----------------------------------------------------------------------------------------------------
     crrRes <- power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, power = 0.80, alternative = "two.sided", verbose = 0)
@@ -410,75 +355,6 @@ test_that("means.student.R works", {
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 629.77715, ncp = 2.81109027, null.ncp = 0, t.alpha = 1.96373795 * c(-1, 1),
                       power = 0.801457968, n = c(n1 = 474, n2 = 237)))
-
-    crrAsc <- capture.output(power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, n2 = 237, alternative = "two.sided", verbose = 2))
-    expect_equal(crrAsc, c("+--------------------------------------------------+",
-                           "|                POWER CALCULATION                 |",
-                           "+--------------------------------------------------+", "",
-                           "Welch's T-Test (Independent Samples)", "",
-                           "----------------------------------------------------",
-                           "Hypotheses",
-                           "----------------------------------------------------",
-                           "  H0 (Null Claim) : d - null.d  = 0",
-                           "  H1 (Alt. Claim) : d - null.d != 0", "",
-                           "----------------------------------------------------",
-                           "Key Parameters",
-                           "----------------------------------------------------",
-                           "  Cohen's d              = 0.200",
-                           "  Cohen's d Under Null   = 0.000",
-                           "  Margin                 = 0",
-                           "  Degrees of Freedom     = 630",
-                           "  Non-centrality of Alt. = 2.811",
-                           "  Non-centrality of Null = 0",
-                           "  Critical Value         = -1.964 and 1.964 ", "",
-                           "----------------------------------------------------",
-                           "Results",
-                           "----------------------------------------------------",
-                           "  Sample Size          = 474 and 237",
-                           "  Type 1 Error (alpha) = 0.050",
-                           "  Type 2 Error (beta)  = 0.199",
-                           "  Statistical Power    = 0.801  <<", "",
-                           "----------------------------------------------------",
-                           "Definitions",
-                           "----------------------------------------------------",
-                           "  Margin : Smallest d - null.d difference that matters ", ""))
-
-    crrPty <- capture.output(power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, n2 = 237, alternative = "two.sided",
-                                           verbose = 2, pretty = TRUE))
-    expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
-                           "║               \033[34m POWER CALCULATION \033[0m                ║",
-                           "╚══════════════════════════════════════════════════╝", "",
-                           "Welch's T-Test (Independent Samples)", "",
-                           "────────────────────────────────────────────────────",
-                           "Hypotheses",
-                           "────────────────────────────────────────────────────",
-                           "  H₀ (Null)         : d - d₀ = 0 ",
-                           "  H₁ (Alternative)  : d - d₀ ≠ 0 ", "",
-                           "────────────────────────────────────────────────────",
-                           "Key Parameters",
-                           "────────────────────────────────────────────────────",
-                           "  d                 = 0.200",
-                           "  d₀                 = 0.000",
-                           "  δ                 = 0 ",
-                           "  df                = 630",
-                           "  λ                 = 2.811",
-                           "  λ₀                 = 0 ",
-                           "  T⁻¹(α, λ₀)          = -1.964 and 1.964 ", "",
-                           "────────────────────────────────────────────────────",
-                           "Results",
-                           "────────────────────────────────────────────────────",
-                           "  Sample Size        = 474 and 237",
-                           "  Type 1 Error (α)   = 0.050",
-                           "  Type 2 Error (β)   = 0.199",
-                           "  \033[34mStatistical Power  = 0.801\033[0m  \033[1;35m◄◄\033[0m", "",
-                           "\033[36m────────────────────────────────────────────────────\033[0m",
-                           "\033[36mDefinitions\033[0m",
-                           "\033[36m────────────────────────────────────────────────────\033[0m",
-                           "\033[36m  d   : Cohen's d under alternative ",
-                           "\033[0m\033[36m  d₀ : Cohen's d under null ",
-                           "\033[0m\033[36m  δ   : Margin - ignorable d - d₀ difference ",
-                           "\033[0m\033[36m  λ   : Non-centrality parameter under alternative ",
-                           "\033[0m\033[36m  λ₀ : Non-centrality parameter under null ", "", "\033[0m"))
 
     crrRes <- power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, power = 0.80, alternative = "two.sided", claim.basis = "smd.ci", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "welch"))

@@ -427,11 +427,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                       alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.poisson(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.poisson(print.obj, verbose = verbose)
-    }
+    .print.pwrss.poisson(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

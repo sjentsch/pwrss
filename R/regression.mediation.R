@@ -395,11 +395,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                       n = n,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.med(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.med(print.obj, verbose = verbose)
-    }
+    .print.pwrss.med(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

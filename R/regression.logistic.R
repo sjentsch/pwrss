@@ -570,11 +570,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                       alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.logistic(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.logistic(print.obj, verbose = verbose)
-    }
+    .print.pwrss.logistic(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

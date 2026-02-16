@@ -278,11 +278,7 @@ power.f.mixed.anova <- function(eta.squared,
                       power = power, ncp = ncp, null.ncp = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    if (pretty) {
-      .print.pwrss.ancova(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.ancova(print.obj, verbose = verbose)
-    }
+    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

@@ -89,7 +89,7 @@ power.t.test <- function(ncp, null.ncp = 0,
 
     lower.tail <- ncp < null.ncp
     t.alpha <- stats::qt(alpha,        df = df, ncp = null.ncp,      lower.tail = lower.tail)
-    power   <- stats::pt(t.alpha,      df = df, ncp = ncp,           lower.tail = lower.tail) 
+    power   <- stats::pt(t.alpha,      df = df, ncp = ncp,           lower.tail = lower.tail)
 
   } else if (alternative == "two.one.sided" && (ncp > min(null.ncp) && ncp < max(null.ncp))) {  # equivalence test
 
@@ -122,11 +122,7 @@ power.t.test <- function(ncp, null.ncp = 0,
                       df = df, alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.t(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.t(print.obj, verbose = verbose)
-    }
+    .print.pwrss.t(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

@@ -66,7 +66,7 @@ power.binom.test <- function(size,
   check.logical(plot, pretty)
   verbose <- ensure_verbose(verbose)
 
-  if (any(!is.numeric(size)) || any(size < 0) || any(!(abs(size - round(size)) < .Machine$double.eps ^ 0.5)))
+  if (!isInt(size) || any(size < 0))
     stop("Argument `size` does not have a valid value (integer-like, >= 0, and finite).", call. = FALSE)
 
   if (alternative == "two.sided") {
@@ -86,7 +86,7 @@ power.binom.test <- function(size,
              stats::pbinom(q.high, size, prob, lower.tail = FALSE)
 
   } else if (alternative == "one.sided") {
-    
+
     lower.tail <- prob < null.prob
 
     q          <- stats::qbinom(alpha, size, null.prob, lower.tail = lower.tail)
@@ -147,11 +147,7 @@ power.binom.test <- function(size,
                       binom.alpha = binom.alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.binom(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.binom(print.obj, verbose = verbose)
-    }
+    .print.pwrss.binom(print.obj, verbose = verbose, pretty = pretty)
 
   } # end of verbose
 

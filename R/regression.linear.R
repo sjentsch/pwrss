@@ -288,11 +288,7 @@ power.f.regression <- function(r.squared.change = NULL,
                       alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.f.regression(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.f.regression(print.obj, verbose = verbose)
-    }
+    .print.pwrss.f.regression(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 
@@ -616,11 +612,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                       alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.regression(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.regression(print.obj, verbose = verbose)
-    }
+    .print.pwrss.t.regression(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

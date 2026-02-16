@@ -371,11 +371,7 @@ power.exact.fisher <- function(prob1, prob2,
                       n = c(n1 = n1, n2 = n2),
                       n.total = n.total)
 
-    if (pretty) {
-      .print.pwrss.fisher(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.fisher(print.obj, verbose = verbose)
-    }
+    .print.pwrss.fisher(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

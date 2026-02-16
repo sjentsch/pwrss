@@ -138,11 +138,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = z.alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.z(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.z(print.obj, verbose = verbose)
-    }
+    .print.pwrss.z(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

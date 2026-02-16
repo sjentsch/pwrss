@@ -373,11 +373,10 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
 
   if (verbose > 0) {
 
-    ifelse(design == "independent",
-           test <- "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)",
-           ifelse(design == "paired",
-                  test <- "Wilcoxon Signed-Rank Test (Paired Samples)",
-                  test <- "Wilcoxon Signed-Rank Test (One Sample)"))
+    test <- switch(design,
+                   `independent` = "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)",
+                   `paired`      = "Wilcoxon Signed-Rank Test (Paired Samples)",
+                   `one.sample`  = "Wilcoxon Signed-Rank Test (One Sample)")
 
     print.obj <- c(list(requested = requested, test = test,
                         design = design, method = method, dist = distribution,
@@ -385,11 +384,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                         alpha = alpha, alternative = alternative),
                    list.out)
 
-    if (pretty) {
-      .print.pwrss.wilcoxon(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.wilcoxon(print.obj, verbose = verbose)
-    }
+    .print.pwrss.wilcoxon(print.obj, verbose = verbose, pretty = pretty)
 
   }
 

@@ -188,11 +188,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                       power = power,
                       n = n)
 
-    if (pretty) {
-      .print.pwrss.oneprop(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.oneprop(print.obj, verbose = verbose)
-    }
+    .print.pwrss.oneprop(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 
@@ -541,11 +537,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
                       power = power,
                       n = n)
 
-    if (pretty) {
-      .print.pwrss.oneprop(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.oneprop(print.obj, verbose = verbose)
-    }
+    .print.pwrss.oneprop(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 
@@ -1132,11 +1124,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
                         n = c(n1 = n1, n2 = n2),
                         n.total = n.total)
 
-      if (pretty) {
-        .print.pwrss.fisher(print.obj, verbose = verbose)
-      } else {
-        .print.ascii.pwrss.fisher(print.obj, verbose = verbose)
-      }
+      .print.pwrss.fisher(print.obj, verbose = verbose, pretty = pretty)
 
     } # verbose
 

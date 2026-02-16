@@ -255,11 +255,7 @@ power.f.ancova <- function(eta.squared,
                       power = power, ncp = ncp, null.ncp = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    if (pretty) {
-      .print.pwrss.ancova(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.ancova(print.obj, verbose = verbose)
-    }
+    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 
@@ -546,11 +542,7 @@ power.f.ancova.keppel <- function(mu.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    if (pretty) {
-      .print.pwrss.ancova(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.ancova(print.obj, verbose = verbose)
-    }
+    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
 
   } #verbose
 
@@ -1232,11 +1224,7 @@ power.f.ancova.shieh <- function(mu.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    if (pretty) {
-      .print.pwrss.ancova(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.ancova(print.obj, verbose = verbose)
-    }
+    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 
@@ -1512,11 +1500,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, t.alpha = c(-t.alpha, t.alpha), df = df)
 
-    if (pretty) {
-      .print.pwrss.contrast(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.contrast(print.obj, verbose = verbose)
-    }
+    .print.pwrss.contrast(print.obj, verbose = verbose, pretty = pretty)
 
   }
 
@@ -1782,11 +1766,7 @@ power.t.contrasts <- function(x = NULL,
                       alpha = alpha, adjust.alpha = adjust.alpha,
                       null.ncp = 0, data = print.data)
 
-    if (pretty) {
-      .print.pwrss.contrasts(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.contrasts(print.obj, verbose = verbose)
-    }
+    .print.pwrss.contrasts(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

@@ -61,11 +61,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
                       power = power, ncp.alternative = ncp, ncp.null = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    if (pretty) {
-      .print.pwrss.f(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.f(print.obj, verbose = verbose)
-    }
+    .print.pwrss.f(print.obj, verbose = verbose, pretty = pretty)
 
   } # end of verbose
 

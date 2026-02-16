@@ -197,11 +197,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
                       alpha = alpha,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.gof(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.gof(print.obj, verbose = verbose)
-    }
+    .print.pwrss.gof(print.obj, verbose = verbose, pretty = pretty)
 
   }
 

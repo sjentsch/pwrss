@@ -427,11 +427,8 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
   if (verbose > 0) {
 
-    ifelse(design == "independent",
-           test <- "Student's T-Test (Independent Samples)",
-           ifelse(design == "paired",
-                  test <- "Student's T-Test (Paired Samples)",
-                  test <- "Student's T-Test (One Sample)"))
+    test <- sprintf("Student's T-Test (%s)",
+                    switch(design, `independent` = "Independent Samples", `paired` = "Paired Samples", `one.sample` = "One Sample"))
 
     print.obj <- list(requested = requested, test = test,
                       d = d, null.d = null.d, margin = margin,
@@ -441,11 +438,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.student(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.student(print.obj, verbose = verbose)
-    }
+    .print.pwrss.student(print.obj, verbose = verbose, pretty = pretty)
 
   }
 
@@ -706,11 +699,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    if (pretty) {
-      .print.pwrss.student(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.student(print.obj, verbose = verbose)
-    }
+    .print.pwrss.student(print.obj, verbose = verbose, pretty = pretty)
 
   }
 

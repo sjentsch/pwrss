@@ -56,11 +56,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
                       power = power, ncp.alternative = ncp, ncp.null = null.ncp,
                       alpha = alpha, chisq.alpha = chisq.alpha, df = df)
 
-    if (pretty) {
-      .print.pwrss.chisq(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.chisq(print.obj, verbose = verbose)
-    }
+    .print.pwrss.chisq(print.obj, verbose = verbose, pretty = pretty)
 
   } # end of verbose
 

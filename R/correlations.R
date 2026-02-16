@@ -339,11 +339,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                        n = n,
                        power = power)
 
-    if (pretty) {
-      .print.pwrss.steiger(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.steiger(print.obj, verbose = verbose)
-    }
+    .print.pwrss.steiger(print.obj, verbose = verbose, pretty = pretty)
 
   }
 
@@ -512,11 +508,7 @@ power.z.twocors <- function(rho1, rho2,
                        power = power,
                        n = c(n1 = n1, n2 = n2))
 
-    if (pretty) {
-      .print.pwrss.twocors(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.twocors(print.obj, verbose = verbose)
-    }
+    .print.pwrss.twocors(print.obj, verbose = verbose, pretty = pretty)
 
   }
 
@@ -711,11 +703,7 @@ power.z.onecor <- function(rho, null.rho = 0,
                        power = power,
                        n = n)
 
-    if (pretty) {
-      .print.pwrss.twocors(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.twocors(print.obj, verbose = verbose)
-    }
+    .print.pwrss.twocors(print.obj, verbose = verbose, pretty = pretty)
 
   }
 

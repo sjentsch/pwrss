@@ -385,11 +385,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
                       power = power,
                       n.paired = n.paired)
 
-    if (pretty) {
-      .print.pwrss.mcnemar(print.obj, verbose = verbose)
-    } else {
-      .print.ascii.pwrss.mcnemar(print.obj, verbose = verbose)
-    }
+    .print.pwrss.mcnemar(print.obj, verbose = verbose, pretty = pretty)
 
   } # verbose
 

@@ -41,9 +41,7 @@ check.sample.size <- function(...) {
   args <- list(...)
   arg.names <- vapply(substitute(list(...))[-1], function(fn) paste0("`", deparse(fn, nlines = 1), "`"), character(1))
 
-  check <- vapply(args,
-                  function(x) length(x) == 1 && is.numeric(x) && is.finite(x) && x > 1 && abs(x - round(x)) < .Machine$double.eps ^ 0.5,
-                  logical(1))
+  check <- vapply(args, function(x) length(x) == 1 && isInt(x) && is.finite(x) && x > 1, logical(1))
 
   if (any(!check))
     stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
