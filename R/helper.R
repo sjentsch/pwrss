@@ -13,3 +13,14 @@ ensure_verbose <- function(verbose = NULL) {
     1
   }
 }
+
+isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.eps ^ 2 / 3)
+
+save_png <- function(code, width = 800, height = 800) {
+  path <- tempfile(fileext = ".png")
+  png(path, width = width, height = height)
+  on.exit(dev.off())
+  code
+
+  path
+}
