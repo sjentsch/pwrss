@@ -22,6 +22,9 @@
 .Rproj.user/
 *.Rproj
 
+# testthat - snapshot files for images
+tests/testthat/_snaps/*/plots/
+
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
