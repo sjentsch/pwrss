@@ -317,7 +317,7 @@
   graphics::title(main = plot.main, line = 2, cex.main = cex.title)
   graphics::title(sub = plot.sub, line = 3, cex.sub = cex.title)
   graphics::title(ylab = "Probability Density", line = 2.2, cex.lab = cex.label, col.lab = "grey30")
-  graphics::title(xlab = paste0("X ~ Binomial(n =", size, ")"), line = 2.2, cex.lab = cex.label, col.lab = "grey30")
+  graphics::title(xlab = paste0("X ~ Binomial (n =", size, ")"), line = 2.2, cex.lab = cex.label, col.lab = "grey30")
 
   if (power < 0) power <- 0
   alpha <- round(alpha, 2)
