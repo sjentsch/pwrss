@@ -8,8 +8,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.78366921, sd = 0.976071627, vcf = 1, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.800637479, n = 511))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.7836765, sd = 0.976071559, vcf = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.800639587, n = 511))
     expect_equal(crrRes, suppressMessages(pwrss.z.logistic(p0 = 0.15, p1 = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = FALSE)))
     expect_equal(crrRes, suppressMessages(pwrss.z.logreg(p0 = 0.15, p1 = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = FALSE)))
 
@@ -22,8 +22,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80267059, sd = 1, vcf = 0, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.800304678, n = 518))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.802677943, sd = 1, vcf = 0, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.800306736, n = 518))
 
     crrRes <- power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal",
                                method = "hsieh", verbose = 0)
@@ -34,8 +34,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80316639, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.95996398454, power = 0.800442373, n = 508))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80316583, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.95996398454, power = 0.80044222, n = 508))
 
     crrRes <- power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, n = 511, distribution = "normal", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
@@ -45,8 +45,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.78366921, sd = 0.976071627, vcf = 1, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.800637479, n = 511))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.7836765, sd = 0.976071559, vcf = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.800639587, n = 511))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
@@ -56,8 +56,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.783671049, sd = 0.976071594, vcf = 1, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.80063801, n = 511))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.783678356, sd = 0.976071526, vcf = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.800640122, n = 511))
 
     crrRes <- power.z.logistic(beta0 = -1.734601, beta1 = 0.3483067, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
@@ -67,8 +67,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.783669306, sd = 0.976071627, vcf = 1, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.800637507, n = 511))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.7836766, sd = 0.976071558, vcf = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.800639615, n = 511))
 
     crrRes <- power.z.logistic(base.prob = 0.15, beta1 = 0.3483067, alpha = 0.05, power = 0.80,
                                distribution = list(dist = "normal", mean = 10, sd = 2), verbose = 0)
@@ -79,8 +79,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = list(dist = "normal", mean = 10, sd = 2), ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.7241141, sd = 0.902808332, vcf = 1, null.mean = 0, null.sd = 1,
-                      z.alpha = c(-1.959964, 1.959964), power = 0.80133934, n = 134))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.7241170, sd = 0.9028072, vcf = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = c(-1.959964, 1.959964), power = 0.801340544, n = 134))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, power = 0.80, distribution = "bernoulli", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
@@ -114,8 +114,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696955, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.8015040, n = 54))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696896, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80150383, n = 54))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, n = 54, distribution = "bernoulli",
                                method = "hsieh", verbose = 0)
@@ -126,8 +126,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696955, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.8015040, n = 54))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696896, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80150383, n = 54))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, power = 0.80,
                                distribution = list(dist = "bernoulli", prob = 0.30), verbose = 0)

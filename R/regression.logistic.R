@@ -271,8 +271,8 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
     if (tolower(distribution$dist) == "normal") {
 
-      min <- stats::qnorm(.0000001, mean = distribution$mean, sd = distribution$sd)
-      max <- stats::qnorm(.9999999, mean = distribution$mean, sd = distribution$sd)
+      min <- stats::qnorm(1e-8,     mean = distribution$mean, sd = distribution$sd)
+      max <- stats::qnorm(1 - 1e-8, mean = distribution$mean, sd = distribution$sd)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dnorm(x, mean = distribution$mean, sd = distribution$sd)
@@ -281,7 +281,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     }  else if (tolower(distribution$dist) == "poisson") {
 
       min <- 0
-      max <- stats::qpois(.9999999, lambda = distribution$lambda)
+      max <- stats::qpois(1 - 1e-8, lambda = distribution$lambda)
 
       # define the distribution function and use summation (calcInt == TRUE)
       dist.func <- function(x) stats::dpois(x, lambda = distribution$lambda)
@@ -299,7 +299,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     } else if (tolower(distribution$dist) == "exponential") {
 
       min <- 0
-      max <- stats::qexp(.9999999, rate = distribution$rate)
+      max <- stats::qexp(1 - 1e-8, rate = distribution$rate)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dexp(x, rate = distribution$rate)
@@ -316,8 +316,8 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
     } else if (tolower(distribution$dist) == "lognormal") {
 
-      min <- stats::qlnorm(.0000001, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
-      max <- stats::qlnorm(.9999999, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      min <- stats::qlnorm(1e-8,     meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      max <- stats::qlnorm(1 - 1e-8, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dlnorm(x, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
@@ -485,7 +485,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                    power = power, alpha = alpha,
                    alternative = alternative,
                    distribution = distribution)$n
-    }, interval = c(0.01, 0.999))$root
+    }, interval = c(1e-3, 1 - 1e-3))$root
 
     power
 
