@@ -134,7 +134,7 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 500
-#>   Type 1 Error (alpha) = 0.050
+#>   Type 1 Error (alpha) = 0.049
 #>   Type 2 Error (beta)  = 0.279
 #>   Statistical Power    = 0.721  <<
 #> 
@@ -161,7 +161,7 @@ power.exact.oneprop(prob = 0.45, null.prob = 0.50,
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 633  <<
-#>   Type 1 Error (alpha) = 0.050
+#>   Type 1 Error (alpha) = 0.047
 #>   Type 2 Error (beta)  = 0.197
 #>   Statistical Power    = 0.803
 #> 

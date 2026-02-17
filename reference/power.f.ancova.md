@@ -14,6 +14,7 @@ power.f.ancova(
   eta.squared,
   null.eta.squared = 0,
   factor.levels = 2,
+  target.effect = NULL,
   k.covariates = 0,
   n.total = NULL,
   power = NULL,
@@ -40,9 +41,17 @@ power.f.ancova(
   two factors each having two levels or groups use e.g. c(2, 2), for
   three factors each having two levels (groups) use e.g. c(2, 2, 2).
 
+- target.effect:
+
+  character; determine the main effect or interaction that is of
+  interest, e.g., in a three-way-design, it is possible to define "A"
+  (main effect of the first factor), "B:C" (interaction of factor two
+  and three) or "A:B:C" (the three-way interaction of all factors); if
+  target is not used, the three-way interaction is the default.
+
 - k.covariates:
 
-  integer; number of covariates in the ANCOVA model.
+  integer; number of covariates in an ANCOVA model
 
 - n.total:
 

@@ -62,6 +62,7 @@ is not required as an input).</p>
 <span>  <span class="va">eta.squared</span>,</span>
 <span>  null.eta.squared <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  factor.levels <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  target.effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  k.covariates <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n.total <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  power <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -91,8 +92,18 @@ or groups use e.g. c(2, 2), for three factors each
 having two levels (groups) use e.g. c(2, 2, 2).</p></dd>
 
 
+<dt id="arg-target-effect">target.effect<a class="anchor" aria-label="anchor" href="#arg-target-effect"></a></dt>
+<dd><p>character; determine the main effect or interaction
+that is of interest, e.g., in a three-way-design, it
+is possible to define "A" (main effect of the first
+factor), "B:C" (interaction of factor two and three)
+or "A:B:C" (the three-way interaction of all
+factors); if target is not used, the three-way
+interaction is the default.</p></dd>
+
+
 <dt id="arg-k-covariates">k.covariates<a class="anchor" aria-label="anchor" href="#arg-k-covariates"></a></dt>
-<dd><p>integer; number of covariates in the ANCOVA model.</p></dd>
+<dd><p>integer; number of covariates in an ANCOVA model</p></dd>
 
 
 <dt id="arg-n-total">n.total<a class="anchor" aria-label="anchor" href="#arg-n-total"></a></dt>

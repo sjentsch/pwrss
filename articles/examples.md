@@ -2603,7 +2603,7 @@ power.exact.oneprop(prob = 0.002, # probability of success under alternative
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 804  <<
-#>   Type 1 Error (alpha) = 0.050
+#>   Type 1 Error (alpha) = 0.000
 #>   Type 2 Error (beta)  = 0.200
 #>   Statistical Power    = 0.800
 ```
