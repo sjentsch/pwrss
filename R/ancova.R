@@ -30,7 +30,14 @@ format_test <- function(n.way, cov) {
 #'                         For example, for two factors each having two levels
 #'                         or groups use e.g. c(2, 2), for three factors each
 #'                         having two levels (groups) use e.g. c(2, 2, 2).
-#' @param k.covariates     integer; number of covariates in the ANCOVA model.
+#' @param target.effect    character; determine the main effect or interaction
+#'                         that is of interest, e.g., in a three-way-design, it
+#'                         is possible to define "A" (main effect of the first
+#'                         factor), "B:C" (interaction of factor two and three)
+#'                         or "A:B:C" (the three-way interaction of all
+#'                         factors); if target is not used, the three-way
+#'                         interaction is the default.
+#' @param k.covariates     integer; number of covariates in an ANCOVA model
 #' @param n.total          integer; total sample size
 #' @param power            statistical power, defined as the probability of
 #'                         correctly rejecting a false null hypothesis,
@@ -148,6 +155,7 @@ format_test <- function(n.way, cov) {
 power.f.ancova <- function(eta.squared,
                            null.eta.squared = 0,
                            factor.levels = 2,
+                           target.effect = NULL,
                            k.covariates = 0,
                            n.total = NULL,
                            power = NULL,
@@ -205,28 +213,27 @@ power.f.ancova <- function(eta.squared,
 
   n.way <- length(factor.levels)
   n.groups <- prod(factor.levels)
+  fac.letters <- LETTERS[seq_along(factor.levels)]
 
-  if (n.way == 1) {
-
-    effect <- paste0(c("A"), "(", factor.levels, ")")
-    df1 <- factor.levels[1] - 1
-
-  } else if (n.way == 2) {
-
-    effect <- paste0(c("A", "B"), "(", factor.levels, ")", collapse = ":")
-    df1 <- prod(factor.levels - 1)
-
-  } else if (n.way == 3) {
-
-    effect <- paste0(c("A", "B", "C"), "(", factor.levels, ")", collapse = ":")
-    df1 <- prod(factor.levels - 1)
-
-  } else {
-
+  if (n.way > 3)
     stop("More than three-way ANOVA or ANCOVA is not allowed at the moment.", call. = FALSE)
 
-  } # n.way
+  effect <- paste0(fac.letters, "(", factor.levels, ")", collapse = ":")
 
+  if (is.null(target.effect)) {
+    df1 <- prod(factor.levels - 1)
+  } else {
+    if (all(strsplit(target.effect, ":")[[1]] %in% fac.letters)) {
+      fac.select <- fac.letters %in% strsplit(target.effect, ":")[[1]]
+      df1 <- prod(factor.levels[fac.select] - 1)
+      effect <- paste(target.effect, "from", effect)
+    } else {
+      stop(paste("Invalid specification of `target.effect`: must be either a single letter (\"A\", \"B\" or \"C\",",
+                 "depending on the length of `factor.levels` or a combination of these letters separated by \":\"",
+                 "(e.g., \"A:B\") for interactions."), call. = FALSE)
+    }
+  }
+  
   if (requested == "n") {
 
     n.total <- ss(df1 = df1, n.groups = n.groups, k.covariates = k.covariates,
@@ -1348,29 +1355,28 @@ power.t.contrast <- function(mu.vector, sd.vector,
   check.logical(tukey.kramer, ceiling, pretty)
   verbose <- ensure_verbose(verbose)
 
-  if (is.vector(contrast.vector))
-    contrast.matrix <- t(as.matrix(contrast.vector))
-  else if (is.matrix(contrast.vector))
-    contrast.matrix <- contrast.vector
-  else
+  if (is.matrix(contrast.vector) && dim(contrast.vector)[1] > 1)
+    stop("The number of rows in the contrast matrix should be one.", call. = FALSE)
+  if (!is.matrix(contrast.vector) && !is.vector(contrast.vector))
     stop("`contrast.vector` must be either a vector or a matrix.", call. = FALSE)
 
-  if (dim(contrast.matrix)[2] != length(mu.vector))
-    stop("The number of columns in the contrast matrix should match number of groups.", call. = FALSE)
-  if (dim(contrast.matrix)[1] > 1)
-    stop("The number of rows in the contrast matrix should be one.", call. = FALSE)
+  if (is.matrix(contrast.vector))
+    contrast.vector <- contrast.vector[1, ]
+
+  if (length(contrast.vector) != length(mu.vector))
+    stop("The number of columns / elements in the contrast vector should match number of groups.", call. = FALSE)
 
   requested <- check.n_power(n.vector, power)
 
   pwr.contrast <- function(mu.vector, sd.vector, n.vector, k.covariates,
-                           r.squared, alpha, contrast.matrix, tukey.kramer,
+                           r.squared, alpha, contrast.vector, tukey.kramer,
                            calculate.lambda = FALSE) {
 
     n.total <- sum(n.vector)
     sigma2_pooled <- sum((n.vector - 1) * sd.vector ^ 2) / (n.total - length(mu.vector))
     sigma2_error <- sigma2_pooled * (1 - r.squared)
 
-    psi <- sum(contrast.matrix * mu.vector)
+    psi <- sum(contrast.vector * mu.vector)
     v <- n.total - length(mu.vector) - k.covariates
 
     if (tukey.kramer == 1) {
@@ -1383,25 +1389,34 @@ power.t.contrast <- function(mu.vector, sd.vector,
 
     }
 
-    a <- sum(contrast.matrix ^ 2 / n.vector)
+    a <- sum(contrast.vector ^ 2 / n.vector)
     # delta <- psi / sqrt(a * sigma2_error)
     d <- psi / sqrt(sigma2_error)
 
-    if (k.covariates == 1) {
+    if (k.covariates == 0) {
+    
+      power <- power.t.test(ncp = psi / sigma2_pooled, df = v, plot = FALSE, verbose = 0)$power
+
+      if (calculate.lambda)
+        lambda <- psi / sigma2_pooled
+      else
+        lambda <- NA
+
+    } else if (k.covariates == 1) {
 
       integrand <- function(x) {
 
         stats::dt(x, v + 1) * (stats::pt(-t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))) +
-                          stats::pt(t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1))), lower.tail = FALSE))
+                               stats::pt(+t.alpha, v, psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1))), lower.tail = FALSE))
 
       }
 
       power <- stats::integrate(integrand, lower = -10, upper = 10)$value
-
-      lambda <- numeric(1)
-      ifelse(calculate.lambda,
-             lambda <-  stats::integrate(function(x) stats::dt(x, v + 1) * (psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))), -10, 10)$value,
-             lambda <- NA)
+      
+      if (calculate.lambda)
+        lambda <- stats::integrate(function(x) stats::dt(x, v + 1) * (psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))), -10, 10)$value
+      else
+        lambda <- NA
 
     } else if (k.covariates > 1) {
 
@@ -1413,7 +1428,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
 
       integrand <- function(x) {
         stats::dbeta(x, (v + 1) / 2, k.covariates / 2) * (stats::pt(-t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a)) +
-                                                   stats::pt(t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a), lower.tail = FALSE))
+                                                          stats::pt(+t.alpha, v, sqrt(x) * psi / sqrt(sigma2_error * a), lower.tail = FALSE))
       }
       power <- stats::integrate(integrand, lower = lower.beta, upper = 1)$value
 
@@ -1424,10 +1439,6 @@ power.t.contrast <- function(mu.vector, sd.vector,
         lambda <- NA
       }
 
-    } else {
-
-      stop("The number of covariates should be 1 or greater in the analysis of covariance.", call. = FALSE)
-
     }
 
     list(power = power, df = v, lambda = lambda, t.alpha = t.alpha, psi = psi, d = d)
@@ -1435,9 +1446,9 @@ power.t.contrast <- function(mu.vector, sd.vector,
   } # pwr.contrast()
 
   ss.contrast <- function(mu.vector, sd.vector, p.vector, power, k.covariates,
-                          r.squared, alpha, contrast.matrix, tukey.kramer) {
+                          r.squared, alpha, contrast.vector, tukey.kramer) {
 
-    psi <- sum(contrast.matrix * mu.vector)
+    psi <- sum(contrast.vector * mu.vector)
 
     if (psi == 0) {
 
@@ -1450,7 +1461,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
         n.vector <- n.total * p.vector
         power - pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector,
                              n.vector = n.vector, k.covariates = k.covariates,
-                             r.squared = r.squared, alpha = alpha, contrast.matrix = contrast.matrix,
+                             r.squared = r.squared, alpha = alpha, contrast.vector = contrast.vector,
                              tukey.kramer = tukey.kramer, calculate.lambda = FALSE)$power
       }, interval = c(length(mu.vector) + k.covariates + 1, 1e10))$root
 
@@ -1468,7 +1479,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
 
     n.total <- ss.contrast(mu.vector = mu.vector, sd.vector = sd.vector, p.vector = p.vector, power = power,
                            k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
-                           contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer)
+                           contrast.vector = contrast.vector, tukey.kramer = tukey.kramer)
     n.vector <- n.total * p.vector
 
     if (ceiling) n.vector <- ceiling(n.vector)
@@ -1478,7 +1489,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
   # calculate power (if requested == "power") or update it (if requested == "n")
   pwr.obj <- pwr.contrast(mu.vector = mu.vector, sd.vector = sd.vector, n.vector = n.vector,
                           k.covariates = k.covariates, r.squared = r.squared, alpha = alpha,
-                          contrast.matrix = contrast.vector, tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
+                          contrast.vector = contrast.vector, tukey.kramer = tukey.kramer, calculate.lambda = TRUE)
 
   power <- pwr.obj$power
   df <- pwr.obj$df
@@ -1487,9 +1498,6 @@ power.t.contrast <- function(mu.vector, sd.vector,
   psi <- pwr.obj$psi
   d <- pwr.obj$d
   n.total <- sum(n.vector)
-
-  # u <- 1 # nrow(contrast.matrix)
-  # v <- n.total - length(mu.vector) - k.covariates
 
   if (verbose > 0) {
 
