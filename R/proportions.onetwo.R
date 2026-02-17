@@ -163,6 +163,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   pwr.obj <- power.binom.test(size = n, prob = prob, null.prob = null.prob, alpha = alpha, alternative = alternative,
                               plot = FALSE, verbose = 0)
 
+  alpha <- pwr.obj$alpha
   power <- pwr.obj$power
   size <- n
   prob.alternative <- prob
@@ -200,6 +201,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                            null.prob = prob.null,
                            size = size,
                            binom.alpha = binom.alpha,
+                           alpha = alpha,
                            power = power,
                            n = n),
                       class = c("pwrss", "exact", "oneprop")))
