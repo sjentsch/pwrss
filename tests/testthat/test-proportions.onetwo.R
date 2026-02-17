@@ -3,22 +3,33 @@ test_that("proportions.onetwo.R works", {
     crrRes <- power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "one.sided", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "oneprop"))
     expect_equal(names(crrRes),
-                 c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "power", "n"))
+                 c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "power", "n")],
+    expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
                  list(test = "exact", delta = -0.05, odds.ratio = 0.818181818, prob = 0.45, null.prob = 0.50, size = 500,
-                      binom.alpha = 231, power = 0.7208035, n = 500))
+                      binom.alpha = 231, alpha = 0.048945014, power = 0.7208035, n = 500))
 
     crrRes <- power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "oneprop"))
     expect_equal(names(crrRes),
-                 c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "power", "n"))
+                 c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "power", "n")],
+    expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
                  list(test = "exact", delta = -0.05, odds.ratio = 0.818181818, prob = 0.45, null.prob = 0.50, size = 633,
-                      binom.alpha = 295, power = 0.802671532, n = 633))
+                      binom.alpha = 295, alpha = 0.047485107, power = 0.802671532, n = 633))
+
+    crrRes <- power.exact.oneprop(prob = 0.80, null.prob = 0.65, n = 20, alternative = "one.sided", verbose = 0) # example 4.3 from GPower
+    expect_equal(class(crrRes), c("pwrss", "exact", "oneprop"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(prob = 0.80, null.prob = 0.65, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
+                 list(test = "exact", delta = 0.15, odds.ratio = 2.153846154, prob = 0.80, null.prob = 0.65, size = 20,
+                      binom.alpha = 16, alpha = 0.044375603, power = 0.41144886, n = 20))
+    # -> results are identical: power ~ 0.411449, actual alpha ~ 0.044376 
 
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = c(0.40, 0.50), alpha = 0.05, n = 500, alternative = "one.sided"),
                  "If `alternative` is \"two.sided\" or \"one.sided\", `null.prob` must be of length one.")
@@ -27,6 +38,7 @@ test_that("proportions.onetwo.R works", {
                        "with the upper bound being larger than the lower bound\\)."))
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = 1.2, alpha = 0.05, n = 500, alternative = "one.sided"),
                  "All elements of `null.prob` need to be valid proportion values \\(numeric, >= 0, and <= 1\\)")
+
 
     # power.z.oneprop (= pwrss.z.prop) ---------------------------------------------------------------------------------
     crrRes <- power.z.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "one.sided", verbose = 0)

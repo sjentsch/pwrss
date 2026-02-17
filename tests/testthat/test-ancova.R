@@ -5,8 +5,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 2, k.covariates = 0, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 0,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", df1 = 1, df2 = 126, ncp = 8.02550478, null.ncp = 0, f.alpha = 3.91632464,
                       power = 0.8027032, n.total = 128))
@@ -18,8 +18,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, k.covariates = 0, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, target.effect = NULL, k.covariates = 0,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(4)", df1 = 3, df2 = 176, ncp = 11.2858661, null.ncp = 0, f.alpha = 2.65593888,
                       power = 0.805367138, n.total = 180))
@@ -29,8 +29,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, k.covariates = 0, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, target.effect = NULL, k.covariates = 0,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(4)", df1 = 3, df2 = 176, ncp = 11.2858661, null.ncp = 0, f.alpha = 2.65593888,
                       power = 0.805367138, n.total = 180))
@@ -40,8 +40,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.030, null.eta.squared = 0, factor.levels = c(2, 2), k.covariates = 0, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.030, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 0,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", df1 = 1, df2 = 252, ncp = 7.91752577, null.ncp = 0, f.alpha = 3.87862445,
                       power = 0.800416655, n.total = 256))
@@ -51,8 +51,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.048, null.eta.squared = 0, factor.levels = 2, k.covariates = 1, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.048, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 1,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", df1 = 1, df2 = 155, ncp = 7.96638655, null.ncp = 0, f.alpha = 3.90215432,
                       power = 0.8009416, n.total = 158))
@@ -62,8 +62,8 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2), k.covariates = 1, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 1,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", df1 = 1, df2 = 383, ncp = 7.9183673, null.ncp = 0, f.alpha = 3.8658527,
                       power = 0.80148462, n.total = 388))
@@ -73,11 +73,78 @@ test_that("ancova.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
-                 list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2, 2), k.covariates = 1, alpha = 0.05,
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                 list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2, 2), target.effect = NULL, k.covariates = 1,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", df1 = 1, df2 = 383, ncp = 8, null.ncp = 0, f.alpha = 3.86585275,
                       power = 0.8054821, n.total = 392))
+
+    crrRes <- power.f.ancova(eta.squared = f.to.etasq(0.25, verbose = 0)$eta.squared, factor.levels = 10, alpha = 0.05,
+                             power = 0.95, verbose = 0) # example 10.4 from GPower
+    expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(eta.squared = 0.05882353, null.eta.squared = 0, factor.levels = 10, target.effect = NULL, k.covariates = 0,
+                      alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
+                 list(test = "F", effect = "A(10)", df1 = 9, df2 = 380, ncp = 24.375, null.ncp = 0, f.alpha = 1.90453773,
+                      power = 0.95236341, n.total = 390))
+    # results identical: power ~ 0.952363, n = 390, ncp = 24.375
+
+    crrRes <- power.f.ancova(eta.squared = f.to.etasq(0.7066856, verbose = 0)$eta.squared, factor.levels = c(3, 3, 4),
+                             target.effect = "A", alpha = 0.05, n.total = 108, verbose = 0) # example 11.3.1 from GPower, main effect
+    expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(eta.squared = 0.333068578, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A",
+                      k.covariates = 0, alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
+                 list(test = "F", effect = "A from A(3):B(3):C(4)", df1 = 2, df2 = 72, ncp = 53.935690, null.ncp = 0,
+                      f.alpha = 3.12390745, power = 0.9999994, n.total = 108))
+    # results identical: power ~ 0.99999, n = 108, ncp ~ 53.935690, f.alpha ~ 3.123907
+
+    crrRes <- power.f.ancova(eta.squared = f.to.etasq(0.2450722, verbose = 0)$eta.squared, factor.levels = c(3, 3, 4),
+                             target.effect = "A:B", alpha = 0.05, n.total = 108, verbose = 0) # example 11.3.1 from GPower, 2-way interact.
+    expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(eta.squared = 0.056657511, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A:B",
+                      k.covariates = 0, alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
+                 list(test = "F", effect = "A:B from A(3):B(3):C(4)", df1 = 4, df2 = 72, ncp = 6.48652139, null.ncp = 0,
+                      f.alpha = 2.49891858, power = 0.47563458, n.total = 108))
+    # results identical: power ~ 0.475635, n = 108, ncp ~ 6.486521, f.alpha ~ 2.498919
+
+    crrRes <- power.f.ancova(eta.squared = f.to.etasq(0.3288016, verbose = 0)$eta.squared, factor.levels = c(3, 3, 4),
+                             target.effect = "A:B:C", alpha = 0.05, n.total = 108, verbose = 0) # example 11.3.1 from GPower, 3-way interact.
+    expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(eta.squared = 0.097562917, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A:B:C",
+                      k.covariates = 0, alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
+                 list(test = "F", effect = "A:B:C from A(3):B(3):C(4)", df1 = 12, df2 = 72, ncp = 11.675933, null.ncp = 0,
+                      f.alpha = 1.889242097, power = 0.51344242, n.total = 108))
+    # results identical: power ~ 0.513442, n = 108, ncp ~ 11.675933, f.alpha ~ 3.123907
+
+    crrRes <- power.f.ancova(eta.squared = f.to.etasq(0.1, verbose = 0)$eta.squared, factor.levels = c(3, 2, 5),
+                             target.effect = "A:C", alpha = 0.05, n.total = 2283, verbose = 0) # example 11.3.2 from GPower
+    expect_equal(class(crrRes), c("pwrss", "f", "ancova"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(eta.squared = 0.00990099, null.eta.squared = 0, factor.levels = c(3, 2, 5), target.effect = "A:C",
+                      k.covariates = 0, alpha = 0.05, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
+                 list(test = "F", effect = "A:C from A(3):B(2):C(5)", df1 = 8, df2 = 2253, ncp = 22.83, null.ncp = 0,
+                      f.alpha = 1.94250745, power = 0.950077975, n.total = 2283))
+    # -> GPower does ceiling for n.total not per group -> when using power = 0.95 as parameter, GPower returns a N = 2283,
+    #    pwrss returns 2310 (i.e., `ceiling(2283 / 30) * 30` = 2310)
+    # if n.total = 2283 (instead power = 0.95), results identical: power ~ 0.950078, n = 2283, ncp ~ 22.83, f.alpha ~ 1.942507
 
     expect_error(power.f.ancova(eta.squared = 0.059, factor.levels = 2, alpha = 0.05, verbose = 0),
                  "`n.total` and `power` cannot be NULL at the same time.")
@@ -669,6 +736,19 @@ test_that("ancova.R works", {
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
                       ncp.null = 0, power = 0.972006164, n.vector = rep(1500, 2), n.total = 3000))
 
+    crrCnt <- power.t.contrast(mu.vector = c(1.5, 2, 3, 4), sd.vector = rep(2, 4), n.vector = rep(5, 4), contrast.vector = c(-3, -1, 1, 3),
+                               k.covariates = 0, alpha = 0.05, verbose = 0) # example 11.3.3 from GPower
+    expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
+    expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
+    expect_equal(crrCnt[["parms"]],
+                 list(mu.vector = c(1.5, 2, 3, 4), sd.vector = rep(2, 4), p.vector = NULL, contrast.vector = c(-3, -1, 1, 3),
+                      r.squared = 0, k.covariates = 0, alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
+                 list(test = "t", psi = 8.5, d = 4.25, df = 16, t.alpha = 2.1199053 * c(-1, 1), ncp = 2.125,
+                      ncp.null = 0, power = 0.514737, n.vector = rep(5, 4), n.total = 20))
+    # results are nearly identical, but numerically different since GPower uses the F-distribition
+    # power ~ 0.514736, crit. F / t = 4.493998 - sqrt(4.493998) = 2.1199053, ncp = 4.515617 / sqrt(4.515617) ~ 0.2125
+
     mtxCnt <- c(A1 = 1, A2 = -0.50, A3 = -0.50)
     expect_equal(power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(400, 3), alpha = 0.05,
                                       contrast.matrix = mtxCnt, r.squared = 0.50, k.covariates = 1, verbose = 0)[-1], # [-1] excludes parms
@@ -718,13 +798,10 @@ test_that("ancova.R works", {
                  "`contrast.vector` must be either a vector or a matrix.")
     expect_error(power.t.contrast(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = c(0.5, 0.5, 1),
                                   r.squared = 0.50, k.covariates = 1, alpha = 0.05, power = 0.8, verbose = 0),
-                 "The number of columns in the contrast matrix should match number of groups.")
+                 "The number of columns / elements in the contrast vector should match number of groups.")
     expect_error(power.t.contrast(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = diag(2),
                                   r.squared = 0.50, k.covariates = 1, alpha = 0.05, power = 0.8, verbose = 0),
                  "The number of rows in the contrast matrix should be one.")
-    expect_error(power.t.contrast(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = c(1, -1),
-                                  k.covariates = 0, alpha = 0.05, power = 0.8, verbose = 0),
-                 "The number of covariates should be 1 or greater in the analysis of covariance.")
     expect_warning(power.t.contrast(mu.vector = c(0.20, 0.20), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = c(1, -1),
                                     r.squared = 0.5, k.covariates = 1, alpha = 0.05, power = 0.8, verbose = 0),
                    "Using infinity \\(maximum integer number as defined in R\\) for `n.total` because `psi` = 0.")

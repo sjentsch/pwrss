@@ -115,18 +115,19 @@ test_that("proportions.mcnemar.R works", {
                       binom.alpha = 36, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
                       alpha = 0.04623049, power = 0.80298386, n.paired = 200))
 
-    crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, power = 0.80, alpha = 0.05, alternative = "one.sided",
-                                  method = "exact", verbose = 0)
+    crrRes <- power.exact.mcnemar(prob10 = 0.08, prob01 = 0.32, n = 50, alpha = 0.05, alternative = "one.sided",
+                                  method = "exact", verbose = 0) # example 5.3 from GPower
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
     expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.10, prob01 = 0.20, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
+                 list(prob10 = 0.08, prob01 = 0.32, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
                       verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = -0.1, odds.ratio = 0.5, size = 60, prob = 1 / 3, null.prob = 0.5,
-                      binom.alpha = 23, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.04623049, power = 0.80298386, n.paired = 200))
-
+                 list(test = "exact", delta = -0.24, odds.ratio = 0.25, size = 20, prob = 0.2, null.prob = 0.5,
+                      binom.alpha = 5, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
+                      alpha = 0.0206947327, power = 0.839356985, n.paired = 50))
+    # -> reasonable close for power = 0.839343 (GPower) / 0.839357 (pwrss); quite off for alpha = 0.032578 (GPower) / 0.020695 (pwrss)
+    # likely due to missing alpha-balancing
 })

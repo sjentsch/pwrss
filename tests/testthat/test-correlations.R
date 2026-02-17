@@ -243,4 +243,28 @@ test_that("correlations.R works", {
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.1, q = 0.102397206, mean = 2.4872195, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "one.sided", z.alpha = 1.64485363, n = 593, power = 0.8002084))
+
+    crrRes <- power.z.onecor(rho = 0.65, null.rho = 0.60, alpha = 0.05, power = 0.95, verbose = 0) # example 3.3 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "z", "onecor"))
+    expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
+                                  "z.alpha", "n", "power"))
+    expect_equal(crrRes[["parms"]], list(rho = 0.65, null.rho = 0.60, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
+                                         verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
+                 list(test = "z", design = "one.sample", delta = 0.05, q = 0.082151526, mean = 3.60531964, sd = 1, null.mean = 0, null.sd = 1,
+                      alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1), n = 1929, power = 0.95005177))
+    # pwrss uses approximation, GPower an exact calculation
+    # -> values are slighly off: n = 1928 (GPower) / 1929 (pwrss), power = 0.950028 (GPower) / 0.950052 (pwrss)
+
+    crrRes <- power.z.onecor(rho = 0.30, null.rho = 0.80, alpha = 0.05, n = 8, verbose = 0) # example 3.3 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "z", "onecor"))
+    expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
+                                  "z.alpha", "n", "power"))
+    expect_equal(crrRes[["parms"]], list(rho = 0.30, null.rho = 0.80, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
+                                         verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
+                 list(test = "z", design = "one.sample", delta = -0.50, q = -0.789092684, mean = -1.7644649, sd = 1, null.mean = 0, null.sd = 1,
+                      alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1), n = 8, power = 0.422599))
+    # pwrss uses approximation, GPower an exact calculation
+    # -> values are correct for approx.: power = 0.482927 / 0.422599 (GPower - exact / appr.) / 0.422599 (pwrss)
 })
