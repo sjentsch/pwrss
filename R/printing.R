@@ -43,6 +43,8 @@
                  collapse = ifelse(length(val) < 3, " and ", ", "))
   } else if (is.character(val)) {
     fmt <- "%s"
+  } else if (is.na(val)) {
+    return(paste0(strrep(" ", nchar(spf_neg)), "NA"))
   }
 
   if (spf_neg != "")
@@ -56,7 +58,7 @@
 .pad <- function(dsc, maxlen) strrep(" ", maxlen + .nspacer(dsc) - nchar(dsc))
 
 .keyparms <- function(x, parms_mtx, pretty = FALSE, digits = 3) {
-  spf_neg   <- ifelse(any(unlist(x[parms_mtx[, 1]]) < 0), "+", "")
+  spf_neg   <- ifelse(any(na.omit(unlist(x[parms_mtx[, 1]])) < 0), "+", "")
   parms_col <- ifelse(pretty, 3, 2)
   parms_max <- max(vapply(parms_mtx[, parms_col], function(x) nchar(x) - .nspacer(x), numeric(1)))
   parms_out <- .topic("Key Parameters", pretty)
@@ -1183,7 +1185,7 @@
 
 # ----------------------------------------------------------------------------------------------------------------------
 .print.pwrss.poisson <- function(x, digits = 3, verbose = 1, pretty = FALSE, ...) {
-
+saveRDS(x, "~/print.obj.Rds")
   cat(.header(x$requested, pretty))
   cat(x$test, "\n\n", sep = "")
   cat("  Method          : ", x$method, "\n", sep = "")
