@@ -321,17 +321,19 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
                             method, distribution) {
 
     # variance correction factor
-    if (tolower(method) == "demidenko(vc)") {
+    if (method == "demidenko(vc)") {
       vcf <- switch(tolower(distribution$dist),
                      `normal` = 1,
                      `poisson` = 1,
                      `uniform` = 1,
                      `exponential` = 1,
-                     `binomial` = 1, # 0.85
-                     `bernoulli` = 1, # 0.85
+                     `binomial` = 1, # 0.85,
+                     `bernoulli` = 1, # 0.85,
                      `lognormal` = 0.75)
-    } else if (tolower(method) == "demidenko") {
+    } else if (method == "demidenko") {
       vcf <- 0
+    } else {
+      vcf <- NA
     }
 
     var.obj <- var.beta(beta0 = beta0, beta1 = beta1, distribution = distribution)
@@ -344,7 +346,6 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
     if (method == "signorini") {
       ncp <- beta1 / sqrt(var.beta0 / (n * (1 - r.squared.predictor) * mean.exposure))
       sd.ncp <- sqrt(var.beta1 / var.beta0)
-      vcf <- NA
     } else {
       ncp <- beta1 / sqrt(var.beta1 / (n * (1 - r.squared.predictor) * mean.exposure))
       sd.ncp <- sqrt((vcf * var.beta0 + (1 - vcf) * var.beta1) / var.beta1)
