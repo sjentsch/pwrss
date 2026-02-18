@@ -444,13 +444,14 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
       if (tolower(distribution$dist) == "binomial" && distribution$size > 1)
         stop(paste("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal",
                    "distribution."), call. = FALSE)
-      prob <- distribution$prob
-      beta <- 1 - power
+      dist.prob <- distribution$prob
       z.alpha <- stats::qnorm(ifelse(alternative == "two.sided", alpha / 2, alpha), lower.tail = FALSE)
-      z.beta <- stats::qnorm(beta, lower.tail = FALSE)
-      p.bar <- (1 - prob) * base.prob + prob * prob
-      n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / prob) + z.beta *
-            sqrt(base.prob * (1 - base.prob) + prob * (1 - prob) * (1 - prob) / prob)) ^ 2 / ((base.prob - prob) ^ 2 * (1 - prob))
+      z.beta  <- stats::qnorm(1 - power, lower.tail = FALSE)
+      p.bar <- (1 - dist.prob) * base.prob + dist.prob * prob
+      beta1 <- log((prob / (1 - prob)) / (base.prob / (1 - base.prob)))
+      n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / dist.prob) +
+            z.beta  * sqrt(base.prob * (1 - base.prob) + prob * (1 - prob) * (1 - dist.prob) / dist.prob)) ^ 2 /
+            ((base.prob - prob) ^ 2 * (1 - dist.prob))
       n <- n / (1 - r.squared.predictor)
 
     } else if (tolower(distribution$dist) == "normal") {
