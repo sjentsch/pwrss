@@ -40,25 +40,108 @@ test_that("regression.linear.R works", {
     expect_equal(class(crrRes), c("pwrss", "f", "regression"))
     expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(r.squared.change = 0.15, margin = 0, k.total = 3, k.tested = 3, alpha = 0.05, ceiling = FALSE, verbose = 0, pretty = FALSE))
+                 list(r.squared.change = 0.15, margin = 0, k.total = 3, k.tested = 3, alpha = 0.05, ceiling = FALSE,
+                      verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
                  list(test = "F", df1 = 3, df2 = 61.8227, ncp = 11.61577059, null.ncp = 0, f.alpha = 2.7534088, power = 0.8, n = 65.8227))
 
     crrRes <- power.f.regression(r.squared.change = 0.10, k.total = 5,  k.tested = 2, power = 0.80, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "regression"))
     expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
-    expect_equal(crrRes$parms, list(r.squared.change = 0.10, margin = 0, k.total = 5, k.tested = 2, alpha = 0.05,
-                                    ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.10, margin = 0, k.total = 5, k.tested = 2, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
                  list(test = "F", df1 = 2, df2 = 84, ncp = 10, null.ncp = 0, f.alpha = 3.10515661, power = 0.8005579, n = 90))
 
     crrRes <- power.f.regression(r.squared.change = 0.10, k.total = 5,  k.tested = 2, n = 90, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "regression"))
     expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
-    expect_equal(crrRes$parms, list(r.squared.change = 0.10, margin = 0, k.total = 5, k.tested = 2, alpha = 0.05,
-                                    ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.10, margin = 0, k.total = 5, k.tested = 2, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
                  list(test = "F", df1 = 2, df2 = 84, ncp = 10, null.ncp = 0, f.alpha = 3.10515661, power = 0.8005579, n = 90))
+
+    crrRes <- power.f.regression(r.squared.change = f.to.rsq(sqrt(1 / 9))$r.squared.full, k.total = 5,  n = 95,
+                                 verbose = 0) # example 13.3.1 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.10, margin = 0, k.total = 5, k.tested = 5, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 5, df2 = 89, ncp = 10.55555556, null.ncp = 0, f.alpha = 2.31685752,
+                      power = 0.67358577, n = 95))
+    # results are identical: ncp ~ 10.555555, f.crit ~ 2.316858, power ~ 0.673586, n = 95
+
+    crrRes <- power.f.regression(r.squared.change = f.to.rsq(0.59309044)$r.squared.full, k.total = 3,  n = 22,
+                                 verbose = 0) # example 13.3.2 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.260221667, margin = 0, k.total = 3, k.tested = 3, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 3, df2 = 18, ncp = 7.738638, null.ncp = 0, f.alpha = 3.15990759,
+                      power = 0.53601059, n = 22))
+    # results are identical: power ~ 0.536011, n = 22
+
+    crrRes <- power.f.regression(r.squared.change = 0.25, k.total = 1,  n = 12, verbose = 0) # example 13.3.3 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.25, margin = 0, k.total = 1, k.tested = 1, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 1, df2 = 10, ncp = 4, null.ncp = 0, f.alpha = 4.9646027, power = 0.4396273, n = 12))
+    # results are identical: power ~ 0.439627, n = 12
+
+    crrRes <- power.f.regression(r.squared.change = 0.06666660, k.total = 9, k.tested = 4, n = 90, alpha = 0.01,
+                                 verbose = 0) # example 14.3.1 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.06666660, margin = 0, k.total = 9, k.tested = 4, alpha = 0.01, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 4, df2 = 80, ncp = 6.4285645, null.ncp = 0, f.alpha = 3.56310963, power = 0.241296126, n = 90))
+    # results are identical: ncp ~ 6.42857, f.crit ~ 3.563110, power ~ 0.241297, n = 90
+
+    crrRes <- power.f.regression(r.squared.change = 0.06666660, k.total = 9, k.tested = 4, power = 0.8, alpha = 0.01,
+                                 verbose = 0) # example 14.3.1 from GPower manual (further down in the text)
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.06666660, margin = 0, k.total = 9, k.tested = 4, alpha = 0.01, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 4, df2 = 232, ncp = 17.2856958, null.ncp = 0, f.alpha = 3.4010085,
+                      power = 0.80157159, n = 242))
+    # results are identical: power ~ 0.8, n = 242
+
+    crrRes <- power.f.regression(r.squared.change = 0.06976744, k.total = 12, k.tested = 3, n = 200, alpha = 0.01,
+                                 verbose = 0) # example 14.3.2 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.06976744, margin = 0, k.total = 12, k.tested = 3, alpha = 0.01,
+                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 3, df2 = 187, ncp = 14.99999957, null.ncp = 0, f.alpha = 3.88805227,
+                      power = 0.76698955, n = 200))
+    # results are identical: ncp ~ 15, f.crit ~ 3.888052, power ~ 0.766990, n = 200
+
+    crrRes <- power.f.regression(r.squared.change = f.to.rsq(0.25)$r.squared.full, k.total = 23, k.tested = 6, n = 120,
+                                 alpha = 0.05, verbose = 0) # example 14.3.3 from GPower manual
+    expect_equal(class(crrRes), c("pwrss", "f", "regression"))
+    expect_equal(names(crrRes), c("parms", "test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(r.squared.change = 0.05882353, margin = 0, k.total = 23, k.tested = 6, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n")],
+                 list(test = "F", df1 = 6, df2 = 96, ncp = 7.5, null.ncp = 0, f.alpha = 2.19451621, power = 0.47012906, n = 120))
+    # results are identical: power ~ 0.470, n = 120
 
     expect_error(power.f.regression(r.squared.change = 0.10, k.total = 5, k.tested = 2, verbose = 0),
                  "`n` and `power` cannot be NULL at the same time.")
@@ -169,6 +252,30 @@ test_that("regression.linear.R works", {
     expect_equal(crrRes[-1],
                  power.t.regression(beta = 0, margin = 0.05, alternative = "two.one.sided", sd.predictor = sqrt(2 / 3 * 1 / 3),
                                     k.total = 5, r.squared = 0.30, n = 10792, verbose = 0)[-1])
+
+    crrRes <- power.t.regression(beta = -0.0667, sd.predictor = 7.5, sd.outcome = 4, n = 100, verbose = 0) # example 12.3 from GPower
+    expect_equal(class(crrRes), c("pwrss", "t", "regression"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "std.beta", "std.null.beta", "std.margin", "df", "t.alpha", "ncp", "null.ncp", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(beta = -0.0667, null.beta = 0, margin = 0, sd.predictor = 7.5, sd.outcome = 4, r.squared = 0.015640629,
+                      k.total = 1, alpha = 0.05, alternative = "two.sided", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "std.beta", "std.null.beta", "std.margin", "df", "t.alpha", "ncp", "null.ncp", "power", "n")],
+                 list(test = "t", std.beta = -0.1250625, std.null.beta = 0, std.margin = 0, df = 98,
+                      t.alpha = 1.98446745 * c(-1, 1), ncp = -1.26052152, null.ncp = 0, power = 0.238969257, n = 100))
+    # results are identical: ncp ~ -1.260522, t crit ~ 1.984467, power ~ 0.2389693, n = 100
+
+    crrRes <- power.t.regression(beta = 0.25, power = 0.95, alternative = "one.sided", verbose = 0) # example 16.3 from GPower
+    expect_equal(class(crrRes), c("pwrss", "t", "regression"))
+    expect_equal(names(crrRes),
+                 c("parms", "test", "std.beta", "std.null.beta", "std.margin", "df", "t.alpha", "ncp", "null.ncp", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(beta = 0.25, null.beta = 0, margin = 0, sd.predictor = 1, sd.outcome = 1, r.squared = 0.0625,
+                      k.total = 1, alpha = 0.05, alternative = "one.sided", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "std.beta", "std.null.beta", "std.margin", "df", "t.alpha", "ncp", "null.ncp", "power", "n")],
+                 list(test = "t", std.beta = 0.25, std.null.beta = 0, std.margin = 0, df = 162, t.alpha = 1.654313957,
+                      ncp = 3.30655914, null.ncp = 0, power = 0.95030825, n = 164))
+    # results are identical: ncp ~ 3.306559, t crit ~ 1.654314, power ~ 0.950308, n = 164
 
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, verbose = 0),
                  "`n` and `power` cannot be NULL at the same time.")

@@ -330,6 +330,41 @@ test_that("means.student.R works", {
                       power = 0.800381536, n = 797))
     expect_equal(crrRes, pwrss.t.mean(mu = 0.20, margin = 0.1, sd = 1, power = 0.8, alternative = "equivalent", verbose = FALSE))
 
+    # example 19.3 from the GPower manual
+    crrRes <- power.t.student(d = 0.421637021, n2 = 50, alternative = "two.sided", design = "paired", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.421637021, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 49, ncp = 2.981424, null.ncp = 0, t.alpha = 2.00957524 * c(-1, 1),
+                      power = 0.8321145, n = 50))
+    # the results are identical: ncp ~ 2.981424, t.crit ~ 2.009575, power ~ 0.832114, n = 50 
+
+    # example 20.3 from the GPower manual
+    crrRes <- power.t.student(d = 0.625, power = 0.95, alternative = "one.sided", design = "one.sample", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.625, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 29, ncp = 3.423266, null.ncp = 0, t.alpha = 1.699127027, power = 0.95514436, n = 30))
+    # the results are identical: ncp ~ 3.423266, t.crit ~ 1.699127, power ~ 0.955144, n = 30
+
+    # example 20.3 from the GPower manual
+    crrRes <- power.t.student(d = 0.1, power = 0.90, alpha = 0.01, alternative = "two.sided", design = "one.sample", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.1, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.01, alternative = "two.sided", design = "one.sample",
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 1491, ncp = 3.86264158, null.ncp = 0, t.alpha = 2.57913076 * c(-1, 1),
+                      power = 0.90016873, n = 1492))
+    # the results are identical: ncp ~ 3.862642, t.crit ~ 2.579131, power ~ 0.900169, n = 1492
+
     expect_error(power.t.student(d = 1e-4, power = 1 - 1e-4, alpha = 1e-4, alternative = "two.sided", design = "independent"),
                  "Design is not feasible.")
     expect_warning(pwrss.t.mean(mu = 0.20, margin = 0.1, sd = 1, power = 0.8, alternative = "not equal", verbose = FALSE),

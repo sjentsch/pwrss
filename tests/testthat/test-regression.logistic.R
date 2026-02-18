@@ -114,10 +114,10 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696896, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.80150383, n = 54))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.8017953, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80005882, n = 1811))
 
-    crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, n = 54, distribution = "bernoulli",
+    crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, n = 1811, distribution = "bernoulli",
                                method = "hsieh", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
@@ -126,8 +126,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, pretty = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.80696896, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.80150383, n = 54))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.8017953, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80005882, n = 1811))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, power = 0.80,
                                distribution = list(dist = "bernoulli", prob = 0.30), verbose = 0)
@@ -152,6 +152,42 @@ test_that("regression.logistic.R works", {
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", odds.ratio = 1.416667, mean = 2.83846121, sd = 1.0435957, vcf = 0.85, null.mean = 0, null.sd = 1,
                       z.alpha = c(-1.959964, 1.959964), power = 0.80005174, n = 3532))
+
+    # example 29.4 from the GPower manual (first example, normal distribution)
+    crrRes <- power.z.logistic(base.prob = 0.5, odds.ratio = 1.5, r.squared.pred = 0, alpha = 0.05, power = 0.95,
+                               method = "hsieh", distribution = list(dist = "normal", mean = 0, sd = 1), verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
+    expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(prob = NULL, base.prob = 0.5, odds.ratio = 1.5, beta0 = NULL, beta1 = NULL, r.squared.predictor = 0,
+                      alpha = 0.05, alternative = "two.sided", method = "hsieh", distribution = list(dist = "normal", mean = 0, sd = 1),
+                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
+                 list(test = "z", odds.ratio = 1.5, mean = 3.6092542, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.950455902, n = 317))
+    expect_equal(power.z.logistic(base.prob = 0.5, odds.ratio = 1.5, r.squared.pred = 0, alpha = 0.05, power = 0.95,
+                                  method = "demidenko(vc)", distribution = list(dist = "normal", mean = 0, sd = 1), verbose = 0)$n, 337)
+    expect_equal(power.z.logistic(base.prob = 0.5, odds.ratio = 1.5, r.squared.pred = 0, alpha = 0.05, power = 0.95,
+                                  method = "demidenko", distribution = list(dist = "normal", mean = 0, sd = 1), verbose = 0)$n, 355)
+    # results are identical: z crit = 1.959964, power ~ 0.9504[5/8]6 (might be a typo), n = hsieh: 317, demidenko: 337 (vc) / 355 
+
+    # example 29.4 from the GPower manual (second example, binomial distribution)
+    crrRes <- power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95,
+                               method = "hsieh", distribution = list(dist = "binomial", prob = 0.5, size = 1), verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
+    expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(prob = 0.05, base.prob = 0.1, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, r.squared.predictor = 0,
+                      alpha = 0.05, alternative = "two.sided", method = "hsieh",
+                      distribution = list(dist = "binomial", prob = 0.5, size = 1), ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
+                 list(test = "z", odds.ratio = 0.473684211, mean = 3.60521531, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.950041, n = 1437))
+    expect_equal(power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95, method = "demidenko(vc)",
+                                  distribution = list(dist = "binomial", prob = 0.5, size = 1), verbose = 0)$n, 1437)
+    expect_equal(power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95, method = "demidenko",
+                                  distribution = list(dist = "binomial", prob = 0.5, size = 1), verbose = 0)$n, 1498)
+    # results are identical: z crit = 1.959964, power ~ 0.9500, n = hsieh: 1437, demidenko: 1437 (vc) / 1498
 
     expect_error(power.z.logistic(base.prob = 0.15, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 0),
                  "Specify `base.prob` & `prob` \n  or `base.prob` & `odds.ratio` \n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.")

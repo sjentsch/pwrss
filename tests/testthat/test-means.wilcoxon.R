@@ -473,6 +473,72 @@ test_that("means.wilcoxon.R works", {
                  list(test = "t", n = 164, power = 0.80153238, t.alpha = -1.654704869,
                       ncp = -2.5028661, null.ncp = 0, df = 155.608464))
 
+    crrRes <- power.np.wilcoxon(d = 0.1, n2 = 649, design = "one.sample", alternative = "one.sided", distribution = "normal",
+                                verbose = 0) # example 22.3 from the GPower manual
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.1, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
+                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", n = 649, power = 0.800078016, t.alpha = 1.64732, ncp = 2.489476548, null.ncp = 0,
+                      df = 618.74935))
+    # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
+    # results are (roughly) identical: t / z crit ~ 1.65, power ~ 0.8001
+
+    crrRes <- power.np.wilcoxon(d = 0.8, n2 = 11, design = "one.sample", alternative = "one.sided",
+                                distribution = "laplace", verbose = 0) # example 22.3 from the GPower manual
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.8, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
+                      design = "one.sample", distribution = "laplace", method = "guenther", ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", n = 11, power = 0.92759865, t.alpha = 1.7493444, ncp = 3.2496154, null.ncp = 0, df = 15.5))
+    # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
+    # results are quite off: t / z crit = 1.6448536 (GPower) vs. 1.7493444 (pwrss), power = 0.8308341 (GPower) vs. 0.92759865 (pwrss)
+
+    crrRes <- power.np.wilcoxon(d = 1.13842, n2 = 5, design = "paired", alternative = "two.sided", distribution = "laplace",
+                                verbose = 0) # example 23.3 from the GPower manual
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 1.13842, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
+                      design = "paired", distribution = "laplace", method = "guenther", ceiling = TRUE,
+                      verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", n = 5, power = 0.75156987, t.alpha = 2.40200201 * c(-1, 1), ncp = 3.1176916, null.ncp = 0, df = 6.5))
+    # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
+    # results are quite off: t / z crit = 1.9599640 (GPower) vs. 2.40200201 (pwrss), power = 0.8534958 (GPower) vs. 0.75156987 (pwrss)
+
+    crrRes <- power.np.wilcoxon(d = 0.375, n.ratio = 2, n2 = 67, design = "independent", alternative = "two.sided",
+                                distribution = "laplace", verbose = 0) # example 24.3.1 from the GPower manual
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.375, null.d = 0, margin = 0, n.ratio = 2, alpha = 0.05, alternative = "two.sided", design = "independent",
+                      distribution = "laplace", method = "guenther", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", n = c(n1 = 134, n2 = 67), power = 0.86426579, t.alpha = 1.96791632 * c(-1, 1),
+                      ncp = 3.0695073, null.ncp = 0, df = 299.5))
+    # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
+    # results are a bit off: t / z crit = 1.9599640 (GPower) vs. 1.96791632 (pwrss), power = 0.8472103 (GPower) vs. 0.86426579 (pwrss)
+
+    crrRes <- power.np.wilcoxon(d = 0.2911838, n.ratio = 2, n2 = 67, design = "independent", alternative = "one.sided",
+                                distribution = "logistic", verbose = 0) # example 24.3.2 from the GPower manual, using d instead of p1
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.2911838, null.d = 0, margin = 0, n.ratio = 2, alpha = 0.05, alternative = "one.sided", design = "independent",
+                      distribution = "logistic", method = "guenther", ceiling = TRUE, verbose = 0, pretty = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", n = c(n1 = 134, n2 = 67), power = 0.65052962, t.alpha = 1.65185978,
+                      ncp = 2.03792219, null.ncp = 0, df = 218.421165))
+    # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
+    # results are slightly off: t / z crit = 1.6448536 (GPower) vs. 1.65185978 (pwrss), power = 0.6461276 (GPower) vs. 0.65052962 (pwrss)
+
     expect_error(power.np.wilcoxon(d = 0.10, margin = -11, power = 0.80, alternative = "one.sided", verbose = 0),
                  "Possibly incorrect value for `margin` \\(should be within -10 ... 10\\).")
     expect_error(power.np.wilcoxon(d = -0.20, power = 0.80, alternative = "two.sided", design = "paired", method = "noether", verbose = 0),
