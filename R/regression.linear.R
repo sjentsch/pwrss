@@ -116,14 +116,16 @@ f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 #' hierarchical linear regression.
 #'
 #' Formulas are validated using Monte Carlo simulation, G*Power, and tables in
-#' PASS documentation.
+#' the PASS documentation.
 #'
-#' NOTE: The \code{pwrss.f.reg()} function and its alias
-#' \code{pwrss.f.regression} are deprecated, but they will remain available as
-#' a wrapper for \code{power.f.regression()} during the transition period.
-#'
+#' @details
+#' * NB: The \code{pwrss.f.regression} function and its alias
+#'   \code{pwrss.f.reg()} are deprecated, but they will remain available as a
+#'   wrapper for the \code{power.f.regression()} function during a transition
+#'   period.
 #'
 #' @aliases pwrss.f.reg power.f.reg pwrss.f.regression power.f.regression
+#'
 #'
 #' @param r.squared.change R-squared (or R-squared change).
 #' @param margin           margin - ignorable R-squared (or R-squared change).
@@ -362,12 +364,14 @@ pwrss.f.reg <- pwrss.f.regression
 #' Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont and
 #' Plummer (1998).
 #'
-#' Formulas are validated using Monte Carlo simulation, G*Power, tables in PASS
-#' documentation, and tables in Bulus (2021).
+#' Formulas are validated using Monte Carlo simulation, G*Power, tables in the
+#' PASS documentation, and tables in Bulus (2021).
 #'
-#' NOTE: The \code{pwrss.t.regression()} function and its alias
-#' \code{pwrss.z.reg()} are deprecated, but they will remain available as a
-#' wrapper for \code{power.t.regression()} during the transition period.
+#' @details
+#' * NB: The \code{pwrss.z.regression()} function and its alias
+#'   \code{pwrss.z.reg()} are deprecated, but they will remain available as a
+#'   wrapper for the \code{power.t.regression()} function during a transition
+#'   period.
 #'
 #'
 #' @aliases power.t.regression pwrss.t.regression pwrss.z.regression

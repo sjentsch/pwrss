@@ -130,11 +130,12 @@ Parameters defined in \code{list()} form can be modified, but element names
 should be kept the same. It is sufficient to use distribution's name for
 default parameters (e.g. \code{dist = "normal"}).
 
-NOTE: The \code{pwrss.z.logistic()} and its alias \code{pwrss.z.logreg()}
+Formulas are validated using G*Power and tables in the PASS documentation.
+\itemize{
+\item NB: The \code{pwrss.z.logistic()} and its alias \code{pwrss.z.logreg()}
 are deprecated. However, they will remain available as wrappers for the
-\code{power.z.logistic()} function.
-
-Formulas are validated using G*Power and tables in PASS documentation.
+\code{power.z.logistic()} function during a transition period.
+}
 }
 \examples{
 ###########################################

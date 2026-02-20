@@ -109,12 +109,13 @@ results, reflect the margin in \code{null.d} and specify \code{margin = 0}.
 
 Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 et al. (2018) and Lakens (2017).
-
-NOTE: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
+\itemize{
+\item NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
 longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
 functions are deprecated, but they will remain available as wrappers for
 \code{power.t.student()} or \code{power.t.welch()} during a transition
 period.
+}
 }
 \examples{
 # see `?pwrss::power.t.student` for examples

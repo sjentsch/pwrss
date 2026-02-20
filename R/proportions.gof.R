@@ -7,12 +7,13 @@
 #' Calculates power or sample size (only one can be NULL at a time) for
 #' Chi-square goodness-of-fit or independence tests.
 #'
-#' NOTE: The \code{pwrss.chisq.gofit()} function is deprecated. However, it
-#' will remain available as a wrapper for the \code{power.chisq.gof()}
-#' function.
-#'
+#' @details
+#' * NB: The \code{pwrss.chisq.gofit()} function is deprecated. However, it
+#'   will remain available as a wrapper for the \code{power.chisq.gof()}
+#'   function during a transition period.
 #'
 #' @aliases power.chisq.gof pwrss.chisq.gofit
+#'
 #'
 #' @param w       Cohen's w effect size under alternative. It can be any of
 #'                Cohen's W, Phi coefficient, or Cramer's V but degrees of

@@ -218,14 +218,15 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 #' Calculates power or sample size (only one can be NULL at a time) for test of
 #' a proportion against a constant using the normal approximation method.
 #'
-#' Formulas are validated using PASS documentation.
+#' Formulas are validated using the PASS documentation and G*Power.
 #'
-#' NOTE: The \code{pwrss.z.prop()} function is deprecated, but it will remain
-#' available as a wrapper for the \code{power.z.oneprop()} function during a
-#' transition period.
-#'
+#' @details
+#' * NB: The \code{pwrss.z.prop()} function is deprecated, but it will remain
+#'   available as a wrapper for the \code{power.z.oneprop()} function during a
+#'   transition period.
 #'
 #' @aliases power.z.oneprop pwrss.z.prop
+#'
 #'
 #' @param prob        probability of success under alternative.
 #' @param null.prob   probability of success under null.

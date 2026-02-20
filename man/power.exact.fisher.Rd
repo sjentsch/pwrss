@@ -76,7 +76,7 @@ Calculates power or sample size for Fisher's exact test on independent
 binary outcomes. Approximate and exact methods are available.
 }
 \details{
-Validated via PASS and G*Power.
+Validated using the PASS documentation and G*Power.
 }
 \examples{
 # example data for a randomized controlled trial

@@ -82,11 +82,12 @@ the explanatory power of covariates (thus, an additional R-squared argument
 is not required as an input).
 }
 \details{
-Note that R has a partial matching feature which allows you to specify
-shortened versions of arguments, such as \code{k} or \code{k.cov} instead of
-\code{k.covariates}.
+Formulas are validated using G*Power and tables in the PASS documentation.
 
-Formulas are validated using G*Power and tables in PASS documentation.
+Note that R has a partial matching feature which allows you to specify
+shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+\code{k.covariates}.
 }
 \examples{
 

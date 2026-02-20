@@ -13,9 +13,10 @@
 #' mediator and outcome model via specifying R-squared values accordingly.
 #' \code{power.z.mediation()} and \code{power.z.med()} are the same functions.
 #'
-#' NOTE: The function \code{pwrss.z.mediation()} (or its alias
-#' \code{pwrss.z.med()}) are no longer supported. However, they will remain
-#' available as wrappers for the \code{power.z.mediation} function.
+#' @details
+#' * NOTE: The function \code{pwrss.z.mediation()} (or its alias
+#'   \code{pwrss.z.med()}) are no longer supported. However, they will remain
+#'   available as wrappers for the \code{power.z.mediation} function.
 #'
 #' Formulas are validated using Monte Carlo simulation.
 #'

@@ -75,11 +75,13 @@ hierarchical linear regression.
 }
 \details{
 Formulas are validated using Monte Carlo simulation, G*Power, and tables in
-PASS documentation.
-
-NOTE: The \code{pwrss.f.reg()} function and its alias
-\code{pwrss.f.regression} are deprecated, but they will remain available as
-a wrapper for \code{power.f.regression()} during the transition period.
+the PASS documentation.
+\itemize{
+\item NB: The \code{pwrss.f.regression} function and its alias
+\code{pwrss.f.reg()} are deprecated, but they will remain available as a
+wrapper for the \code{power.f.regression()} function during a transition
+period.
+}
 }
 \examples{
 

@@ -4,7 +4,7 @@
 #' outcomes. Approximate and exact methods are available (check references for
 #' details).
 #'
-#' Validated via PASS and G*Power.
+#' Validated using the PASS documentation and G*Power.
 #'
 #'
 #' @aliases power.exact.mcnemar power.exact.twoprops.mcnemar

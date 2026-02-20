@@ -34,15 +34,16 @@
 #' Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 #' et al. (2018) and Lakens (2017).
 #'
-#' NOTE: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
-#' longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
-#' functions are deprecated, but they will remain available as wrappers for
-#' \code{power.t.student()} or \code{power.t.welch()} during a transition
-#' period.
-#'
+#' @details
+#' * NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
+#'   longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
+#'   functions are deprecated, but they will remain available as wrappers for
+#'   \code{power.t.student()} or \code{power.t.welch()} functions during a
+#'   transition period.
 #'
 #' @aliases power.t.student pwrss.t.2means pwrss.z.2means pwrss.t.mean
 #'          pwrss.z.mean
+#'
 #'
 #' @param d           Cohen's d or Hedges' g.
 #' @param null.d      Cohen's d or Hedges' g under null, typically 0(zero).
@@ -493,11 +494,12 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #' Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 #' et al. (2018) and Lakens (2017).
 #'
-#' NOTE: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
-#' longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
-#' functions are deprecated, but they will remain available as wrappers for
-#' \code{power.t.student()} or \code{power.t.welch()} during a transition
-#' period.
+#' @details
+#' * NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
+#'   longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
+#'   functions are deprecated, but they will remain available as wrappers for
+#'   \code{power.t.student()} or \code{power.t.welch()} during a transition
+#'   period.
 #'
 #'
 #' @param d           Cohen's d or Hedges' g.

@@ -26,7 +26,7 @@ power.t.contrasts(
 }
 \arguments{
 \item{x}{object; an object returned from the
-\code{pwrss.f.ancova.shieh()} function.}
+\code{power.f.ancova.shieh()} function.}
 
 \item{mu.vector}{vector; adjusted means (or estimated marginal means)
 for each level of a factor. Ignored when 'x' is
@@ -100,20 +100,20 @@ by default.}
 }
 \description{
 Calculates power or sample size for one-, two-, three-Way ANCOVA contrasts
-and multiple comparisons. The \code{pwrss.t.contrasts()} function permits
+and multiple comparisons. The \code{power.t.contrasts()} function permits
 to test multiple contrasts (multiple comparisons) and also allows adjustment
-to alpha due to multiple testing. Furthermore, \code{pwrss.t.contrasts()}
-accepts an object returned from the \code{pwrss.f.ancova.shieh()} function
+to alpha due to multiple testing. Furthermore, \code{power.t.contrasts()}
+accepts an object returned from the \code{power.f.ancova.shieh()} function
 for convenience. Beware that, in this case, all other arguments are ignored
 except \code{alpha} and \code{adjust.alpha}.
 }
 \details{
+Formulas are validated using examples and tables in Shieh (2017).
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 \code{k.covariates}.
-
-Formulas are validated using examples and tables in Shieh (2017).
 }
 \examples{
 # see `?pwrss::power.f.ancova.shieh` for further examples

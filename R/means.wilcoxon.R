@@ -10,25 +10,24 @@
 #' non-parametric rank-based tests. The following tests and designs are
 #' available:
 #'
-#' \itemize{ \item Wilcoxon Signed-Rank Test (One Sample) \item Wilcoxon
-#' Rank-Sum or Mann-Whitney U Test (Independent Samples) \item Wilcoxon
-#' Matched-Pairs Signed-Rank Test (Paired Samples) }
+#' * Wilcoxon Signed-Rank Test (One Sample)
+#' * Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)
+#' * Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)
 #'
-#' Use \code{means.to.d()} to convert raw means and standard deviations to
-#' Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability of
-#' superiority. Note that this interpretation is appropriate only when the
-#' underlying distribution is approximately normal and the two groups have
-#' similar population variances.
+#' Formulas are validated using G*Power and tables in the PASS documentation.
+#' However, we adopt the rounding convention used by G*Power.
 #'
-#' Formulas are validated using G*Power and tables in PASS documentation.
-#' However, we adopt rounding convention used by G*Power.
-#'
-#' Note that R has a partial matching feature which allows you to specify
-#' shortened versions of arguments, such as \code{alt} instead of
-#' \code{alternative}, or \code{dist} instead of \code{distribution}.
-#'
-#' NOTE: \code{pwrss.np.2means()} function is no longer supported.
-#' \code{pwrss.np.2groups()} will remain available for some time.
+#' @details
+#' * Use \code{means.to.d()} to convert raw means and standard deviations to
+#'   Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability
+#'   of superiority. Note that this interpretation is appropriate only when the
+#'   underlying distribution is approximately normal and the two groups have
+#'   similar population variances.
+#' * NB: \code{pwrss.np.2means()} function is depreciated and no longer
+#'   supported. \code{pwrss.np.2groups()} will remain available for some time.
+#' * Note that R has a partial matching feature which allows you to specify
+#'   shortened versions of arguments, such as \code{alt} instead of
+#'   \code{alternative}, or \code{dist} instead of \code{distribution}.
 #'
 #'
 #' @aliases power.np.wilcox pwrss.np.2groups pwrss.np.2means

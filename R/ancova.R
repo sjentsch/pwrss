@@ -15,11 +15,13 @@ format_test <- function(n.way, cov) {
 #' the explanatory power of covariates (thus, an additional R-squared argument
 #' is not required as an input).
 #'
-#' Note that R has a partial matching feature which allows you to specify
-#' shortened versions of arguments, such as \code{k} or \code{k.cov} instead of
-#' \code{k.covariates}.
+#' Formulas are validated using G*Power and tables in the PASS documentation.
 #'
-#' Formulas are validated using G*Power and tables in PASS documentation.
+#' @details
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
+#' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+#' \code{k.covariates}.
 #'
 #'
 #' @aliases pwrss.f.ancova
@@ -321,13 +323,13 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
 #' \code{k.cov > 0} in combination with \code{r2 > 0} for one-way ANCOVA (with
 #' pretest or covariate adjustment).
 #'
+#' Formulas are validated using the PASS documentation.
+#'
+#' @details
 #' Note that R has a partial matching feature which allows you to specify
 #' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 #' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 #' \code{k.covariates}.
-#'
-#' Formulas are validated using PASS documentation.
-#'
 #'
 #' @param mu.vector     vector of adjusted means (or estimated marginal means)
 #'                      for each level of a factor.
@@ -582,11 +584,14 @@ power.f.ancova.keppel <- function(mu.vector,
 #'
 #' Helper function to construct the default contrast coefficients for various
 #' coding schemes.
-#' Note that R has a partial matching feature which allows you to specify
-#' shortened versions of arguments, such as \code{coding} instead of
-#' \code{coding.scheme}.
 #'
 #' Validated using \code{lm()} and \code{aov()} functions.
+#'
+#' @details
+#' Note that R has a partial matching feature which allows you to specify
+#' shortened versions of arguments, such as \code{factor} instead of
+#' \code{factor.levels}, or such as \code{cod} or \code{coding} instead of
+#' \code{coding.scheme}.
 #'
 #'
 #' @param factor.levels integer; Number of levels or groups in each factor. For
@@ -840,12 +845,14 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 #' unique combination of levels (cells in this case) should follow a specific
 #' order for the test of interaction. The order of marginal means and standard
 #' deviations is printed as a warning message.
+#'
+#' Formulas are validated using examples and tables in Shieh (2020).
+#'
+#' @details
 #' Note that R has a partial matching feature which allows you to specify
 #' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 #' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 #' \code{k.covariates}.
-#'
-#' Formulas are validated using examples and tables in Shieh (2020).
 #'
 #'
 #' @param mu.vector       vector; adjusted means (or estimated marginal means)
@@ -1259,12 +1266,13 @@ power.f.ancova.shieh <- function(mu.vector,
 #' Calculates power or sample size for a single one-, two-, three-Way ANCOVA
 #' contrast.
 #'
+#' Formulas are validated using examples and tables in Shieh (2017).
+#'
+#' @details
 #' Note that R has a partial matching feature which allows you to specify
 #' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 #' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 #' \code{k.covariates}.
-#'
-#' Formulas are validated using examples and tables in Shieh (2017).
 #'
 #'
 #' @aliases pwrss.t.contrast
@@ -1550,25 +1558,26 @@ adjust.alpha <- function(n, alpha = 0.05,
 #' Comparisons (T-Tests)
 #'
 #' Calculates power or sample size for one-, two-, three-Way ANCOVA contrasts
-#' and multiple comparisons. The \code{pwrss.t.contrasts()} function permits
+#' and multiple comparisons. The \code{power.t.contrasts()} function permits
 #' to test multiple contrasts (multiple comparisons) and also allows adjustment
-#' to alpha due to multiple testing. Furthermore, \code{pwrss.t.contrasts()}
-#' accepts an object returned from the \code{pwrss.f.ancova.shieh()} function
+#' to alpha due to multiple testing. Furthermore, \code{power.t.contrasts()}
+#' accepts an object returned from the \code{power.f.ancova.shieh()} function
 #' for convenience. Beware that, in this case, all other arguments are ignored
 #' except \code{alpha} and \code{adjust.alpha}.
 #'
+#' Formulas are validated using examples and tables in Shieh (2017).
+#'
+#' @details
 #' Note that R has a partial matching feature which allows you to specify
 #' shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 #' of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 #' \code{k.covariates}.
 #'
-#' Formulas are validated using examples and tables in Shieh (2017).
-#'
 #'
 #' @aliases pwrss.t.contrasts
 #'
 #' @param x               object; an object returned from the
-#'                        \code{pwrss.f.ancova.shieh()} function.
+#'                        \code{power.f.ancova.shieh()} function.
 #' @param mu.vector       vector; adjusted means (or estimated marginal means)
 #'                        for each level of a factor. Ignored when 'x' is
 #'                        specified.

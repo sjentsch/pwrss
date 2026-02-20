@@ -23,14 +23,15 @@
 #' should be kept the same. It is sufficient to use distribution's name for
 #' default parameters (e.g. \code{dist = "normal"}).
 #'
-#' NOTE: The \code{pwrss.z.logistic()} and its alias \code{pwrss.z.logreg()}
-#' are deprecated. However, they will remain available as wrappers for the
-#' \code{power.z.logistic()} function.
+#' Formulas are validated using G*Power and tables in the PASS documentation.
 #'
-#' Formulas are validated using G*Power and tables in PASS documentation.
-#'
+#' @details
+#' * NB: The \code{pwrss.z.logistic()} and its alias \code{pwrss.z.logreg()}
+#'   are deprecated. However, they will remain available as wrappers for the
+#'   \code{power.z.logistic()} function during a transition period.
 #'
 #' @aliases power.z.logistic pwrss.z.logistic power.z.logreg pwrss.z.logreg
+#'
 #'
 #' @param base.prob           base probability under null hypothesis
 #'                            (probability that an event occurs without the

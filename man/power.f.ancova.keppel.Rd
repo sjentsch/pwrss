@@ -82,12 +82,12 @@ Calculates power or sample size for one-way ANOVA/ANCOVA. Set \code{k.cov =
 pretest or covariate adjustment).
 }
 \details{
+Formulas are validated using the PASS documentation.
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 \code{k.covariates}.
-
-Formulas are validated using PASS documentation.
 }
 \examples{
 

@@ -5,7 +5,7 @@
 #' Calculates power or sample size for Fisher's exact test on independent
 #' binary outcomes. Approximate and exact methods are available.
 #'
-#' Validated via PASS and G*Power.
+#' Validated using the PASS documentation and G*Power.
 #'
 #'
 #' @aliases power.exact.fisher power.exact.twoprops.fisher

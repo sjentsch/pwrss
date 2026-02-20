@@ -21,14 +21,15 @@
 #' default parameters (e.g. \code{dist = "normal"}).
 #'
 #' Formulas are validated using Monte Carlo simulation, G*Power, and tables in
-#' PASS documentation.
+#' the PASS documentation.
 #'
-#' NOTE: The \code{pwrss.z.poisson()} and its alias \code{pwrss.z.poisreg()}
-#' are deprecated. However, they will remain available as wrappers for the
-#' \code{power.z.logistic()} function.
-#'
+#' @details
+#' * NB: The \code{pwrss.z.poisson()} and its alias \code{pwrss.z.poisreg()}
+#'   are deprecated. However, they will remain available as wrappers for the
+#'   \code{power.z.logistic()} function during a transition period.
 #'
 #' @aliases power.z.poisreg power.z.poisson pwrss.z.poisreg pwrss.z.poisson
+#'
 #'
 #' @param base.rate           the base mean event rate.
 #' @param rate.ratio          event rate ratio. The relative increase in the

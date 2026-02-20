@@ -94,13 +94,14 @@ factorial designs, use the argument \code{factor.levels} but note that
 unique combination of levels (cells in this case) should follow a specific
 order for the test of interaction. The order of marginal means and standard
 deviations is printed as a warning message.
+}
+\details{
+Formulas are validated using examples and tables in Shieh (2020).
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 \code{k.covariates}.
-}
-\details{
-Formulas are validated using examples and tables in Shieh (2020).
 }
 \examples{
 

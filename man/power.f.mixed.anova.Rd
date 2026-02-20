@@ -96,11 +96,12 @@ factors (between and within). When there is only one group observed over
 time, this design is often referred to as repeated-measures ANOVA.
 }
 \details{
-Formulas are validated using G*Power and tables in PASS documentation.
-
-NOTE: The \code{pwrss.f.rmanova()} function is deprecated and will no longer
-be supported, but it will remain available as a wrapper for
-\code{power.f.mixed.anova()} during the transition period.
+Formulas are validated using G*Power and tables in the PASS documentation.
+\itemize{
+\item NB: The \code{pwrss.f.rmanova()} function is deprecated and will no longer
+be supported, but it will remain available as a wrapper for the
+\code{power.f.mixed.anova()} function during a transition period.
+}
 }
 \examples{
 ######################################################

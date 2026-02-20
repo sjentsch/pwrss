@@ -111,12 +111,14 @@ Minimal effect and equivalence tests are implemented in line with Hodges and
 Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont and
 Plummer (1998).
 
-Formulas are validated using Monte Carlo simulation, G*Power, tables in PASS
-documentation, and tables in Bulus (2021).
-
-NOTE: The \code{pwrss.t.regression()} function and its alias
+Formulas are validated using Monte Carlo simulation, G*Power, tables in the
+PASS documentation, and tables in Bulus (2021).
+\itemize{
+\item NB: The \code{pwrss.z.regression()} function and its alias
 \code{pwrss.z.reg()} are deprecated, but they will remain available as a
-wrapper for \code{power.t.regression()} during the transition period.
+wrapper for the \code{power.t.regression()} function during a transition
+period.
+}
 }
 \examples{
 

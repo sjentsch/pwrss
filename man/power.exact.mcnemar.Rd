@@ -83,7 +83,7 @@ outcomes. Approximate and exact methods are available (check references for
 details).
 }
 \details{
-Validated via PASS and G*Power.
+Validated using the PASS documentation and G*Power.
 }
 \examples{
 # example data for a matched case-control design
