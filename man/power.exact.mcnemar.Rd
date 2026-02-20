@@ -81,8 +81,7 @@ in a data frame with variables 'case' and 'control' or
 Calculates power or sample size for McNemar's test on paired binary
 outcomes. Approximate and exact methods are available (check references for
 details).
-}
-\details{
+
 Validated using the PASS documentation and G*Power.
 }
 \examples{

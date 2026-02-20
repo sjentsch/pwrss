@@ -6,6 +6,7 @@
 #' Power Analysis for Non-parametric Rank-Based Tests (One-Sample, Independent,
 #' and Paired Designs)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for
 #' non-parametric rank-based tests. The following tests and designs are
 #' available:
@@ -29,8 +30,8 @@
 #'   shortened versions of arguments, such as \code{alt} instead of
 #'   \code{alternative}, or \code{dist} instead of \code{distribution}.
 #'
-#'
 #' @aliases power.np.wilcox pwrss.np.2groups pwrss.np.2means
+#'
 #'
 #' @param d            Cohen's d or Hedges' g.
 #' @param null.d       Cohen's d or Hedges' g under null, typically 0 (zero).

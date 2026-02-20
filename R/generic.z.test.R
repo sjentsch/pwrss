@@ -1,10 +1,11 @@
 #' Statistical Power for the Generic z-Test
 #'
+#' @description
 #' Calculates power for the generic z-Test with (optional) Type 1 and Type 2
 #' error plots.
 #'
-#'
 #' @aliases power.z
+#'
 #'
 #' @param             mean mean of the alternative.
 #' @param sd          standard deviation of the alternative. Do not change this

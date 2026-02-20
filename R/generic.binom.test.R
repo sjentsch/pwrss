@@ -1,10 +1,11 @@
 #' Power Analysis for the Generic Binomial Test
 #'
+#' @description
 #' Calculates power for the generic binomial test with (optional) Type 1 and
 #' Type 2 error plots.
 #'
-#'
 #' @aliases power.binom
+#'
 #'
 #' @param size        number of trials (zero or more).
 #' @param prob        probability of success on each trial under alternative.

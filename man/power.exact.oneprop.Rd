@@ -60,8 +60,7 @@ default.}
 \description{
 Calculates power or sample size (only one can be NULL at a time) for test of
 a proportion against a constant using the exact method.
-}
-\details{
+
 Formulas are validated using PASS documentation.
 }
 \examples{

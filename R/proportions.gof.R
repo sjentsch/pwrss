@@ -4,6 +4,7 @@
 
 #' Power and Sample Size for Chi-square Goodness-of-Fit or Independence Tests
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for
 #' Chi-square goodness-of-fit or independence tests.
 #'

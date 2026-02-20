@@ -3,14 +3,9 @@
 
 #' Power Analysis for Student's t-Test
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for
 #' Student's t-Test.
-#'
-#' Use \code{means.to.d()} to convert raw means and standard deviations to
-#' Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability of
-#' superiority. Note that this interpretation is appropriate only when the
-#' underlying distribution is approximately normal and the two groups have
-#' similar population variances.
 #'
 #' In contrast to previous versions, users can now specify whether their claims
 #' will be based on raw score mean difference with P-values or standardized
@@ -35,6 +30,11 @@
 #' et al. (2018) and Lakens (2017).
 #'
 #' @details
+#' * Use \code{means.to.d()} to convert raw means and standard deviations to
+#'   Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability
+#'   of superiority. Note that this interpretation is appropriate only when the
+#'   underlying distribution is approximately normal and the two groups have
+#'   similar population variances.
 #' * NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
 #'   longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
 #'   functions are deprecated, but they will remain available as wrappers for
@@ -462,15 +462,10 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
 #' Power Analysis for Welch's t-Test
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for Welch's
 #' t-Tests. Welch's T-Test implementation relies on formulas proposed by Bulus
 #' (2024).
-#'
-#' Use \code{means.to.d()} to convert raw means and standard deviations to
-#' Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability of
-#' superiority. Note that this interpretation is appropriate only when the
-#' underlying distribution is approximately normal and the two groups have
-#' similar population variances.
 #'
 #' In contrast to previous versions, users can now specify whether their claims
 #' will be based on raw score mean difference with p-values or standardized
@@ -495,6 +490,11 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #' et al. (2018) and Lakens (2017).
 #'
 #' @details
+#' * Use \code{means.to.d()} to convert raw means and standard deviations to
+#'   Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability
+#'   of superiority. Note that this interpretation is appropriate only when the
+#'   underlying distribution is approximately normal and the two groups have
+#'   similar population variances.
 #' * NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
 #'   longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
 #'   functions are deprecated, but they will remain available as wrappers for

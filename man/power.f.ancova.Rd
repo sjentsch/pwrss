@@ -80,10 +80,10 @@ ANCOVA. Note that in the latter, the effect size (\code{eta.squared} should
 be obtained from the relevant ANCOVA model, which is already adjusted for
 the explanatory power of covariates (thus, an additional R-squared argument
 is not required as an input).
+
+Formulas are validated using G*Power and tables in the PASS documentation.
 }
 \details{
-Formulas are validated using G*Power and tables in the PASS documentation.
-
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of

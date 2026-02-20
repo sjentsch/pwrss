@@ -96,13 +96,15 @@ proportions).}
 \description{
 Calculates power or sample size (only one can be NULL at a time) for two
 proportions using the normal approximation method.
+
+Validated via G*Power and PASS documentation.
 }
 \details{
-Validated via G*Power and PASS documentation.
-
-NOTE: The \code{pwrss.z.2props()} function is deprecated, but it will remain
-available as a wrapper for the \code{power.z.twoprops()} function during the
-transition period.
+\itemize{
+\item NB: The \code{pwrss.z.2props()} function is deprecated, but it will remain
+available as a wrapper for the \code{power.z.twoprops()} function during
+a transition period.
+}
 }
 \examples{
   # power

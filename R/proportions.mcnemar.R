@@ -1,13 +1,14 @@
 #' Power Analysis for McNemar's Exact Test (Paired Proportions)
 #'
+#' @description
 #' Calculates power or sample size for McNemar's test on paired binary
 #' outcomes. Approximate and exact methods are available (check references for
 #' details).
 #'
 #' Validated using the PASS documentation and G*Power.
 #'
-#'
 #' @aliases power.exact.mcnemar power.exact.twoprops.mcnemar
+#'
 #'
 #' @param prob10      (joint) probability of success in case (or after) but
 #'                    failure in matched control (or before). 'prob10' and

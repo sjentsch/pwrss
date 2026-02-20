@@ -1,10 +1,11 @@
 #' Statistical Power for the Generic t-Test
 #'
+#' @description
 #' Calculates power for the generic t-Test with (optional) Type 1 and Type 2
 #' error plots.
 #'
-#'
 #' @aliases power.t
+#'
 #'
 #' @param             ncp non-centrality parameter for the alternative.
 #' @param null.ncp    non-centrality parameter for the null. When alternative =

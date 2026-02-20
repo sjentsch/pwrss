@@ -83,10 +83,10 @@ by default.}
 \description{
 Calculates power or sample size for a single one-, two-, three-Way ANCOVA
 contrast.
+
+Formulas are validated using examples and tables in Shieh (2017).
 }
 \details{
-Formulas are validated using examples and tables in Shieh (2017).
-
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of

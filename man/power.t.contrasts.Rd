@@ -106,10 +106,10 @@ to alpha due to multiple testing. Furthermore, \code{power.t.contrasts()}
 accepts an object returned from the \code{power.f.ancova.shieh()} function
 for convenience. Beware that, in this case, all other arguments are ignored
 except \code{alpha} and \code{adjust.alpha}.
+
+Formulas are validated using examples and tables in Shieh (2017).
 }
 \details{
-Formulas are validated using examples and tables in Shieh (2017).
-
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of

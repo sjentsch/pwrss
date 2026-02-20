@@ -72,10 +72,11 @@ R-squared deviation from 0 (zero) in linear regression or to test R-squared
 change between two linear regression models. The test of R-squared change is
 often used to evaluate incremental contribution of a set of predictors in
 hierarchical linear regression.
-}
-\details{
+
 Formulas are validated using Monte Carlo simulation, G*Power, and tables in
 the PASS documentation.
+}
+\details{
 \itemize{
 \item NB: The \code{pwrss.f.regression} function and its alias
 \code{pwrss.f.reg()} are deprecated, but they will remain available as a

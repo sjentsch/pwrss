@@ -4,14 +4,15 @@
 
 #' Power Analysis for Dependent Correlations (Steiger's Z-Test)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test
 #' difference between paired correlations (Pearson) using Fisher's
 #' Z-transformation.
 #'
 #' Validated via PASS and G*Power.
 #'
-#'
 #' @aliases power.z.twocors.steiger power.z.steiger
+#'
 #'
 #' @param rho12        correlation between variable V1 and V2 (one common index
 #'                     and no common index). Check examples below.
@@ -366,14 +367,15 @@ power.z.steiger <- power.z.twocors.steiger
 
 #' Power Analysis for Independent Correlations
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test
 #' difference between two independent (Pearson) correlations using Fisher's z
 #' transformation.
 #'
 #' Formulas are validated using PASS and G*Power.
 #'
-#'
 #' @aliases power.z.twocors power.z.twocor pwrss.z.2corrs pwrss.z.2corr
+#'
 #'
 #' @param rho1        correlation in the first group.
 #' @param rho2        correlation in the second group.
@@ -568,13 +570,14 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 
 #' Power Analysis for One-Sample Correlation
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test a
 #' (Pearson) correlation against a constant using Fisher's z transformation.
 #'
 #' Formulas are validated using PASS and G*Power.
 #'
-#'
 #' @aliases power.z.onecor pwrss.z.corr pwrss.z.cor
+#'
 #'
 #' @param rho         correlation.
 #' @param null.rho    correlation when null is true.

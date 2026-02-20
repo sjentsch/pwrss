@@ -88,8 +88,7 @@ Calculates power or sample size (only one can be NULL at a time) for two
 proportions using the exact method. The function is a wrapper for
 \code{power.exact.mcnemar} (if \code{paired} == TRUE), or \code{power.exact.fisher} (if
 \code{paired} == FALSE)
-}
-\details{
+
 Validated via G*Power and PASS documentation.
 }
 \examples{

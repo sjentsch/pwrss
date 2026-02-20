@@ -1,10 +1,11 @@
 #' Statistical Power for the Generic F-Test
 #'
+#' @description
 #' Calculates power for the generic F-Test with (optional) Type 1 and Type 2
 #' error plots.
 #'
-#'
 #' @aliases power.f
+#'
 #'
 #' @param          ncp non-centrality parameter for the alternative.
 #' @param null.ncp non-centrality parameter for the null.

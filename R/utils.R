@@ -251,6 +251,7 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 #' Conversion from Cohen's d to Common Language Effect Size
 #'
 #'
+#' @description
 #' Helper function to convert Cohen's d to common language effect size (or vice
 #' versa). The result is the probability of superiority for independent
 #' samples. It can be interpreted as the probability that a randomly selected
@@ -264,6 +265,7 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 #' reference value (e.g., 0).
 #'
 #' @aliases d.to.cles cles.to.d
+#'
 #'
 #' @param d       Cohen's d
 #' @param design  character; one of the "independent", "paired", or
@@ -329,6 +331,7 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
 
 #' Conversion from Means and Standard Deviations to Cohen's d
 #'
+#' @description
 #' Helper function to convert means and standard deviations to Cohen's d.
 #'
 #'
@@ -415,6 +418,7 @@ means.to.d <- function(mu1, mu2 = 0,
 
 #' Conversion from Probability Difference to Cohen's h
 #'
+#' @description
 #' Helper function to convert probability difference to Cohen's h (and vice
 #' versa).
 #'
@@ -739,6 +743,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
 #' Conversion from Probabilities to Cohen's w
 #'
+#' @description
 #' Helper function to convert (multinomial or product-multinomial)
 #' probabilities to Cohen's w.
 #'

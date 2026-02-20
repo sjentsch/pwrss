@@ -8,6 +8,7 @@ format_test <- function(n.way, cov) {
 #' Power Analysis for One-, Two-, Three-Way ANOVA/ANCOVA Using Effect Size
 #' (F-Test)
 #'
+#' @description
 #' Calculates power or sample size for one-way, two-way, or three-way
 #' ANOVA/ANCOVA. Set \code{k.cov = 0} for ANOVA, and \code{k.cov > 0} for
 #' ANCOVA. Note that in the latter, the effect size (\code{eta.squared} should
@@ -318,6 +319,7 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
 #' Power Analysis for One-Way ANOVA/ANCOVA Using Means and Standard Deviations
 #' (F test)
 #'
+#' @description
 #' Calculates power or sample size for one-way ANOVA/ANCOVA. Set \code{k.cov =
 #' 0} for one-way ANOVA (without any pretest or covariate adjustment). Set
 #' \code{k.cov > 0} in combination with \code{r2 > 0} for one-way ANCOVA (with
@@ -582,6 +584,7 @@ power.f.ancova.keppel <- function(mu.vector,
 
 #' Factorial Contrasts
 #'
+#' @description
 #' Helper function to construct the default contrast coefficients for various
 #' coding schemes.
 #'
@@ -840,6 +843,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 #' Power Analysis for One-, Two-, Three-Way ANCOVA Using Means, Standard
 #' Deviations, and (Optionally) Contrasts (F test)
 #'
+#' @description
 #' Calculates power or sample size for one-, two-, three-way ANCOVA. For
 #' factorial designs, use the argument \code{factor.levels} but note that
 #' unique combination of levels (cells in this case) should follow a specific
@@ -1263,6 +1267,7 @@ power.f.ancova.shieh <- function(mu.vector,
 #' Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple
 #' Comparisons (T-Tests)
 #'
+#' @description
 #' Calculates power or sample size for a single one-, two-, three-Way ANCOVA
 #' contrast.
 #'
@@ -1557,6 +1562,7 @@ adjust.alpha <- function(n, alpha = 0.05,
 #' Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple
 #' Comparisons (T-Tests)
 #'
+#' @description
 #' Calculates power or sample size for one-, two-, three-Way ANCOVA contrasts
 #' and multiple comparisons. The \code{power.t.contrasts()} function permits
 #' to test multiple contrasts (multiple comparisons) and also allows adjustment

@@ -80,13 +80,6 @@ default.}
 Calculates power or sample size (only one can be NULL at a time) for Welch's
 t-Tests. Welch's T-Test implementation relies on formulas proposed by Bulus
 (2024).
-}
-\details{
-Use \code{means.to.d()} to convert raw means and standard deviations to
-Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability of
-superiority. Note that this interpretation is appropriate only when the
-underlying distribution is approximately normal and the two groups have
-similar population variances.
 
 In contrast to previous versions, users can now specify whether their claims
 will be based on raw score mean difference with p-values or standardized
@@ -109,7 +102,14 @@ results, reflect the margin in \code{null.d} and specify \code{margin = 0}.
 
 Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 et al. (2018) and Lakens (2017).
+}
+\details{
 \itemize{
+\item Use \code{means.to.d()} to convert raw means and standard deviations to
+Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability
+of superiority. Note that this interpretation is appropriate only when the
+underlying distribution is approximately normal and the two groups have
+similar population variances.
 \item NB: The functions \code{pwrss.z.mean()} and \code{pwrss.z.2means()} are no
 longer supported. The \code{pwrss.t.mean()} and \code{pwrss.t.2means()}
 functions are deprecated, but they will remain available as wrappers for

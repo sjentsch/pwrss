@@ -45,10 +45,10 @@ factor levels}
 \description{
 Helper function to construct the default contrast coefficients for various
 coding schemes.
+
+Validated using \code{lm()} and \code{aov()} functions.
 }
 \details{
-Validated using \code{lm()} and \code{aov()} functions.
-
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{factor} instead of
 \code{factor.levels}, or such as \code{cod} or \code{coding} instead of

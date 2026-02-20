@@ -105,14 +105,15 @@ experimental design) by specifying \code{sd.predictor = sqrt(p*(1-p))} where
 in each group would be \code{n*p} and \code{n*(1-p)}.
 \code{power.t.regression()}\code{pwrss.t.regression()} are the same
 functions, as well as \code{power.t.reg()} and \code{pwrss.t.reg()}.
-}
-\details{
+
 Minimal effect and equivalence tests are implemented in line with Hodges and
 Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont and
 Plummer (1998).
 
 Formulas are validated using Monte Carlo simulation, G*Power, tables in the
 PASS documentation, and tables in Bulus (2021).
+}
+\details{
 \itemize{
 \item NB: The \code{pwrss.z.regression()} function and its alias
 \code{pwrss.z.reg()} are deprecated, but they will remain available as a

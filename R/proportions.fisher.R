@@ -2,13 +2,14 @@
 
 #' Power Analysis for Fisher's Exact Test (Independent Proportions)
 #'
+#' @description
 #' Calculates power or sample size for Fisher's exact test on independent
 #' binary outcomes. Approximate and exact methods are available.
 #'
 #' Validated using the PASS documentation and G*Power.
 #'
-#'
 #' @aliases power.exact.fisher power.exact.twoprops.fisher
+#'
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.

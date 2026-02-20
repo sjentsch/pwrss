@@ -4,6 +4,7 @@
 
 #' Power Analysis for the Test of One Proportion (Exact Method)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for test of
 #' a proportion against a constant using the exact method.
 #'
@@ -215,6 +216,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 
 #' Power Analysis for the Test of One Proportion (Normal Approximation Method)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for test of
 #' a proportion against a constant using the normal approximation method.
 #'
@@ -599,6 +601,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 
 #' Power Analysis for Testing Difference Between Two Proportions (Exact Method)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for two
 #' proportions using the exact method. The function is a wrapper for
 #' `power.exact.mcnemar` (if `paired` == TRUE), or `power.exact.fisher` (if
@@ -606,8 +609,8 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 #'
 #' Validated via G*Power and PASS documentation.
 #'
-#'
 #' @aliases power.exact.twoprops power.exact.twoprop
+#'
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.
@@ -737,17 +740,19 @@ power.exact.twoprop <- power.exact.twoprops
 #' Power Analysis for Testing Difference Between Two Proportions (Normal
 #' Approximation Method)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) for two
 #' proportions using the normal approximation method.
 #'
 #' Validated via G*Power and PASS documentation.
 #'
-#' NOTE: The \code{pwrss.z.2props()} function is deprecated, but it will remain
-#' available as a wrapper for the \code{power.z.twoprops()} function during the
-#' transition period.
-#'
+#' @details
+#' * NB: The \code{pwrss.z.2props()} function is deprecated, but it will remain
+#'   available as a wrapper for the \code{power.z.twoprops()} function during
+#'   a transition period.
 #'
 #' @aliases power.z.twoprops power.z.twoprop pwrss.z.2props pwrss.z.2prop
+#'
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.

@@ -1,5 +1,6 @@
 #' Power Analysis for Mixed-Effects Analysis of Variance (F-Test)
 #'
+#' @description
 #' Calculates power or sample size for mixed-effects ANOVA design with two
 #' factors (between and within). When there is only one group observed over
 #' time, this design is often referred to as repeated-measures ANOVA.

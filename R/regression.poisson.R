@@ -1,5 +1,6 @@
 #' Power Analysis for Poisson Regression Coefficient (Wald's z Test)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test a
 #' single coefficient in poisson regression. \code{power.z.poisson()} and
 #' \code{power.z.poisreg()} are the same functions, as well as

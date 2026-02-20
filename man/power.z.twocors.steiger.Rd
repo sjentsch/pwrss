@@ -93,8 +93,7 @@ c(n1, n2).}
 Calculates power or sample size (only one can be NULL at a time) to test
 difference between paired correlations (Pearson) using Fisher's
 Z-transformation.
-}
-\details{
+
 Validated via PASS and G*Power.
 }
 \examples{

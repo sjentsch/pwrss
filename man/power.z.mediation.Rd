@@ -135,6 +135,8 @@ indirect effects in a mediation model (Z-Test, Joint Test, and Monte Carlo
 Interval Test). One can consider explanatory power of the covariates in the
 mediator and outcome model via specifying R-squared values accordingly.
 \code{power.z.mediation()} and \code{power.z.med()} are the same functions.
+
+Formulas are validated using Monte Carlo simulations.
 }
 \details{
 \itemize{
@@ -142,8 +144,6 @@ mediator and outcome model via specifying R-squared values accordingly.
 \code{pwrss.z.med()}) are no longer supported. However, they will remain
 available as wrappers for the \code{power.z.mediation} function.
 }
-
-Formulas are validated using Monte Carlo simulation.
 }
 \examples{
 # with standardized coefficients

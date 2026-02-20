@@ -1,5 +1,6 @@
 #' Conversion from R-squared to Cohen's f
 #'
+#' @description
 #' Helper function to convert between Cohen's f and R-squared.
 #'
 #' @param r.squared.full    R-squared for the full model.
@@ -50,6 +51,7 @@ rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
 
 #' Conversion from Cohen's f to R-squared
 #'
+#' @description
 #' Helper function to convert between Cohen's f and R-squared.
 #'
 #'
@@ -109,6 +111,7 @@ f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 
 #' Power Analysis for Linear Regression: R-squared or R-squared Change (F-Test)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test
 #' R-squared deviation from 0 (zero) in linear regression or to test R-squared
 #' change between two linear regression models. The test of R-squared change is
@@ -350,6 +353,7 @@ pwrss.f.reg <- pwrss.f.regression
 
 #' Power Analysis for Linear Regression: Single Coefficient (T-Test)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test a
 #' single coefficient in multiple linear regression. The predictor is assumed
 #' to be continuous by default. However, one can calculate power or sample size

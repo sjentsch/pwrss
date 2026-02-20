@@ -7,21 +7,22 @@
 #' Power Analysis for Indirect Effects in a Mediation Model (Z, Joint, and
 #' Monte Carlo Tests)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test
 #' indirect effects in a mediation model (Z-Test, Joint Test, and Monte Carlo
 #' Interval Test). One can consider explanatory power of the covariates in the
 #' mediator and outcome model via specifying R-squared values accordingly.
 #' \code{power.z.mediation()} and \code{power.z.med()} are the same functions.
 #'
+#' Formulas are validated using Monte Carlo simulations.
+#'
 #' @details
 #' * NOTE: The function \code{pwrss.z.mediation()} (or its alias
 #'   \code{pwrss.z.med()}) are no longer supported. However, they will remain
 #'   available as wrappers for the \code{power.z.mediation} function.
 #'
-#' Formulas are validated using Monte Carlo simulation.
-#'
-#'
 #' @aliases power.z.mediation pwrss.z.mediation power.z.med pwrss.z.med
+#'
 #'
 #' @param beta.a              regression coefficient for X -> M path. One can
 #'                            use standardized regression coefficient, but

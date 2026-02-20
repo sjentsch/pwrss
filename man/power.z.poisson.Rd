@@ -109,8 +109,7 @@ single coefficient in poisson regression. \code{power.z.poisson()} and
 the predictor variable can be one of the following: \code{c("normal",
 "poisson", "uniform", "exponential", "binomial", "bernouilli",
 "lognormal")}. The default parameters for these distributions are
-}
-\details{
+
 \code{distribution = list(dist = "normal", mean = 0, sd = 1)} \cr
 \code{distribution = list(dist = "poisson", lambda = 1)} \cr
 \code{distribution = list(dist = "uniform", min = 0, max = 1)} \cr
@@ -125,6 +124,8 @@ default parameters (e.g. \code{dist = "normal"}).
 
 Formulas are validated using Monte Carlo simulation, G*Power, and tables in
 the PASS documentation.
+}
+\details{
 \itemize{
 \item NB: The \code{pwrss.z.poisson()} and its alias \code{pwrss.z.poisreg()}
 are deprecated. However, they will remain available as wrappers for the

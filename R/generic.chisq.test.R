@@ -1,10 +1,11 @@
 #' Statistical Power for the Generic Chi-Square Test
 #'
+#' @description
 #' Calculates power for the generic chi-square test with (optional) Type 1 and
 #' Type 2 error plots.
 #'
-#'
 #' @aliases power.chisq
+#'
 #'
 #' @param ncp      non-centrality parameter for the alternative.
 #' @param null.ncp non-centrality parameter for the null.

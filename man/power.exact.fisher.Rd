@@ -74,8 +74,7 @@ data frame with group variable stacked.}
 \description{
 Calculates power or sample size for Fisher's exact test on independent
 binary outcomes. Approximate and exact methods are available.
-}
-\details{
+
 Validated using the PASS documentation and G*Power.
 }
 \examples{

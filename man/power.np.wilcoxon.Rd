@@ -93,8 +93,6 @@ method = 'guenther').}
 Calculates power or sample size (only one can be NULL at a time) for
 non-parametric rank-based tests. The following tests and designs are
 available:
-}
-\details{
 \itemize{
 \item Wilcoxon Signed-Rank Test (One Sample)
 \item Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)
@@ -103,6 +101,8 @@ available:
 
 Formulas are validated using G\emph{Power and tables in the PASS documentation.
 However, we adopt the rounding convention used by G}Power.
+}
+\details{
 \itemize{
 \item Use \code{means.to.d()} to convert raw means and standard deviations to
 Cohen's d, and \code{d.to.cles()} to convert Cohen's d to the probability

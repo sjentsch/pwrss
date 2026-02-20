@@ -80,10 +80,10 @@ Calculates power or sample size for one-way ANOVA/ANCOVA. Set \code{k.cov =
 0} for one-way ANOVA (without any pretest or covariate adjustment). Set
 \code{k.cov > 0} in combination with \code{r2 > 0} for one-way ANCOVA (with
 pretest or covariate adjustment).
+
+Formulas are validated using the PASS documentation.
 }
 \details{
-Formulas are validated using the PASS documentation.
-
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
 of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of

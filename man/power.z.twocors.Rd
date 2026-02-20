@@ -70,8 +70,7 @@ c(n1, n2).}
 Calculates power or sample size (only one can be NULL at a time) to test
 difference between two independent (Pearson) correlations using Fisher's z
 transformation.
-}
-\details{
+
 Formulas are validated using PASS and G*Power.
 }
 \examples{

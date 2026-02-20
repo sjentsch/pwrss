@@ -1,5 +1,6 @@
 #' Power Analysis for Logistic Regression Coefficient (Wald's Z-Test)
 #'
+#' @description
 #' Calculates power or sample size (only one can be NULL at a time) to test a
 #' single coefficient in logistic regression. \code{power.z.logistic()} and
 #' \code{power.z.logreg()} are the same functions, as well as
@@ -9,7 +10,7 @@
 #' \code{c("normal", "poisson", "uniform", "exponential", "binomial",
 #' "bernouilli", "lognormal")} for Demidenko (2007) procedure but only
 #' \code{c("normal", "binomial", "bernouilli")} for Hsieh et al. (1998)
-#' procedure. The default parameters for these distributions are
+#' procedure. The default parameters for these distributions are:
 #'
 #' \code{distribution = list(dist = "normal", mean = 0, sd = 1)} \cr
 #' \code{distribution = list(dist = "poisson", lambda = 1)} \cr

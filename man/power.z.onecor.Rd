@@ -62,8 +62,7 @@ default.}
 \description{
 Calculates power or sample size (only one can be NULL at a time) to test a
 (Pearson) correlation against a constant using Fisher's z transformation.
-}
-\details{
+
 Formulas are validated using PASS and G*Power.
 }
 \examples{
