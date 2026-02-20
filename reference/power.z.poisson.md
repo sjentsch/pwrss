@@ -42,7 +42,7 @@ power.z.poisson(
   distribution = "normal",
   ceiling = TRUE,
   verbose = 1,
-  pretty = FALSE
+  utf = FALSE
 )
 ```
 
@@ -118,10 +118,10 @@ power.z.poisson(
 - verbose:
 
   `1` by default (returns test, hypotheses, and results), if `2` a more
-  detailed output is given (plus key parameters and defintions), if `0`
+  detailed output is given (plus key parameters and definitions), if `0`
   no output is printed on the console.
 
-- pretty:
+- utf:
 
   logical; whether the output should show Unicode characters (if
   encoding allows for it). `FALSE` by default.
