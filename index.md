@@ -2615,7 +2615,7 @@ power.exact.oneprop(prob = 0.002, # probability of success under alternative
 #> Results
 #> ----------------------------------------------------
 #>   Sample Size          = 804  <<
-#>   Type 1 Error (alpha) = 0.050
+#>   Type 1 Error (alpha) = 0.000
 #>   Type 2 Error (beta)  = 0.200
 #>   Statistical Power    = 0.800
 ```
@@ -4915,8 +4915,8 @@ power.z.mediation(beta.a = 0.25,
 #> ----------------------------------------------------
 #>   Sample Size          = 300
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.417
-#>   Statistical Power    = 0.583  <<
+#>   Type 2 Error (beta)  = 0.406
+#>   Statistical Power    = 0.594  <<
 ```
 
 ## Covariate Adjustment
