@@ -4,6 +4,8 @@ Calculates power or sample size (only one can be NULL at a time) for
 test of a proportion against a constant using the normal approximation
 method.
 
+Formulas are validated using the PASS documentation and G\*Power.
+
 ## Usage
 
 ``` r
@@ -131,8 +133,6 @@ power.z.oneprop(
   sample size.
 
 ## Details
-
-Formulas are validated using the PASS documentation and G\*Power.
 
 - NB: The `pwrss.z.prop()` function is deprecated, but it will remain
   available as a wrapper for the `power.z.oneprop()` function during a

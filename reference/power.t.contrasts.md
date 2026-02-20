@@ -9,6 +9,8 @@ allows adjustment to alpha due to multiple testing. Furthermore,
 function for convenience. Beware that, in this case, all other arguments
 are ignored except `alpha` and `adjust.alpha`.
 
+Formulas are validated using examples and tables in Shieh (2017).
+
 ## Usage
 
 ``` r
@@ -162,8 +164,6 @@ power.t.contrasts(
   statistical power \\(1-\beta)\\ (one contrast per line).
 
 ## Details
-
-Formulas are validated using examples and tables in Shieh (2017).
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of

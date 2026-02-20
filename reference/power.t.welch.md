@@ -4,6 +4,30 @@ Calculates power or sample size (only one can be NULL at a time) for
 Welch's t-Tests. Welch's T-Test implementation relies on formulas
 proposed by Bulus (2024).
 
+In contrast to previous versions, users can now specify whether their
+claims will be based on raw score mean difference with p-values or
+standardized mean difference with confidence intervals. While results
+typically differ by only a few units, these distinctions can be
+particularly consequential in studies with small sample sizes or
+high-risk interventions.
+
+Formulas are validated using Monte Carlo simulations (see Bulus, 2024),
+G\*Power, <http://powerandsamplesize.com/>, and tables in the PASS
+documentation. One key difference between PASS and `pwrss` lies in how
+they handle non-inferiority and superiority tests-that is, one-sided
+tests defined by a negligible effect margin (implemented as of this
+version). PASS shifts the test statistic so that the null hypothesis
+assumes a zero effect, treating the negligible margin as part of the
+alternative hypothesis. As a result, the test statistic is evaluated
+against a central distribution. In contrast, `pwrss` treats the
+negligible effect as the true null value, and the test statistic is
+evaluated under a non-central distribution. This leads to slight
+differences up to third decimal place. To get the same results, reflect
+the margin in `null.d` and specify `margin = 0`.
+
+Equivalence tests are implemented in line with Bulus and Polat (2023),
+Chow et al. (2018) and Lakens (2017).
+
 ## Usage
 
 ``` r
@@ -125,38 +149,14 @@ power.t.welch(
 
 ## Details
 
-Use
-[`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
-to convert raw means and standard deviations to Cohen's d, and
-[`d.to.cles()`](https://metinbulus.github.io/pwrss/reference/d.to.cles.md)
-to convert Cohen's d to the probability of superiority. Note that this
-interpretation is appropriate only when the underlying distribution is
-approximately normal and the two groups have similar population
-variances.
-
-In contrast to previous versions, users can now specify whether their
-claims will be based on raw score mean difference with p-values or
-standardized mean difference with confidence intervals. While results
-typically differ by only a few units, these distinctions can be
-particularly consequential in studies with small sample sizes or
-high-risk interventions.
-
-Formulas are validated using Monte Carlo simulations (see Bulus, 2024),
-G\*Power, <http://powerandsamplesize.com/>, and tables in the PASS
-documentation. One key difference between PASS and `pwrss` lies in how
-they handle non-inferiority and superiority tests-that is, one-sided
-tests defined by a negligible effect margin (implemented as of this
-version). PASS shifts the test statistic so that the null hypothesis
-assumes a zero effect, treating the negligible margin as part of the
-alternative hypothesis. As a result, the test statistic is evaluated
-against a central distribution. In contrast, `pwrss` treats the
-negligible effect as the true null value, and the test statistic is
-evaluated under a non-central distribution. This leads to slight
-differences up to third decimal place. To get the same results, reflect
-the margin in `null.d` and specify `margin = 0`.
-
-Equivalence tests are implemented in line with Bulus and Polat (2023),
-Chow et al. (2018) and Lakens (2017).
+- Use
+  [`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
+  to convert raw means and standard deviations to Cohen's d, and
+  [`d.to.cles()`](https://metinbulus.github.io/pwrss/reference/d.to.cles.md)
+  to convert Cohen's d to the probability of superiority. Note that this
+  interpretation is appropriate only when the underlying distribution is
+  approximately normal and the two groups have similar population
+  variances.
 
 - NB: The functions
   [`pwrss.z.mean()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)

@@ -4,6 +4,8 @@ Calculates power or sample size for McNemar's test on paired binary
 outcomes. Approximate and exact methods are available (check references
 for details).
 
+Validated using the PASS documentation and G\*Power.
+
 ## Usage
 
 ``` r
@@ -123,10 +125,6 @@ power.exact.mcnemar(
   paired sample size, which is sum of cell frequencies in the 2 x 2
   table (f11 + f10 + f01 + f00), or number of rows in a data frame with
   variables 'case' and 'control' or 'after' and 'before'.
-
-## Details
-
-Validated using the PASS documentation and G\*Power.
 
 ## References
 

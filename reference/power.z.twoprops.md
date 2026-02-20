@@ -3,6 +3,8 @@
 Calculates power or sample size (only one can be NULL at a time) for two
 proportions using the normal approximation method.
 
+Validated via G\*Power and PASS documentation.
+
 ## Usage
 
 ``` r
@@ -152,11 +154,9 @@ power.z.twoprops(
 
 ## Details
 
-Validated via G\*Power and PASS documentation.
-
-NOTE: The `pwrss.z.2props()` function is deprecated, but it will remain
-available as a wrapper for the `power.z.twoprops()` function during the
-transition period.
+- NB: The `pwrss.z.2props()` function is deprecated, but it will remain
+  available as a wrapper for the `power.z.twoprops()` function during a
+  transition period.
 
 ## References
 

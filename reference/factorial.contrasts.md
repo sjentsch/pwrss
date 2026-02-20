@@ -3,6 +3,9 @@
 Helper function to construct the default contrast coefficients for
 various coding schemes.
 
+Validated using [`lm()`](https://rdrr.io/r/stats/lm.html) and
+[`aov()`](https://rdrr.io/r/stats/aov.html) functions.
+
 ## Usage
 
 ``` r
@@ -64,9 +67,6 @@ factorial.contrasts(
   Contrast matrix
 
 ## Details
-
-Validated using [`lm()`](https://rdrr.io/r/stats/lm.html) and
-[`aov()`](https://rdrr.io/r/stats/aov.html) functions.
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `factor` instead of

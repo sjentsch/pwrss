@@ -4,6 +4,9 @@ Calculates power or sample size for mixed-effects ANOVA design with two
 factors (between and within). When there is only one group observed over
 time, this design is often referred to as repeated-measures ANOVA.
 
+Formulas are validated using G\*Power and tables in the PASS
+documentation.
+
 ## Usage
 
 ``` r
@@ -135,9 +138,6 @@ power.f.mixed.anova(
   total sample size.
 
 ## Details
-
-Formulas are validated using G\*Power and tables in the PASS
-documentation.
 
 - NB: The `pwrss.f.rmanova()` function is deprecated and will no longer
   be supported, but it will remain available as a wrapper for the

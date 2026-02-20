@@ -6,6 +6,8 @@ combination of levels (cells in this case) should follow a specific
 order for the test of interaction. The order of marginal means and
 standard deviations is printed as a warning message.
 
+Formulas are validated using examples and tables in Shieh (2020).
+
 ## Usage
 
 ``` r
@@ -142,8 +144,6 @@ power.f.ancova.shieh(
   total sample size.
 
 ## Details
-
-Formulas are validated using examples and tables in Shieh (2020).
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of

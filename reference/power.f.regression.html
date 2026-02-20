@@ -3,11 +3,15 @@
 R-squared deviation from 0 (zero) in linear regression or to test R-squared
 change between two linear regression models. The test of R-squared change is
 often used to evaluate incremental contribution of a set of predictors in
-hierarchical linear regression."><meta property="og:description" content="Calculates power or sample size (only one can be NULL at a time) to test
+hierarchical linear regression.
+Formulas are validated using Monte Carlo simulation, G*Power, and tables in
+the PASS documentation."><meta property="og:description" content="Calculates power or sample size (only one can be NULL at a time) to test
 R-squared deviation from 0 (zero) in linear regression or to test R-squared
 change between two linear regression models. The test of R-squared change is
 often used to evaluate incremental contribution of a set of predictors in
-hierarchical linear regression."></head><body>
+hierarchical linear regression.
+Formulas are validated using Monte Carlo simulation, G*Power, and tables in
+the PASS documentation."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -51,6 +55,8 @@ R-squared deviation from 0 (zero) in linear regression or to test R-squared
 change between two linear regression models. The test of R-squared change is
 often used to evaluate incremental contribution of a set of predictors in
 hierarchical linear regression.</p>
+<p>Formulas are validated using Monte Carlo simulation, G*Power, and tables in
+the PASS documentation.</p>
     </div>
 
     <div class="section level2">
@@ -161,8 +167,8 @@ characters (if encoding allows for it).
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Formulas are validated using Monte Carlo simulation, G*Power, and tables in
-the PASS documentation.</p><ul><li><p>NB: The <code>pwrss.f.regression</code> function and its alias
+
+<ul><li><p>NB: The <code>pwrss.f.regression</code> function and its alias
 <code>pwrss.f.reg()</code> are deprecated, but they will remain available as a
 wrapper for the <code>power.f.regression()</code> function during a transition
 period.</p></li>

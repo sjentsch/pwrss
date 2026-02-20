@@ -7,6 +7,8 @@ covariates in the mediator and outcome model via specifying R-squared
 values accordingly. `power.z.mediation()` and `power.z.med()` are the
 same functions.
 
+Formulas are validated using Monte Carlo simulations.
+
 ## Usage
 
 ``` r
@@ -180,8 +182,6 @@ power.z.mediation(
 - NOTE: The function `pwrss.z.mediation()` (or its alias
   `pwrss.z.med()`) are no longer supported. However, they will remain
   available as wrappers for the `power.z.mediation` function.
-
-Formulas are validated using Monte Carlo simulation.
 
 ## References
 

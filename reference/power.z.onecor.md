@@ -4,6 +4,8 @@ Calculates power or sample size (only one can be NULL at a time) to test
 a (Pearson) correlation against a constant using Fisher's z
 transformation.
 
+Formulas are validated using PASS and G\*Power.
+
 ## Usage
 
 ``` r
@@ -101,10 +103,6 @@ power.z.onecor(
 - n:
 
   sample size.
-
-## Details
-
-Formulas are validated using PASS and G\*Power.
 
 ## References
 

@@ -3,6 +3,8 @@
 Calculates power or sample size for Fisher's exact test on independent
 binary outcomes. Approximate and exact methods are available.
 
+Validated using the PASS documentation and G\*Power.
+
 ## Usage
 
 ``` r
@@ -122,10 +124,6 @@ power.exact.fisher(
   total sample size, which is sum of cell frequencies in the 2 x 2 table
   (f11 + f10 + f01 + f00), or number of rows in a data frame with group
   variable stacked.
-
-## Details
-
-Validated using the PASS documentation and G\*Power.
 
 ## References
 

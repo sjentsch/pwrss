@@ -3,6 +3,8 @@
 Calculates power or sample size for a single one-, two-, three-Way
 ANCOVA contrast.
 
+Formulas are validated using examples and tables in Shieh (2017).
+
 ## Usage
 
 ``` r
@@ -135,8 +137,6 @@ power.t.contrast(
   total sample size.
 
 ## Details
-
-Formulas are validated using examples and tables in Shieh (2017).
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of

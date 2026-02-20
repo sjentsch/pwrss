@@ -4,6 +4,16 @@ Calculates power or sample size (only one can be NULL at a time) for
 non-parametric rank-based tests. The following tests and designs are
 available:
 
+- Wilcoxon Signed-Rank Test (One Sample)
+
+- Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)
+
+- Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)
+
+Formulas are validated using G*Power and tables in the PASS
+documentation. However, we adopt the rounding convention used by
+G*Power.
+
 ## Usage
 
 ``` r
@@ -149,16 +159,6 @@ power.np.wilcoxon(
   sample size (`n` or `c(n1, n2)` depending on the design.
 
 ## Details
-
-- Wilcoxon Signed-Rank Test (One Sample)
-
-- Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)
-
-- Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)
-
-Formulas are validated using G*Power and tables in the PASS
-documentation. However, we adopt the rounding convention used by
-G*Power.
 
 - Use
   [`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)

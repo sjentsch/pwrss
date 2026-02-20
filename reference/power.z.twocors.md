@@ -4,6 +4,8 @@ Calculates power or sample size (only one can be NULL at a time) to test
 difference between two independent (Pearson) correlations using Fisher's
 z transformation.
 
+Formulas are validated using PASS and G\*Power.
+
 ## Usage
 
 ``` r
@@ -107,10 +109,6 @@ power.z.twocors(
 - n:
 
   sample size for the first and second groups, in the form of c(n1, n2).
-
-## Details
-
-Formulas are validated using PASS and G\*Power.
 
 ## References
 

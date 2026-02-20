@@ -10,6 +10,13 @@ size in each group would be `n*p` and `n*(1-p)`.
 `power.t.regression()``pwrss.t.regression()` are the same functions, as
 well as `power.t.reg()` and `pwrss.t.reg()`.
 
+Minimal effect and equivalence tests are implemented in line with Hodges
+and Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont
+and Plummer (1998).
+
+Formulas are validated using Monte Carlo simulation, G\*Power, tables in
+the PASS documentation, and tables in Bulus (2021).
+
 ## Usage
 
 ``` r
@@ -143,13 +150,6 @@ power.t.regression(
   sample size.
 
 ## Details
-
-Minimal effect and equivalence tests are implemented in line with Hodges
-and Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont
-and Plummer (1998).
-
-Formulas are validated using Monte Carlo simulation, G\*Power, tables in
-the PASS documentation, and tables in Bulus (2021).
 
 - NB: The `pwrss.z.regression()` function and its alias `pwrss.z.reg()`
   are deprecated, but they will remain available as a wrapper for the

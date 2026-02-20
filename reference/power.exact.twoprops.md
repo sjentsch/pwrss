@@ -5,6 +5,8 @@ proportions using the exact method. The function is a wrapper for
 `power.exact.mcnemar` (if `paired` == TRUE), or `power.exact.fisher` (if
 `paired` == FALSE)
 
+Validated via G\*Power and PASS documentation.
+
 ## Usage
 
 ``` r
@@ -160,10 +162,6 @@ power.exact.twoprops(
 - n.paired:
 
   paired sample size (applies to paired proportions).
-
-## Details
-
-Validated via G\*Power and PASS documentation.
 
 ## References
 

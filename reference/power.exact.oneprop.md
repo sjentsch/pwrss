@@ -3,6 +3,8 @@
 Calculates power or sample size (only one can be NULL at a time) for
 test of a proportion against a constant using the exact method.
 
+Formulas are validated using PASS documentation.
+
 ## Usage
 
 ``` r
@@ -97,10 +99,6 @@ power.exact.oneprop(
 - n:
 
   sample size.
-
-## Details
-
-Formulas are validated using PASS documentation.
 
 ## References
 

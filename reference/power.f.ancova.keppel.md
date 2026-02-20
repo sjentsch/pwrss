@@ -5,6 +5,8 @@ Calculates power or sample size for one-way ANOVA/ANCOVA. Set
 adjustment). Set `k.cov > 0` in combination with `r2 > 0` for one-way
 ANCOVA (with pretest or covariate adjustment).
 
+Formulas are validated using the PASS documentation.
+
 ## Usage
 
 ``` r
@@ -121,8 +123,6 @@ power.f.ancova.keppel(
   total sample size.
 
 ## Details
-
-Formulas are validated using the PASS documentation.
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of

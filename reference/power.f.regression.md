@@ -6,6 +6,9 @@ R-squared change between two linear regression models. The test of
 R-squared change is often used to evaluate incremental contribution of a
 set of predictors in hierarchical linear regression.
 
+Formulas are validated using Monte Carlo simulation, G\*Power, and
+tables in the PASS documentation.
+
 ## Usage
 
 ``` r
@@ -112,9 +115,6 @@ power.f.regression(
   sample size.
 
 ## Details
-
-Formulas are validated using Monte Carlo simulation, G\*Power, and
-tables in the PASS documentation.
 
 - NB: The `pwrss.f.regression` function and its alias `pwrss.f.reg()`
   are deprecated, but they will remain available as a wrapper for the

@@ -5,6 +5,28 @@ a single coefficient in logistic regression. `power.z.logistic()` and
 `power.z.logreg()` are the same functions, as well as
 `pwrss.z.logistic()` and `pwrss.z.logreg()`.
 
+The distribution of the predictor variable can be one of the following:
+`c("normal", "poisson", "uniform", "exponential", "binomial", "bernouilli", "lognormal")`
+for Demidenko (2007) procedure but only
+`c("normal", "binomial", "bernouilli")` for Hsieh et al. (1998)
+procedure. The default parameters for these distributions are:
+
+`distribution = list(dist = "normal", mean = 0, sd = 1)`  
+`distribution = list(dist = "poisson", lambda = 1)`  
+`distribution = list(dist = "uniform", min = 0, max = 1)`  
+`distribution = list(dist = "exponential", rate = 1)`  
+`distribution = list(dist = "binomial", size = 1, prob = 0.50)`  
+`distribution = list(dist = "bernoulli", prob = 0.50)`  
+`distribution = list(dist = "lognormal", meanlog = 0, sdlog = 1)`  
+
+Parameters defined in [`list()`](https://rdrr.io/r/base/list.html) form
+can be modified, but element names should be kept the same. It is
+sufficient to use distribution's name for default parameters (e.g.
+`dist = "normal"`).
+
+Formulas are validated using G\*Power and tables in the PASS
+documentation.
+
 ## Usage
 
 ``` r
@@ -153,28 +175,6 @@ power.z.logistic(
   sample size.
 
 ## Details
-
-The distribution of the predictor variable can be one of the following:
-`c("normal", "poisson", "uniform", "exponential", "binomial", "bernouilli", "lognormal")`
-for Demidenko (2007) procedure but only
-`c("normal", "binomial", "bernouilli")` for Hsieh et al. (1998)
-procedure. The default parameters for these distributions are
-
-`distribution = list(dist = "normal", mean = 0, sd = 1)`  
-`distribution = list(dist = "poisson", lambda = 1)`  
-`distribution = list(dist = "uniform", min = 0, max = 1)`  
-`distribution = list(dist = "exponential", rate = 1)`  
-`distribution = list(dist = "binomial", size = 1, prob = 0.50)`  
-`distribution = list(dist = "bernoulli", prob = 0.50)`  
-`distribution = list(dist = "lognormal", meanlog = 0, sdlog = 1)`  
-
-Parameters defined in [`list()`](https://rdrr.io/r/base/list.html) form
-can be modified, but element names should be kept the same. It is
-sufficient to use distribution's name for default parameters (e.g.
-`dist = "normal"`).
-
-Formulas are validated using G\*Power and tables in the PASS
-documentation.
 
 - NB: The `pwrss.z.logistic()` and its alias `pwrss.z.logreg()` are
   deprecated. However, they will remain available as wrappers for the

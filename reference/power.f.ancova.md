@@ -7,6 +7,9 @@ obtained from the relevant ANCOVA model, which is already adjusted for
 the explanatory power of covariates (thus, an additional R-squared
 argument is not required as an input).
 
+Formulas are validated using G\*Power and tables in the PASS
+documentation.
+
 ## Usage
 
 ``` r
@@ -121,9 +124,6 @@ power.f.ancova(
   total sample size.
 
 ## Details
-
-Formulas are validated using G\*Power and tables in the PASS
-documentation.
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of
