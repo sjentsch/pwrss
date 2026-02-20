@@ -125,7 +125,7 @@ power.exact.fisher(
 
 ## Details
 
-Validated via PASS and G\*Power.
+Validated using the PASS documentation and G\*Power.
 
 ## References
 

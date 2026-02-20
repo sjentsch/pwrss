@@ -149,11 +149,11 @@ and Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont
 and Plummer (1998).
 
 Formulas are validated using Monte Carlo simulation, G\*Power, tables in
-PASS documentation, and tables in Bulus (2021).
+the PASS documentation, and tables in Bulus (2021).
 
-NOTE: The `pwrss.t.regression()` function and its alias `pwrss.z.reg()`
-are deprecated, but they will remain available as a wrapper for
-`power.t.regression()` during the transition period.
+- NB: The `pwrss.z.regression()` function and its alias `pwrss.z.reg()`
+  are deprecated, but they will remain available as a wrapper for the
+  `power.t.regression()` function during a transition period.
 
 ## References
 

@@ -1,12 +1,13 @@
 # Power Analysis for One-, Two-, Three-Way ANCOVA Contrasts and Multiple Comparisons (T-Tests)
 
 Calculates power or sample size for one-, two-, three-Way ANCOVA
-contrasts and multiple comparisons. The `pwrss.t.contrasts()` function
+contrasts and multiple comparisons. The `power.t.contrasts()` function
 permits to test multiple contrasts (multiple comparisons) and also
 allows adjustment to alpha due to multiple testing. Furthermore,
-`pwrss.t.contrasts()` accepts an object returned from the
-`pwrss.f.ancova.shieh()` function for convenience. Beware that, in this
-case, all other arguments are ignored except `alpha` and `adjust.alpha`.
+`power.t.contrasts()` accepts an object returned from the
+[`power.f.ancova.shieh()`](https://metinbulus.github.io/pwrss/reference/power.f.ancova.shieh.md)
+function for convenience. Beware that, in this case, all other arguments
+are ignored except `alpha` and `adjust.alpha`.
 
 ## Usage
 
@@ -34,7 +35,9 @@ power.t.contrasts(
 
 - x:
 
-  object; an object returned from the `pwrss.f.ancova.shieh()` function.
+  object; an object returned from the
+  [`power.f.ancova.shieh()`](https://metinbulus.github.io/pwrss/reference/power.f.ancova.shieh.md)
+  function.
 
 - mu.vector:
 
@@ -160,11 +163,11 @@ power.t.contrasts(
 
 ## Details
 
+Formulas are validated using examples and tables in Shieh (2017).
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of
 `mu.vector`, or such as `k` or `k.cov` instead of `k.covariates`.
-
-Formulas are validated using examples and tables in Shieh (2017).
 
 ## References
 

@@ -4,10 +4,7 @@ Calculates power or sample size for one-, two-, three-way ANCOVA. For
 factorial designs, use the argument `factor.levels` but note that unique
 combination of levels (cells in this case) should follow a specific
 order for the test of interaction. The order of marginal means and
-standard deviations is printed as a warning message. Note that R has a
-partial matching feature which allows you to specify shortened versions
-of arguments, such as `mu` or `mu.vec` instead of `mu.vector`, or such
-as `k` or `k.cov` instead of `k.covariates`.
+standard deviations is printed as a warning message.
 
 ## Usage
 
@@ -147,6 +144,10 @@ power.f.ancova.shieh(
 ## Details
 
 Formulas are validated using examples and tables in Shieh (2020).
+
+Note that R has a partial matching feature which allows you to specify
+shortened versions of arguments, such as `mu` or `mu.vec` instead of
+`mu.vector`, or such as `k` or `k.cov` instead of `k.covariates`.
 
 ## References
 

@@ -132,11 +132,11 @@ power.z.oneprop(
 
 ## Details
 
-Formulas are validated using PASS documentation.
+Formulas are validated using the PASS documentation and G\*Power.
 
-NOTE: The `pwrss.z.prop()` function is deprecated, but it will remain
-available as a wrapper for the `power.z.oneprop()` function during a
-transition period.
+- NB: The `pwrss.z.prop()` function is deprecated, but it will remain
+  available as a wrapper for the `power.z.oneprop()` function during a
+  transition period.
 
 ## References
 

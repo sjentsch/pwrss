@@ -136,11 +136,11 @@ power.t.contrast(
 
 ## Details
 
+Formulas are validated using examples and tables in Shieh (2017).
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of
 `mu.vector`, or such as `k` or `k.cov` instead of `k.covariates`.
-
-Formulas are validated using examples and tables in Shieh (2017).
 
 ## References
 

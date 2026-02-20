@@ -156,24 +156,25 @@ power.np.wilcoxon(
 
 - Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)
 
-Use
-[`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
-to convert raw means and standard deviations to Cohen's d, and
-[`d.to.cles()`](https://metinbulus.github.io/pwrss/reference/d.to.cles.md)
-to convert Cohen's d to the probability of superiority. Note that this
-interpretation is appropriate only when the underlying distribution is
-approximately normal and the two groups have similar population
-variances.
+Formulas are validated using G*Power and tables in the PASS
+documentation. However, we adopt the rounding convention used by
+G*Power.
 
-Formulas are validated using G*Power and tables in PASS documentation.
-However, we adopt rounding convention used by G*Power.
+- Use
+  [`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
+  to convert raw means and standard deviations to Cohen's d, and
+  [`d.to.cles()`](https://metinbulus.github.io/pwrss/reference/d.to.cles.md)
+  to convert Cohen's d to the probability of superiority. Note that this
+  interpretation is appropriate only when the underlying distribution is
+  approximately normal and the two groups have similar population
+  variances.
 
-Note that R has a partial matching feature which allows you to specify
-shortened versions of arguments, such as `alt` instead of `alternative`,
-or `dist` instead of `distribution`.
+- NB: `pwrss.np.2means()` function is depreciated and no longer
+  supported. `pwrss.np.2groups()` will remain available for some time.
 
-NOTE: `pwrss.np.2means()` function is no longer supported.
-`pwrss.np.2groups()` will remain available for some time.
+- Note that R has a partial matching feature which allows you to specify
+  shortened versions of arguments, such as `alt` instead of
+  `alternative`, or `dist` instead of `distribution`.
 
 ## References
 

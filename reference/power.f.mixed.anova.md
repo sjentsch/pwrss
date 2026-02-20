@@ -136,11 +136,12 @@ power.f.mixed.anova(
 
 ## Details
 
-Formulas are validated using G\*Power and tables in PASS documentation.
+Formulas are validated using G\*Power and tables in the PASS
+documentation.
 
-NOTE: The `pwrss.f.rmanova()` function is deprecated and will no longer
-be supported, but it will remain available as a wrapper for
-`power.f.mixed.anova()` during the transition period.
+- NB: The `pwrss.f.rmanova()` function is deprecated and will no longer
+  be supported, but it will remain available as a wrapper for the
+  `power.f.mixed.anova()` function during a transition period.
 
 ## References
 

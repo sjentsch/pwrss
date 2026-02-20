@@ -157,12 +157,12 @@ the margin in `null.d` and specify `margin = 0`.
 Equivalence tests are implemented in line with Bulus and Polat (2023),
 Chow et al. (2018) and Lakens (2017).
 
-NOTE: The functions `pwrss.z.mean()` and `pwrss.z.2means()` are no
-longer supported. The `pwrss.t.mean()` and `pwrss.t.2means()` functions
-are deprecated, but they will remain available as wrappers for
-`power.t.student()` or
-[`power.t.welch()`](https://metinbulus.github.io/pwrss/reference/power.t.welch.md)
-during a transition period.
+- NB: The functions `pwrss.z.mean()` and `pwrss.z.2means()` are no
+  longer supported. The `pwrss.t.mean()` and `pwrss.t.2means()`
+  functions are deprecated, but they will remain available as wrappers
+  for `power.t.student()` or
+  [`power.t.welch()`](https://metinbulus.github.io/pwrss/reference/power.t.welch.md)
+  functions during a transition period.
 
 ## References
 

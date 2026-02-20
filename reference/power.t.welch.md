@@ -158,17 +158,18 @@ the margin in `null.d` and specify `margin = 0`.
 Equivalence tests are implemented in line with Bulus and Polat (2023),
 Chow et al. (2018) and Lakens (2017).
 
-NOTE: The functions
-[`pwrss.z.mean()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
-and
-[`pwrss.z.2means()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
-are no longer supported. The
-[`pwrss.t.mean()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
-and
-[`pwrss.t.2means()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
-functions are deprecated, but they will remain available as wrappers for
-[`power.t.student()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
-or `power.t.welch()` during a transition period.
+- NB: The functions
+  [`pwrss.z.mean()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
+  and
+  [`pwrss.z.2means()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
+  are no longer supported. The
+  [`pwrss.t.mean()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
+  and
+  [`pwrss.t.2means()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
+  functions are deprecated, but they will remain available as wrappers
+  for
+  [`power.t.student()`](https://metinbulus.github.io/pwrss/reference/power.t.student.md)
+  or `power.t.welch()` during a transition period.
 
 ## References
 

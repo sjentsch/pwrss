@@ -103,8 +103,9 @@ power.chisq.gof(
 
 ## Details
 
-NOTE: The `pwrss.chisq.gofit()` function is deprecated. However, it will
-remain available as a wrapper for the `power.chisq.gof()` function.
+- NB: The `pwrss.chisq.gofit()` function is deprecated. However, it will
+  remain available as a wrapper for the `power.chisq.gof()` function
+  during a transition period.
 
 ## References
 

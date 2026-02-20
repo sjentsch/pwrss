@@ -1,9 +1,7 @@
 # Factorial Contrasts
 
 Helper function to construct the default contrast coefficients for
-various coding schemes. Note that R has a partial matching feature which
-allows you to specify shortened versions of arguments, such as `coding`
-instead of `coding.scheme`.
+various coding schemes.
 
 ## Usage
 
@@ -69,6 +67,11 @@ factorial.contrasts(
 
 Validated using [`lm()`](https://rdrr.io/r/stats/lm.html) and
 [`aov()`](https://rdrr.io/r/stats/aov.html) functions.
+
+Note that R has a partial matching feature which allows you to specify
+shortened versions of arguments, such as `factor` instead of
+`factor.levels`, or such as `cod` or `coding` instead of
+`coding.scheme`.
 
 ## Examples
 

@@ -164,12 +164,12 @@ to use distribution's name for default parameters (e.g.
 `dist = "normal"`).
 
 Formulas are validated using Monte Carlo simulation, G\*Power, and
-tables in PASS documentation.
+tables in the PASS documentation.
 
-NOTE: The `pwrss.z.poisson()` and its alias `pwrss.z.poisreg()` are
-deprecated. However, they will remain available as wrappers for the
-[`power.z.logistic()`](https://metinbulus.github.io/pwrss/reference/power.z.logistic.md)
-function.
+- NB: The `pwrss.z.poisson()` and its alias `pwrss.z.poisreg()` are
+  deprecated. However, they will remain available as wrappers for the
+  [`power.z.logistic()`](https://metinbulus.github.io/pwrss/reference/power.z.logistic.md)
+  function during a transition period.
 
 ## References
 

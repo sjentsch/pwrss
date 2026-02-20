@@ -173,11 +173,12 @@ can be modified, but element names should be kept the same. It is
 sufficient to use distribution's name for default parameters (e.g.
 `dist = "normal"`).
 
-NOTE: The `pwrss.z.logistic()` and its alias `pwrss.z.logreg()` are
-deprecated. However, they will remain available as wrappers for the
-`power.z.logistic()` function.
+Formulas are validated using G\*Power and tables in the PASS
+documentation.
 
-Formulas are validated using G\*Power and tables in PASS documentation.
+- NB: The `pwrss.z.logistic()` and its alias `pwrss.z.logreg()` are
+  deprecated. However, they will remain available as wrappers for the
+  `power.z.logistic()` function during a transition period.
 
 ## References
 

@@ -195,23 +195,20 @@ method = 'guenther').</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
 
 <ul><li><p>Wilcoxon Signed-Rank Test (One Sample)</p></li>
-<li><p>Wilcoxon
-Rank-Sum or Mann-Whitney U Test (Independent Samples)</p></li>
-<li><p>Wilcoxon
-Matched-Pairs Signed-Rank Test (Paired Samples)</p></li>
-</ul><p>Use <code><a href="means.to.d.html">means.to.d()</a></code> to convert raw means and standard deviations to
-Cohen's d, and <code><a href="d.to.cles.html">d.to.cles()</a></code> to convert Cohen's d to the probability of
-superiority. Note that this interpretation is appropriate only when the
+<li><p>Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)</p></li>
+<li><p>Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)</p></li>
+</ul><p>Formulas are validated using G<em>Power and tables in the PASS documentation.
+However, we adopt the rounding convention used by G</em>Power.</p><ul><li><p>Use <code><a href="means.to.d.html">means.to.d()</a></code> to convert raw means and standard deviations to
+Cohen's d, and <code><a href="d.to.cles.html">d.to.cles()</a></code> to convert Cohen's d to the probability
+of superiority. Note that this interpretation is appropriate only when the
 underlying distribution is approximately normal and the two groups have
-similar population variances.</p>
-<p>Formulas are validated using G<em>Power and tables in PASS documentation.
-However, we adopt rounding convention used by G</em>Power.</p>
-<p>Note that R has a partial matching feature which allows you to specify
+similar population variances.</p></li>
+<li><p>NB: <code>pwrss.np.2means()</code> function is depreciated and no longer
+supported. <code>pwrss.np.2groups()</code> will remain available for some time.</p></li>
+<li><p>Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as <code>alt</code> instead of
-<code>alternative</code>, or <code>dist</code> instead of <code>distribution</code>.</p>
-<p>NOTE: <code>pwrss.np.2means()</code> function is no longer supported.
-<code>pwrss.np.2groups()</code> will remain available for some time.</p>
-    </div>
+<code>alternative</code>, or <code>dist</code> instead of <code>distribution</code>.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Al-Sunduqchi, M. S. (1990). <em>Determining the appropriate sample size for

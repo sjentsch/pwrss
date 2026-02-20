@@ -122,11 +122,11 @@ power.f.ancova.keppel(
 
 ## Details
 
+Formulas are validated using the PASS documentation.
+
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of
 `mu.vector`, or such as `k` or `k.cov` instead of `k.covariates`.
-
-Formulas are validated using PASS documentation.
 
 ## References
 

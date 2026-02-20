@@ -114,11 +114,11 @@ power.f.regression(
 ## Details
 
 Formulas are validated using Monte Carlo simulation, G\*Power, and
-tables in PASS documentation.
+tables in the PASS documentation.
 
-NOTE: The `pwrss.f.reg()` function and its alias `pwrss.f.regression`
-are deprecated, but they will remain available as a wrapper for
-`power.f.regression()` during the transition period.
+- NB: The `pwrss.f.regression` function and its alias `pwrss.f.reg()`
+  are deprecated, but they will remain available as a wrapper for the
+  `power.f.regression()` function during a transition period.
 
 ## References
 
