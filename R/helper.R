@@ -16,6 +16,8 @@ ensure_verbose <- function(verbose = NULL) {
 
 isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.eps ^ 2 / 3)
 
+lenInt <- function(n) ifelse(n <= 1, 1, ceiling(log10(abs(n))) + as.integer(n %% 10 == 0))
+
 save_png <- function(code, width = 800, height = 800) {
   path <- tempfile(fileext = ".png")
   grDevices::png(path, width = width, height = height)

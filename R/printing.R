@@ -39,7 +39,7 @@
 
 .fmt_val <- function(val = NA, digits = 3, spf_neg = "") {
   if (is.numeric(val)) {
-    fmt <- paste(rep(ifelse(isInt(val), paste0("%", spf_neg, "d"), paste0("%", spf_neg, ".", digits, "f")), length(val)),
+    fmt <- paste(rep(paste0("%", spf_neg, ifelse(isInt(val), "d", paste0(".", digits, "f"))), length(val)),
                  collapse = ifelse(length(val) < 3, " and ", ", "))
   } else if (is.character(val)) {
     fmt <- "%s"
@@ -58,7 +58,7 @@
 .pad <- function(dsc, maxlen) strrep(" ", maxlen + .nspacer(dsc) - nchar(dsc))
 
 .keyparms <- function(x, parms_mtx, pretty = FALSE, digits = 3) {
-  spf_neg   <- ifelse(any(na.omit(unlist(x[parms_mtx[, 1]])) < 0), "+", "")
+  spf_neg   <- ifelse(any(stats::na.omit(suppressWarnings(as.numeric(unlist(x[parms_mtx[, 1]])))) < 0), "+", "")
   parms_col <- ifelse(pretty, 3, 2)
   parms_max <- max(vapply(parms_mtx[, parms_col], function(x) nchar(x) - .nspacer(x), numeric(1)))
   parms_out <- .topic("Key Parameters", pretty)

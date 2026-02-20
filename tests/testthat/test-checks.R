@@ -15,12 +15,12 @@ test_that("checks.R works", {
                  "Arguments `1`, `0`, `NA` do not have valid logical values \\(must be length 1, TRUE or FALSE\\)")
 
     # check.sample.size ------------------------------------------------------------------------------------------------
-    expect_null(unlist(lapply(c(2, sample(10000, 20)), check.sample.size)))
+    expect_null(unlist(lapply(c(2, sample(seq(2, 10000), 20)), check.sample.size)))
     expect_error(check.sample.size(1, 0, 1.1, NA, Inf, 2, 100),
                  "Arguments `1`, `0`, `1.1`, `NA`, `Inf` do not have valid sample size values \\(must be length 1, integer-like, > 1, and finite\\)")
 
     # check.factor.level -----------------------------------------------------------------------------------------------
-    expect_null(unlist(lapply(c(2, sample(10000, 20)), check.factor.level)))
+    expect_null(unlist(lapply(c(2, sample(seq(2, 10000), 20)), check.factor.level)))
     expect_error(check.factor.level(1, 0, 1.1, NA, Inf, 2, 100),
                  "Arguments `1`, `0`, `1.1`, `NA`, `Inf` do not have valid factor level values \\(must be length 1, integer-like, > 1, and finite\\)")
 
