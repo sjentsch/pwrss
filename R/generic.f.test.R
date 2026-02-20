@@ -17,9 +17,9 @@
 #'                 plot. \code{TRUE} by default.
 #' @param verbose  \code{1} by default (returns test, hypotheses, and results),
 #'                 if \code{2} a more detailed output is given (plus key
-#'                 parameters and defintions), if \code{0} no output is printed
+#'                 parameters and definitions), if \code{0} no output is printed
 #'                 on the console.
-#' @param pretty logical; whether the output should show Unicode characters (if
+#' @param utf logical; whether the output should show Unicode characters (if
 #' encoding allows for it). \code{FALSE} by default.
 #'
 #' @return
@@ -37,13 +37,13 @@
 #'
 #' @export power.f.test
 power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
-                         plot = TRUE, verbose = 1, pretty = FALSE) {
+                         plot = TRUE, verbose = 1, utf = FALSE) {
 
   check.positive(ncp)
   check.nonnegative(null.ncp)
   check.positive(df1, df2)
   check.proportion(alpha)
-  check.logical(plot, pretty)
+  check.logical(plot, utf)
   verbose <- ensure_verbose(verbose)
 
   if (ncp < null.ncp)
@@ -62,7 +62,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
                       power = power, ncp.alternative = ncp, ncp.null = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    .print.pwrss.f(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.f(print.obj, verbose = verbose, utf = utf)
 
   } # end of verbose
 

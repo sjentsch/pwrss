@@ -22,9 +22,9 @@
 #'                    error plot. \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -56,7 +56,7 @@ power.binom.test <- function(size,
                              alternative = c("two.sided", "one.sided", "two.one.sided"),
                              plot = TRUE,
                              verbose = 1,
-                             pretty = FALSE) {
+                             utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
 
@@ -64,7 +64,7 @@ power.binom.test <- function(size,
   check.proportion(prob)
   null.prob <- check.margins(null.prob, check.proportion, alternative)
   check.proportion(alpha)
-  check.logical(plot, pretty)
+  check.logical(plot, utf)
   verbose <- ensure_verbose(verbose)
 
   if (!isInt(size) || any(size < 0))
@@ -148,7 +148,7 @@ power.binom.test <- function(size,
                       binom.alpha = binom.alpha,
                       power = power)
 
-    .print.pwrss.binom(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.binom(print.obj, verbose = verbose, utf = utf)
 
   } # end of verbose
 

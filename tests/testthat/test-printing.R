@@ -31,7 +31,7 @@ test_that("printing.R works", {
                            "----------------------------------------------------",
                            "  eta.squared      : (Partial) Eta-squared under alt.", ""))
 
-    crrPty <- capture.output(power.f.ancova(eta.squared = 0.059, factor.levels = 2, alpha = 0.05, power = .80, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.f.ancova(eta.squared = 0.059, factor.levels = 2, alpha = 0.05, power = .80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -97,7 +97,7 @@ test_that("printing.R works", {
                            "  eta.squared      : (Partial) Eta-squared under alt.", ""))
 
     crrPty <- capture.output(power.f.ancova.keppel(mu.vector = c(0.50, 0.00), sd.vector = rep(1, 2), p.vector = rep(0.50, 2),
-                                                   k.covariates = 1, r.squared = 0.50, alpha = 0.05, power = 0.80, verbose = 2, pretty = TRUE))
+                                                   k.covariates = 1, r.squared = 0.50, alpha = 0.05, power = 0.80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -163,7 +163,7 @@ test_that("printing.R works", {
                            "  eta.squared      : (Partial) Eta-squared under alt.", ""))
 
     crrPty <- capture.output(power.f.ancova.shieh(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), n.vector = rep(150, 2),
-                                                  r.squared = 0.50, k.covariates = 1, alpha = 0.05, verbose = 2, pretty = TRUE))
+                                                  r.squared = 0.50, k.covariates = 1, alpha = 0.05, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -230,7 +230,7 @@ test_that("printing.R works", {
                            "  eta.squared      : (Partial) Eta-squared under alt.", ""))
 
     crrPty <- capture.output(power.f.mixed.anova(eta.squared = 0.022,   factor.levels = c(1, 2), rho.within = 0.50,
-                                                 effect = "within", power = 0.80, alpha = 0.05, verbose = 2, pretty = TRUE))
+                                                 effect = "within", power = 0.80, alpha = 0.05, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -296,7 +296,7 @@ test_that("printing.R works", {
                            "  eta.squared      : (Partial) Eta-squared under alt.", ""))
 
     crrPty <- capture.output(power.f.mixed.anova(eta.squared = 0.022,   factor.levels = c(1, 2), rho.within = 0.50,
-                                                 effect = "within", n.total = 120, alpha = 0.05, verbose = 2, pretty = TRUE))
+                                                 effect = "within", n.total = 120, alpha = 0.05, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -375,7 +375,7 @@ test_that("printing.R works", {
 
     crrPty <- capture.output(power.t.contrast(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = rep(1200, 2),
                                               contrast.vector = c(1, -1), r.squared = 0.50, k.covariates = 1, alpha = 0.05,
-                                              verbose = 2, pretty = TRUE))
+                                              verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -445,7 +445,7 @@ test_that("printing.R works", {
                            "  d   : Standardized contrast estimate",
                            "  ncp : Non-centrality parameter under alt.", ""))
 
-    crrPty <- capture.output(power.t.contrasts(crrRes, adjust.alpha = "fdr", verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.t.contrasts(crrRes, adjust.alpha = "fdr", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -514,7 +514,7 @@ test_that("printing.R works", {
 
     crrPty <- capture.output(power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, n = 1000, power = NULL,
                                                      alpha = 0.05, alternative = "two.sided", common.index = TRUE,
-                                                     verbose = 2, pretty = TRUE))
+                                                     verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -587,7 +587,7 @@ test_that("printing.R works", {
 
     crrPty <- capture.output(power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                                      power = 0.8, alpha = 0.05, alternative = "two.sided", common.index = FALSE,
-                                                     verbose = 2, pretty = TRUE))
+                                                     verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -660,7 +660,7 @@ test_that("printing.R works", {
                            "  rho2 : Correlation (for some V1 ~ V2) in group 2", ""))
 
     crrPty <- capture.output(power.z.twocors(rho1 = 0.20, rho2 = 0.30, n2 = 1380, alpha = 0.05, alternative = "two.sided",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -712,7 +712,7 @@ test_that("printing.R works", {
     expect_equal(length(crrAsc), 37)
 
     crrPty <- capture.output(power.z.twocors(rho1 = 0.20, rho2 = 0.30, power = 0.80, alpha = 0.05, alternative = "one.sided",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty[c(5, 10, 11, 16:22, 35:38)],
                  c("Independent Correlations",
                    "  H₀ (Null)        : ρ₁ - ρ₂ ≥ 0",
@@ -746,7 +746,7 @@ test_that("printing.R works", {
                    "  null.rho : Correlation (for some V1 ~ V2) under null"))
     expect_equal(length(crrAsc), 37)
 
-    crrPty <- capture.output(power.z.onecor(rho = 0.20, power = 0.80, alpha = 0.05, alternative = "two.sided", verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.z.onecor(rho = 0.20, power = 0.80, alpha = 0.05, alternative = "two.sided", verbose = 2, utf = TRUE))
     expect_equal(crrPty[c(5, 10:11, 16:22, 35:38)],
                  c("One-Sample Correlation",
                    "  H₀ (Null)        : ρ - ρ₀ = 0",
@@ -798,7 +798,7 @@ test_that("printing.R works", {
                            "  null.prob : Probability under null", ""))
 
     crrPty <- capture.output(power.binom.test(size = 200, prob = 0.6, null.prob = 0.5, alpha = 0.05, alternative = "one.sided",
-                                              plot = FALSE, verbose = 2, pretty = TRUE))
+                                              plot = FALSE, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -859,7 +859,7 @@ test_that("printing.R works", {
                            "  ncp      : Non-centrality parameter of alt.",
                            "  null.ncp : Non-centrality parameter of null", ""))
 
-    crrPty <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.chisq.test(ncp = 20, df = 100, alpha = 0.05, plot = FALSE, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -921,7 +921,7 @@ test_that("printing.R works", {
                            "  ncp      : Non-centrality parameter of alt.",
                            "  null.ncp : Non-centrality parameter of null", ""))
 
-    crrPty <- capture.output(power.f.test(ncp = 2, df1 = 4, df2 = 100, alpha = 0.05, plot = FALSE, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.f.test(ncp = 2, df1 = 4, df2 = 100, alpha = 0.05, plot = FALSE, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -983,7 +983,7 @@ test_that("printing.R works", {
                            "  ncp      : Non-centrality parameter of alt.",
                            "  null.ncp : Non-centrality parameter of null", ""))
 
-    crrPty <- capture.output(power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided", plot = FALSE, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.t.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided", plot = FALSE, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1051,7 +1051,7 @@ test_that("printing.R works", {
                            "  mean      : Mean of alt.",
                            "  null.mean : Mean of null", ""))
 
-    crrPty <- capture.output(power.z.test(mean = 1.96, alpha = 0.05, alternative = "two.sided", plot = FALSE, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.z.test(mean = 1.96, alpha = 0.05, alternative = "two.sided", plot = FALSE, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1115,7 +1115,7 @@ test_that("printing.R works", {
                            "  Margin : Smallest d - null.d difference that matters", ""))
 
     crrPty <- capture.output(power.t.student(d = 0.20, power = 0.80, alternative = "two.sided", design = "independent",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1184,7 +1184,7 @@ test_that("printing.R works", {
                            "  Margin : Smallest d - null.d difference that matters", ""))
 
     crrPty <- capture.output(power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, n2 = 237, alternative = "two.sided",
-                                           verbose = 2, pretty = TRUE))
+                                           verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1258,7 +1258,7 @@ test_that("printing.R works", {
                            "----------------------------------------------------",
                            "  Margin : Smallest d - null.d difference that matters", ""))
 
-    crrPty <- capture.output(power.np.wilcoxon(d = 0.25, power = 0.80, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.np.wilcoxon(d = 0.25, power = 0.80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1331,7 +1331,7 @@ test_that("printing.R works", {
                            "----------------------------------------------------",
                            "  Margin : Smallest d - null.d difference that matters", ""))
 
-    crrPty <- capture.output(power.np.wilcoxon(d = 0.25, n2 = 265, method = "noether", verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.np.wilcoxon(d = 0.25, n2 = 265, method = "noether", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1407,7 +1407,7 @@ test_that("printing.R works", {
                            "  P[i,.] : Marginal probability for row i (sum over j)",
                            "  P[.,j] : Marginal probability for column j (sum over i)", ""))
 
-    crrPty <- capture.output(power.chisq.gof(w = mtxW$w, df = mtxW$df, power = 0.80, alpha = 0.05, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.chisq.gof(w = mtxW$w, df = mtxW$df, power = 0.80, alpha = 0.05, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1480,7 +1480,7 @@ test_that("printing.R works", {
                            "  Odds(null.prob) : null.prob / (1 - null.prob)", ""))
 
     crrPty <- capture.output(power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "one.sided",
-                                                 verbose = 2, pretty = TRUE))
+                                                 verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1551,7 +1551,7 @@ test_that("printing.R works", {
                            "  Odds(null.prob) : null.prob / (1 - null.prob)", ""))
 
     crrPty <- capture.output(power.exact.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided",
-                                                 verbose = 2, pretty = TRUE))
+                                                 verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1624,7 +1624,7 @@ test_that("printing.R works", {
                            "  Odds(null.prob) : null.prob / (1 - null.prob)", ""))
 
     crrPty <- capture.output(power.z.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, n = 500, alternative = "one.sided",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1699,7 +1699,7 @@ test_that("printing.R works", {
                            "  Odds(null.prob) : null.prob / (1 - null.prob)", ""))
 
     crrPty <- capture.output(power.z.oneprop(prob = 0.45, null.prob = 0.50, alpha = 0.05, power = 0.80, alternative = "one.sided",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1772,7 +1772,7 @@ test_that("printing.R works", {
                            "  Odds(prob1) : prob1 / (1 - prob1)",
                            "  Odds(prob2) : prob2 / (1 - prob2)", ""))
 
-    crrPty <- capture.output(power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1839,7 +1839,7 @@ test_that("printing.R works", {
                            "  Odds(prob2) : prob2 / (1 - prob2)", ""))
 
     crrPty <- capture.output(power.exact.twoprops(prob1 = 0.70, prob2 = 0.60, alpha = 0.05, power = 0.80,
-                                                  alternative = "one.sided", verbose = 2, pretty = TRUE))
+                                                  alternative = "one.sided", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1905,7 +1905,7 @@ test_that("printing.R works", {
                            "  Odds(prob2) : prob2 / (1 - prob2)", ""))
 
     crrPty <- capture.output(power.exact.twoprops(prob1 = 0.65, prob2 = 0.60, alpha = 0.05, n2 = 500,
-                                                  alternative = "one.sided", pretty = TRUE, verbose = 2))
+                                                  alternative = "one.sided", utf = TRUE, verbose = 2))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -1973,7 +1973,7 @@ test_that("printing.R works", {
                            "  Odds(prob2) : prob2 / (1 - prob2)", ""))
 
     crrPty <- capture.output(power.z.twoprops(prob1 = 0.65, prob2 = 0.60, alpha = 0.05, n2 = 500, alternative = "one.sided",
-                                              pretty = TRUE, verbose = 2))
+                                              utf = TRUE, verbose = 2))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2046,7 +2046,7 @@ test_that("printing.R works", {
                            "  Odds(prob2) : prob2 / (1 - prob2)", ""))
 
     crrPty <- capture.output(power.z.twoprops(prob1 = 0.65, prob2 = 0.60, alpha = 0.05, power = 0.80, alternative = "one.sided",
-                                              verbose = 2, pretty = TRUE))
+                                              verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2125,7 +2125,7 @@ test_that("printing.R works", {
                            "  DP          : Discordant pairs", ""))
 
     crrPty <- capture.output(power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n.paired = 100, alpha = 0.05, alternative = "two.sided",
-                             method = "exact", verbose = 2, pretty = TRUE))
+                             method = "exact", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2198,7 +2198,7 @@ test_that("printing.R works", {
                            "  DP          : Discordant pairs", ""))
 
     crrPty <- capture.output(power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, power = 0.80, alpha = 0.05, alternative = "two.sided",
-                             method = "exact", verbose = 2, pretty = TRUE))
+                             method = "exact", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2270,7 +2270,7 @@ test_that("printing.R works", {
                            "  DP          : Discordant pairs", ""))
 
     crrPty <- capture.output(power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n = 300, alpha = 0.05, alternative = "two.sided",
-                             method = "approximate", verbose = 2, pretty = TRUE))
+                             method = "approximate", verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2338,7 +2338,7 @@ test_that("printing.R works", {
                            "----------------------------------------------------",
                            "  Margin : Smallest R-squared that matters", ""))
 
-    crrPty <- capture.output(power.f.regression(r.squared = 0.15, k.total = 3, power = 0.80, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.f.regression(r.squared = 0.15, k.total = 3, power = 0.80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2415,7 +2415,7 @@ test_that("printing.R works", {
                            "  SD(X)                : Standard deviation of the predictor",
                            "  SD(Y)                : Standard deviation of the outcome", ""))
 
-    crrPty <- capture.output(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, power = 0.80, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, power = 0.80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2501,7 +2501,7 @@ test_that("printing.R works", {
 
     crrPty <- capture.output(power.t.regression(beta = 0, margin = c(-0.05, 0.05), alternative = "two.one.sided",
                                                 sd.predictor = 0.5, k.total = 5, r.squared = 0.30, n = 9593,
-                                                verbose = 2, pretty = TRUE))
+                                                verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2550,7 +2550,7 @@ test_that("printing.R works", {
                                   "                     beta - null.beta  < max(margin)"))
 
     crrPty <- capture.output(power.t.regression(beta = 0, margin = c(-0.05, 0.05), alternative = "two.one.sided",
-                                                sd.predictor = 0.5, k.total = 5, r.squared = 0.30, power = 0.80, pretty = TRUE))
+                                                sd.predictor = 0.5, k.total = 5, r.squared = 0.30, power = 0.80, utf = TRUE))
     expect_equal(crrPty[10:11], c("  H₀ (Null)        : β - β₀ ≤ min(δ) ∪ β - β₀ ≥ max(δ)",
                                   "  H₁ (Alternative) : min(δ) < β - β₀ < max(δ)"))
 
@@ -2562,7 +2562,7 @@ test_that("printing.R works", {
                                   "                     beta - null.beta  > max(margin)"))
 
     crrPty <- capture.output(power.t.regression(beta = 0, margin = c(0.05, 0.10), alternative = "two.one.sided",
-                                                sd.predictor = 0.5, k.total = 5, r.squared = 0.30, power = 0.80, pretty = TRUE))
+                                                sd.predictor = 0.5, k.total = 5, r.squared = 0.30, power = 0.80, utf = TRUE))
     expect_equal(crrPty[10:11], c("  H₀ (Null)        : min(δ) ≤ β - β₀ ≤ max(δ)",
                                   "  H₁ (Alternative) : β - β₀ < min(δ) ∪ β - β₀ > max(δ)"))
 
@@ -2610,7 +2610,7 @@ test_that("printing.R works", {
                            "  beta0      = log[base.prob/(1-base.prob)]", ""))
 
     crrPty <- capture.output(power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal",
-                                              verbose = 2, pretty = TRUE))
+                                              verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2694,7 +2694,7 @@ test_that("printing.R works", {
                            "  SD(mediator)   : Standard deviation of the mediator",
                            "  SD(outcome)    : Standard deviation of the outcome", ""))
 
-    crrPty <- capture.output(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, power = 0.80, verbose = 2, pretty = TRUE))
+    crrPty <- capture.output(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, power = 0.80, verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2775,7 +2775,7 @@ test_that("printing.R works", {
                            "  SD(outcome)    : Standard deviation of the outcome", ""))
 
     crrPty <- capture.output(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, n = 200, method = "joint",
-                             verbose = 2, pretty = TRUE))
+                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2852,7 +2852,7 @@ test_that("printing.R works", {
                            "  Rate Ratio (RR) = exp(beta1)", ""))
 
     crrPty <- capture.output(power.z.poisson(beta0 = 0.50, beta1 = -0.10, alpha = 0.05, power = 0.80, dist = "normal",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║           \033[34m SAMPLE SIZE CALCULATION \033[0m              ║",
                            "╚══════════════════════════════════════════════════╝", "",
@@ -2927,7 +2927,7 @@ test_that("printing.R works", {
                            "  Rate Ratio (RR) = exp(beta1)", ""))
 
     crrPty <- capture.output(power.z.poisson(beta0 = 0.50, beta1 = -0.10, alpha = 0.05, n = 474, dist = "normal",
-                                             verbose = 2, pretty = TRUE))
+                                             verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
                            "║               \033[34m POWER CALCULATION \033[0m                ║",
                            "╚══════════════════════════════════════════════════╝", "",

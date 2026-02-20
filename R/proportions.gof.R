@@ -37,9 +37,9 @@
 #'                \code{TRUE} by default.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
-#' @param pretty  logical; whether the output should show Unicode characters
+#' @param utf     logical; whether the output should show Unicode characters
 #'                (if encoding allows for it). \code{FALSE} by default.
 #'
 #' @return
@@ -116,7 +116,7 @@
 #' @export power.chisq.gof
 power.chisq.gof <- function(w, null.w = 0, df,
                             n = NULL, power = NULL, alpha = 0.05,
-                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -126,7 +126,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -199,7 +199,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
                       alpha = alpha,
                       power = power)
 
-    .print.pwrss.gof(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.gof(print.obj, verbose = verbose, utf = utf)
 
   }
 

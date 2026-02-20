@@ -55,9 +55,9 @@
 #'                         sample size in each group is NOT rounded up.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
-#'                         given (plus key parameters and defintions), if
+#'                         given (plus key parameters and definitions), if
 #'                         \code{0} no output is printed on the console.
-#' @param pretty           logical; whether the output should show Unicode
+#' @param utf              logical; whether the output should show Unicode
 #'                         characters (if encoding allows for it).
 #'                         \code{FALSE} by default.
 #'
@@ -154,7 +154,7 @@ power.f.mixed.anova <- function(eta.squared,
                                 n.total = NULL,
                                 power = NULL, alpha = 0.05,
                                 effect = c("between", "within", "interaction"),
-                                ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                                ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   effect <- tolower(match.arg(effect))
   func.parms <- clean.parms(as.list(environment()))
@@ -163,7 +163,7 @@ power.f.mixed.anova <- function(eta.squared,
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n.total, power)
 
@@ -280,7 +280,7 @@ power.f.mixed.anova <- function(eta.squared,
                       power = power, ncp = ncp, null.ncp = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.ancova(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

@@ -87,9 +87,9 @@
 #'                            up. \code{TRUE} by default.
 #' @param verbose             \code{1} by default (returns test, hypotheses,
 #'                            and results), if \code{2} a more detailed output
-#'                            is given (plus key parameters and defintions), if
+#'                            is given (plus key parameters and definitions), if
 #'                            \code{0} no output is printed on the console.
-#' @param pretty              logical; whether the output should show Unicode
+#' @param utf                 logical; whether the output should show Unicode
 #'                            characters (if encoding allows for it).
 #'                            \code{FALSE} by default.
 #'
@@ -188,7 +188,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                                alternative = c("two.sided", "one.sided"),
                                method = c("sobel", "aroian", "goodman", "joint", "monte.carlo"),
                                n.simulation = 1000, n.draws = 1000,
-                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -202,7 +202,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.sample.size(n.simulation, n.draws)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -397,7 +397,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                       n = n,
                       power = power)
 
-    .print.pwrss.med(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.med(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

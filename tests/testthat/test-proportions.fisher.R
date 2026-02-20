@@ -6,7 +6,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 0.2, odds.ratio = 2.25, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -18,7 +18,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 0.2, odds.ratio = 2.25, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -30,7 +30,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 0.2, odds.ratio = 2.25, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -42,7 +42,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "one.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 0.2, odds.ratio = 2.25, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -54,7 +54,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "approximate",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "z", delta = 0.2, odds.ratio = 2.25, mean = NULL, sd = NULL, null.mean = NULL, null.sd = NULL,
@@ -67,7 +67,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.6, prob2 = 0.4, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "approximate",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "z", delta = 0.2, odds.ratio = 2.25, mean = NULL, sd = NULL, null.mean = NULL, null.sd = NULL,
@@ -80,7 +80,7 @@ test_that("proportions.fisher.R works", {
 #                                  "alternative", "z.alpha", "power", "n", "n.total"))
 #    expect_equal(crrRes[["parms"]],
 #                 list(prob1 = 0.55, prob2 = 0.45, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-#                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+#                      ceiling = TRUE, verbose = 0, utf = FALSE))
 #    expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
 #                          "power", "n", "n.total")],
 #                 list(test = "exact", delta = 0.1, odds.ratio = 1.49382716, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -92,7 +92,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 2 / 3, prob2 = 1 / 3, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 1 / 3, odds.ratio = 4, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
@@ -104,7 +104,7 @@ test_that("proportions.fisher.R works", {
                                   "alternative", "z.alpha", "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.75, prob2 = 0.25, n.ratio = 1, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha",
                           "power", "n", "n.total")],
                  list(test = "exact", delta = 0.5, odds.ratio = 9, mean = NA, sd = NA, null.mean = NA, null.sd = NA,

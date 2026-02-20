@@ -37,7 +37,7 @@ in paired samples).}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and results),
 if \code{2} a more detailed output is given (plus key parameters and
-defintions), if \code{0} no output is printed on the console.}
+definitions), if \code{0} no output is printed on the console.}
 }
 \value{
 \item{parms}{list of parameters used in calculation.}

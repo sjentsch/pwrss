@@ -58,9 +58,9 @@
 #'                     \code{TRUE} by default.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
-#'                     (plus key parameters and defintions), if \code{0} no
+#'                     (plus key parameters and definitions), if \code{0} no
 #'                     output is printed on the console.
-#' @param pretty       logical; whether the output should show Unicode
+#' @param utf          logical; whether the output should show Unicode
 #'                     characters (if encoding allows for it). \code{FALSE} by
 #'                     default.
 #'
@@ -196,7 +196,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                               design = c("independent", "paired", "one.sample"),
                               distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
                               method = c("guenther", "noether"),
-                              ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                              ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   distribution <- tolower(match.arg(distribution))
@@ -210,7 +210,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -384,7 +384,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
                         alpha = alpha, alternative = alternative),
                    list.out)
 
-    .print.pwrss.wilcoxon(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.wilcoxon(print.obj, verbose = verbose, utf = utf)
 
   }
 

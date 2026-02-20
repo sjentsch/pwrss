@@ -47,9 +47,9 @@
 #' @param ceiling      logical; if \code{TRUE} rounds up sample size.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
-#'                     (plus key parameters and defintions), if \code{0} no
+#'                     (plus key parameters and definitions), if \code{0} no
 #'                     output is printed on the console.
-#' @param pretty       logical; whether the output should show Unicode
+#' @param utf          logical; whether the output should show Unicode
 #'                     characters (if encoding allows for it). \code{FALSE} by
 #'                     default.
 #'
@@ -124,7 +124,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
                             pooled = TRUE, common.index = FALSE,
-                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
@@ -132,7 +132,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(pooled, common.index, ceiling, pretty)
+  check.logical(pooled, common.index, ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -340,7 +340,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                        n = n,
                        power = power)
 
-    .print.pwrss.steiger(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.steiger(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -395,9 +395,9 @@ power.z.steiger <- power.z.twocors.steiger
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -442,7 +442,7 @@ power.z.twocors <- function(rho1, rho2,
                             n2 = NULL, n.ratio = 1,
                             power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
-                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
@@ -452,7 +452,7 @@ power.z.twocors <- function(rho1, rho2,
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -510,7 +510,7 @@ power.z.twocors <- function(rho1, rho2,
                        power = power,
                        n = c(n1 = n1, n2 = n2))
 
-    .print.pwrss.twocors(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.twocors(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -594,9 +594,9 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -642,7 +642,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 power.z.onecor <- function(rho, null.rho = 0,
                            n = NULL, power = NULL, alpha = 0.05,
                            alternative = c("two.sided", "one.sided"),
-                           ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                           ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
@@ -651,7 +651,7 @@ power.z.onecor <- function(rho, null.rho = 0,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -706,7 +706,7 @@ power.z.onecor <- function(rho, null.rho = 0,
                        power = power,
                        n = n)
 
-    .print.pwrss.twocors(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.twocors(print.obj, verbose = verbose, utf = utf)
 
   }
 

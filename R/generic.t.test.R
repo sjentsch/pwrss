@@ -25,9 +25,9 @@
 #'                    error plot. \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -67,7 +67,7 @@
 power.t.test <- function(ncp, null.ncp = 0,
                          df, alpha = 0.05,
                          alternative = c("two.sided", "one.sided", "two.one.sided"),
-                         plot = TRUE, verbose = 1, pretty = FALSE) {
+                         plot = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
 
@@ -76,7 +76,7 @@ power.t.test <- function(ncp, null.ncp = 0,
   if (!is.numeric(df) || length(df) != 1 || df < 1)
     stop("`df` must be numeric, have a value of at least 1 and have a length of 1.", call. = FALSE)
   check.proportion(alpha)
-  check.logical(plot, pretty)
+  check.logical(plot, utf)
   verbose <- ensure_verbose(verbose)
 
   # calculate statistical power
@@ -124,7 +124,7 @@ power.t.test <- function(ncp, null.ncp = 0,
                       df = df, alpha = alpha,
                       power = power)
 
-    .print.pwrss.t(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.t(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

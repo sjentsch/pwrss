@@ -82,9 +82,9 @@
 #'                            up. \code{TRUE} by default.
 #' @param verbose             \code{1} by default (returns test, hypotheses,
 #'                            and results), if \code{2} a more detailed output
-#'                            is given (plus key parameters and defintions), if
+#'                            is given (plus key parameters and definitions), if
 #'                            \code{0} no output is printed on the console.
-#' @param pretty              logical; whether the output should show Unicode
+#' @param utf                 logical; whether the output should show Unicode
 #'                            characters (if encoding allows for it).
 #'                            \code{FALSE} by default.
 #'
@@ -191,7 +191,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                              alpha = 0.05, alternative = c("two.sided", "one.sided"),
                              method = c("demidenko(vc)", "demidenko", "hsieh"),
                              distribution = "normal", ceiling = TRUE,
-                             verbose = 1, pretty = FALSE) {
+                             verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -202,7 +202,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -573,7 +573,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                       alpha = alpha,
                       power = power)
 
-    .print.pwrss.logistic(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.logistic(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

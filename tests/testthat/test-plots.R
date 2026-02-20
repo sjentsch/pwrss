@@ -31,7 +31,7 @@ test_that("plots work", {
         expect_snapshot_file(path, "binom_plot_5", variant = Sys.info()[["sysname"]])
         unlink(path)
     }
- 
+
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/binom_plot_6"))) {
         path <- save_png(.plot.binom.t1t2(size = 200, prob = 0.5, null.prob = 0.2, alpha = 0.05, alternative = "two.one.sided"))
         expect_snapshot_file(path, "binom_plot_6", variant = Sys.info()[["sysname"]])
@@ -199,7 +199,7 @@ test_that("plots work", {
     expect_error(.plot.f.t1t2(ncp = 1, df1 = 0, df2 = 10),
                  "`df1` must be numeric, finite, have a value of at least 1 and have a length of 1.")
     expect_error(.plot.f.t1t2(ncp = 1, df1 = 1, df2 = Inf),
-                 "`df2` must be numeric, finite, have a value of at least 1 and have a length of 1.")    
+                 "`df2` must be numeric, finite, have a value of at least 1 and have a length of 1.")
 
     # t-tests ----------------------------------------------------------------------------------------------------------
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/t_plot_1"))) {
@@ -270,7 +270,7 @@ test_that("plots work", {
         expect_snapshot_file(path, "plot_oneprop.binom", variant = Sys.info()[["sysname"]])
         unlink(path)
     }
-    
+
     # chisq: chisq.gof -------------------------------------------------------------------------------------------------
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/plot_gof"))) {
         mtxW <- probs.to.w(cbind(c(0.6759, 0.1559, 0.1281, 0.0323, 0.0078), c(0.6771, 0.1519, 0.1368, 0.0241, 0.0101)), verbose = 0)
@@ -310,20 +310,20 @@ test_that("plots work", {
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/plot_regression.f"))) {
         path <- save_png(plot(power.f.regression(r.squared = 0.15, k.total = 3, power = 0.80, verbose = 0)))
         expect_snapshot_file(path, "plot_regression.f", variant = Sys.info()[["sysname"]])
-        unlink(path)    
+        unlink(path)
     }
 
     # t: student, welch, wilcoxon, (t.)regression ----------------------------------------------------------------------
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/plot_student"))) {
         path <- save_png(plot(power.t.student(d = 0.20, power = 0.80, alternative = "two.sided", design = "independent", verbose = 0)))
         expect_snapshot_file(path, "plot_student", variant = Sys.info()[["sysname"]])
-        unlink(path)    
+        unlink(path)
     }
 
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/plot_welch"))) {
         path <- save_png(plot(power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, power = 0.80, alternative = "two.sided", verbose = 0)))
         expect_snapshot_file(path, "plot_welch", variant = Sys.info()[["sysname"]])
-        unlink(path)    
+        unlink(path)
     }
 
     if (create_snaps || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots/plot_wilcoxon"))) {
@@ -388,7 +388,7 @@ test_that("plots work", {
         expect_snapshot_file(path, "plot_poisson", variant = Sys.info()[["sysname"]])
         unlink(path)
     }
-    
+
     expect_error(plot(pwrss.z.mediation(a = 0.25, b = 0.25, cp = 0.10, n = 500, verbose = FALSE)),
                  "Plotting is no longer available for this type of object.")
     expect_error(plot(power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50, verbose = 0)),

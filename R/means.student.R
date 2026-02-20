@@ -72,9 +72,9 @@
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -323,7 +323,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             design = c("independent", "paired", "one.sample"),
                             claim.basis = c("md.pval", "smd.ci"),
-                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   design <- tolower(match.arg(design))
@@ -336,7 +336,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -359,7 +359,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
       if (claim.basis == "md.pval") {
         var.d <- 1 / n2
       } else {
-        var.d <- (1 / n2 + d ^ 2 / (2 * n))
+        var.d <- (1 / n2 + d ^ 2 / (2 * n2))
       }
     } # if paired or one.sample
 
@@ -439,7 +439,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    .print.pwrss.student(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.student(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -529,9 +529,9 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -573,7 +573,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                           power = NULL, alpha = 0.05,
                           alternative = c("two.sided", "one.sided", "two.one.sided"),
                           claim.basis = c("md.pval", "smd.ci"),
-                          ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                          ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   claim.basis <- tolower(match.arg(claim.basis))
@@ -585,7 +585,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -701,7 +701,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    .print.pwrss.student(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.student(print.obj, verbose = verbose, utf = utf)
 
   }
 

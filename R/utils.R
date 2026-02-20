@@ -6,7 +6,7 @@
 #' @param ceiling rounds-up the inflated sample size.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return inflated sample size.
@@ -32,7 +32,7 @@ inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 #' @param eta.squared (Partial) Eta-squared.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
 #' @return
 #'   \item{f}{Cohen's f.}
@@ -65,7 +65,7 @@ etasq.to.f <- function(eta.squared, verbose = 1) {
 #' @param f           Cohen's f.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
 #' @return
 #'   \item{eta.squared}{(Partial) Eta-squared.}
@@ -99,7 +99,7 @@ f.to.etasq <- function(f, verbose = 1) {
 #' @param rho     correlation
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -132,7 +132,7 @@ cor.to.z <- function(rho, verbose = 1) {
 #' @param z       z-value
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -172,7 +172,7 @@ z.to.cor <- function(z, verbose = 1) {
 #' @param rho2    second correlation.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -206,7 +206,7 @@ cors.to.q <- function(rho1, rho2, verbose = 1) {
 #' @param rho2    second correlation (either rho1 or rho2 needs to be given)
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -273,7 +273,7 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 #' @param cles    common language effect size.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -347,7 +347,7 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
 #' in paired samples).
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #' if \code{2} a more detailed output is given (plus key parameters and
-#' defintions), if \code{0} no output is printed on the console.
+#' definitions), if \code{0} no output is printed on the console.
 #'
 #' @return
 #'   \item{parms}{list of parameters used in calculation.}
@@ -430,7 +430,7 @@ means.to.d <- function(mu1, mu2 = 0,
 #' @param h       Cohen's h effect size.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -468,7 +468,7 @@ probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 #'                and before (phi coefficient).
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -613,7 +613,7 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 #'                'prob00' are known as concordant probs.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
-#'                parameters and defintions), if \code{0} no output is printed
+#'                parameters and definitions), if \code{0} no output is printed
 #'                on the console.
 #'
 #' @return
@@ -758,7 +758,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 #'                         \code{prob.matrix}.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
-#'                         given (plus key parameters and defintions), if
+#'                         given (plus key parameters and definitions), if
 #'                         \code{0} no output is printed on the console.
 #'
 #' @return

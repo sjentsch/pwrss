@@ -149,9 +149,9 @@ f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
 #'                         \code{TRUE} by default.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
-#'                         given (plus key parameters and defintions), if
+#'                         given (plus key parameters and definitions), if
 #'                         \code{0} no output is printed on the console.
-#' @param pretty           logical; whether the output should show Unicode
+#' @param utf              logical; whether the output should show Unicode
 #'                         characters (if encoding allows for it).
 #'                         \code{FALSE} by default.
 #'
@@ -195,7 +195,7 @@ power.f.regression <- function(r.squared.change = NULL,
                                k.total,
                                k.tested = k.total,
                                n = NULL, power = NULL, alpha = 0.05,
-                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -205,7 +205,7 @@ power.f.regression <- function(r.squared.change = NULL,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -293,7 +293,7 @@ power.f.regression <- function(r.squared.change = NULL,
                       alpha = alpha,
                       power = power)
 
-    .print.pwrss.f.regression(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.f.regression(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 
@@ -420,9 +420,9 @@ pwrss.f.reg <- pwrss.f.regression
 #'                     \code{TRUE} by default.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
-#'                     (plus key parameters and defintions), if \code{0} no
+#'                     (plus key parameters and definitions), if \code{0} no
 #'                     output is printed on the console.
-#' @param pretty       logical; whether the output should show Unicode
+#' @param utf          logical; whether the output should show Unicode
 #'                     characters (if encoding allows for it). \code{FALSE} by
 #'                     default.
 #'
@@ -513,7 +513,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                                k.total = 1,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided", "two.one.sided"),
-                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
@@ -524,7 +524,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -620,7 +620,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                       alpha = alpha,
                       power = power)
 
-    .print.pwrss.t.regression(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.t.regression(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

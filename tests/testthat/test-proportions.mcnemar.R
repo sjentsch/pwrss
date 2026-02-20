@@ -10,7 +10,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.20, prob01 = 0.10, alpha = 0.05, alternative = "two.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.1, odds.ratio = 2, size = 30, prob = 2 / 3, null.prob = 0.5,
@@ -24,7 +24,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.10, prob01 = 0.20, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = -0.1, odds.ratio = 0.5, size = 30, prob = 1 / 3, null.prob = 0.5,
@@ -38,7 +38,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.20, prob01 = 0.10, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.1, odds.ratio = 2, size = 30, prob = 2 / 3, null.prob = 0.5,
@@ -52,7 +52,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.10, prob01 = 0.20, alpha = 0.05, alternative = "two.sided", method = "approximate", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "z", delta = -0.1, odds.ratio = 0.5, size = 150, prob = 1 / 3, null.prob = 0.5,
@@ -66,7 +66,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.20, prob01 = 0.10, alpha = 0.05, alternative = "one.sided", method = "approximate", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "z", delta = 0.1, odds.ratio = 2, size = 150, prob = 2 / 3, null.prob = 0.5,
@@ -80,7 +80,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.10, prob01 = 0.20, alpha = 0.05, alternative = "one.sided", method = "approximate", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "z", delta = -0.1, odds.ratio = 0.5, size = 150, prob = 1 / 3, null.prob = 0.5,
@@ -94,7 +94,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.20, prob01 = 0.10, alpha = 0.05, alternative = "two.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.1, odds.ratio = 2, size = 75, prob = 2 / 3, null.prob = 0.5,
@@ -108,7 +108,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.20, prob01 = 0.10, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.1, odds.ratio = 2, size = 60, prob = 2 / 3, null.prob = 0.5,
@@ -122,7 +122,7 @@ test_that("proportions.mcnemar.R works", {
                                   "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.08, prob01 = 0.32, alpha = 0.05, alternative = "one.sided", method = "exact", ceiling = TRUE,
-                      verbose = 0, pretty = FALSE))
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = -0.24, odds.ratio = 0.25, size = 20, prob = 0.2, null.prob = 0.5,

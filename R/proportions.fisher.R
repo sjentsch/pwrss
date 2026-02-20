@@ -30,9 +30,9 @@
 #'                    group.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -98,7 +98,7 @@ power.exact.fisher <- function(prob1, prob2,
                                power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided"),
                                method = c("exact", "approximate"),
-                               ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                               ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -109,7 +109,7 @@ power.exact.fisher <- function(prob1, prob2,
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -127,28 +127,31 @@ power.exact.fisher <- function(prob1, prob2,
 
     delta <- prob1 - prob2
 
-    if (pooled.stderr) {
+    stderr <- sqrt((prob1 * (1 - prob1)) / n1 + (prob2 * (1 - prob2)) / n2)
 
-      p.bar <- (n1 * prob1 + n2 * prob2) / (n1 + n2)
-      stderr <- sqrt(p.bar * (1 - p.bar) * (1 / n1 + 1 / n2))
+#    placeholders pooled std.err and continuity correction (not yet implemented)
+#    if (pooled.stderr) {
+#
+#      p.bar <- (n1 * prob1 + n2 * prob2) / (n1 + n2)
+#      stderr <- sqrt(p.bar * (1 - p.bar) * (1 / n1 + 1 / n2))
+#
+#    } else {
+#
+#      stderr (l. 130) goes here
+#
+#    }
 
-    } else {
-
-      stderr <- sqrt((prob1 * (1 - prob1)) / n1 + (prob2 * (1 - prob2)) / n2)
-
-    }
-
-    # if (correct.continuity) {
-    #
-    #   ifelse(prob1 < prob2, k <- -1, k <- 1)
-    #   if (alternative %in% c("not equal", "two.sided")) k <- c(-1, 1)
-    #   delta <- (prob1 - prob2 - (k / 2) * (1 / n1 + 1 / n2))
-    #
-    # } else {
-    #
-    #   delta <- prob1 - prob2
-    #
-    # }
+#     if (correct.continuity) {
+#    
+#       ifelse(prob1 < prob2, k <- -1, k <- 1)
+#       if (alternative %in% c("not equal", "two.sided")) k <- c(-1, 1)
+#       delta <- (prob1 - prob2 - (k / 2) * (1 / n1 + 1 / n2))
+#    
+#     } else {
+#    
+#       delta <- prob1 - prob2
+#    
+#     }
 
     pwr.obj <- power.z.test(mean = delta / stderr, sd = 1, null.mean = 0, null.sd = 1,
                             alpha = alpha, alternative = alternative,
@@ -372,7 +375,7 @@ power.exact.fisher <- function(prob1, prob2,
                       n = c(n1 = n1, n2 = n2),
                       n.total = n.total)
 
-    .print.pwrss.fisher(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.fisher(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

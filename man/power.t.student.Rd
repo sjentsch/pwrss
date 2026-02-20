@@ -21,7 +21,7 @@ power.t.student(
   claim.basis = c("md.pval", "smd.ci"),
   ceiling = TRUE,
   verbose = 1,
-  pretty = FALSE
+  utf = FALSE
 )
 }
 \arguments{
@@ -63,10 +63,10 @@ intervals.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and
 results), if \code{2} a more detailed output is given
-(plus key parameters and defintions), if \code{0} no
+(plus key parameters and definitions), if \code{0} no
 output is printed on the console.}
 
-\item{pretty}{logical; whether the output should show Unicode
+\item{utf}{logical; whether the output should show Unicode
 characters (if encoding allows for it). \code{FALSE} by
 default.}
 }

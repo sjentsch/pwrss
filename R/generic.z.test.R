@@ -29,9 +29,9 @@
 #'                    error plot. \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -71,7 +71,7 @@
 #' @export power.z.test
 power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
                          alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
-                         plot = TRUE, verbose = 1, pretty = FALSE) {
+                         plot = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
 
@@ -80,7 +80,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
   null.mean <- check.margins(null.mean, check.numeric, alternative)
   check.nonnegative(null.sd)
   check.proportion(alpha)
-  check.logical(plot, pretty)
+  check.logical(plot, utf)
   verbose <- ensure_verbose(verbose)
 
   # calculate statistical power
@@ -137,7 +137,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = z.alpha,
                       power = power)
 
-    .print.pwrss.z(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.z(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

@@ -22,7 +22,7 @@ power.z.poisson(
   distribution = "normal",
   ceiling = TRUE,
   verbose = 1,
-  pretty = FALSE
+  utf = FALSE
 )
 }
 \arguments{
@@ -83,10 +83,10 @@ up. \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses,
 and results), if \code{2} a more detailed output
-is given (plus key parameters and defintions), if
+is given (plus key parameters and definitions), if
 \code{0} no output is printed on the console.}
 
-\item{pretty}{logical; whether the output should show Unicode
+\item{utf}{logical; whether the output should show Unicode
 characters (if encoding allows for it).
 \code{FALSE} by default.}
 }

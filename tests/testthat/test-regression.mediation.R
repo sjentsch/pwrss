@@ -9,7 +9,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 2.54702338,
@@ -22,7 +22,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 2.80172572,
@@ -35,7 +35,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 4.0271976,
@@ -48,7 +48,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "aroian", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "aroian", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 3.9965349,
@@ -61,7 +61,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "goodman", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "goodman", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 4.058577,
@@ -74,7 +74,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "joint", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "joint", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "joint", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = NA,
@@ -87,7 +87,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.0725, alpha = 0.05, alternative = "two.sided",
-                      method = "monte.carlo", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "monte.carlo", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "monte.carlo", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = NA,
@@ -100,7 +100,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.0625, r.squared.outcome = 0.50, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.25, std.beta.b = 0.25, std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 2.80378134,
@@ -113,7 +113,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.40, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 0.50, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.040, r.squared.outcome = 0.065, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.20, std.beta.b = 0.25, std.beta.cp = 0.05, std.beta.indirect = 0.05, mean = 2.247805948,
@@ -126,7 +126,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.40, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 0.50, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.040, r.squared.outcome = 0.065, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.20, std.beta.b = 0.25, std.beta.cp = 0.05, std.beta.indirect = 0.05, mean = 2.8030059,
@@ -140,7 +140,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.40, beta.b = 0.25, beta.cp = 0.1, sd.predictor = 0.50, sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.040, r.squared.outcome = 0.50, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.20, std.beta.b = 0.25, std.beta.cp = 0.05, std.beta.indirect = 0.05, mean = 2.8027968,
@@ -154,7 +154,7 @@ test_that("regression.mediation.R works", {
     expect_equal(crrRes[["parms"]],
                  list(beta.a = 0.40, beta.b = 0.25, beta.cp = 0.1, sd.predictor = sqrt(2 / 3 * 1 / 3), sd.mediator = 1, sd.outcome = 1,
                       r.squared.mediator = 0.4 ^ 2 * (2 / 3 * 1 / 3), r.squared.outcome = 0.50, alpha = 0.05, alternative = "two.sided",
-                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "sobel", n.simulation = 1000, n.draws = 1000, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "std.beta.a", "std.beta.b", "std.beta.cp", "std.beta.indirect", "mean", "sd", "null.mean",
                           "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", std.beta.a = 0.188561808, std.beta.b = 0.25, std.beta.cp = 0.047140452, std.beta.indirect = 0.047140452,
@@ -166,7 +166,7 @@ test_that("regression.mediation.R works", {
                  "Exactly / only one of the parameters `n` or `power` should be NULL.")
     expect_error(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, power = 0.8, method = "joint", verbose = 0),
                  "Sample size calculation not supported by this method")
-    crrWrn <- capture_warnings(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, r.squared.outcome = 0, n = 200, verbose = 0, pretty = FALSE))
+    crrWrn <- capture_warnings(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, r.squared.outcome = 0, n = 200, verbose = 0, utf = FALSE))
     expect_match(crrWrn[1], "Ignoring any specification to `beta.cp`.")
     expect_match(crrWrn[2], "Specified `r.squared.outcome` is smaller than the base `r.squared.outcome`.")
     expect_warning(power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, r.squared.mediator = 0.05, n = 200, verbose = 0),

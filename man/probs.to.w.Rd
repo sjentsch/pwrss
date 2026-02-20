@@ -19,7 +19,7 @@ the same size or matrix of the same dimensions as
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and
 results), if \code{2} a more detailed output is
-given (plus key parameters and defintions), if
+given (plus key parameters and definitions), if
 \code{0} no output is printed on the console.}
 }
 \value{

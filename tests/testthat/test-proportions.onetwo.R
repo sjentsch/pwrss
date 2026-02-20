@@ -5,7 +5,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
+                 list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
                  list(test = "exact", delta = -0.05, odds.ratio = 0.818181818, prob = 0.45, null.prob = 0.50, size = 500,
                       binom.alpha = 231, alpha = 0.048945014, power = 0.7208035, n = 500))
@@ -15,7 +15,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
+                 list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
                  list(test = "exact", delta = -0.05, odds.ratio = 0.818181818, prob = 0.45, null.prob = 0.50, size = 633,
                       binom.alpha = 295, alpha = 0.047485107, power = 0.802671532, n = 633))
@@ -25,11 +25,11 @@ test_that("proportions.onetwo.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.80, null.prob = 0.65, alpha = 0.05, alternative = "one.sided", verbose = 0, pretty = FALSE))
+                 list(prob = 0.80, null.prob = 0.65, alpha = 0.05, alternative = "one.sided", verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "prob", "null.prob", "size", "binom.alpha", "alpha", "power", "n")],
                  list(test = "exact", delta = 0.15, odds.ratio = 2.153846154, prob = 0.80, null.prob = 0.65, size = 20,
                       binom.alpha = 16, alpha = 0.044375603, power = 0.41144886, n = 20))
-    # -> results are identical: power ~ 0.411449, actual alpha ~ 0.044376 
+    # -> results are identical: power ~ 0.411449, actual alpha ~ 0.044376
 
     expect_error(power.exact.oneprop(prob = 0.45, null.prob = c(0.40, 0.50), alpha = 0.05, n = 500, alternative = "one.sided"),
                  "If `alternative` is \"two.sided\" or \"one.sided\", `null.prob` must be of length one.")
@@ -47,7 +47,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.2473329, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.7238084, n = 500))
@@ -58,7 +58,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = TRUE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = TRUE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.23981163, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.72128783, n = 500))
@@ -69,7 +69,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = FALSE, correct = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = FALSE, correct = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.2023862, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.708581722, n = 500))
@@ -80,7 +80,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.49646214, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.800475822, n = 617))
@@ -92,7 +92,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = TRUE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = TRUE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.49615927, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.80039114, n = 621))
@@ -103,7 +103,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "one.sided", std.error = "null",
-                      arcsine = FALSE, correct = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = FALSE, correct = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = -2.49677972, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = -1.653140096, power = 0.8005646, n = 637))
@@ -114,7 +114,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = 0.50, alpha = 0.05, alternative = "two.sided", std.error = "null",
-                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = -0.05, odds.ratio = 0.818181818, mean = 2.8123106, sd = 1, null.mean = 0,
                       null.sd = 1.00503782, z.alpha = 1.96983792100888 * c(-1, 1), power = 0.80023915, n = 783))
@@ -127,7 +127,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = c(0.40, 0.50), alpha = 0.05, alternative = "two.one.sided",
-                      std.error = "alternative", arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      std.error = "alternative", arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = 0.05 * c(1, -1), odds.ratio = c(1.2272727, 0.818181818), mean = 0, sd = 1,
                       null.mean = 2.9267143 * c(1, -1), null.sd = 1, z.alpha = c(-1.28186067, 1.28186067),
@@ -140,7 +140,7 @@ test_that("proportions.onetwo.R works", {
                  c("parms", "test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = 0.45, null.prob = c(0.35, 0.40), alpha = 0.05, alternative = "two.one.sided",
-                      std.error = "alternative", arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      std.error = "alternative", arcsine = FALSE, correct = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", delta = 0.05 * c(2, 1), odds.ratio = c(1.519480519, 1.227272727), mean = 0, sd = 1,
                       null.mean = 2.8033169385 * c(2, 1), null.sd = 1, z.alpha = c(0.843353, 7.5665979),
@@ -169,7 +169,7 @@ test_that("proportions.onetwo.R works", {
                    "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.60, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      method = "exact", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "exact", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "power", "n", "n.total")],
                  list(test = "exact", delta = 0.05, odds.ratio = 1.23809524, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
                       alternative = "one.sided", z.alpha = NA, power = 0.466794272, n = c(n1 = 500, n2 = 500), n.total = 1000))
@@ -181,7 +181,7 @@ test_that("proportions.onetwo.R works", {
                    "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.12285039, prob01 = 0.02285039, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
                           "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.10, odds.ratio = 5.376293, size = 74, prob = 0.843169063, null.prob = 0.5,
@@ -195,7 +195,7 @@ test_that("proportions.onetwo.R works", {
                    "power", "n", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.70, prob2 = 0.60, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      method = "exact", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      method = "exact", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "power", "n", "n.total")],
                  list(test = "exact", delta = 0.10, odds.ratio = 1.55555556, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
                       alternative = "one.sided", z.alpha = NA, power = 0.801117239, n = c(n1 = 302, n2 = 302), n.total = 604))
@@ -207,7 +207,7 @@ test_that("proportions.onetwo.R works", {
                    "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
                  list(prob10 = 0.12285039, prob01 = 0.02285039, alpha = 0.05, alternative = "two.sided", method = "exact",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
                           "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
                  list(test = "exact", delta = 0.10, odds.ratio = 5.376293, size = 18, prob = 0.843169063, null.prob = 0.5,
@@ -222,7 +222,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 1.63517485, sd = 1, null.mean = 0, null.sd = 1.001336,
                       z.alpha = 1.64705116, power = 0.495262149, n = c(n1 = 500, n2 = 500), n.total = 1000))
@@ -237,7 +237,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.48955035, sd = 1, null.mean = 0, null.sd = 1.001336,
                       z.alpha = 1.64705116, power = 0.8002457, n = c(n1 = 1159, n2 = 1159), n.total = 2318))
@@ -252,7 +252,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
                       arcsine = TRUE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "unpooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.48648363, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = 1.64485363, power = 0.800002455, n = c(n1 = 1158, n2 = 1158), n.total = 2316))
@@ -264,7 +264,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.8046943, sd = 1, null.mean = 0, null.sd = 1.001336,
                       z.alpha = 1.96258250806517 * c(-1, 1), power = 0.800138245, n = c(n1 = 1471, n2 = 1471), n.total = 2942))
@@ -278,7 +278,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
                       arcsine = TRUE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.80244863, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964 * c(-1, 1), power = 0.8002426, n = c(n1 = 1471, n2 = 1471), n.total = 2942))
@@ -291,7 +291,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
                       arcsine = FALSE, correct = TRUE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.8049467, sd = 1, null.mean = 0, null.sd = 1.001336,
                       z.alpha = 1.96258250806517 * c(-1, 1), power = 0.80020886, n = c(n1 = 1511, n2 = 1511), n.total = 3022))
@@ -304,7 +304,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "unpooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.80183286, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964 * c(-1, 1), power = 0.80007028, n = c(n1 = 1468, n2 = 1468), n.total = 2936))
@@ -317,7 +317,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
                       arcsine = TRUE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "unpooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.8024486, sd = 1, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964 * c(-1, 1), power = 0.8002426, n = c(n1 = 1471, n2 = 1471), n.total = 2942))
@@ -330,7 +330,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = c(0, 0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.92874378, sd = 1, null.mean = c(0, 5.85748755251),
                       null.sd = 1.001336, z.alpha = c(1.64705116, 4.21043639), power = 0.80004950, n = c(n1 = 1604, n2 = 1604),
@@ -344,7 +344,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = c(0.10, 0.20), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.8046943, sd = 1,
                       null.mean = c(5.60938862, 11.21877723), null.sd = 1.001336, z.alpha = c(3.64680611, 13.18135974),
@@ -357,7 +357,7 @@ test_that("proportions.onetwo.R works", {
     expect_equal(crrRes[["parms"]],
                  list(prob1 = 0.65, prob2 = 0.6, margin = c(-0.10, 0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
                       arcsine = FALSE, correct = FALSE, paired = FALSE, rho.paired = 0.5, std.error = "pooled",
-                      ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "delta", "odds.ratio", "mean", "sd", "null.mean", "null.sd", "z.alpha", "power", "n", "n.total")],
                  list(test = "z", delta = 0.05, odds.ratio = 1.23809524, mean = 2.48955035, sd = 1,
                       null.mean = 4.97910071 * c(-1, 1), null.sd = 1.001336, z.alpha = 3.33204955 * c(-1, 1),

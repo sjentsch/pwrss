@@ -52,9 +52,9 @@ format_test <- function(n.way, cov) {
 #'                         is not rounded up.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
-#'                         given (plus key parameters and defintions), if
+#'                         given (plus key parameters and definitions), if
 #'                         \code{0} no output is printed on the console.
-#' @param pretty           logical; whether the output should show Unicode
+#' @param utf              logical; whether the output should show Unicode
 #'                         characters (if encoding allows for it). \code{FALSE}
 #'                         by default.
 #'
@@ -165,7 +165,7 @@ power.f.ancova <- function(eta.squared,
                            alpha = 0.05,
                            ceiling = TRUE,
                            verbose = 1,
-                           pretty = FALSE) {
+                           utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -174,7 +174,7 @@ power.f.ancova <- function(eta.squared,
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.total, power)
@@ -236,7 +236,7 @@ power.f.ancova <- function(eta.squared,
                  "(e.g., \"A:B\") for interactions."), call. = FALSE)
     }
   }
-  
+
   if (requested == "n") {
 
     n.total <- ss(df1 = df1, n.groups = n.groups, k.covariates = k.covariates,
@@ -265,7 +265,7 @@ power.f.ancova <- function(eta.squared,
                       power = power, ncp = ncp, null.ncp = null.ncp,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.ancova(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 
@@ -360,9 +360,9 @@ pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
 #'                      \code{TRUE} by default.
 #' @param verbose       \code{1} by default (returns test, hypotheses, and
 #'                      results), if \code{2} a more detailed output is given
-#'                      (plus key parameters and defintions), if \code{0} no
+#'                      (plus key parameters and definitions), if \code{0} no
 #'                      output is printed on the console.
-#' @param pretty        logical; whether the output should show Unicode
+#' @param utf           logical; whether the output should show Unicode
 #'                      characters (if encoding allows for it). \code{FALSE}
 #'                      by default.
 #'
@@ -421,7 +421,7 @@ power.f.ancova.keppel <- function(mu.vector,
                                   alpha = 0.05,
                                   ceiling = TRUE,
                                   verbose = 1,
-                                  pretty = FALSE) {
+                                  utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -446,7 +446,7 @@ power.f.ancova.keppel <- function(mu.vector,
     stop("Explanatory power of covariates is expected to be non-zero when number of covariates is non-zero.", call. = FALSE)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
@@ -553,7 +553,7 @@ power.f.ancova.keppel <- function(mu.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.ancova(print.obj, verbose = verbose, utf = utf)
 
   } #verbose
 
@@ -895,9 +895,9 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
-#'                        (plus key parameters and defintions), if \code{0} no
+#'                        (plus key parameters and definitions), if \code{0} no
 #'                        output is printed on the console.
-#' @param pretty          logical; whether the output should show Unicode
+#' @param utf             logical; whether the output should show Unicode
 #'                        characters (if encoding allows for it). \code{FALSE}
 #'                        by default.
 #'
@@ -1069,7 +1069,7 @@ power.f.ancova.shieh <- function(mu.vector,
                                  alpha = 0.05,
                                  ceiling = TRUE,
                                  verbose = 1,
-                                 pretty = FALSE) {
+                                 utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -1091,7 +1091,7 @@ power.f.ancova.shieh <- function(mu.vector,
   if (!is.null(power)) check.proportion(power)
   if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
     stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
@@ -1242,7 +1242,7 @@ power.f.ancova.shieh <- function(mu.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
 
-    .print.pwrss.ancova(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.ancova(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 
@@ -1308,9 +1308,9 @@ power.f.ancova.shieh <- function(mu.vector,
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
-#'                        (plus key parameters and defintions), if \code{0} no
+#'                        (plus key parameters and definitions), if \code{0} no
 #'                        output is printed on the console.
-#' @param pretty          logical; whether the output should show Unicode
+#' @param utf             logical; whether the output should show Unicode
 #'                        characters (if encoding allows for it). \code{FALSE}
 #'                        by default.
 #'
@@ -1350,7 +1350,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
                              r.squared = 0, k.covariates = 1,
                              power = NULL,
                              alpha = 0.05, tukey.kramer = FALSE,
-                             ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -1365,7 +1365,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
   check.nonnegative(k.covariates)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(tukey.kramer, ceiling, pretty)
+  check.logical(tukey.kramer, ceiling, utf)
   verbose <- ensure_verbose(verbose)
 
   if (is.matrix(contrast.vector) && dim(contrast.vector)[1] > 1)
@@ -1407,7 +1407,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
     d <- psi / sqrt(sigma2_error)
 
     if (k.covariates == 0) {
-    
+
       power <- power.t.test(ncp = psi / sigma2_pooled, df = v, plot = FALSE, verbose = 0)$power
 
       if (calculate.lambda)
@@ -1425,7 +1425,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
       }
 
       power <- stats::integrate(integrand, lower = -10, upper = 10)$value
-      
+
       if (calculate.lambda)
         lambda <- stats::integrate(function(x) stats::dt(x, v + 1) * (psi / sqrt(sigma2_error * a * (1 + x ^ 2 / (v + 1)))), -10, 10)$value
       else
@@ -1521,7 +1521,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
                       power = power, ncp = ncp, null.ncp = 0,
                       alpha = alpha, t.alpha = c(-t.alpha, t.alpha), df = df)
 
-    .print.pwrss.contrast(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.contrast(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -1623,9 +1623,9 @@ adjust.alpha <- function(n, alpha = 0.05,
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
-#'                        (plus key parameters and defintions), if \code{0} no
+#'                        (plus key parameters and definitions), if \code{0} no
 #'                        output is printed on the console.
-#' @param pretty          logical; whether the output should show Unicode
+#' @param utf             logical; whether the output should show Unicode
 #'                        characters (if encoding allows for it). \code{FALSE}
 #'                        by default.
 #'
@@ -1672,7 +1672,7 @@ power.t.contrasts <- function(x = NULL,
                               adjust.alpha = c("none", "tukey", "bonferroni",
                                                "holm", "hochberg", "hommel",
                                                "BH", "BY", "fdr"),
-                              ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                              ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   if (!is.null(x)) {
 
@@ -1789,7 +1789,7 @@ power.t.contrasts <- function(x = NULL,
                       alpha = alpha, adjust.alpha = adjust.alpha,
                       null.ncp = 0, data = print.data)
 
-    .print.pwrss.contrasts(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.contrasts(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 

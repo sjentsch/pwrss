@@ -17,9 +17,9 @@
 #'                 plot. \code{TRUE} by default.
 #' @param verbose  \code{1} by default (returns test, hypotheses, and results),
 #'                 if \code{2} a more detailed output is given (plus key
-#'                 parameters and defintions), if \code{0} no output is printed
+#'                 parameters and definitions), if \code{0} no output is printed
 #'                 on the console.
-#' @param pretty   logical; whether the output should show Unicode characters
+#' @param utf      logical; whether the output should show Unicode characters
 #'                 (if encoding allows for it). \code{FALSE} by default.
 #'
 #' @return
@@ -32,12 +32,12 @@
 #'
 #' @export power.chisq.test
 power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
-                             plot = TRUE, verbose = 1, pretty = FALSE) {
+                             plot = TRUE, verbose = 1, utf = FALSE) {
 
   check.positive(ncp, df)
   check.nonnegative(null.ncp)
   check.proportion(alpha)
-  check.logical(plot, pretty)
+  check.logical(plot, utf)
   verbose <- ensure_verbose(verbose)
 
   if (ncp < null.ncp)
@@ -57,7 +57,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
                       power = power, ncp.alternative = ncp, ncp.null = null.ncp,
                       alpha = alpha, chisq.alpha = chisq.alpha, df = df)
 
-    .print.pwrss.chisq(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.chisq(print.obj, verbose = verbose, utf = utf)
 
   } # end of verbose
 

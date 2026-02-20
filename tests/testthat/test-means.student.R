@@ -5,7 +5,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 786, ncp = 2.80713377, null.ncp = 0, t.alpha = 1.96298672 * c(-1, 1),
                       power = 0.800593128, n = c(n1 = 394, n2 = 394)))
@@ -15,7 +15,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 786, ncp = 2.80713377, null.ncp = 0, t.alpha = 1.96298672 * c(-1, 1),
                       power = 0.800593128, n = c(n1 = 394, n2 = 394)))
@@ -26,7 +26,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 790, ncp = 2.80722243, null.ncp = 0, t.alpha = 1.96297139 * c(-1, 1),
                       power = 0.80062273, n = c(n1 = 396, n2 = 396)))
@@ -37,7 +37,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 790, ncp = 2.80722243, null.ncp = 0, t.alpha = 1.96297139 * c(-1, 1),
                       power = 0.80062273, n = c(n1 = 396, n2 = 396)))
@@ -47,7 +47,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 618, ncp = 2.48997992, null.ncp = 0, t.alpha = 1.647323,
                       power = 0.8002178, n = c(n1 = 310, n2 = 310)))
@@ -57,7 +57,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 618, ncp = 2.48997992, null.ncp = 0, t.alpha = 1.647323,
                       power = 0.8002178, n = c(n1 = 310, n2 = 310)))
@@ -67,7 +67,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 396, ncp = 1.994993734, null.ncp = -0.49874843, t.alpha = 1.14819672,
                       power = 0.80145163, n = c(n1 = 199, n2 = 199)))
@@ -77,7 +77,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 396, ncp = 1.994993734, null.ncp = -0.49874843, t.alpha = 1.14819672,
                       power = 0.80145163, n = c(n1 = 199, n2 = 199)))
@@ -87,7 +87,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 1102, ncp = 3.32264955, null.ncp = 0.830662386, t.alpha = 2.4783672,
                       power = 0.800573124, n = c(n1 = 552, n2 = 552)))
@@ -97,7 +97,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.2, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 1102, ncp = 3.32264955, null.ncp = 0.830662386, t.alpha = 2.4783672,
                       power = 0.800573124, n = c(n1 = 552, n2 = 552)))
@@ -107,7 +107,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 13702, ncp = 0, null.ncp = 2.92660213 * c(-1, 1), t.alpha = 1.2817226 * c(-1, 1),
                       power = 0.800038332, n = c(n1 = 6852, n2 = 6852)))
@@ -117,7 +117,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 13702, ncp = 0, null.ncp = 2.92660213 * c(-1, 1), t.alpha = 1.2817226 * c(-1, 1),
                       power = 0.800038332, n = c(n1 = 6852, n2 = 6852)))
@@ -127,7 +127,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.05, -0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 3138, ncp = 1.400892573, null.ncp = c(-1.400892573, -2.801785145), t.alpha = c(-4.76567037, 0.55916477),
                       power = 0.800036434, n = c(n1 = 1570, n2 = 1570)))
@@ -137,7 +137,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.05, -0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "independent", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 3138, ncp = 1.400892573, null.ncp = c(-1.400892573, -2.801785145), t.alpha = c(-4.76567037, 0.55916477),
                       power = 0.800036434, n = c(n1 = 1570, n2 = 1570)))
@@ -147,7 +147,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
                       power = 0.801691024, n = 199))
@@ -158,28 +158,39 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
                       power = 0.801691024, n = 199))
 
-#    crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "two.sided", claim.basis = "smd.ci", design = "paired",
-#                              verbose = 0)
-#    expect_equal(class(crrRes), c("pwrss", "t", "student"))
-#    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
-#    expect_equal(crrRes[["parms"]],
-#                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-#                      design = "paired", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
-#    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
-#                 list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
-#                      power = 0.801691024, n = 199))
+    crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "two.sided", claim.basis = "smd.ci", design = "paired",
+                              verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
+                      design = "paired", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 202, ncp = -2.82148619, null.ncp = 0, t.alpha = 1.97177738 * c(-1, 1),
+                      power = 0.801805282, n = 203))
+
+    crrRes <- power.t.student(d = -0.20, n2 = 203, alternative = "two.sided", claim.basis = "smd.ci", design = "paired",
+                              verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
+                      design = "paired", claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
+                 list(test = "t", df = 202, ncp = -2.82148619, null.ncp = 0, t.alpha = 1.97177738 * c(-1, 1),
+                      power = 0.801805282, n = 203))
 
     crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "one.sided", design = "paired", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "student"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 155, ncp = -2.4979992, null.ncp = 0, t.alpha = -1.654743774,
                       power = 0.80016732, n = 156))
@@ -189,7 +200,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 155, ncp = -2.4979992, null.ncp = 0, t.alpha = -1.654743774,
                       power = 0.80016732, n = 156))
@@ -199,7 +210,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 277, ncp = 3.3346664, null.ncp = 0.8336666, t.alpha = 2.489922,
                       power = 0.80018923, n = 278))
@@ -209,7 +220,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 277, ncp = 3.3346664, null.ncp = 0.8336666, t.alpha = 2.489922,
                       power = 0.80018923, n = 278))
@@ -219,7 +230,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 99, ncp = 2, null.ncp = -0.5, t.alpha = 1.1532522,
                       power = 0.801453942, n = 100))
@@ -229,7 +240,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 99, ncp = 2, null.ncp = -0.5, t.alpha = 1.1532522,
                       power = 0.801453942, n = 100))
@@ -239,7 +250,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 3426, ncp = 0, null.ncp = 2.92702921 * c(-1, 1), t.alpha = 1.282071859 * c(-1, 1),
                       power = 0.800095812, n = 3427))
@@ -249,7 +260,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 3426, ncp = 0, null.ncp = 2.92702921 * c(-1, 1), t.alpha = 1.282071859 * c(-1, 1),
                       power = 0.800095812, n = 3427))
@@ -259,7 +270,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.05, -0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 785, ncp = 1.401784577, null.ncp = c(-1.401784577, -2.803569154),
                       t.alpha = c(-4.7792355, 0.5585519), power = 0.800477147, n = 786))
@@ -269,7 +280,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.05, -0.10), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 785, ncp = 1.401784577, null.ncp = c(-1.401784577, -2.803569154),
                       t.alpha = c(-4.7792355, 0.5585519), power = 0.800477147, n = 786))
@@ -279,7 +290,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
                       power = 0.801691024, n = 199))
@@ -290,7 +301,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 198, ncp = -2.8213472, null.ncp = 0, t.alpha = 1.97201748 * c(-1, 1),
                       power = 0.801691024, n = 199))
@@ -301,7 +312,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 155, ncp = -2.4979992, null.ncp = 0, t.alpha = -1.654743774,
                       power = 0.80016732, n = 156))
@@ -312,7 +323,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 155, ncp = -2.4979992, null.ncp = 0, t.alpha = -1.654743774,
                       power = 0.80016732, n = 156))
@@ -324,7 +335,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = c(-0.1, 0.1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 796, ncp = 5.6462377, null.ncp = 2.82311884 * c(-1, 1), t.alpha = 4.79868895 * c(-1, 1),
                       power = 0.800381536, n = 797))
@@ -336,11 +347,11 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.421637021, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "paired", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 49, ncp = 2.981424, null.ncp = 0, t.alpha = 2.00957524 * c(-1, 1),
                       power = 0.8321145, n = 50))
-    # the results are identical: ncp ~ 2.981424, t.crit ~ 2.009575, power ~ 0.832114, n = 50 
+    # the results are identical: ncp ~ 2.981424, t.crit ~ 2.009575, power ~ 0.832114, n = 50
 
     # example 20.3 from the GPower manual
     crrRes <- power.t.student(d = 0.625, power = 0.95, alternative = "one.sided", design = "one.sample", verbose = 0)
@@ -348,7 +359,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.625, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      design = "one.sample", claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 29, ncp = 3.423266, null.ncp = 0, t.alpha = 1.699127027, power = 0.95514436, n = 30))
     # the results are identical: ncp ~ 3.423266, t.crit ~ 1.699127, power ~ 0.955144, n = 30
@@ -359,7 +370,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.1, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.01, alternative = "two.sided", design = "one.sample",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 1491, ncp = 3.86264158, null.ncp = 0, t.alpha = 2.57913076 * c(-1, 1),
                       power = 0.90016873, n = 1492))
@@ -376,7 +387,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 629.77715, ncp = 2.81109027, null.ncp = 0, t.alpha = 1.96373795 * c(-1, 1),
                       power = 0.801457968, n = c(n1 = 474, n2 = 237)))
@@ -386,7 +397,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 629.77715, ncp = 2.81109027, null.ncp = 0, t.alpha = 1.96373795 * c(-1, 1),
                       power = 0.801457968, n = c(n1 = 474, n2 = 237)))
@@ -396,7 +407,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                      claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 632.44382, ncp = 2.80857462, null.ncp = 0, t.alpha = 1.963722 * c(-1, 1),
                       power = 0.800762167, n = c(n1 = 476, n2 = 238)))
@@ -406,7 +417,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                      claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "smd.ci", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 632.44382, ncp = 2.80857462, null.ncp = 0, t.alpha = 1.963722 * c(-1, 1),
                       power = 0.800762167, n = c(n1 = 476, n2 = 238)))
@@ -416,7 +427,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 493.776978, ncp = 2.4904277, null.ncp = 0, t.alpha = 1.64794541,
                       power = 0.80015083, n = c(n1 = 372, n2 = 186)))
@@ -426,7 +437,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 493.776978, ncp = 2.4904277, null.ncp = 0, t.alpha = 1.64794541,
                       power = 0.80015083, n = c(n1 = 372, n2 = 186)))
@@ -436,7 +447,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = -0.05, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 315.109859, ncp = 1.99221018, null.ncp = -0.49805255, t.alpha = 1.149433434,
                       power = 0.8003316, n = c(n1 = 238, n2 = 119)))
@@ -446,7 +457,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = -0.05, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 315.109859, ncp = 1.99221018, null.ncp = -0.49805255, t.alpha = 1.149433434,
                       power = 0.8003316, n = c(n1 = 238, n2 = 119)))
@@ -456,7 +467,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0.05, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 880.444, ncp = 3.32198134, null.ncp = 0.830495336, t.alpha = 2.478918093,
                       power = 0.80018977, n = c(n1 = 662, n2 = 331)))
@@ -466,7 +477,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.20, null.d = 0, margin = 0.05, var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 880.444, ncp = 3.32198134, null.ncp = 0.830495336, t.alpha = 2.478918093,
                       power = 0.80018977, n = c(n1 = 662, n2 = 331)))
@@ -476,7 +487,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 10960.44441, ncp = 0, null.ncp = 2.926554671 * c(-1, 1), t.alpha = 1.28166865 * c(-1, 1),
                       power = 0.800013981, n = c(n1 = 8222, n2 = 4111)))
@@ -486,7 +497,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 10960.44441, ncp = 0, null.ncp = 2.926554671 * c(-1, 1), t.alpha = 1.28166865 * c(-1, 1),
                       power = 0.800013981, n = c(n1 = 8222, n2 = 4111)))
@@ -497,7 +508,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 2509.77762, ncp = 1.400942178, null.ncp = c(-2.801884357, -1.400942178),
                       t.alpha = c(-4.766751724, 0.559138526), power = 0.80005932, n = c(n1 = 1884, n2 = 942)))
@@ -508,7 +519,7 @@ test_that("means.student.R works", {
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), var.ratio = 2, n.ratio = 2, alpha = 0.05, alternative = "two.one.sided",
-                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      claim.basis = "md.pval", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "power", "n")],
                  list(test = "t", df = 2509.77762, ncp = 1.400942178, null.ncp = c(-2.801884357, -1.400942178),
                       t.alpha = c(-4.766751724, 0.559138526), power = 0.80005932, n = c(n1 = 1884, n2 = 942)))

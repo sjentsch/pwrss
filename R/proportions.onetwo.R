@@ -27,9 +27,9 @@
 #'                    \code{alternative = "one.sided"}.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -66,7 +66,7 @@
 power.exact.oneprop <- function(prob, null.prob = 0.50,
                                 n = NULL, power = NULL, alpha = 0.05,
                                 alternative = c("two.sided", "one.sided", "two.one.sided"),
-                                verbose = 1, pretty = FALSE) {
+                                verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- clean.parms(as.list(environment()))
@@ -76,7 +76,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(pretty)
+  check.logical(utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -190,7 +190,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                       power = power,
                       n = n)
 
-    .print.pwrss.oneprop(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.oneprop(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 
@@ -256,9 +256,9 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -299,7 +299,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             std.error = c("null", "alternative"),
                             arcsine = FALSE, correct = FALSE,
-                            ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   std.error <- tolower(match.arg(std.error))
@@ -310,7 +310,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(arcsine, correct, ceiling, pretty)
+  check.logical(arcsine, correct, ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
@@ -542,7 +542,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
                       power = power,
                       n = n)
 
-    .print.pwrss.oneprop(print.obj, verbose = verbose, pretty = pretty)
+    .print.pwrss.oneprop(print.obj, verbose = verbose, utf = utf)
 
   } # verbose
 
@@ -633,9 +633,9 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 #' @param ceiling     logical; \code{TRUE} rounds up sample size in each group.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -694,7 +694,7 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
                                  alternative = c("two.sided", "one.sided"),
                                  paired = FALSE, rho.paired = 0.50,
                                  method = c("exact", "approximate"),
-                                 ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                                 ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -706,7 +706,7 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
   check.proportion(alpha)
   check.logical(paired)
   check.correlation(rho.paired)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
 
   if (paired) {
@@ -716,14 +716,14 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
     power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
                         power = power, n.paired = n2, alpha = alpha,
                         alternative = alternative, method =  method,
-                        ceiling = ceiling, verbose = verbose, pretty = pretty)
+                        ceiling = ceiling, verbose = verbose, utf = utf)
 
   } else {
 
     power.exact.fisher(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
                        alpha = alpha, power = power,
                        alternative = alternative, method = method,
-                       ceiling = ceiling, verbose = verbose, pretty = pretty)
+                       ceiling = ceiling, verbose = verbose, utf = utf)
 
   }
 
@@ -784,9 +784,9 @@ power.exact.twoprop <- power.exact.twoprops
 #' @param ceiling     logical; \code{TRUE} rounds up sample size in each group.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
-#'                    (plus key parameters and defintions), if \code{0} no
+#'                    (plus key parameters and definitions), if \code{0} no
 #'                    output is printed on the console.
-#' @param pretty      logical; whether the output should show Unicode
+#' @param utf         logical; whether the output should show Unicode
 #'                    characters (if encoding allows for it). \code{FALSE} by
 #'                    default.
 #'
@@ -829,7 +829,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
                              arcsine = FALSE, correct = FALSE,
                              paired = FALSE, rho.paired = 0.50,
                              std.error = c("pooled", "unpooled"),
-                             ceiling = TRUE, verbose = 1, pretty = FALSE) {
+                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   std.error <- tolower(match.arg(std.error))
@@ -842,7 +842,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   check.proportion(alpha)
   check.logical(arcsine, correct, paired)
   check.correlation(rho.paired)
-  check.logical(ceiling, pretty)
+  check.logical(ceiling, utf)
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n2, power)
 
@@ -1132,7 +1132,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
                         n = c(n1 = n1, n2 = n2),
                         n.total = n.total)
 
-      .print.pwrss.fisher(print.obj, verbose = verbose, pretty = pretty)
+      .print.pwrss.fisher(print.obj, verbose = verbose, utf = utf)
 
     } # verbose
 

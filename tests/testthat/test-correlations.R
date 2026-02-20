@@ -6,7 +6,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                                         alternative = "two.sided", pooled = TRUE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         alternative = "two.sided", pooled = TRUE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.119256524, mean = -2.8011469, sd = 0.999426958, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 1138, power = 0.80001327))
@@ -17,7 +17,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                                         alternative = "two.sided", pooled = TRUE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         alternative = "two.sided", pooled = TRUE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.119256524, mean = -2.62533987, sd = 0.999426958, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 1000, power = 0.747219145))
@@ -30,7 +30,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                          alpha = 0.05, alternative = "two.sided", pooled = TRUE, common.index = FALSE,
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.133681035, mean = -2.80207461, sd = 0.99997767, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 643, power = 0.8001432))
@@ -42,7 +42,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                          alpha = 0.05, alternative = "two.sided", pooled = TRUE, common.index = FALSE,
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.133681035, mean = -2.80207461, sd = 0.99997767, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 643, power = 0.8001432))
@@ -54,7 +54,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                          alpha = 0.05, alternative = "two.sided", pooled = FALSE, common.index = FALSE,
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.133681035, mean = -2.81260658, sd = 1.011671015, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 633, power = 0.800332771))
@@ -66,7 +66,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50, rho14 = 0.50, rho24 = 0.80, rho34 = 0.55,
                                          alpha = 0.05, alternative = "two.sided", pooled = FALSE, common.index = FALSE,
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.133681035, mean = -2.81260658, sd = 1.011671015, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 633, power = 0.800332771))
@@ -77,7 +77,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                                         alternative = "two.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         alternative = "two.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.119256524, mean = -2.80946813, sd = 1.00818629, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 1125, power = 0.8002768))
@@ -89,7 +89,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                                         alternative = "two.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         alternative = "two.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.119256524, mean = -2.80946813, sd = 1.00818629, null.mean = 0,
                       null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 1125, power = 0.8002768))
@@ -102,7 +102,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]],
                  list(rho12 = 0.1, rho13 = 0.5, rho23 = -0.4, rho14 = 0.4, rho24 = 0.8, rho34 = 0.2, alpha = 0.05,
-                      alternative = "one.sided", pooled = FALSE, common.index = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      alternative = "one.sided", pooled = FALSE, common.index = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.102397206, mean = -2.48614145, sd = 0.99894152,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = -1.64485363, n = 886, power = 0.80015619))
@@ -116,7 +116,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]],
                  list(rho12 = 0.1, rho13 = 0, rho23 = 0, rho14 = 0, rho24 = 0, rho34 = 0.2, alpha = 0.05,
-                      alternative = "one.sided", pooled = FALSE, common.index = FALSE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      alternative = "one.sided", pooled = FALSE, common.index = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = -0.1, q = -0.102397206, mean = -2.4872195, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = -1.64485363, n = 1183, power = 0.80020841))
@@ -131,7 +131,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]],
                  list(rho12 = 0.4, rho13 = 0.2, rho23 = 0.5, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                      alternative = "one.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      alternative = "one.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = 0.2, q = 0.220916376, mean = 2.4636089, sd = 0.96805217,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = 1.64485363, n = 144, power = 0.80116113))
@@ -145,7 +145,7 @@ test_that("correlations.R works", {
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]],
                  list(rho12 = 0.4, rho13 = 0.047702, rho23 = -0.6, rho14 = NULL, rho24 = NULL, rho34 = NULL, alpha = 0.05,
-                      alternative = "one.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, pretty = FALSE))
+                      alternative = "one.sided", pooled = FALSE, common.index = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "paired", delta = 0.352298, q = 0.3759107, mean = 2.48403976, sd = 0.997104865,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = 1.64485363, n = 144, power = 0.80000042))
@@ -171,7 +171,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.20, rho2 = 0.30, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.1, q = -0.10678705, mean = -2.80201569, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964),
@@ -183,7 +183,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.20, rho2 = 0.30, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.1, q = -0.10678705, mean = -2.80201569, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964),
@@ -195,7 +195,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.30, rho2 = 0.20, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = 0.1, q = 0.10678705, mean = 2.4872444, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = 1.64485363,
@@ -207,7 +207,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.30, rho2 = 0.20, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = 0.1, q = 0.10678705, mean = 2.4872444, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = 1.64485363,
@@ -218,7 +218,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.30, rho2 = 0.20, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = 0.1, q = 0.10678705, mean = 2.80167586, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964),
@@ -229,7 +229,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.30, rho2 = 0.20, n.ratio = 2, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = 0.1, q = 0.10678705, mean = 2.80167586, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = c(-1.959964, 1.959964),
@@ -240,7 +240,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.20, rho2 = 0.30, n.ratio = 1 / 2, alpha = 0.05, alternative = "one.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.1, q = -0.10678705, mean = -2.4868614, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = -1.64485363,
@@ -251,7 +251,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.20, rho2 = 0.30, n.ratio = 1 / 2, alpha = 0.05, alternative = "one.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.1, q = -0.10678705, mean = -2.4868614, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "one.sided", z.alpha = -1.64485363,
@@ -263,7 +263,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.75, rho2 = 0.88, n.ratio = 51 / 260, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.13, q = -0.402812582, mean = -2.5617709, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1),
@@ -276,7 +276,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho1 = 0.75, rho2 = 0.88, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                                         ceiling = TRUE, verbose = 0, pretty = FALSE))
+                                         ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "independent", delta = -0.13, q = -0.402812582, mean = -2.56348357, sd = 1,
                       null.mean = 0, null.sd = 1, alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1),
@@ -289,7 +289,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.20, null.rho = 0, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.2, q = 0.202732554, mean = 2.80181964, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 194, power = 0.80006658))
@@ -300,7 +300,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.20, null.rho = 0, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.2, q = 0.202732554, mean = 2.80181964, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "two.sided", z.alpha = c(-1.959964, 1.959964), n = 194, power = 0.80006658))
@@ -311,7 +311,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.20, null.rho = 0.10, alpha = 0.05, alternative = "one.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.1, q = 0.102397206, mean = 2.4872195, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "one.sided", z.alpha = 1.64485363, n = 593, power = 0.8002084))
@@ -322,7 +322,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.20, null.rho = 0.10, alpha = 0.05, alternative = "one.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.1, q = 0.102397206, mean = 2.4872195, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "one.sided", z.alpha = 1.64485363, n = 593, power = 0.8002084))
@@ -332,7 +332,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.65, null.rho = 0.60, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = 0.05, q = 0.082151526, mean = 3.60531964, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1), n = 1929, power = 0.95005177))
@@ -344,7 +344,7 @@ test_that("correlations.R works", {
     expect_equal(names(crrRes), c("parms", "test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative",
                                   "z.alpha", "n", "power"))
     expect_equal(crrRes[["parms"]], list(rho = 0.30, null.rho = 0.80, alpha = 0.05, alternative = "two.sided", ceiling = TRUE,
-                                         verbose = 0, pretty = FALSE))
+                                         verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "design", "delta", "q", "mean", "sd", "null.mean", "null.sd", "alternative", "z.alpha", "n", "power")],
                  list(test = "z", design = "one.sample", delta = -0.50, q = -0.789092684, mean = -1.7644649, sd = 1, null.mean = 0, null.sd = 1,
                       alternative = "two.sided", z.alpha = 1.95996398 * c(-1, 1), n = 8, power = 0.422599))
