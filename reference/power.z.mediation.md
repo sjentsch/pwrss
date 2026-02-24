@@ -15,7 +15,7 @@ Formulas are validated using Monte Carlo simulations.
 power.z.mediation(
   beta.a,
   beta.b,
-  beta.cp = NULL,
+  beta.cp = 0,
   sd.predictor = 1,
   sd.mediator = 1,
   sd.outcome = 1,
