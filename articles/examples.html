@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pwrss</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
                         <h4 data-toc-skip class="author">Metin
 Bulus</h4>
             
-            <h4 data-toc-skip class="date">2026-02-20</h4>
+            <h4 data-toc-skip class="date">2026-02-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/metinbulus/pwrss/blob/main/vignettes/examples.Rmd" class="external-link"><code>vignettes/examples.Rmd</code></a></small>
       <div class="d-none name"><code>examples.Rmd</code></div>
@@ -5006,6 +5006,9 @@ requested.</p>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of subjects in one of the groups</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># set seed to ensure the same results throughout different runs of examples.Rmd</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
@@ -5059,8 +5062,8 @@ requested.</p>
 <span><span class="co">#&gt; ----------------------------------------------------</span></span>
 <span><span class="co">#&gt;   Sample Size          = 300</span></span>
 <span><span class="co">#&gt;   Type 1 Error (alpha) = 0.050</span></span>
-<span><span class="co">#&gt;   Type 2 Error (beta)  = 0.415</span></span>
-<span><span class="co">#&gt;   Statistical Power    = 0.585  &lt;&lt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   Type 2 Error (beta)  = 0.406</span></span>
+<span><span class="co">#&gt;   Statistical Power    = 0.594  &lt;&lt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="covariate-adjustment">Covariate Adjustment<a class="anchor" aria-label="anchor" href="#covariate-adjustment"></a>
@@ -6307,7 +6310,7 @@ depression severity and gender? Check the original article at <a href="https://d
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Metin Bulus.</p>
+  <p>Developed by Metin Bulus, Sebastian Jentschke.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">pwrss</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -3760,6 +3760,9 @@ Y &amp; = &amp; \beta_{0Y} + \beta_{b} M + \beta_{cp} X + \epsilon
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of subjects in one of the groups</span></span>
 <span><span class="va">sd.predictor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># set seed to ensure the same results throughout different runs of examples.Rmd</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="reference/power.z.mediation.html">power.z.mediation</a></span><span class="op">(</span>beta.a <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  beta.b <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                  sd.predictor <span class="op">=</span> <span class="va">sd.predictor</span>,</span>
@@ -4960,8 +4963,8 @@ language.
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Metin Bulus <br><small class="roles"> Author, maintainer </small>   </li>
-<li><a href="authors.html">More about authors...</a></li>
+<li>Metin Bulus <br><small class="roles"> Author, maintainer, copyright holder </small>   </li>
+<li>Sebastian Jentschke <br><small class="roles"> Author, copyright holder </small>   </li>
 </ul>
 </div>
 
@@ -4983,7 +4986,7 @@ language.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Metin Bulus.</p>
+  <p>Developed by Metin Bulus, Sebastian Jentschke.</p>
 </div>
 
 <div class="pkgdown-footer-right">

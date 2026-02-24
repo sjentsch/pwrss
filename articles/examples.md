@@ -4850,6 +4850,9 @@ Joint and Monte Carlo tests are only available when power is requested.
 p <- 0.50 # proportion of subjects in one of the groups
 sd.predictor <- sqrt(p * (1 - p))
 
+# set seed to ensure the same results throughout different runs of examples.Rmd
+set.seed(1)
+
 power.z.mediation(beta.a = 0.25,
                   beta.b = 0.25,
                   sd.predictor = sd.predictor,
@@ -4903,8 +4906,8 @@ power.z.mediation(beta.a = 0.25,
 #> ----------------------------------------------------
 #>   Sample Size          = 300
 #>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.415
-#>   Statistical Power    = 0.585  <<
+#>   Type 2 Error (beta)  = 0.406
+#>   Statistical Power    = 0.594  <<
 ```
 
 ### Covariate Adjustment

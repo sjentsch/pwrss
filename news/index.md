@@ -1,5 +1,16 @@
 # Changelog
 
+## Changes in pwrss v1.2.0
+
+- Added unit tests for all procedures
+- Added `clean.parms`, unifying how the input parameters in the results
+  list are returned
+- Added further input checks so that all input parameters are checked
+- Simplified code in `power.z.logistic` and `power.z.poisson`
+- Corrected formula for Hsieh et al. (1998) in `power.z.logistic`
+- Added `target.effect` to determine effect of interest in
+  `power.f.ancova`
+
 ## Changes in pwrss v1.0.0
 
 CRAN release: 2025-09-16
