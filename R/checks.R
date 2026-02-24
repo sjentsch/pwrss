@@ -97,10 +97,9 @@ check.vector <- function(x, fnc, min.length = 2, max.length = Inf) {
 
   fnc.name <- deparse(substitute(fnc), nlines = 1)
   err.msg <- sprintf("All elements of `%s` need to be valid %s values (%s)", var.name, fnc2type(fnc.name), valid.cond(fnc.name))
-  tryCatch(invisible(sapply(x, fnc)),
+  tryCatch(invisible(unlist(lapply(x, fnc))), # returns NULL if successful
            error = function(e) stop(err.msg, call. = FALSE))
 
-  invisible(NULL)
 } # check.vector
 
 check.same.lengths <- function(...) {
@@ -130,7 +129,7 @@ check.margins <- function(x, fnc, alternative = "two.sided") {
 
   fnc.name <- deparse(substitute(fnc), nlines = 1)
   err.msg <- sprintf("All elements of `%s` need to be valid %s values (%s)", var.name, fnc2type(fnc.name), valid.cond(fnc.name))
-  tryCatch(invisible(sapply(x, fnc, 1)),
+  tryCatch(invisible(unlist(lapply(x, fnc))),
            error = function(e) stop(err.msg, call. = FALSE))
 
   # if a margin needs order (typically the case for proportions), it can't be duplicated and the order needs checking
@@ -166,7 +165,8 @@ check.correlation.matrix <- function(x) {
   # check that all values (only the upper triangular, as the matrix is symmetric) are valid correlations,
   # either all values are valid or an error is thrown
   errmsg <- sprintf("The values in the correlation matrix (`%s`) must be numeric, >= -1 and <= 1", var.name)
-  tryCatch(invisible(sapply(x[upper.tri(x)], check.correlation)), error = function(e) stop(errmsg, call. = FALSE))
+  tryCatch(invisible(unlist(lapply(x[upper.tri(x)], check.correlation))),
+           error = function(e) stop(errmsg, call. = FALSE))
 
   correct.diagonal <- all(diag(x) == 1)
   if (!correct.diagonal)

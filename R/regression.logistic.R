@@ -334,21 +334,24 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     # [2A] use summation to “integrate” integer sequences OR
     if (calcInt) {
 
+      # determine which sequence should be summed up
+      calc.seq <- seq(min, max)
+
       # for mu: e1 [first parm.] = 0 -> x ^ e1 == 1, the log of which is beta0* (beta0s)
-      # calculate mu and beta0s -              | parms. to var.func
-      mu  <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1, 1), na.rm = TRUE)
+      # calculate mu and beta0s -                     | parms. to var.func
+      mu  <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0,  beta1, 1), na.rm = TRUE)
       beta0s <- log(mu / (1 - mu))
 
-      # variance under null -                  | parms. to var.func
-      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0s, 0,     2), na.rm = TRUE)
-      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0s, 0,     2), na.rm = TRUE)
-      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0s, 0,     2), na.rm = TRUE)
+      # variance under null -                         | parms. to var.func
+      i00 <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0s, 0,     2), na.rm = TRUE)
+      i01 <- sum(vapply(calc.seq, var.func, numeric(1), 1, beta0s, 0,     2), na.rm = TRUE)
+      i11 <- sum(vapply(calc.seq, var.func, numeric(1), 2, beta0s, 0,     2), na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
-      # variance under alternative -           | parms. to var.func
-      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1, 2), na.rm = TRUE)
-      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0,  beta1, 2), na.rm = TRUE)
-      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0,  beta1, 2), na.rm = TRUE)
+      # variance under alternative -                  | parms. to var.func
+      i00 <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0,  beta1, 2), na.rm = TRUE)
+      i01 <- sum(vapply(calc.seq, var.func, numeric(1), 1, beta0,  beta1, 2), na.rm = TRUE)
+      i11 <- sum(vapply(calc.seq, var.func, numeric(1), 2, beta0,  beta1, 2), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     # [2B] use integration for real numbers

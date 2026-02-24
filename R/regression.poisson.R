@@ -275,36 +275,41 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
     # [2A] use summation to “integrate” integer sequences OR
     if (calcInt) {
 
-      # calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
-      mu  <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1), na.rm = TRUE)
+      # determine which sequence should be summed up
+      calc.seq <- seq(min, max)
+
+      # for mu: e1 [first parm.] = 0 -> x ^ e1 == 1, the log of which is beta0* (beta0s)
+      # calculate mu and beta0s -                     | parms. to var.func
+      mu  <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0,  beta1), na.rm = TRUE)
       beta0s <- log(mu)
 
-      # variance under null
-      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0s, 0),     na.rm = TRUE)
-      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0s, 0),     na.rm = TRUE)
-      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0s, 0),     na.rm = TRUE)
+      # variance under null -                         | parms. to var.func
+      i00 <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0s, 0),     na.rm = TRUE)
+      i01 <- sum(vapply(calc.seq, var.func, numeric(1), 1, beta0s, 0),     na.rm = TRUE)
+      i11 <- sum(vapply(calc.seq, var.func, numeric(1), 2, beta0s, 0),     na.rm = TRUE)
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
-      # variance under alternative
-      i00 <- sum(sapply(seq(min, max), var.func, 0, beta0,  beta1), na.rm = TRUE)
-      i01 <- sum(sapply(seq(min, max), var.func, 1, beta0,  beta1), na.rm = TRUE)
-      i11 <- sum(sapply(seq(min, max), var.func, 2, beta0,  beta1), na.rm = TRUE)
+      # variance under alternative -                  | parms. to var.func
+      i00 <- sum(vapply(calc.seq, var.func, numeric(1), 0, beta0,  beta1), na.rm = TRUE)
+      i01 <- sum(vapply(calc.seq, var.func, numeric(1), 1, beta0,  beta1), na.rm = TRUE)
+      i11 <- sum(vapply(calc.seq, var.func, numeric(1), 2, beta0,  beta1), na.rm = TRUE)
       var.beta1 <- i00 / (i00 * i11 - i01 ^ 2)
 
     # [2B] use integration for real numbers
     } else {
 
-      # calculate mu (e = 0 -> x ^ e == 1), the log of which is beta0* (beta0s)
+      # for mu: e1 [first parm.] = 0 -> x ^ e1 == 1, the log of which is beta0* (beta0s)
+      # calculate mu and beta0s -               | parms. to var.func
       mu  <- stats::integrate(var.func, min, max, 0, beta0,  beta1)$value
       beta0s <- log(mu)
 
-      # variance under null
+      # variance under null -                   | parms. to var.func
       i00 <- stats::integrate(var.func, min, max, 0, beta0s, 0)$value
       i01 <- stats::integrate(var.func, min, max, 1, beta0s, 0)$value
       i11 <- stats::integrate(var.func, min, max, 2, beta0s, 0)$value
       var.beta0 <- i00 / (i00 * i11 - i01 ^ 2)
 
-      # variance under alternative
+      # variance under alternative -            | parms. to var.func
       i00 <- stats::integrate(var.func, min, max, 0, beta0,  beta1)$value
       i01 <- stats::integrate(var.func, min, max, 1, beta0,  beta1)$value
       i11 <- stats::integrate(var.func, min, max, 2, beta0,  beta1)$value
