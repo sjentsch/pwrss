@@ -1,9 +1,9 @@
 Package: pwrss
-Version: 1.0.0
+Version: 1.2.0
 Type: Package
 Title: Statistical Power and Sample Size Calculation Tools
-Authors@R: c(person(given = "Metin",     family = "Bulus",     email = "bulusmetin@gmail.com",       role = c("aut", "cre")),
-             person(given = "Sebastian", family = "Jentschke", email = "sebastian.jentschke@uib.no", role = c("ctb")))
+Authors@R: c(person(given = "Metin",     family = "Bulus",     email = "bulusmetin@gmail.com",       role = c("aut", "cre", "cph")),
+             person(given = "Sebastian", family = "Jentschke", email = "sebastian.jentschke@uib.no", role = c("aut", "cph")))
 Maintainer: Metin Bulus <bulusmetin@gmail.com>
 Date: 2025-09-13
 Description:
