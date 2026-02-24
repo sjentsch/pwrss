@@ -4,14 +4,16 @@
   "identifier": "pwrss",
   "description": " The 'pwrss' R package provides flexible and comprehensive functions for statistical power and minimum required sample size calculations across a wide range of commonly used hypothesis tests in psychological, biomedical, and social sciences.",
   "name": "pwrss: Statistical Power and Sample Size Calculation Tools",
+  "codeRepository": "https://github.com/sjentsch/pwrss",
+  "issueTracker": "https://github.com/metinbulus/pwrss/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -24,9 +26,21 @@
       "givenName": "Metin",
       "familyName": "Bulus",
       "email": "bulusmetin@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Sebastian",
+      "familyName": "Jentschke",
+      "email": "sebastian.jentschke@uib.no"
     }
   ],
-  "contributor": [
+  "copyrightHolder": [
+    {
+      "@type": "Person",
+      "givenName": "Metin",
+      "familyName": "Bulus",
+      "email": "bulusmetin@gmail.com"
+    },
     {
       "@type": "Person",
       "givenName": "Sebastian",
@@ -66,12 +80,31 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     }
   ],
   "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.5.0"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "1242.397KB",
+  "fileSize": "5607.777KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -81,16 +114,20 @@
           "@type": "Person",
           "givenName": "Metin",
           "familyName": "Bulus"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Sebastian",
+          "familyName": "Jentschke"
         }
       ],
       "name": "{pwrss}: Statistical Power and Sample Size Calculation Tools",
       "url": "https://doi.org/10.32614/CRAN.package.pwrss",
-      "description": "R package version 1.0.0"
+      "description": "R package version 1.2.0"
     }
   ],
-  "codeRepository": "https://github.com/sjentsch/pwrss",
-  "releaseNotes": "https://github.com/sjentsch/pwrss/blob/master/NEWS.md",
+  "relatedLink": ["https://metinbulus.github.io/pwrss", "https://CRAN.R-project.org/package=pwrss"],
+  "releaseNotes": "https://github.com/sjentsch/pwrss/blob/main/NEWS.md",
   "readme": "https://github.com/sjentsch/pwrss/blob/main/README.md",
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "relatedLink": "https://CRAN.R-project.org/package=pwrss"
+  "developmentStatus": "https://www.repostatus.org/#active"
 }
