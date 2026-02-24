@@ -41,14 +41,12 @@
   if (is.numeric(val)) {
     fmt <- paste(rep(paste0("%", spf_neg, ifelse(isInt(val), "d", paste0(".", digits, "f"))), length(val)),
                  collapse = ifelse(length(val) < 3, " and ", ", "))
-  } else if (is.character(val)) {
-    fmt <- "%s"
-  } else if (is.na(val)) {
-    return(paste0(strrep(" ", nchar(spf_neg)), "NA"))
+  } else if (is.character(val) || is.na(val)) {
+    fmt <- paste0(strrep(" ", nchar(spf_neg)), "%s")
   }
 
   if (spf_neg != "")
-    gsub("\\+", "", gsub("^\\+", " ", do.call(sprintf, c(fmt = fmt, as.list(val)))))
+    gsub("^\\+| \\+", " ", do.call(sprintf, c(fmt = fmt, as.list(val))))
   else
     do.call(sprintf, c(fmt = fmt, as.list(val)))
 }

@@ -231,9 +231,9 @@ power.f.ancova <- function(eta.squared,
       df1 <- prod(factor.levels[fac.select] - 1)
       effect <- paste(target.effect, "from", effect)
     } else {
-      stop(paste("Invalid specification of `target.effect`: must be either a single letter (\"A\", \"B\" or \"C\",",
-                 "depending on the length of `factor.levels` or a combination of these letters separated by \":\"",
-                 "(e.g., \"A:B\") for interactions."), call. = FALSE)
+      stop(paste("Invalid specification of `target.effect`. It must be either a single letter \"A\", \"B\" or \"C\"",
+                 "(depending on the length of `factor.levels`), assessing a main effect, or a combination of these",
+                 "letters separated by \":\", e.g., \"A:B\", assessing an interaction."), call. = FALSE)
     }
   }
 
@@ -284,17 +284,16 @@ power.f.ancova <- function(eta.squared,
 } # end of power.f.ancova()
 
 #' @export pwrss.f.ancova
-pwrss.f.ancova <- function(eta2 = 0.01, f2 = eta2 / (1 - eta2),
+pwrss.f.ancova <- function(eta2 = NULL, f2 = NULL,
                            n.way = length(n.levels),
                            n.levels = 2, n.covariates = 0, alpha = 0.05,
                            n = NULL, power = NULL, verbose = TRUE) {
 
   verbose <- ensure_verbose(verbose)
-  f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
 
-  if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
+  if (all(check.not_null(f2, eta2))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
-  } else if (utils::hasName(f2_eta2, "f2")) {
+  } else if (check.not_null(f2)) {
     eta2 <- f2 / (1 + f2)
   }
   # eta2 doesn't need conversion, and falls back to the default if neither f2 nor eta2 is given explicitly

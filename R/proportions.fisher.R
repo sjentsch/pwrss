@@ -142,15 +142,15 @@ power.exact.fisher <- function(prob1, prob2,
 #    }
 
 #     if (correct.continuity) {
-#    
+#
 #       ifelse(prob1 < prob2, k <- -1, k <- 1)
 #       if (alternative %in% c("not equal", "two.sided")) k <- c(-1, 1)
 #       delta <- (prob1 - prob2 - (k / 2) * (1 / n1 + 1 / n2))
-#    
+#
 #     } else {
-#    
+#
 #       delta <- prob1 - prob2
-#    
+#
 #     }
 
     pwr.obj <- power.z.test(mean = delta / stderr, sd = 1, null.mean = 0, null.sd = 1,

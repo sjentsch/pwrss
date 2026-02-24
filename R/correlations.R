@@ -182,7 +182,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
   if (common.index) {
 
-    if (any(c("rho14", "rho24", "rho34") %in% names(as.list(match.call()))))
+    if (any(check.not_null(rho14, rho24, rho34)))
       warning("Ignoring `rho14` `rho24`, or `rho34` because `common.index` is TRUE.", call. = FALSE)
 
     check.correlation(rho12, rho13, rho23)

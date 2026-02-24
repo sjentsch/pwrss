@@ -180,7 +180,7 @@
 #'             power = 0.80)
 #'
 #' @export power.z.mediation
-power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
+power.z.mediation  <- function(beta.a, beta.b, beta.cp = NULL,
                                sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
                                r.squared.mediator = beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2,
                                r.squared.outcome = (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2,
@@ -193,7 +193,6 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  arg.names <- names(as.list(match.call()))
 
   check.numeric(beta.a, beta.b, beta.cp)
   check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
@@ -206,12 +205,14 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
-  if (r.squared.outcome == 0 && "beta.cp" %in% arg.names)
+  if (r.squared.outcome == 0 && !is.null(beta.cp))
     warning("Ignoring any specification to `beta.cp`.", call. = FALSE)
   if (r.squared.mediator < beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2)
     warning("Specified `r.squared.mediator` is smaller than the base `r.squared.mediator`.", call. = FALSE)
   if (r.squared.outcome < (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2)
     warning("Specified `r.squared.outcome` is smaller than the base `r.squared.outcome`.", call. = FALSE)
+
+  beta.cp <- ifelse(is.null(beta.cp), 0, beta.cp)
 
   se.a <- function(sd.mediator, sd.predictor, r.squared.mediator, n) {
     var.beta.a <- (1 / n) * (sd.mediator ^ 2) * (1 - r.squared.mediator) / (sd.predictor ^ 2)

@@ -196,7 +196,6 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  arg.names <- names(as.list(match.call()))
 
   check.proportion(r.squared.predictor)
   if (!is.null(n)) check.sample.size(n)
@@ -206,32 +205,32 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
-  if (all(c("base.prob", "prob") %in% arg.names)) {
+  if (all(check.not_null(base.prob, prob))) {
     check.proportion(prob, base.prob)
-    if (any(c("odds.ratio", "beta0", "beta1") %in% arg.names) && verbose >= 0)
+    if (any(check.not_null(odds.ratio, beta0, beta1)) && verbose >= 0)
       message("Using `base.prob` and `prob`, ignoring any specifications to `odds.ratio`, `beta0`, or `beta1`.")
     odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
-  } else if (all(c("base.prob", "odds.ratio") %in% arg.names)) {
+  } else if (all(check.not_null(base.prob, odds.ratio))) {
     check.proportion(base.prob)
     check.positive(odds.ratio)
-    if (any(c("prob", "beta0", "beta1") %in% arg.names) && verbose >= 0)
+    if (any(check.not_null(prob, beta0, beta1)) && verbose >= 0)
       message("Using `base.prob` and `odds.ratio`, ignoring any specifications to `prob`, `beta0`, or `beta1`.")
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
-  } else if (all(c("base.prob", "beta1") %in% arg.names)) {
+  } else if (all(check.not_null(base.prob, beta1))) {
     check.proportion(base.prob)
     check.numeric(beta1)
-    if (any(c("prob", "beta0", "odds.ratio") %in% arg.names) && verbose >= 0)
+    if (any(check.not_null(prob, beta0, odds.ratio)) && verbose >= 0)
       message("Using `base.prob` and `beta1`, ignoring any specifications to `prob`, `beta0`, or `odds.ratio`.")
     odds.ratio <- exp(beta1)
     prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
     beta0 <- log(base.prob / (1 - base.prob))
-  } else if (all(c("beta0", "beta1") %in% arg.names)) {
+  } else if (all(check.not_null(beta0, beta1))) {
     check.numeric(beta0, beta1)
-    if (any(c("base.prob", "prob", "odds.ratio") %in% arg.names) && verbose >= 0)
+    if (any(check.not_null(base.prob, prob, odds.ratio)) && verbose >= 0)
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.prob`, `prob`, or `odds.ratio`.")
     base.prob <- exp(beta0) / (1 + exp(beta0))
     odds.ratio <- exp(beta1)
@@ -270,11 +269,12 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
   # asymptotic variances
   var.beta <- function(beta0, beta1, distribution) {
+    prec <- 1e-8
 
     if (tolower(distribution$dist) == "normal") {
 
-      min <- stats::qnorm(1e-8,     mean = distribution$mean, sd = distribution$sd)
-      max <- stats::qnorm(1 - 1e-8, mean = distribution$mean, sd = distribution$sd)
+      min <- stats::qnorm(prec,     mean = distribution$mean, sd = distribution$sd)
+      max <- stats::qnorm(1 - prec, mean = distribution$mean, sd = distribution$sd)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dnorm(x, mean = distribution$mean, sd = distribution$sd)
@@ -283,7 +283,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     }  else if (tolower(distribution$dist) == "poisson") {
 
       min <- 0
-      max <- stats::qpois(1 - 1e-8, lambda = distribution$lambda)
+      max <- stats::qpois(1 - prec, lambda = distribution$lambda)
 
       # define the distribution function and use summation (calcInt == TRUE)
       dist.func <- function(x) stats::dpois(x, lambda = distribution$lambda)
@@ -301,7 +301,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     } else if (tolower(distribution$dist) == "exponential") {
 
       min <- 0
-      max <- stats::qexp(1 - 1e-8, rate = distribution$rate)
+      max <- stats::qexp(1 - prec, rate = distribution$rate)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dexp(x, rate = distribution$rate)
@@ -318,8 +318,8 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
     } else if (tolower(distribution$dist) == "lognormal") {
 
-      min <- stats::qlnorm(1e-8,     meanlog = distribution$meanlog, sdlog = distribution$sdlog)
-      max <- stats::qlnorm(1 - 1e-8, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      min <- stats::qlnorm(prec,     meanlog = distribution$meanlog, sdlog = distribution$sdlog)
+      max <- stats::qlnorm(1 - prec, meanlog = distribution$meanlog, sdlog = distribution$sdlog)
 
       # define the distribution function and use integration (calcInt == FALSE)
       dist.func <- function(x) stats::dlnorm(x, meanlog = distribution$meanlog, sdlog = distribution$sdlog)

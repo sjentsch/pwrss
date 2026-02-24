@@ -187,7 +187,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
     }
 
-    if (n.paired > 1e5) stop("Sample size exceeds 100,000. Check assumptions.", call. = FALSE)
+    if (n.paired > 1e5) stop("Sample size exceeds 100,000. Please check the assumptions.", call. = FALSE)
 
     n.paired
 

@@ -148,8 +148,14 @@ test_that("ancova.R works", {
 
     expect_error(power.f.ancova(eta.squared = 0.059, factor.levels = 2, alpha = 0.05, verbose = 0),
                  "`n.total` and `power` cannot be NULL at the same time.")
+    expect_error(power.f.ancova(eta.squared = 0.1, factor.levels = c(2, 2), target.effect = "A:B:C", k.covariates = 0, alpha = 0.01, power = .80),
+                 paste("Invalid specification of `target.effect`. It must be either a single letter \"A\", \"B\" or \"C\"",
+                       "\\(depending on the length of `factor.levels`\\), assessing a main effect, or a combination of",
+                       "these letters separated by \":\", e.g., \"A:B\", assessing an interaction."))
     expect_error(power.f.ancova(eta.squared = 0.059, factor.levels = 2, alpha = 0.05, power = 0.80, n.total = 1000, verbose = 0),
                  "Exactly / only one of the parameters `n.total` or `power` should be NULL.")
+    expect_error(power.f.ancova(eta.squared = 1e-9, factor.levels = 8, k.covariates = 0, alpha = 0.01, power = .80),
+                 "Design is not feasible.")
     expect_error(power.f.ancova(eta.squared = 0.059, factor.levels = rep(2, 4), alpha = 0.05, power = 0.80, verbose = 0),
                  "More than three-way ANOVA or ANCOVA is not allowed at the moment.")
     expect_error(pwrss.f.ancova(eta2 = 0.059, f2 = 0.059 / (1 - 0.059), n.levels = 2, alpha = 0.05, power = .80, verbose = 0),

@@ -300,19 +300,18 @@ power.f.mixed.anova <- function(eta.squared,
 
 
 #' @export pwrss.f.rmanova
-pwrss.f.rmanova <- function(eta2 = 0.10, f2 = eta2 / (1 - eta2),
-                             corr.rm = 0.50, n.levels = 2, n.rm = 2,
-                             epsilon = 1, alpha = 0.05,
-                             type = c("between", "within", "interaction"),
-                             n = NULL, power = NULL, verbose = TRUE) {
+pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
+                            corr.rm = 0.50, n.levels = 2, n.rm = 2,
+                            epsilon = 1, alpha = 0.05,
+                            type = c("between", "within", "interaction"),
+                            n = NULL, power = NULL, verbose = TRUE) {
 
   type <- tolower(match.arg(type))
   verbose <- ensure_verbose(verbose)
 
-  f2_eta2 <- as.list(match.call())[c("f2", "eta2")]
-  if (all(utils::hasName(f2_eta2, c("f2", "eta2")))) {
+  if (all(check.not_null(f2, eta2))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
-  } else if (utils::hasName(f2_eta2, "f2")) {
+  } else if (check.not_null(f2)) {
     eta2 <- f2 / (1 + f2)
   }
 

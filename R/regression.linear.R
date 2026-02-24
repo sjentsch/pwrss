@@ -315,16 +315,15 @@ power.f.regression <- function(r.squared.change = NULL,
 power.f.reg <- power.f.regression
 
 #' @export pwrss.f.regression
-pwrss.f.regression <- function(r2 = 0.10, f2 = r2 / (1 - r2),
+pwrss.f.regression <- function(r2 = NULL, f2 = NULL,
                         k = 1, m = k, alpha = 0.05,
                         n = NULL, power = NULL, verbose = TRUE) {
 
   verbose <- ensure_verbose(verbose)
 
-  r2_f2 <- as.list(match.call())[c("r2", "f2")]
-  if (all(utils::hasName(r2_f2, c("r2", "f2")))) {
+  if (all(check.not_null(r2, f2))) {
     stop("Effect size conflict for the alternative. Specify only either `r2` or `f2`.", call. = FALSE)
-  } else if (utils::hasName(r2_f2, "f2")) {
+  } else if (check.not_null(f2)) {
     r2 <- f.to.rsq(f = sqrt(f2), verbose = 0)$r.squared.full
   }
 

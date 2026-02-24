@@ -156,7 +156,6 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
   func.parms <- clean.parms(as.list(environment()))
-  user.parms.names <- names(as.list(match.call()))
 
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
@@ -167,25 +166,25 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   verbose <- ensure_verbose(verbose)
   requested <- check.n_power(n, power)
 
-  if (all(c("base.rate", "rate.ratio") %in% user.parms.names)) {
+  if (all(check.not_null(base.rate, rate.ratio))) {
+    if (any(check.not_null(beta0, beta1)) && verbose >= 0)
+      message("Using `base.rate` and `rate.ratio`, ignoring any specifications to `beta0` or `beta1`.")
     check.nonnegative(base.rate, rate.ratio)
     beta0 <- log(base.rate)
     beta1 <- log(rate.ratio)
-    if (any(c("beta0", "beta1") %in% user.parms.names) && verbose >= 0)
-      message("Using `base.rate` and `rate.ratio`, ignoring any specifications to `beta0` or `beta1`.")
-  } else if (all(c("beta0", "beta1") %in% user.parms.names)) {
+  } else if (all(check.not_null(beta0, beta1))) {
+    if (any(check.not_null(base.rate, rate.ratio)) && verbose >= 0)
+      message("Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
     check.numeric(beta0, beta1)
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
-    if (any(c("base.rate", "rate.ratio") %in% user.parms.names) && verbose >= 0)
-      message("Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
   } else {
     stop("Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`.", call. = FALSE)
   }
 
   if (beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
 
-  if (length(distribution) == 1 && is.character(distribution)) {
+  if (is.character(distribution) && length(distribution) == 1) {
     distribution <- switch(tolower(distribution),
                             `normal` = list(dist = "normal", mean = 0, sd = 1),
                             `poisson` = list(dist = "poisson", lambda = 1),

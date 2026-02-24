@@ -66,18 +66,18 @@ test_that("proportions.gof.R works", {
                  "`w` should be greater than or equal to `null.w`.")
     expect_error(power.chisq.gof(w = 1e-6, df = 1, power = 1 - 1e-6, alpha = 1e-6),
                  "Design is not feasible.")
-    expect_error(pwrss.chisq.gofit(p1 = data.frame, df = 1, power = 0.80, alpha = 0.05, verbose = FALSE),
+    expect_error(pwrss.chisq.gofit(p1 = data.frame, power = 0.80, alpha = 0.05, verbose = FALSE),
                  "`p1` needs to be either a vector or a matrix.")
-    expect_error(pwrss.chisq.gofit(p1 = array(1, c(2, 2, 2)), df = 1, power = 0.80, alpha = 0.05, verbose = FALSE),
+    expect_error(pwrss.chisq.gofit(p1 = array(1, c(2, 2, 2)), power = 0.80, alpha = 0.05, verbose = FALSE),
                  "`p1` needs to be either a vector or a matrix.")
-    expect_error(pwrss.chisq.gofit(p1 = c(0.280, 0.721), df = 1, power = 0.80, alpha = 0.05, verbose = FALSE),
+    expect_error(pwrss.chisq.gofit(p1 = c(0.280, 0.721), power = 0.80, alpha = 0.05, verbose = FALSE),
                  "Cell probabilities in `p1` \\(and `p0` if given\\) should sum to 1.")
-    expect_error(pwrss.chisq.gofit(p1 = matrix(c(0.2, 0.3, 0.4, 0.3, 0.5, 0.2), ncol = 2), df = 1, power = 0.80),
+    expect_error(pwrss.chisq.gofit(p1 = matrix(c(0.2, 0.3, 0.4, 0.3, 0.5, 0.2), ncol = 2), power = 0.80),
                  "Cell probabilities \\(per column\\) in `p1` \\(and `p0` if given\\) should sum to 1.")
-    expect_error(pwrss.chisq.gofit(p1 = matrix(c(0.2, 0.5, 0.3), ncol = 1), p0 = matrix(c(0.2, 0.5, 0.3), nrow = 1), df = 1, power = 0.80),
+    expect_error(pwrss.chisq.gofit(p1 = matrix(c(0.2, 0.5, 0.3), ncol = 1), p0 = matrix(c(0.2, 0.5, 0.3), nrow = 1), power = 0.80),
                  "Dimensions of `p1` and `p0` do not match up.")
     expect_error(pwrss.chisq.gofit(w = 0.44, power = 0.80, alpha = 0.05, verbose = 0),
-                 "You need to specify both `w` and `df`.")
+                 "You need to specify either `w` and `df` or `p1`.")
     expect_warning(pwrss.chisq.gofit(p1 = c(0.72, 0.28), w = 0.44, df = 1, power = 0.80, alpha = 0.05, verbose = 0),
                    "Ignoring any specifications to `p1`, or `p0`.")
 })

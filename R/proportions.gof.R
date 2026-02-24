@@ -222,14 +222,18 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
                               alpha = 0.05, verbose = TRUE) {
 
   verbose <- ensure_verbose(verbose)
-  arg.names <- names(as.list(match.call()))
 
   # p1, p0, w, and df are checked below
   if (!is.null(power)) check.proportion(power)
   if (!is.null(n)) check.sample.size(n)
   check.proportion(alpha)
 
-  if (!("w" %in% arg.names) && "p1" %in% arg.names) {
+  if (all(check.not_null(w, df))) {
+    if (any(check.not_null(p1, p0)))
+      warning("Ignoring any specifications to `p1`, or `p0`.", call. = FALSE)
+    check.positive(w)
+    check.positive(df)
+  } else if (check.not_null(p1)) {
     if (is.vector(p1)) {
       if (!is.null(p0)) check.same.lengths(p0, p1)
       if (sum(p1) != 1 || (!is.null(p0) && sum(p0) != 1))
@@ -245,13 +249,8 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
     mtxW <- probs.to.w(p1, p0, verbose = 0)
     w <- mtxW$w
     if (is.null(df)) df <- mtxW$df
-  } else if ("w" %in% arg.names) {
-    if (any(c("p1", "p0") %in% arg.names))
-      warning("Ignoring any specifications to `p1`, or `p0`.", call. = FALSE)
-    if (!("df" %in% arg.names))
-      stop("You need to specify both `w` and `df`.", call. = FALSE)
-    check.positive(w)
-    check.positive(df)
+  } else {
+    stop("You need to specify either `w` and `df` or `p1`.", call. = FALSE)
   }
 
   gof.obj <- power.chisq.gof(w = w, null.w = 0, df = df,

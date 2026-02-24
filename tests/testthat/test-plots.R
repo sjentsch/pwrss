@@ -389,9 +389,11 @@ test_that("plots work", {
         unlink(path)
     }
 
+    expect_error(.plot.t.t1t2(ncp = 2, df = 0, alpha = 0.05),
+                 "`df` must be numeric, have a value of at least 1 and have a length of 1.")
     expect_error(plot(pwrss.z.mediation(a = 0.25, b = 0.25, cp = 0.10, n = 500, verbose = FALSE)),
                  "Plotting is no longer available for this type of object.")
     expect_error(plot(power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50, verbose = 0)),
                  "Plotting is not available for Fisher's or McNemar's exact test.")
-    expect_error(plot.pwrss(NULL), "Not an object of the type 'pwrss'.")
+    expect_error(plot.pwrss(NULL), "Not an object of the type 'pwrss'.")    
 })

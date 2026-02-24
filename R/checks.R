@@ -200,6 +200,15 @@ check.n_power <- function(n = NULL, power = NULL) {
 
 } # check.power_n
 
+check.null <- function(...) {
+
+  args <- list(...)
+
+  vapply(args, is.null, logical(1))
+} # check.null
+
+check.not_null <- function(...) !check.null(...) # check.not_null
+
 # helper function(s) ---------------------------------------------------------------------------------------------------
 format_errmsg <- function(names = c(), fnc.name = NULL) {
   sprintf("Argument%s %s %s not have %svalid %s value%s (must be length 1, %s)",
