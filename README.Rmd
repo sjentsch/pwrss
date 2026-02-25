@@ -22,18 +22,12 @@ knitr::opts_chunk$set(
 [![Last commit](https://img.shields.io/github/last-commit/metinbulus/pwrss?logo=GitHub)](https://github.com/metinbulus/pwrss)
 [![Register an issue](https://img.shields.io/github/issues/metinbulus/pwrss?color=%23fa251e&logo=GitHub)](https://github.com/metinbulus/pwrss/issues)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://metinbulus.github.io/pwrss/)
-<!---
 [![R-hub](https://github.com/metinbulus/pwrss/actions/workflows/rhub.yaml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/rhub.yaml)
 [![R-CMD-check](https://github.com/metinbulus/pwrss/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/R-CMD-check.yaml)
 [![CI](https://github.com/metinbulus/pwrss/actions/workflows/CI.yml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/CI.yml)
 [![pkgcheck](https://github.com/metinbulus/pwrss/workflows/pkgcheck/badge.svg)](https://github.com/metinbulus/pwrss/actions?query=workflow%3Apkgcheck)
 [![Codecov coverage](https://codecov.io/gh/metinbulus/pwrss/branch/main/graph/badge.svg)](https://app.codecov.io/gh/metinbulus/pwrss?branch=main)
---->
 <!-- badges: end -->
-
-<!---
-[//]: [![Build Status](https://app.travis-ci.com/metinbulus/pwrss.svg?branch=main)](https://app.travis-ci.com/metinbulus/pwrss)
---->
 
 
 ```{r, child=c('vignettes/examples.Rmd')}

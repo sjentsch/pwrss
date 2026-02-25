@@ -9,6 +9,7 @@ vignette: >
 output:
   rmarkdown::html_document:
     # theme: cerulean  # or united, cosmo, readable, lumen, etc.
+    css: examples.css
     toc: true
     number_sections: true
     toc_float: true
@@ -25,24 +26,6 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.width = 7,
                       fig.align = "center",
                       out.width = "100%")
-```
-
-```{css, echo=FALSE}
-div.tocify {
-  width: 30%;
-  max-width: 260px;
-  max-height: 100%;
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader, .tocify-item {
-  font-size: 0.90em;
-  padding-left: 70px;
-  text-indent: 0;
-}
 ```
 
 ```{r setup, include=FALSE}

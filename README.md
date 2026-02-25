@@ -16,32 +16,13 @@ commit](https://img.shields.io/github/last-commit/metinbulus/pwrss?logo=GitHub)]
 [![Register an
 issue](https://img.shields.io/github/issues/metinbulus/pwrss?color=%23fa251e&logo=GitHub)](https://github.com/metinbulus/pwrss/issues)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://metinbulus.github.io/pwrss/)
-<!---
 [![R-hub](https://github.com/metinbulus/pwrss/actions/workflows/rhub.yaml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/rhub.yaml)
 [![R-CMD-check](https://github.com/metinbulus/pwrss/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/R-CMD-check.yaml)
 [![CI](https://github.com/metinbulus/pwrss/actions/workflows/CI.yml/badge.svg)](https://github.com/metinbulus/pwrss/actions/workflows/CI.yml)
 [![pkgcheck](https://github.com/metinbulus/pwrss/workflows/pkgcheck/badge.svg)](https://github.com/metinbulus/pwrss/actions?query=workflow%3Apkgcheck)
-[![Codecov coverage](https://codecov.io/gh/metinbulus/pwrss/branch/main/graph/badge.svg)](https://app.codecov.io/gh/metinbulus/pwrss?branch=main)
----> <!-- badges: end -->
-
-<!---
-[//]: [![Build Status](https://app.travis-ci.com/metinbulus/pwrss.svg?branch=main)](https://app.travis-ci.com/metinbulus/pwrss)
---->
-<style type="text/css">
-div.tocify {
-  width: 30%;
-  max-width: 260px;
-  max-height: 100%;
-}
-&#10;.tocify ul, .tocify li {
-  line-height: 20px;
-}
-&#10;.tocify-subheader, .tocify-item {
-  font-size: 0.90em;
-  padding-left: 70px;
-  text-indent: 0;
-}
-</style>
+[![Codecov
+coverage](https://codecov.io/gh/metinbulus/pwrss/branch/main/graph/badge.svg)](https://app.codecov.io/gh/metinbulus/pwrss?branch=main)
+<!-- badges: end -->
 
 <div style="background-color:rgb(255, 165, 90); padding: 20px 20px 1px; border-radius:5px;">
 
@@ -164,7 +145,7 @@ power.t.test(ncp = -3.519, # t-value for hp variable
              plot = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -345,7 +326,7 @@ power.z.test(mean = -3.994, # z-value for wool B
              plot = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -426,7 +407,7 @@ power.z.test(mean = ncp,
              plot = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -637,7 +618,7 @@ power.chisq.test(ncp = 18.463,
                  plot = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -708,7 +689,7 @@ power.binom.test(size = n.total, # number of eruptions
                  plot = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
     #> +--------------------------------------------------+
     #> |                POWER CALCULATION                 |
@@ -890,7 +871,7 @@ power.t.student(d = 0.20, power = 0.80) |>
   plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
 NOTE: In earlier versions of the {pwrss} package, the `plot()` function
 generated multiple panel plots for ANCOVA designs and mediation models.

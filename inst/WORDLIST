@@ -22,6 +22,8 @@ carlo
 changelog
 chatbot
 ci
+CMD
+Codecov
 colorectal
 confounder
 Connor
@@ -113,6 +115,7 @@ osf
 overweights
 paketi
 pharmacokinetics
+pkgcheck
 Plummer
 poisson
 Polat
