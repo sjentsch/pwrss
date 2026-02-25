@@ -1,3 +1,7 @@
+if(getRversion() >= "2.15.1")
+  utils::globalVariables(c("crtSnp"))
+
+
 clean.parms <- function(func.parms = list()) {
   func.parms[names(func.parms)[!grepl("^power$|^n$|^n2$|^n.paired$|^n.total$|^n.vector$", names(func.parms))]]
 }
@@ -29,7 +33,7 @@ check.snap4plot <- function(snpFle = "", pltFnc = NULL, pltPrm = list(), pltWdt 
       plot(do.call(pltFnc, c(pltPrm, addPrm)))
     }
     grDevices::dev.off()
-    expect_snapshot_file(tmpFle, snpFle, variant = Sys.info()[["sysname"]])
+    testthat::expect_snapshot_file(tmpFle, snpFle, variant = Sys.info()[["sysname"]])
     unlink(tmpFle)
   }
 }

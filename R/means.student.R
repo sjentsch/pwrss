@@ -14,17 +14,17 @@
 #' studies with small sample sizes or high-risk interventions.
 #'
 #' Formulas are validated using Monte Carlo simulations (see Bulus, 2024),
-#' G*Power, \url{http://powerandsamplesize.com/}, and tables in the PASS
-#' documentation. One key difference between PASS and \code{pwrss} lies in how
-#' they handle non-inferiority and superiority tests-that is, one-sided tests
-#' defined by a negligible effect margin (implemented as of this version). PASS
-#' shifts the test statistic so that the null hypothesis assumes a zero effect,
-#' treating the negligible margin as part of the alternative hypothesis. As a
-#' result, the test statistic is evaluated against a central distribution. In
-#' contrast, \code{pwrss} treats the negligible effect as the true null value,
-#' and the test statistic is evaluated under a non-central distribution. This
-#' leads to slight differences up to third decimal place. To get the same
-#' results, reflect the margin in \code{null.d} and specify \code{margin = 0}.
+#' G*Power, and tables in the PASS documentation. One key difference between
+#' PASS and \code{pwrss} lies in how they handle non-inferiority and
+#' superiority tests-that is, one-sided tests defined by a negligible effect
+#' margin (implemented as of this version). PASS shifts the test statistic so
+#' that the null hypothesis assumes a zero effect, treating the negligible
+#' margin as part of the alternative hypothesis. As a result, the test
+#' statistic is evaluated against a central distribution. In contrast,
+#' \code{pwrss} treats the negligible effect as the true null value, and the
+#' test statistic is evaluated under a non-central distribution. This leads to
+#' slight differences up to third decimal place. To get the same results,
+#' reflect the margin in \code{null.d} and specify \code{margin = 0}.
 #'
 #' Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 #' et al. (2018) and Lakens (2017).
@@ -474,17 +474,17 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #' studies with small sample sizes or high-risk interventions.
 #'
 #' Formulas are validated using Monte Carlo simulations (see Bulus, 2024),
-#' G*Power, \url{http://powerandsamplesize.com/}, and tables in the PASS
-#' documentation. One key difference between PASS and \code{pwrss} lies in how
-#' they handle non-inferiority and superiority tests-that is, one-sided tests
-#' defined by a negligible effect margin (implemented as of this version). PASS
-#' shifts the test statistic so that the null hypothesis assumes a zero effect,
-#' treating the negligible margin as part of the alternative hypothesis. As a
-#' result, the test statistic is evaluated against a central distribution. In
-#' contrast, \code{pwrss} treats the negligible effect as the true null value,
-#' and the test statistic is evaluated under a non-central distribution. This
-#' leads to slight differences up to third decimal place. To get the same
-#' results, reflect the margin in \code{null.d} and specify \code{margin = 0}.
+#' G*Power, and tables in the PASS documentation. One key difference between
+#' PASS and \code{pwrss} lies in how they handle non-inferiority and
+#' superiority tests-that is, one-sided tests defined by a negligible effect
+#' margin (implemented as of this version). PASS shifts the test statistic so
+#' that the null hypothesis assumes a zero effect, treating the negligible
+#' margin as part of the alternative hypothesis. As a result, the test
+#' statistic is evaluated against a central distribution. In contrast,
+#' \code{pwrss} treats the negligible effect as the true null value, and the
+#' test statistic is evaluated under a non-central distribution. This leads to
+#' slight differences up to third decimal place. To get the same results,
+#' reflect the margin in \code{null.d} and specify \code{margin = 0}.
 #'
 #' Equivalence tests are implemented in line with Bulus and Polat (2023), Chow
 #' et al. (2018) and Lakens (2017).
