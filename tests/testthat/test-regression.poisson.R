@@ -207,6 +207,12 @@ test_that("regression.poisson.R works", {
                  c(0.609332289, 0.933746771))
     # results are not identical to GPower for Signorini; for Demidenko (both with and without VC), the N's are correct
 
+    # table from PASS (p. 870-5)
+#    pois_pwr <- function(rr, n) {
+#      pwrss::power.z.poisson(base.rate = 1, rate.ratio = rr, alpha = 0.05, n = n, alternative = "two.sided", method = "signorini",
+#                             mean.exposure = 1, dist = list(dist = "normal", mean = 3.2, sd = 2.1), verbose = 0)$power
+#    }
+
     expect_error(power.z.poisson(beta0 = 0.50, alpha = 0.05, power = 0.80, verbose = 0),
                  "Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`")
     expect_message(power.z.poisson(beta0 = 0.50, beta1 = -0.10, base.rate = exp(0.50), alpha = 0.05, power = 0.80, verbose = 0),
