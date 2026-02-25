@@ -18,10 +18,12 @@
 inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 
   check.sample.size(n)
-  n.adj <- n / (1 - rate)
-  if (ceiling) n.adj <- ceiling(n.adj)
+  verbose <- ensure_verbose(verbose)
 
-  if (ensure_verbose(verbose) > 0) cat(n.adj)
+  n.adj <- ifelse(ceiling, ceiling(n / (1 - rate)), n / (1 - rate))
+
+  if (verbose > 0)
+    cat(n.adj)
 
   invisible(n.adj)
 
@@ -54,9 +56,12 @@ inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 etasq.to.f <- function(eta.squared, verbose = 1) {
 
   check.nonnegative(eta.squared)
+  verbose <- ensure_verbose(verbose)
+
   f.squared <- eta.squared / (1 - eta.squared)
 
-  if (ensure_verbose(verbose) > 0) print(c(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
+  if (verbose > 0)
+    print(c(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
 
   invisible(list(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
 
@@ -89,10 +94,13 @@ etasq.to.f <- function(eta.squared, verbose = 1) {
 f.to.etasq <- function(f, verbose = 1) {
 
   check.nonnegative(f)
+  verbose <- ensure_verbose(verbose)
+
   f.squared <- f ^ 2
   eta.squared <- f.squared / (1 + f.squared)
 
-  if (ensure_verbose(verbose) > 0) print(c(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
+  if (verbose > 0)
+    print(c(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
 
   invisible(list(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
 
@@ -121,13 +129,13 @@ f.to.etasq <- function(f, verbose = 1) {
 #' @export cor.to.z
 cor.to.z <- function(rho, verbose = 1) {
 
-  z <- numeric(length = length(rho))
-  for (i in seq_along(rho)) {
-    check.correlation(rho[i])
-    z[i] <- 0.50 * log((1 + rho[i]) / (1 - rho[i]))
-  }
+  check.vector(rho, check.correlation, min.length = 1)
+  verbose <- ensure_verbose(verbose)
 
-  if (ensure_verbose(verbose) > 0) print(c(z = z, rho = rho))
+  z <- vapply(rho, function(v) log((1 + v) / (1 - v)) / 2, numeric(1))
+
+  if (verbose > 0)
+    print(c(z = z, rho = rho))
 
   invisible(list(z = z, rho = rho))
 
@@ -157,15 +165,13 @@ cor.to.z <- function(rho, verbose = 1) {
 z.to.cor <- function(z, verbose = 1) {
 
   check.vector(z, check.numeric, min.length = 1)
+  verbose <- ensure_verbose(verbose)
 
-  rho <- numeric(length = length(z))
-  for (i in seq_along(z)) {
-    if (!is.numeric(z) || !is.finite(z))
-      stop("Incorrect value for z", call. = FALSE)
-    rho[i] <- (exp(2 * z[i]) - 1) / (exp(2 * z[i]) + 1)
-  }
+  rho <- vapply(z, function(v) (exp(2 * v) - 1) / (exp(2 * v) + 1), numeric(1))
 
-  if (ensure_verbose(verbose) > 0) print(c(rho = rho, z = z))
+  if (verbose > 0)
+    print(c(rho = rho, z = z))
+
   invisible(list(rho = rho, z = z))
 
 } # z.to.cor()
@@ -200,13 +206,17 @@ z.to.cor <- function(z, verbose = 1) {
 #'
 #' @export cors.to.q
 cors.to.q <- function(rho1, rho2, verbose = 1) {
+
   check.correlation(rho1, rho2)
+  verbose <- ensure_verbose(verbose)
 
   q <- cor.to.z(rho1, FALSE)$z - cor.to.z(rho2, FALSE)$z
 
-  if (ensure_verbose(verbose) > 0) print(c(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
+  if (verbose > 0)
+    print(c(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
 
   invisible(list(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
+
 } # cors.to.q()
 
 
@@ -235,9 +245,10 @@ cors.to.q <- function(rho1, rho2, verbose = 1) {
 #' @export q.to.cors
 q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 
+  check.numeric(q)
   if (!is.null(rho1)) check.correlation(rho1)
   if (!is.null(rho2)) check.correlation(rho2)
-  check.numeric(q)
+  verbose <- ensure_verbose(verbose)
 
   if (is.null(rho1) && is.null(rho2))
     stop("Both `rho1` and `rho2` cannot be NULL.", call. = FALSE)
@@ -247,14 +258,14 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
   if (is.null(rho1) && !is.null(rho2)) {
     z1 <- cor.to.z(rho2, FALSE)$z - q
     rho1 <- (exp(2 * z1) - 1) / (exp(2 * z1) + 1)
-  }
-
-  if (!is.null(rho1) && is.null(rho2)) {
+  } else if (!is.null(rho1) && is.null(rho2)) {
     z2 <- cor.to.z(rho1, FALSE)$z + q
     rho2 <- (exp(2 * z2) - 1) / (exp(2 * z2) + 1)
   }
 
-  if (ensure_verbose(verbose) > 0) print(c(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
+  if (verbose > 0)
+    print(c(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
+
   invisible(list(q = q, delta = rho1 - rho2, rho1 = rho1, rho2 = rho2))
 
 } # q.to.cors()
@@ -305,16 +316,13 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.numeric(d)
-
   design <- tolower(match.arg(design))
+  verbose <- ensure_verbose(verbose)
 
-  if (design == "independent") {
-    prob <- stats::pnorm(d / sqrt(2))
-  } else {
-    prob <- stats::pnorm(d)
-  }
+  prob <- stats::pnorm(d / sqrt(ifelse(design == "independent", 2, 1)))
 
-  if (ensure_verbose(verbose) > 0) print(c(cles = prob, d = d))
+  if (verbose > 0)
+    print(c(cles = prob, d = d))
 
   invisible(list(cles = prob, d = d))
 
@@ -325,16 +333,13 @@ d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verb
 cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.proportion(cles)
-
   design <- tolower(match.arg(design))
+  verbose <- ensure_verbose(verbose)
 
-  if (design == "independent") {
-    d <- sqrt(2) * stats::qnorm(cles)
-  } else {
-    d <- stats::qnorm(cles)
-  }
+  d <- sqrt(ifelse(design == "independent", 2, 1)) * stats::qnorm(cles)
 
-  if (ensure_verbose(verbose) > 0) print(c(d = d, cles = cles))
+  if (verbose > 0)
+    print(c(d = d, cles = cles))
 
   invisible(list(d = d, cles = cles))
 
@@ -385,12 +390,8 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
 #'            rho.paired = 0.50)
 #'
 #' @export means.to.d
-means.to.d <- function(mu1, mu2 = 0,
-                       sd1 = 1, sd2 = 1,
-                       n.ratio = 1, n2,
-                       paired = FALSE,
-                       rho.paired = 0.50,
-                       verbose = 1) {
+means.to.d <- function(mu1, mu2 = 0, sd1 = 1, sd2 = 1, n.ratio = 1, n2,
+                       paired = FALSE, rho.paired = 0.50, verbose = 1) {
 
   func.parms <- clean.parms(as.list(environment()))
 
@@ -405,9 +406,8 @@ means.to.d <- function(mu1, mu2 = 0,
 
   alpha <- 0.05
   var.ratio <- sd1 ^ 2 / sd2 ^ 2
-  f.crit.lower <- stats::qf(alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
-  f.crit.upper <- stats::qf(1 - alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
-  if (var.ratio <= f.crit.lower || var.ratio >= f.crit.upper)
+  f.crit <- stats::qf(alpha, df1 = n1 - 1, df2 = n2 - 1, lower.tail = TRUE)
+  if (var.ratio <= f.crit || var.ratio >= (1 / f.crit))
     warning("Interpretation of Cohen's d may no longer be valid when variances differ beyond sampling error.\n", call. = FALSE)
 
   if (paired) {
@@ -418,12 +418,10 @@ means.to.d <- function(mu1, mu2 = 0,
 
   d <- (mu1 - mu2) / pooled.sd
 
-  if (ensure_verbose(verbose) > 0) print(c(d = d))
-  invisible(list(parms = func.parms,
-                 d = d,
-                 pooled.sd = pooled.sd,
-                 var.ratio = var.ratio,
-                 n1 = n1, n2 = n2))
+  if (verbose > 0)
+    print(c(d = d))
+
+  invisible(list(parms = func.parms, d = d, pooled.sd = pooled.sd, var.ratio = var.ratio, n1 = n1, n2 = n2))
 
 } # means.to.d
 
@@ -459,10 +457,12 @@ means.to.d <- function(mu1, mu2 = 0,
 probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 
   check.proportion(prob1, prob2)
+  verbose <- ensure_verbose(verbose)
 
   h <- 2 * asin(sqrt(prob1)) - 2 * asin(sqrt(prob2))
 
-  if (ensure_verbose(verbose) > 0) print(c(h = h, prob1 = prob1, prob2 = prob2))
+  if (verbose > 0)
+    print(c(h = h, prob1 = prob1, prob2 = prob2))
 
   invisible(list(h = h, prob1 = prob1, prob2 = prob2))
 
@@ -715,15 +715,14 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
   func.parms <- clean.parms(as.list(environment()))
-  verbose <- ensure_verbose(verbose)
 
   check.proportion(prob11, prob10, prob01, prob00)
+  verbose <- ensure_verbose(verbose)
 
   total <- prob11 + prob10 + prob01 + prob00
 
-  if (abs(total - 1) > 1e-6) {
+  if (abs(total - 1) > 1e-6)
     stop("Joint probabilities must sum to 1.", call. = FALSE)
-  }
 
   prob1 <- prob11 + prob10
   prob2 <- prob11 + prob01
@@ -739,11 +738,8 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
   }
 
-  if (verbose > 0) {
-
+  if (verbose > 0)
     print(c(prob1 = prob1, prob2 = prob2, rho = rho))
-
-  }
 
   invisible(list(parms = func.parms, prob1 = prob1, prob2 = prob2, rho = rho))
 
@@ -847,13 +843,16 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 #' @export probs.to.w
 probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
 
+  verbose <- ensure_verbose(verbose)
+
   if (any(prob.matrix < 0) || any(prob.matrix > 1))
     stop("Matrix elements outside of [0, 1] range.", call. = FALSE)
 
   if (is.null(null.prob.matrix)) {
-    ifelse(is.vector(prob.matrix),
-           null.prob.matrix <- rep(1 / length(prob.matrix), length(prob.matrix)),
-           null.prob.matrix <- outer(rowSums(prob.matrix), colSums(prob.matrix)) / sum(prob.matrix))
+    if (is.vector(prob.matrix))
+      null.prob.matrix <- rep(1 / length(prob.matrix), length(prob.matrix))
+    else
+      null.prob.matrix <- outer(rowSums(prob.matrix), colSums(prob.matrix)) / sum(prob.matrix)
   } else {
     if (any(null.prob.matrix < 0) || any(null.prob.matrix > 1))
       stop("Matrix elements outside of [0, 1] range.", call. = FALSE)
@@ -871,20 +870,16 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
     stop("`prob.matrix` must be either a vector or a matrix.", call. = FALSE)
   }
 
-  ifelse(is.vector(prob.matrix),
-         df <- length(prob.matrix) - 1,
-         df <- (nrow(prob.matrix) - 1) * (ncol(prob.matrix) - 1))
-
+  df <- ifelse(is.vector(prob.matrix), length(prob.matrix) - 1, (nrow(prob.matrix) - 1) * (ncol(prob.matrix) - 1))
   chisq <- sum((prob.matrix - null.prob.matrix) ^ 2 / null.prob.matrix)
-
-  ifelse(is.vector(prob.matrix),
-         mdf <- 1,
-         mdf <- min(nrow(prob.matrix) - 1, ncol(prob.matrix) - 1))
-
+  mdf <- ifelse(is.vector(prob.matrix), 1, min(nrow(prob.matrix) - 1, ncol(prob.matrix) - 1))
   w <- sqrt(chisq / (sum(prob.matrix) * mdf))
 
-  if (w > 1) warning("w > 1 is unrealistic, please check your input.", call. = FALSE)
-  if (ensure_verbose(verbose) > 0) print(c(w = w, df = df))
+  if (w > 1)
+    warning("w > 1 is unrealistic, please check your input.", call. = FALSE)
+
+  if (verbose > 0)
+    print(c(w = w, df = df))
 
   invisible(list(w = w, df = df, prob.matrix = prob.matrix, null.prob.matrix = null.prob.matrix))
 
