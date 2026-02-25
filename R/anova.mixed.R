@@ -324,6 +324,6 @@ pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
 
   # cat("This function will be removed in the future. \n Please use power.f.mixed.anova() function. \n")
 
-  return(invisible(mixed.anova.obj))
+  invisible(mixed.anova.obj)
 
 } # pwrss.f.rmanova()

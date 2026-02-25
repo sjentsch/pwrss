@@ -479,7 +479,7 @@ pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
 
   # cat("This function will be removed in the future. \n Please use power.z.poisson() function. \n")
 
-  return(invisible(poisreg.obj))
+  invisible(poisreg.obj)
 
 } # pwrss.z.poisson
 

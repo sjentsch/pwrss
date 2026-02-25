@@ -128,8 +128,8 @@ power.t.test <- function(ncp, null.ncp = 0,
 
   } # verbose
 
-  return(invisible(list(alternative = alternative, ncp = ncp, null.ncp = null.ncp,
-                        df = df, alpha = alpha, t.alpha = t.alpha, power = power)))
+  invisible(list(alternative = alternative, ncp = ncp, null.ncp = null.ncp,
+                 df = df, alpha = alpha, t.alpha = t.alpha, power = power))
 
 } # end of power.t.test()
 

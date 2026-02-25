@@ -164,9 +164,8 @@ power.exact.fisher <- function(prob1, prob2,
     sd.null <- pwr.obj$sd.null
     z.alpha <- pwr.obj$z.alpha
 
-    return(list(power = power, mean.alternative =  mean.alternative,
-                sd.alternative = sd.alternative, mean.null = mean.null,
-                sd.null = sd.null, z.alpha = z.alpha))
+    list(power = power, mean.alternative = mean.alternative, sd.alternative = sd.alternative,
+         mean.null = mean.null, sd.null = sd.null, z.alpha = z.alpha)
 
   } # pwr.approx
 
@@ -181,7 +180,7 @@ power.exact.fisher <- function(prob1, prob2,
                          pooled.stderr = pooled.stderr)$power
     }, interval = c(2, 1e10))$root
 
-    return(n2)
+    n2
 
   } # ss.approx()
 

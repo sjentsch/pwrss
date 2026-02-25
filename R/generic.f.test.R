@@ -66,8 +66,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
 
   } # end of verbose
 
-  return(invisible(list(power = power, ncp = ncp, null.ncp = null.ncp,
-                        alpha = alpha, df1 = df1, df2 = df2, f.alpha = f.alpha)))
+  invisible(list(power = power, ncp = ncp, null.ncp = null.ncp, alpha = alpha, df1 = df1, df2 = df2, f.alpha = f.alpha))
 
 } # end of power.f.test()
 

@@ -287,7 +287,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
                       alpha = alpha, z.alpha = NA, power = power)
     }
 
-    return(pwr.obj)
+    pwr.obj
 
   } # pwr.med()
 
@@ -344,7 +344,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
       }, interval = c(10, 1e10))$root
     }
 
-    return(n)
+    n
 
   } # ss.med()
 

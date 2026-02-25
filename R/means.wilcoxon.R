@@ -470,7 +470,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
 
   # cat("This function will be removed in the future. \n Please use `power.np.wilcoxon()`. \n")
 
-  return(invisible(wilcox.obj))
+  invisible(wilcox.obj)
 
 } # end of pwrss.np.2groups()
 

@@ -103,7 +103,7 @@
     prob.shaded <- stats::pbinom(max(xlim), size = size, prob = prob, lower.tail = TRUE)
   }
 
-  return(invisible(prob.shaded))
+  invisible(prob.shaded)
 
 }
 

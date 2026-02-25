@@ -770,7 +770,7 @@ pwrss.t.mean <- function(mu, sd = 1, mu0 = 0, margin = 0, alpha = 0.05,
 
   # cat("This function will be removed in the future. \n Please use power.t.student() function. \n")
 
-  return(invisible(student.obj))
+  invisible(student.obj)
 
 } # pwrss.t.mean()
 
@@ -863,7 +863,7 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
 
   # cat("This function will be removed in the future. \n Please use power.t.student() or power.t.welch() function. \n")
 
-  return(invisible(t.obj))
+  invisible(t.obj)
 
 } # pwrss.t.2means()
 

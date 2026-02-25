@@ -61,8 +61,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
 
   } # end of verbose
 
-  return(invisible(list(power = power, ncp = ncp, null.ncp = null.ncp,
-                        alpha = alpha, df = df, chisq.crit = chisq.alpha)))
+  invisible(list(power = power, ncp = ncp, null.ncp = null.ncp, alpha = alpha, df = df, chisq.crit = chisq.alpha))
 
 } # end of power.chisq.test()
 

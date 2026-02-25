@@ -152,13 +152,8 @@ power.binom.test <- function(size,
 
   } # end of verbose
 
-  return(invisible(list(size = size,
-                        alpha = approx.alpha,
-                        alternative = alternative,
-                        prob = prob,
-                        null.prob = null.prob,
-                        binom.alpha = binom.alpha,
-                        power = power)))
+  invisible(list(size = size, alpha = approx.alpha, alternative = alternative,
+                 prob = prob, null.prob = null.prob, binom.alpha = binom.alpha, power = power))
 
 } # power.binom.test()
 

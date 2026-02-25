@@ -259,6 +259,6 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
 
   # cat("This function will be removed in the future. \n Please use power.chisq.gof() function. \n")
 
-  return(invisible(gof.obj))
+  invisible(gof.obj)
 
 } # end of pwrss.chisq.gof()

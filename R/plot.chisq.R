@@ -76,10 +76,8 @@
     graphics::polygon(x = xs, y = ys, col = color, density = 25, angle = 45, border = NA)
   }
 
-  prob <- stats::pchisq(max(xlim), df = df, ncp = ncp, lower.tail = TRUE) -
-    stats::pchisq(min(xlim), df = df, ncp = ncp, lower.tail = TRUE)
-
-  return(invisible(prob))
+  invisible(stats::pchisq(max(xlim), df = df, ncp = ncp, lower.tail = TRUE) -
+            stats::pchisq(min(xlim), df = df, ncp = ncp, lower.tail = TRUE))
 
 } # end of .paint.chisq.dist()
 

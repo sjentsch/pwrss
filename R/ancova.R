@@ -170,7 +170,7 @@ power.f.ancova <- function(eta.squared,
   func.parms <- clean.parms(as.list(environment()))
 
   check.nonnegative(eta.squared, null.eta.squared, k.covariates)
-  check.vector(factor.levels, check.factor.level, 1)
+  check.vector(factor.levels, check.factor.level, min.length = 1)
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
@@ -310,7 +310,7 @@ pwrss.f.ancova <- function(eta2 = NULL, f2 = NULL,
 
   # cat("This function will be removed in the future. \n Please use power.f.ancova() function. \n")
 
-  return(invisible(ancova.obj))
+  invisible(ancova.obj)
 
 } # pwrss.f.ancova
 
@@ -1081,7 +1081,7 @@ power.f.ancova.shieh <- function(mu.vector,
   if (!is.null(p.vector)) check.vector(p.vector, check.proportion)
   check.same.lengths(mu.vector, sd.vector, n.vector, p.vector)
   if (is.null(factor.levels)) factor.levels <- length(mu.vector)
-  check.vector(factor.levels, check.factor.level, 1)
+  check.vector(factor.levels, check.factor.level, min.length = 1)
   if (length(mu.vector) != prod(factor.levels))
     stop("Provide a vector of means (`mu.vector`) with its length equal to the the product of `factor.levels`.", call. = FALSE)
   if (r.squared > 1 || r.squared < 0 || !is.numeric(r.squared) || length(r.squared) != 1)

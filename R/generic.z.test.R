@@ -141,15 +141,8 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
 
   } # verbose
 
-
-  return(invisible(list(alternative = alternative,
-                        mean = mean,
-                        sd = sd,
-                        null.mean = null.mean,
-                        null.sd = null.sd,
-                        alpha = alpha,
-                        z.alpha = z.alpha,
-                        power = power)))
+  invisible(list(alternative = alternative, mean = mean, sd = sd, null.mean = null.mean, null.sd = null.sd,
+                 alpha = alpha, z.alpha = z.alpha, power = power))
 
 } # end of power.z.test()
 

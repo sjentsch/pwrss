@@ -70,10 +70,8 @@
     graphics::polygon(x = xs, y = ys, col = color, density = 25, angle = 45, border = NA)
   }
 
-  prob <- stats::pt(max(xlim), df = df, ncp = ncp, lower.tail = TRUE) -
-    stats::pt(min(xlim), df = df, ncp = ncp, lower.tail = TRUE)
-
-  return(invisible(prob))
+  invisible(stats::pt(max(xlim), df = df, ncp = ncp, lower.tail = TRUE) -
+            stats::pt(min(xlim), df = df, ncp = ncp, lower.tail = TRUE))
 
 }
 

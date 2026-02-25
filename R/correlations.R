@@ -559,7 +559,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 
   # cat("This function will be removed in the future. \n Please use power.z.twocors() function. \n")
 
-  return(invisible(twocors.obj))
+  invisible(twocors.obj)
 
 } # pwrss.z.2corrs()
 
@@ -750,6 +750,6 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
 
   # cat("This function will be removed in the future. \n Please use power.z.onecor() function. \n")
 
-  return(invisible(onecor.obj))
+  invisible(onecor.obj)
 
 } # pwrss.z.corr()

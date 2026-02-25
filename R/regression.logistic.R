@@ -622,7 +622,7 @@ pwrss.z.logistic <- function(p1 = NULL, p0 = NULL, odds.ratio  = NULL,
 
   # cat("This function will be removed in the future. \n Please use power.z.logistic() function. \n")
 
-  return(invisible(logreg.obj))
+  invisible(logreg.obj)
 
 } # pwrss.z.logistic
 

@@ -590,7 +590,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 
   # cat("This function will be removed in the future. \n Please use power.z.oneprop() function. \n")
 
-  return(invisible(prop.obj))
+  invisible(prop.obj)
 
 } # pwrss.z.prop()
 
@@ -1190,7 +1190,7 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
 
   # cat("This function will be removed in the future. \n Please use power.z.twoprops() function. \n")
 
-  return(invisible(twoprops.obj))
+  invisible(twoprops.obj)
 
 } # pwrss.z.2props()
 

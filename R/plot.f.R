@@ -76,10 +76,8 @@
     graphics::polygon(x = xs, y = ys, col = color, density = 25, angle = 45, border = NA)
   }
 
-  prob <- stats::pf(max(xlim), df1 = df1, df2 = df2, ncp = ncp, lower.tail = TRUE) -
-    stats::pf(min(xlim), df1 = df1, df2 = df2, ncp = ncp, lower.tail = TRUE)
-
-  return(invisible(prob))
+  invisible(stats::pf(max(xlim), df1 = df1, df2 = df2, ncp = ncp, lower.tail = TRUE) -
+            stats::pf(min(xlim), df1 = df1, df2 = df2, ncp = ncp, lower.tail = TRUE))
 
 } # end of .paint.f.dist()
 

@@ -334,7 +334,7 @@ pwrss.f.regression <- function(r2 = NULL, f2 = NULL,
 
   # cat("This function will be removed in the future. \n Please use power.f.regression() function. \n")
 
-  return(invisible(pwrss.f.reg.obj))
+  invisible(pwrss.f.reg.obj)
 
 } # pwrss.f.regression
 
@@ -667,7 +667,7 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
 
   # cat("This function will be removed in the future. \n Please use power.t.regression() function. \n")
 
-  return(invisible(pwrss.t.reg.obj))
+  invisible(pwrss.t.reg.obj)
 
 } # pwrss.t.regression
 
