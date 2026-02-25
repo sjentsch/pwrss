@@ -16,13 +16,15 @@
 #'
 #' @export inflate.sample
 inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
+
   check.sample.size(n)
   n.adj <- n / (1 - rate)
   if (ceiling) n.adj <- ceiling(n.adj)
 
   if (ensure_verbose(verbose) > 0) cat(n.adj)
 
-  return(invisible(n.adj))
+  invisible(n.adj)
+
 } # inflate.sample
 
 
@@ -50,12 +52,14 @@ inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 #'
 #' @export etasq.to.f
 etasq.to.f <- function(eta.squared, verbose = 1) {
+
   check.nonnegative(eta.squared)
   f.squared <- eta.squared / (1 - eta.squared)
 
   if (ensure_verbose(verbose) > 0) print(c(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
 
   invisible(list(f.squared = f.squared, f = sqrt(f.squared), eta.squared = eta.squared))
+
 } # etasq.to.f
 
 
@@ -83,6 +87,7 @@ etasq.to.f <- function(eta.squared, verbose = 1) {
 #'
 #' @export f.to.etasq
 f.to.etasq <- function(f, verbose = 1) {
+
   check.nonnegative(f)
   f.squared <- f ^ 2
   eta.squared <- f.squared / (1 + f.squared)
@@ -90,6 +95,7 @@ f.to.etasq <- function(f, verbose = 1) {
   if (ensure_verbose(verbose) > 0) print(c(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
 
   invisible(list(eta.squared = eta.squared, f.squared = f.squared, f = sqrt(f.squared)))
+
 } # f.to.etasq
 
 
@@ -114,6 +120,7 @@ f.to.etasq <- function(f, verbose = 1) {
 #'
 #' @export cor.to.z
 cor.to.z <- function(rho, verbose = 1) {
+
   z <- numeric(length = length(rho))
   for (i in seq_along(rho)) {
     check.correlation(rho[i])
@@ -123,6 +130,7 @@ cor.to.z <- function(rho, verbose = 1) {
   if (ensure_verbose(verbose) > 0) print(c(z = z, rho = rho))
 
   invisible(list(z = z, rho = rho))
+
 } # cor.to.z()
 
 
@@ -147,6 +155,9 @@ cor.to.z <- function(rho, verbose = 1) {
 #'
 #' @export z.to.cor
 z.to.cor <- function(z, verbose = 1) {
+
+  check.vector(z, check.numeric, min.length = 1)
+
   rho <- numeric(length = length(z))
   for (i in seq_along(z)) {
     if (!is.numeric(z) || !is.finite(z))
@@ -156,6 +167,7 @@ z.to.cor <- function(z, verbose = 1) {
 
   if (ensure_verbose(verbose) > 0) print(c(rho = rho, z = z))
   invisible(list(rho = rho, z = z))
+
 } # z.to.cor()
 
 
@@ -591,8 +603,8 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
   if (verbose > 0)
     print(c(rho.min = rho.min, rho.max = rho.max, prob11 = prob11, prob10 = prob10, prob01 = prob01, prob00 = prob00))
 
-  return(invisible(list(parms = func.parms,
-                        prob11 = prob11, prob10 = prob10, prob01 = prob01, prob00 = prob00)))
+  invisible(list(parms = func.parms,
+                 prob11 = prob11, prob10 = prob10, prob01 = prob01, prob00 = prob00))
 
 } # joint.probs.2x2
 
@@ -733,8 +745,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
   }
 
-  return(invisible(list(parms = func.parms,
-                        prob1 = prob1, prob2 = prob2, rho = rho)))
+  invisible(list(parms = func.parms, prob1 = prob1, prob2 = prob2, rho = rho))
 
 } # marginal.probs.2x2
 
@@ -874,6 +885,7 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
 
   if (w > 1) warning("w > 1 is unrealistic, please check your input.", call. = FALSE)
   if (ensure_verbose(verbose) > 0) print(c(w = w, df = df))
+
   invisible(list(w = w, df = df, prob.matrix = prob.matrix, null.prob.matrix = null.prob.matrix))
 
 } # probs.to.w

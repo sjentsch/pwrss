@@ -48,7 +48,7 @@ test_that("utils.R works", {
     expect_equal(z.to.cor(4.0,  verbose = 0), list(rho =  0.999329300, z =  4.0))
     expect_equal(z.to.cor(-4.0, verbose = 0), list(rho = -0.999329300, z = -4.0))
     expect_equal(capture.output(z.to.cor(0.1)), c("       rho          z ", "0.09966799 0.10000000 "))
-    expect_error(z.to.cor(Inf, verbose = 0), "Incorrect value for z")
+    expect_error(z.to.cor(Inf, verbose = 0), "All elements of `z` need to be valid numeric values \\(numeric, and finite\\)")
 
     # cors.to.q --------------------------------------------------------------------------------------------------------
     expect_equal(cors.to.q(rho2 = 0.571202682, rho1 = 0.5, verbose = 0),
