@@ -18,11 +18,18 @@ isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.e
 
 # lenInt <- function(n) ifelse(n <= 1, 1, ceiling(log10(abs(n))) + as.integer(n %% 10 == 0))
 
-save_png <- function(code, width = 800, height = 800) {
-  path <- tempfile(fileext = ".png")
-  grDevices::png(path, width = width, height = height)
-  on.exit(grDevices::dev.off())
-  code
-
-  path
+check.snap4plot <- function(snpFle = "", pltFnc = NULL, pltPrm = list(), pltWdt = 800, pltHgh = 800) {
+  if (ifelse(exists("crtSnp"), crtSnp, FALSE) || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots", snpFle))) {
+    tmpFle <- tempfile(fileext = ".png")
+    addPrm <- list(power = 0.80, alpha = 0.05, verbose = 0)[c("power", "alpha", "verbose") %in% names(formals(pltFnc))]
+    grDevices::png(tmpFle, width = pltWdt, height = pltHgh)
+    if (any(c("plot", "plot.main") %in% names(formals(pltFnc)))) {
+      do.call(pltFnc, c(pltPrm, addPrm))
+    } else {
+      plot(do.call(pltFnc, c(pltPrm, addPrm)))
+    }
+    grDevices::dev.off()
+    expect_snapshot_file(tmpFle, snpFle, variant = Sys.info()[["sysname"]])
+    unlink(tmpFle)
+  }
 }
