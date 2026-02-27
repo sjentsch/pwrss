@@ -28,7 +28,7 @@ coverage](https://codecov.io/gh/metinbulus/pwrss/branch/main/graph/badge.svg)](h
 
 <p>
 The original tutorial was published on CRAN and can be accessed at:
-<a href="https://cran.rstudio.com/web/packages/pwrss/vignettes/examples.html">https://cran.rstudio.com/web/packages/pwrss/vignettes/examples.html</a>
+<a href="https://cran.r-project.org/package=pwrss/vignettes/examples.html">https://cran.r-project.org/package=pwrss/vignettes/examples.html</a>
 </p>
 
 </div>
