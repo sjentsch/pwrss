@@ -14,8 +14,8 @@ library(pwrss)
 
 If you find the package and related material useful please cite as:
 
-Bulus, M., & Jentschke, S. (2025). pwrss: Statistical Power and Sample
-Size Calculation Tools. R package version 1.0.0.
+Bulus, M., & Jentschke, S. (2026). pwrss: Statistical Power and Sample
+Size Calculation Tools. R package version 1.2.0.
 <https://doi.org/10.32614/CRAN.package.pwrss>
 
 **Acknowledgments**
