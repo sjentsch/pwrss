@@ -133,7 +133,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(pooled, common.index, ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n, power)
 
   pwr.steiger <- function(rho1, rho2, cov.null, cov.alt, n, alpha, alternative) {
@@ -453,7 +453,7 @@ power.z.twocors <- function(rho1, rho2,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n2, power)
 
   z1 <- cor.to.z(rho1, FALSE)$z
@@ -542,7 +542,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   check.correlation(r1, r2)
   if (!is.null(power)) check.proportion(power)
@@ -652,7 +652,7 @@ power.z.onecor <- function(rho, null.rho = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n, power)
 
   z <- cor.to.z(rho, FALSE)$z
@@ -734,7 +734,7 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
                          n = NULL, power = NULL, verbose = TRUE) {
 
   alternative <- tolower(match.arg(alternative))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   check.correlation(r, r0)
   if (!is.null(power)) check.proportion(power)

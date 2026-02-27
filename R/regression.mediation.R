@@ -202,7 +202,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   check.proportion(alpha)
   check.sample.size(n.simulation, n.draws)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (r.squared.outcome == 0 && "beta.cp" %in% names(match.call()))
@@ -437,7 +437,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
   func.parms <- as.list(environment())
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (is.null(power)) {
 

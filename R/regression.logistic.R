@@ -202,7 +202,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (all(check.not_null(base.prob, prob))) {
@@ -608,7 +608,7 @@ pwrss.z.logistic <- function(p1 = NULL, p0 = NULL, odds.ratio  = NULL,
 
   method <- tolower(match.arg(method))
   alternative <- tolower(match.arg(alternative))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"

@@ -211,7 +211,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n2, power)
 
   if (any(abs(margin) > 10))
@@ -414,7 +414,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
   method <- tolower(match.arg(method))
   alternative <- tolower(match.arg(alternative))
   distribution <- tolower(match.arg(distribution))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   null.d <- 0
   d <- means.to.d(mu1 = mu1, mu2 = mu2,

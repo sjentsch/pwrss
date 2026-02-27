@@ -164,7 +164,7 @@ power.f.mixed.anova <- function(eta.squared,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n.total, power)
 
   if (!all(c("between", "within") %in% factor.type))
@@ -307,7 +307,7 @@ pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
                             n = NULL, power = NULL, verbose = TRUE) {
 
   type <- tolower(match.arg(type))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (all(check.not_null(f2, eta2))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)

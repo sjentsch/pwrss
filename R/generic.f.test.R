@@ -44,7 +44,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
   check.positive(df1, df2)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)

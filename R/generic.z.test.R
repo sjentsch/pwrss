@@ -81,7 +81,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
   check.nonnegative(null.sd)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   # calculate statistical power
   if (alternative == "two.sided") {

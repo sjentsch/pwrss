@@ -18,7 +18,7 @@
 inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 
   check.sample.size(n)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   n.adj <- ifelse(ceiling, ceiling(n / (1 - rate)), n / (1 - rate))
 
@@ -56,7 +56,7 @@ inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
 etasq.to.f <- function(eta.squared, verbose = 1) {
 
   check.nonnegative(eta.squared)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   f.squared <- eta.squared / (1 - eta.squared)
 
@@ -94,7 +94,7 @@ etasq.to.f <- function(eta.squared, verbose = 1) {
 f.to.etasq <- function(f, verbose = 1) {
 
   check.nonnegative(f)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   f.squared <- f ^ 2
   eta.squared <- f.squared / (1 + f.squared)
@@ -130,7 +130,7 @@ f.to.etasq <- function(f, verbose = 1) {
 cor.to.z <- function(rho, verbose = 1) {
 
   check.vector(rho, check.correlation, min.length = 1)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   z <- vapply(rho, function(v) log((1 + v) / (1 - v)) / 2, numeric(1))
 
@@ -165,7 +165,7 @@ cor.to.z <- function(rho, verbose = 1) {
 z.to.cor <- function(z, verbose = 1) {
 
   check.vector(z, check.numeric, min.length = 1)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   rho <- vapply(z, function(v) (exp(2 * v) - 1) / (exp(2 * v) + 1), numeric(1))
 
@@ -208,7 +208,7 @@ z.to.cor <- function(z, verbose = 1) {
 cors.to.q <- function(rho1, rho2, verbose = 1) {
 
   check.correlation(rho1, rho2)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   q <- cor.to.z(rho1, FALSE)$z - cor.to.z(rho2, FALSE)$z
 
@@ -248,7 +248,7 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
   check.numeric(q)
   if (!is.null(rho1)) check.correlation(rho1)
   if (!is.null(rho2)) check.correlation(rho2)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (is.null(rho1) && is.null(rho2))
     stop("Both `rho1` and `rho2` cannot be NULL.", call. = FALSE)
@@ -317,7 +317,7 @@ d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verb
 
   check.numeric(d)
   design <- tolower(match.arg(design))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   prob <- stats::pnorm(d / sqrt(ifelse(design == "independent", 2, 1)))
 
@@ -334,7 +334,7 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
 
   check.proportion(cles)
   design <- tolower(match.arg(design))
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   d <- sqrt(ifelse(design == "independent", 2, 1)) * stats::qnorm(cles)
 
@@ -400,7 +400,7 @@ means.to.d <- function(mu1, mu2 = 0, sd1 = 1, sd2 = 1, n.ratio = 1, n2,
   check.correlation(rho.paired)
   check.positive(sd1, sd2, n.ratio)
   check.sample.size(n2)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   n1 <- n.ratio * n2
 
@@ -457,7 +457,7 @@ means.to.d <- function(mu1, mu2 = 0, sd1 = 1, sd2 = 1, n.ratio = 1, n2,
 probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 
   check.proportion(prob1, prob2)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   h <- 2 * asin(sqrt(prob1)) - 2 * asin(sqrt(prob2))
 
@@ -575,7 +575,7 @@ probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 
   func.parms <- as.list(environment())
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   check.proportion(prob1, prob2)
   check.correlation(rho)
@@ -717,7 +717,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
   func.parms <- as.list(environment())
 
   check.proportion(prob11, prob10, prob01, prob00)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   total <- prob11 + prob10 + prob01 + prob00
 
@@ -843,7 +843,7 @@ marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 #' @export probs.to.w
 probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
 
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (any(prob.matrix < 0) || any(prob.matrix > 1))
     stop("Matrix elements outside of [0, 1] range.", call. = FALSE)

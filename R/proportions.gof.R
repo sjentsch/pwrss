@@ -127,7 +127,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n, power)
 
   if (w < null.w)
@@ -221,7 +221,7 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
                               n = NULL, power = NULL,
                               alpha = 0.05, verbose = TRUE) {
 
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   # p1, p0, w, and df are checked below
   if (!is.null(power)) check.proportion(power)

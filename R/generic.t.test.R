@@ -77,7 +77,7 @@ power.t.test <- function(ncp, null.ncp = 0,
     stop("`df` must be numeric, have a value of at least 1 and have a length of 1.", call. = FALSE)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   # calculate statistical power
   if (alternative == "two.sided") {

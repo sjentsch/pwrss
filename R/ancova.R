@@ -175,7 +175,7 @@ power.f.ancova <- function(eta.squared,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   requested <- check.n_power(n.total, power)
 
@@ -289,7 +289,7 @@ pwrss.f.ancova <- function(eta2 = NULL, f2 = NULL,
                            n.levels = 2, n.covariates = 0, alpha = 0.05,
                            n = NULL, power = NULL, verbose = TRUE) {
 
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (all(check.not_null(f2, eta2))) {
     stop("Effect size conflict for the alternative. Specify only either `eta2` or `f2`.", call. = FALSE)
@@ -446,7 +446,7 @@ power.f.ancova.keppel <- function(mu.vector,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 
@@ -686,7 +686,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
                                 intercept = FALSE,
                                 verbose = 1) {
 
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (length(coding.scheme) > length(factor.levels)) {
 
@@ -1091,7 +1091,7 @@ power.f.ancova.shieh <- function(mu.vector,
   if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
     stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 
@@ -1365,7 +1365,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(tukey.kramer, ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (is.matrix(contrast.vector) && dim(contrast.vector)[1] > 1)
     stop("The number of rows in the contrast matrix should be one.", call. = FALSE)
@@ -1712,7 +1712,7 @@ power.t.contrasts <- function(x = NULL,
   rm(x)
   adjust.alpha <- tolower(match.arg(adjust.alpha))
   func.parms <- as.list(environment())
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   requested <- check.n_power(n.vector, power)
 

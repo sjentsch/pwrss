@@ -65,7 +65,7 @@ power.binom.test <- function(size,
   null.prob <- check.margins(null.prob, check.proportion, alternative)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (!isInt(size) || any(size < 0))
     stop("Argument `size` does not have a valid value (integer-like, >= 0, and finite).", call. = FALSE)

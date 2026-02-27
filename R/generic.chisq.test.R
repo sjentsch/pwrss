@@ -38,7 +38,7 @@ power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
   check.nonnegative(null.ncp)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
 
   if (ncp < null.ncp)
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)

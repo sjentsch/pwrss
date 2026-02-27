@@ -110,7 +110,7 @@ power.exact.fisher <- function(prob1, prob2,
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   requested <- check.n_power(n2, power)
 
   pwr.approx <- function(prob1, prob2, n2, n.ratio,
