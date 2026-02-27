@@ -10,6 +10,19 @@ ensure.verbose <- function(verbose = NULL) {
   }
 }
 
+# check the input parameters n, power and es, and return which calculation is requested
+get.requested <- function(es = NULL, n = NULL, power = NULL) {
+
+  es.name <- deparse(substitute(es), nlines = 1)
+  n.name  <- deparse(substitute(n),  nlines = 1)
+
+  if (sum(check.not_null(n, power, es)) != 2)
+    stop(sprintf("Exactly two of the parameters `%s`, `%s`, or `power` must be given, one has to be NULL.", es.name, n.name), call. = FALSE)
+
+  invisible(c("es", "n", "power")[check.null(es, n, power)]) # return what is requested / to be calculated
+
+} # get.requested
+
 isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.eps ^ 2 / 3)
 
 # lenInt <- function(n) ifelse(n <= 1, 1, ceiling(log10(abs(n))) + as.integer(n %% 10 == 0))
