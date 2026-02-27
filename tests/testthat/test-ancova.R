@@ -567,7 +567,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
                    "n.vector", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
-                      factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80, 
+                      factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80,
                       alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077115847, f = 0.0881562, df1 = 2, df2 = 1241, ncp = 9.67553677,

@@ -5,7 +5,7 @@ test_that("regression.poisson.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "base.rate", "rate.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(base.rate = NULL, rate.ratio = NULL, beta0 = 0.5, beta1 = -0.1, n = NULL, power = 0.80, 
+                 list(base.rate = NULL, rate.ratio = NULL, beta0 = 0.5, beta1 = -0.1, n = NULL, power = 0.80,
                       r.squared.predictor = 0, mean.exposure = 1, alpha = 0.05, alternative = "two.sided",
                       method = "demidenko(vc)", distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "base.rate", "rate.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -37,7 +37,7 @@ test_that("regression.poisson.R works", {
     expect_equal(names(crrRes),
                  c("parms", "test", "base.rate", "rate.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(base.rate = NULL, rate.ratio = NULL, beta0 = 0.5, beta1 = -0.1, n = NULL, power = 0.80, 
+                 list(base.rate = NULL, rate.ratio = NULL, beta0 = 0.5, beta1 = -0.1, n = NULL, power = 0.80,
                       r.squared.predictor = 0, mean.exposure = 1, alpha = 0.05, alternative = "two.sided",
                       method = "demidenko", distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "base.rate", "rate.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
