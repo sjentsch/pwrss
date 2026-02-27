@@ -202,7 +202,7 @@ power.np.wilcoxon <- function(d, null.d = 0, margin = 0,
   distribution <- tolower(match.arg(distribution))
   method <- tolower(match.arg(method))
   design <- tolower(match.arg(design))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.numeric(d, null.d)
   check.margins(margin, check.numeric, alternative)

@@ -127,7 +127,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
@@ -445,7 +445,7 @@ power.z.twocors <- function(rho1, rho2,
                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.correlation(rho1, rho2)
   if (!is.null(n2)) check.sample.size(n2)
@@ -645,7 +645,7 @@ power.z.onecor <- function(rho, null.rho = 0,
                            ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.correlation(rho, null.rho)
   if (!is.null(n)) check.sample.size(n)

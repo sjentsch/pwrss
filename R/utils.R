@@ -393,7 +393,7 @@ cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), v
 means.to.d <- function(mu1, mu2 = 0, sd1 = 1, sd2 = 1, n.ratio = 1, n2,
                        paired = FALSE, rho.paired = 0.50, verbose = 1) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.logical(paired)
   check.numeric(mu1, mu2)
@@ -574,7 +574,7 @@ probs.to.h <- function(prob1, prob2 = 0.50, verbose = 1) {
 #' @export joint.probs.2x2
 joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
   verbose <- ensure_verbose(verbose)
 
   check.proportion(prob1, prob2)
@@ -714,7 +714,7 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 #' @export marginal.probs.2x2
 marginal.probs.2x2 <- function(prob11, prob10, prob01, prob00, verbose = 1) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob11, prob10, prob01, prob00)
   verbose <- ensure_verbose(verbose)

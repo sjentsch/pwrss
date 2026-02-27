@@ -69,7 +69,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
                                 verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob)
   null.prob <- check.margins(null.prob, check.proportion, alternative)
@@ -303,7 +303,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
   alternative <- tolower(match.arg(alternative))
   std.error <- tolower(match.arg(std.error))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob)
   null.prob <- check.margins(null.prob, check.proportion, alternative)
@@ -833,7 +833,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
 
   alternative <- tolower(match.arg(alternative))
   std.error <- tolower(match.arg(std.error))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob1, prob2)
   check.positive(n.ratio)

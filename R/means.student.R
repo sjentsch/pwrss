@@ -328,7 +328,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   alternative <- tolower(match.arg(alternative))
   design <- tolower(match.arg(design))
   claim.basis <- tolower(match.arg(claim.basis))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.numeric(d, null.d)
   margin <- check.margins(margin, check.numeric, alternative)
@@ -577,7 +577,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
   alternative <- tolower(match.arg(alternative))
   claim.basis <- tolower(match.arg(claim.basis))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.numeric(d, null.d, var.ratio)
   margin <- check.margins(margin, check.numeric, alternative)

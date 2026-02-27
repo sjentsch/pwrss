@@ -1,12 +1,12 @@
-test_that("means.wilcoxon.R works", {
-    # power.np.wilcoxon (= pwrss.np.2groups)
+# power.np.wilcoxon (= pwrss.np.2groups) -------------------------------------------------------------------------------
+test_that("power.np.wilcoxon / pwrss.np.2groups work", {
     crrRes <- power.np.wilcoxon(d = 0.25, power = 0.80, alternative = "two.sided", design = "independent", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 265, n2 = 265), power = 0.801445824, t.alpha = 1.964680946 * c(-1, 1),
                       ncp = 2.81211864, null.ncp = 0, df = 504.112719))
@@ -16,9 +16,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = 265, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 265, n2 = 265), power = 0.801445824, t.alpha = 1.964680946 * c(-1, 1),
                       ncp = 2.81211864, null.ncp = 0, df = 504.112719))
@@ -28,9 +28,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 412, n2 = 412), power = 0.8000253, t.alpha = 1.9629911 * c(-1, 1),
                       ncp = 2.8051061, null.ncp = 0, df = 784.862039))
@@ -39,9 +39,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = 412, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 412, n2 = 412), power = 0.8000253, t.alpha = 1.9629911 * c(-1, 1),
                       ncp = 2.8051061, null.ncp = 0, df = 784.862039))
@@ -51,9 +51,21 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "z"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "independent", distribution = "normal", method = "noether", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "noether",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df")],
+                 list(test = "z", n = c(n1 = 434, n2 = 434), power = 0.80068987, z.alpha = 1.959964 * c(-1, 1),
+                      mean = 2.80404853, sd = 1, null.mean = 0, null.sd = 1, df = Inf))
+
+    crrRes <- power.np.wilcoxon(d = 0.20, n2 = 434, alternative = "two.sided", design = "independent",
+                                method = "noether", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "z"))
+    expect_equal(names(crrRes), c("parms", "test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = 434, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "noether",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df")],
                  list(test = "z", n = c(n1 = 434, n2 = 434), power = 0.80068987, z.alpha = 1.959964 * c(-1, 1),
                       mean = 2.80404853, sd = 1, null.mean = 0, null.sd = 1, df = Inf))
@@ -62,9 +74,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 208, n2 = 208), power = 0.800182327, t.alpha = 1.64871793,
                       ncp = 2.491393743, null.ncp = 0, df = 395.25074))
@@ -73,9 +85,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = 208, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 208, n2 = 208), power = 0.800182327, t.alpha = 1.64871793,
                       ncp = 2.491393743, null.ncp = 0, df = 395.25074))
@@ -84,9 +96,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 325, n2 = 325), power = 0.800613556, t.alpha = 1.64732018,
                       ncp = 2.491393743, null.ncp = 0, df = 618.704278))
@@ -96,9 +108,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.10, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.10, null.d = 0, margin = -0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 576, n2 = 576), power = 0.8001976, t.alpha = 0.816102757,
                       ncp = 1.658371917, null.ncp = -0.829185959, df = 1098.078967))
@@ -107,9 +119,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 208, n2 = 208), power = 0.800795363, t.alpha = 1.1486718,
                       ncp = 1.993115, null.ncp = -0.49827875, df = 395.25074))
@@ -118,9 +130,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.10, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.10, null.d = 0, margin = 0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 5184, n2 = 5184), power = 0.800002944, t.alpha = 4.13322535,
                       ncp = 4.9751158, null.ncp =  2.487557876, df = 9898.7107))
@@ -129,9 +141,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.10, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.10, null.d = 0, margin = 0.05, n.ratio = 1, n2 = 5184, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 5184, n2 = 5184), power = 0.800002944, t.alpha = 4.13322535,
                       ncp = 4.9751158, null.ncp =  2.487557876, df = 9898.7107))
@@ -140,9 +152,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 578, n2 = 578), power = 0.800541149, t.alpha = 2.4783293,
                       ncp = 3.3224971, null.ncp = 0.83062427, df = 1101.8987))
@@ -151,9 +163,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, n2 = 578, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 578, n2 = 578), power = 0.800541149, t.alpha = 2.4783293,
                       ncp = 3.3224971, null.ncp = 0.83062427, df = 1101.8987))
@@ -163,9 +175,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 7175, n2 = 7175), power = 0.80000988, t.alpha = 1.2816415 * c(-1, 1),
                       ncp = 0, null.ncp = 2.92652104 * c(-1, 1), df = 13701.2406))
@@ -176,9 +188,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = 7175, power = NULL, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 7175, n2 = 7175), power = 0.80000988, t.alpha = 1.2816415 * c(-1, 1),
                       ncp = 0, null.ncp = 2.92652104 * c(-1, 1), df = 13701.2406))
@@ -188,9 +200,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "z"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "noether", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "noether",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df")],
                  list(test = "z", n = c(n1 = 7517, n2 = 7517), power = 0.80005613, z.alpha = 1.2817115 * c(-1, 1),
                       mean = 0, sd = 1, null.mean = 2.92656513 * c(-1, 1), null.sd = 1, df = Inf))
@@ -200,9 +212,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "z"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "noether", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = 7517, power = NULL, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "noether",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "z.alpha", "mean", "sd", "null.mean", "null.sd", "df")],
                  list(test = "z", n = c(n1 = 7517, n2 = 7517), power = 0.80005613, z.alpha = 1.2817115 * c(-1, 1),
                       mean = 0, sd = 1, null.mean = 2.92656513 * c(-1, 1), null.sd = 1, df = Inf))
@@ -212,9 +224,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 1644, n2 = 1644), power = 0.80001254, t.alpha = c(-4.7655851, 0.5592075),
                       ncp = 1.400849902, null.ncp = c(-2.801699804, -1.400849902), df = 3137.8087))
@@ -224,9 +236,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "independent", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.05, null.d = 0, margin = c(-0.10, -0.05), n.ratio = 1, n2 = 1644, power = NULL, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 1644, n2 = 1644), power = 0.80001254, t.alpha = c(-4.7655851, 0.5592075),
                       ncp = 1.400849902, null.ncp = c(-2.801699804, -1.400849902), df = 3137.8087))
@@ -235,9 +247,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 134, power = 0.80138478, t.alpha = 1.97882545 * c(-1, 1),
                       ncp = -2.8279915, null.ncp = 0, df = 126.9605742))
@@ -246,9 +258,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = 134, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 134, power = 0.80138478, t.alpha = 1.97882545 * c(-1, 1),
                       ncp = -2.8279915, null.ncp = 0, df = 126.9605742))
@@ -257,9 +269,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 208, power = 0.800946514, t.alpha = 1.97204047 * c(-1, 1),
                       ncp = -2.818690256, null.ncp = 0, df = 197.62537))
@@ -268,9 +280,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = 208, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 208, power = 0.800946514, t.alpha = 1.97204047 * c(-1, 1),
                       ncp = -2.818690256, null.ncp = 0, df = 197.62537))
@@ -279,9 +291,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 106, power = 0.80326579, t.alpha = -1.66019985,
                       ncp = -2.51523537, null.ncp = 0, df = 100.2225438))
@@ -290,9 +302,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = 106, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 106, power = 0.80326579, t.alpha = -1.66019985,
                       ncp = -2.51523537, null.ncp = 0, df = 100.2225438))
@@ -301,9 +313,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 164, power = 0.80153238, t.alpha = -1.654704869,
                       ncp = -2.5028661, null.ncp = 0, df = 155.608464))
@@ -312,9 +324,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = 164, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 164, power = 0.80153238, t.alpha = -1.654704869,
                       ncp = -2.5028661, null.ncp = 0, df = 155.608464))
@@ -323,9 +335,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.10, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.10, null.d = 0, margin = 0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 289, power = 0.801088074, t.alpha = -0.81596483,
                       ncp = -1.66124854, null.ncp = 0.83062427, df = 274.97467))
@@ -334,9 +346,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.10, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.10, null.d = 0, margin = 0.05, n.ratio = 1, n2 = 289, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 289, power = 0.801088074, t.alpha = -0.81596483,
                       ncp = -1.66124854, null.ncp = 0.83062427, df = 274.97467))
@@ -345,9 +357,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 291, power = 0.80004359, t.alpha = 2.4897522,
                       ncp = 3.33397379, null.ncp = 0.833493447, df = 276.88453))
@@ -356,9 +368,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = 0.05, n.ratio = 1, n2 = 291, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 291, power = 0.80004359, t.alpha = 2.4897522,
                       ncp = 3.33397379, null.ncp = 0.833493447, df = 276.88453))
@@ -367,9 +379,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.10, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.10, null.d = 0, margin = -0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 2599, power = 0.80004255, t.alpha = -4.13902135,
                       ncp = -4.98182916, null.ncp = -2.49091458, df = 2480.86218))
@@ -378,9 +390,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.10, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.10, null.d = 0, margin = -0.05, n.ratio = 1, n2 = 2599, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 2599, power = 0.80004255, t.alpha = -4.13902135,
                       ncp = -4.98182916, null.ncp = -2.49091458, df = 2480.86218))
@@ -389,9 +401,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 105, power = 0.80239028, t.alpha = 1.1525527,
                       ncp = 2.00267435, null.ncp = -0.500668588, df = 99.2676141))
@@ -400,9 +412,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.20, null.d = 0, margin = -0.05, n.ratio = 1, n2 = 105, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 105, power = 0.80239028, t.alpha = 1.1525527,
                       ncp = 2.00267435, null.ncp = -0.500668588, df = 99.2676141))
@@ -411,9 +423,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 3589, power = 0.800132137, t.alpha = 1.28217542 * c(-1, 1),
                       ncp = 0, null.ncp = 2.9271328 * c(-1, 1), df = 3426.24254))
@@ -422,9 +434,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, alpha = 0.05, alternative = "two.one.sided",
-                      design = "paired", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0, null.d = 0, margin = 0.05 * c(-1, 1), n.ratio = 1, n2 = 3589, power = NULL, alpha = 0.05,
+                      alternative = "two.one.sided", design = "paired", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 3589, power = 0.800132137, t.alpha = 1.28217542 * c(-1, 1),
                       ncp = 0, null.ncp = 2.9271328 * c(-1, 1), df = 3426.24254))
@@ -433,9 +445,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "one.sample", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 134, power = 0.80138478, t.alpha = 1.97882545 * c(-1, 1),
                       ncp = -2.8279915, null.ncp = 0, df = 126.9605742))
@@ -444,9 +456,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "one.sample", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 208, power = 0.800946514, t.alpha = 1.97204047 * c(-1, 1),
                       ncp = -2.818690256, null.ncp = 0, df = 197.62537))
@@ -455,9 +467,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.25, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "one.sample", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 106, power = 0.80326579, t.alpha = -1.66019985,
                       ncp = -2.51523537, null.ncp = 0, df = 100.2225438))
@@ -466,9 +478,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = -0.20, null.d = 0, margin = 0, n.ratio = 1, n2 = NULL, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "one.sample", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 164, power = 0.80153238, t.alpha = -1.654704869,
                       ncp = -2.5028661, null.ncp = 0, df = 155.608464))
@@ -478,9 +490,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.1, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", distribution = "normal", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.1, null.d = 0, margin = 0, n.ratio = 1, n2 = 649, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "one.sample", distribution = "normal", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 649, power = 0.800078016, t.alpha = 1.64732, ncp = 2.489476548, null.ncp = 0,
                       df = 618.74935))
@@ -492,9 +504,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.8, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "one.sided",
-                      design = "one.sample", distribution = "laplace", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 0.8, null.d = 0, margin = 0, n.ratio = 1, n2 = 11, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "one.sample", distribution = "laplace", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 11, power = 0.92759865, t.alpha = 1.7493444, ncp = 3.2496154, null.ncp = 0, df = 15.5))
     # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
@@ -505,9 +517,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 1.13842, null.d = 0, margin = 0, n.ratio = 1, alpha = 0.05, alternative = "two.sided",
-                      design = "paired", distribution = "laplace", method = "guenther", ceiling = TRUE,
-                      verbose = 0, utf = FALSE))
+                 list(d = 1.13842, null.d = 0, margin = 0, n.ratio = 1, n2 = 5, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "paired", distribution = "laplace", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = 5, power = 0.75156987, t.alpha = 2.40200201 * c(-1, 1), ncp = 3.1176916, null.ncp = 0, df = 6.5))
     # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
@@ -518,8 +530,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.375, null.d = 0, margin = 0, n.ratio = 2, alpha = 0.05, alternative = "two.sided", design = "independent",
-                      distribution = "laplace", method = "guenther", ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(d = 0.375, null.d = 0, margin = 0, n.ratio = 2, n2 = 67, power = NULL, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "laplace", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 134, n2 = 67), power = 0.86426579, t.alpha = 1.96791632 * c(-1, 1),
                       ncp = 3.0695073, null.ncp = 0, df = 299.5))
@@ -531,8 +544,9 @@ test_that("means.wilcoxon.R works", {
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
     expect_equal(names(crrRes), c("parms", "test", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
     expect_equal(crrRes[["parms"]],
-                 list(d = 0.2911838, null.d = 0, margin = 0, n.ratio = 2, alpha = 0.05, alternative = "one.sided", design = "independent",
-                      distribution = "logistic", method = "guenther", ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(d = 0.2911838, null.d = 0, margin = 0, n.ratio = 2, n2 = 67, power = NULL, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", distribution = "logistic", method = "guenther",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", n = c(n1 = 134, n2 = 67), power = 0.65052962, t.alpha = 1.65185978,
                       ncp = 2.03792219, null.ncp = 0, df = 218.421165))

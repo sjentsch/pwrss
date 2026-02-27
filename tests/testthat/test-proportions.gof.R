@@ -5,20 +5,22 @@ test_that("proportions.gof.R works", {
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 7.9376, null.ncp = 0,
                       chisq.alpha = 3.84145882, power = 0.8043919, n = 41))
-    expect_equal(crrRes, pwrss.chisq.gofit(w = mtxW$w, df = mtxW$df, power = 0.80, verbose = FALSE))
-    expect_equal(crrRes, pwrss.chisq.gofit(p1 = mtxW$prob.matrix, power = 0.80, verbose = FALSE))
-    expect_equal(crrRes, pwrss.chisq.gofit(p1 = mtxW$prob.matrix, p0 = mtxW$null.prob.matrix, power = 0.80, verbose = FALSE))
-    expect_equal(crrRes, pwrss.chisq.gofit(w = mtxW$w, df = mtxW$df, n = 41, verbose = FALSE))
+    expect_equal(crrRes,     pwrss.chisq.gofit(w = mtxW$w, df = mtxW$df, power = 0.80, verbose = FALSE))
+    expect_equal(crrRes,     pwrss.chisq.gofit(p1 = mtxW$prob.matrix, power = 0.80, verbose = FALSE))
+    expect_equal(crrRes,     pwrss.chisq.gofit(p1 = mtxW$prob.matrix, p0 = mtxW$null.prob.matrix, power = 0.80, verbose = FALSE))
+    expect_equal(crrRes[-1], pwrss.chisq.gofit(w = mtxW$w, df = mtxW$df, n = 41, verbose = FALSE)[-1])
 
     crrRes <- power.chisq.gof(w = mtxW$w, df = mtxW$df, n = 41, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = 41, power = NULL, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 7.9376, null.ncp = 0,
                       chisq.alpha = 3.84145882, power = 0.8043919, n = 41))
@@ -28,17 +30,18 @@ test_that("proportions.gof.R works", {
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 7.8504063, null.ncp = 0,
                       chisq.alpha = 3.84145882, power = 0.80007722, n = 463))
 
     crrRes <- power.chisq.gof(w = mtxW$w, df = mtxW$df, n = 463, alpha = 0.05, verbose = 0)
-    crrRes <- power.chisq.gof(w = mtxW$w, df = mtxW$df, power = 0.80, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = 463, power = NULL, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 7.8504063, null.ncp = 0,
                       chisq.alpha = 3.84145882, power = 0.80007722, n = 463))
@@ -48,7 +51,8 @@ test_that("proportions.gof.R works", {
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 11.9353027, null.ncp = 0,
                       chisq.alpha = 9.48772904, power = 0.80000063, n = 13069))
@@ -57,7 +61,8 @@ test_that("proportions.gof.R works", {
     expect_equal(class(crrRes), c("pwrss", "chisq", "gof"))
     expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(w = mtxW$w, null.w = 0, df = mtxW$df, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(w = mtxW$w, null.w = 0, df = mtxW$df, n = 13069, power = NULL, alpha = 0.05, ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "chisq.alpha", "power", "n")],
                  list(test = "Chi-Square Test for Goodness-of-Fit or Independence", df = mtxW$df, ncp = 11.9353027, null.ncp = 0,
                       chisq.alpha = 9.48772904, power = 0.80000063, n = 13069))

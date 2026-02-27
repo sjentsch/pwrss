@@ -197,7 +197,7 @@ power.f.regression <- function(r.squared.change = NULL,
                                n = NULL, power = NULL, alpha = 0.05,
                                ceiling = TRUE, verbose = 1, utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   # r.squared.change is checked below
   check.numeric(margin)
@@ -515,7 +515,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                                ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.numeric(beta, null.beta)
   margin <- check.margins(margin, check.numeric, alternative)

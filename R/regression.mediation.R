@@ -192,7 +192,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.numeric(beta.a, beta.b, beta.cp)
   check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
@@ -436,7 +436,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
   alternative <- tolower(match.arg(alternative))
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
   verbose <- ensure_verbose(verbose)
 
   if (is.null(power)) {

@@ -1,7 +1,3 @@
-clean.parms <- function(func.parms = list()) {
-  func.parms[names(func.parms)[!grepl("^power$|^n$|^n2$|^n.paired$|^n.total$|^n.vector$", names(func.parms))]]
-}
-
 # ensure valid values for verbose: logical values are converted to 0/1, numerical values are kept as long as they
 # have the length 1, are integer and have the value 0, 1 or 2, in any other case, 1 (the default) is returned
 ensure_verbose <- function(verbose = NULL) {

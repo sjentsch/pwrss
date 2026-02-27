@@ -4,7 +4,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL,
+                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -18,7 +18,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL,
+                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -30,7 +30,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL,
+                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -42,7 +42,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL,
+                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "one.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -55,7 +55,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL,
+                 list(prob = 0.2, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = 511, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -66,7 +66,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -78,8 +78,8 @@ test_that("regression.logistic.R works", {
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
                  list(prob = NULL, base.prob = NULL, odds.ratio = NULL, beta0 = -1.734601, beta1 = 0.3483067,
-                      r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
-                      distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n = NULL, power = 0.80, r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided",
+                      method = "demidenko(vc)", distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", odds.ratio = 1.41666667, mean = 2.7836766, sd = 0.976071558, vcf = 1, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964 * c(-1, 1), power = 0.800639615, n = 511))
@@ -89,7 +89,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = 0.3483067,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = NULL, beta0 = NULL, beta1 = 0.3483067, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = list(dist = "normal", mean = 10, sd = 2), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -100,7 +100,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -112,7 +112,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -124,7 +124,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -136,7 +136,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = 1811, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -148,7 +148,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = list(dist = "bernoulli", prob = 0.3), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -160,7 +160,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0.3345431, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = list(dist = "bernoulli", prob = 0.25077), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -172,7 +172,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "poisson", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -184,7 +184,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.15, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = 370, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "poisson", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -196,7 +196,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.20, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.20, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "uniform", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -208,7 +208,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.20, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.20, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = 4402, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "uniform", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -220,7 +220,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.30, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.30, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "exponential", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -232,7 +232,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.30, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.30, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = 289, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "exponential", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -244,7 +244,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.25, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.25, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.80,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "lognormal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -256,7 +256,7 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.25, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL,
+                 list(prob = NULL, base.prob = 0.25, odds.ratio = 1.416667, beta0 = NULL, beta1 = NULL, n = 119, power = NULL,
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "demidenko(vc)",
                       distribution = "lognormal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
@@ -269,9 +269,9 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = NULL, base.prob = 0.5, odds.ratio = 1.5, beta0 = NULL, beta1 = NULL, r.squared.predictor = 0,
-                      alpha = 0.05, alternative = "two.sided", method = "hsieh", distribution = list(dist = "normal", mean = 0, sd = 1),
-                      ceiling = TRUE, verbose = 0, utf = FALSE))
+                 list(prob = NULL, base.prob = 0.5, odds.ratio = 1.5, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.95,
+                      r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
+                      distribution = list(dist = "normal", mean = 0, sd = 1), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", odds.ratio = 1.5, mean = 3.6092542, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
                       z.alpha = 1.959964, power = 0.950455902, n = 317))
@@ -287,8 +287,8 @@ test_that("regression.logistic.R works", {
     expect_equal(class(crrRes), c("pwrss", "z", "logistic"))
     expect_equal(names(crrRes), c("parms", "test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n"))
     expect_equal(crrRes[["parms"]],
-                 list(prob = 0.05, base.prob = 0.1, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, r.squared.predictor = 0,
-                      alpha = 0.05, alternative = "two.sided", method = "hsieh",
+                 list(prob = 0.05, base.prob = 0.1, odds.ratio = NULL, beta0 = NULL, beta1 = NULL, n = NULL, power = 0.95,
+                      r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = list(dist = "binomial", prob = 0.5, size = 1), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
                  list(test = "z", odds.ratio = 0.473684211, mean = 3.60521531, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,

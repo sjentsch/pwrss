@@ -155,7 +155,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)

@@ -118,7 +118,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
                             n = NULL, power = NULL, alpha = 0.05,
                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.positive(w)
   check.nonnegative(null.w)

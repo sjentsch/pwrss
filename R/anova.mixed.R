@@ -157,7 +157,7 @@ power.f.mixed.anova <- function(eta.squared,
                                 ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   effect <- tolower(match.arg(effect))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.nonnegative(eta.squared, null.eta.squared)
   if (!is.null(n.total)) check.sample.size(n.total)

@@ -144,7 +144,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob10, prob01)
   if (!is.null(n.paired)) check.sample.size(n.paired)

@@ -167,7 +167,7 @@ power.f.ancova <- function(eta.squared,
                            verbose = 1,
                            utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.nonnegative(eta.squared, null.eta.squared, k.covariates)
   check.vector(factor.levels, check.factor.level, min.length = 1)
@@ -422,7 +422,7 @@ power.f.ancova.keppel <- function(mu.vector,
                                   verbose = 1,
                                   utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   # value and consistency checks
   if (!is.vector(mu.vector) || !is.numeric(mu.vector))
@@ -1070,7 +1070,7 @@ power.f.ancova.shieh <- function(mu.vector,
                                  verbose = 1,
                                  utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   # value and consistency checks
   if (!is.vector(mu.vector) || !is.numeric(mu.vector))
@@ -1351,7 +1351,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
                              alpha = 0.05, tukey.kramer = FALSE,
                              ceiling = TRUE, verbose = 1, utf = FALSE) {
 
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   # value checks
   check.vector(mu.vector, check.numeric)
@@ -1711,7 +1711,7 @@ power.t.contrasts <- function(x = NULL,
 
   rm(x)
   adjust.alpha <- tolower(match.arg(adjust.alpha))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
   verbose <- ensure_verbose(verbose)
 
   requested <- check.n_power(n.vector, power)

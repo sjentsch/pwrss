@@ -102,7 +102,7 @@ power.exact.fisher <- function(prob1, prob2,
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
 
   check.proportion(prob1, prob2)
   check.positive(n.ratio)

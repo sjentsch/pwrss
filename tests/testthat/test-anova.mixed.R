@@ -1,12 +1,13 @@
-test_that("anova.mixed.R works", {
-    # power.f.mixed.anova (= pwrss.f.rmanova)
+# power.f.mixed.anova (= pwrss.f.rmanova) ------------------------------------------------------------------------------
+test_that("power.f.mixed.anova / pwrss.f.rmanova work", {
     crrRes <- power.f.mixed.anova(eta.squared = 0.022, factor.levels = c(1, 2), rho.within = 0.50, effect = "within",
                                   power = 0.80, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.022, null.eta.squared = 0, factor.levels = c(1, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "within", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "within",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "W(2)|B(1)", df1 = 1, df2 = 89, ncp = 8.09815951, null.ncp = 0,
                       f.alpha = 3.94808435, power = 0.803705778, n.total = 90))
@@ -21,7 +22,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.022, null.eta.squared = 0, factor.levels = c(1, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "within", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = 120, power = NULL, alpha = 0.05, effect = "within",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "W(2)|B(1)", df1 = 1, df2 = 119, ncp = 10.797546, null.ncp = 0,
                       f.alpha = 3.9207955, power = 0.9030908, n.total = 120))
@@ -36,7 +38,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.08255, null.eta.squared = 0, factor.levels = c(1, 2), factor.type = c("between", "within"),
-                      rho.within = NA, epsilon = 1, alpha = 0.05, effect = "within", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = NA, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "within", ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "W(2)|B(1)", df1 = 1, df2 = 89, ncp = 8.097989, null.ncp = 0,
                       f.alpha = 3.94808435, power = 0.803697575, n.total = 90))
@@ -47,7 +50,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.08255, null.eta.squared = 0, factor.levels = c(1, 2), factor.type = c("between", "within"),
-                      rho.within = NA, epsilon = 1, alpha = 0.05, effect = "within", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = NA, epsilon = 1, n.total = 90, power = NULL, alpha = 0.05, effect = "within", ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "W(2)|B(1)", df1 = 1, df2 = 89, ncp = 8.097989, null.ncp = 0,
                       f.alpha = 3.94808435, power = 0.803697575, n.total = 90))
@@ -58,7 +62,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = c(2, 1), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "between", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "between",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(1)", df1 = 1, df2 = 126, ncp = 8.0255048, null.ncp = 0,
                       f.alpha = 3.9163246, power = 0.8027032, n.total = 128))
@@ -69,7 +74,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = c(2, 1), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "between", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = 128, power = NULL, alpha = 0.05, effect = "between",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(1)", df1 = 1, df2 = 126, ncp = 8.0255048, null.ncp = 0,
                       f.alpha = 3.9163246, power = 0.8027032, n.total = 128))
@@ -80,18 +86,20 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.038, null.eta.squared = 0, factor.levels = c(2, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "between", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "between",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(2)", df1 = 1, df2 = 150, ncp = 8.005544, null.ncp = 0,
                       f.alpha = 3.9042019, power = 0.802695047, n.total = 152))
 
-    crrRes <- power.f.mixed.anova(eta.squared = 0.038, factor.levels = c(2, 2),  rho.within = 0.50, effect = "between",
+    crrRes <- power.f.mixed.anova(eta.squared = 0.038, factor.levels = c(2, 2), rho.within = 0.50, effect = "between",
                                   n.total = 152, alpha = 0.05, verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "f", "anova_mixed"))
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.038, null.eta.squared = 0, factor.levels = c(2, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "between", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = 152, power = NULL, alpha = 0.05, effect = "between", ceiling = TRUE,
+                      verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2)|W(2)", df1 = 1, df2 = 150, ncp = 8.005544, null.ncp = 0,
                       f.alpha = 3.9042019, power = 0.802695047, n.total = 152))
@@ -102,7 +110,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.01, null.eta.squared = 0, factor.levels = c(2, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "interaction", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "interaction",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2):W(2)", df1 = 1, df2 = 196, ncp = 8.00, null.ncp = 0,
                       f.alpha = 3.889341, power = 0.8036086, n.total = 198))
@@ -113,7 +122,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.01, null.eta.squared = 0, factor.levels = c(2, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "interaction", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = 198, power = NULL, alpha = 0.05, effect = "interaction",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "B(2):W(2)", df1 = 1, df2 = 196, ncp = 8.00, null.ncp = 0,
                       f.alpha = 3.889341, power = 0.8036086, n.total = 198))
@@ -124,7 +134,8 @@ test_that("anova.mixed.R works", {
     expect_equal(names(crrRes), c("parms", "test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.01, null.eta.squared = 0, factor.levels = c(2, 2), factor.type = c("between", "within"),
-                      rho.within = 0.5, epsilon = 1, alpha = 0.05, effect = "within", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      rho.within = 0.5, epsilon = 1, n.total = NULL, power = 0.80, alpha = 0.05, effect = "within",
+                      ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "W(2)|B(2)", df1 = 1, df2 = 196, ncp = 8.00, null.ncp = 0,
                       f.alpha = 3.889341, power = 0.8036086, n.total = 198))
