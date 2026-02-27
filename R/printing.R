@@ -5,6 +5,7 @@
 
     RC <- switch(requested,
                  `n` =     "           \033[34m SAMPLE SIZE CALCULATION \033[0m              ",
+                 `es` =    "           \033[34m EFFECT SIZE CALCULATION \033[0m              ",
                  `power` = "               \033[34m POWER CALCULATION \033[0m                ")
 
     paste0(paste0("\u2554", strrep("\u2550", 50), "\u2557", "\n"),
@@ -15,6 +16,7 @@
 
     RC <- switch(requested,
                  `n` =     "             SAMPLE SIZE CALCULATION              ",
+                 `es` =    "             EFFECT SIZE CALCULATION              ",
                  `power` = "                POWER CALCULATION                 ")
 
     paste0(paste0("+", strrep("-", 50), "+", "\n"),
@@ -130,44 +132,66 @@
 
 }
 
+.c_a <- function(mark = FALSE, utf = FALSE) {
+  # if the parameter is requested (mark = TRUE), c_a[1 / 2] and c_a[3 / 5] are used for coloring (in utf)
+  # and empty for ascii; c_a[4] is used for <<
+  if (mark && utf)
+    c("\033[34m", "\033[0m", "  \033[1;35m", "\u25C4\u25C4", "\033[0m")
+  else if (mark && !utf)
+    c("",         "",        "  ",           "<<",           "")
+  else
+    rep("", 5)
+}
+
+# assembles / formats the "Effect Size" line
+.esline <- function(x, utf = FALSE, digits = 3) {
+  if (any(c("d") %in% names(x))) {
+    # colors and arrows when requested, otherwise ""
+    c_a <- .c_a(x$requested == "es", utf)
+
+    # determine effect size and null
+    es_name <- "d"
+    es_pad  <- strrep(" ", ifelse(utf, 4, 6) - nchar(es_name))
+    es_text <- sprintf("%s", .fmt_val(x[[es_name]], digits))
+    es_null <- paste0("null.", es_name)
+    if (es_null %in% names(x)) {
+      es_nlnm <- ifelse(utf, paste0(es_name, "\u2080"), es_null)
+      es_text <- sprintf("%s (vs. %s = %s)", es_text, es_nlnm, .fmt_val(x[[es_null]], digits)) 
+    }
+    sprintf("  %sEffect Size (%s)%s = %s%s%s%s%s\n", c_a[1], es_name, es_pad, es_text, c_a[2], c_a[3], c_a[4], c_a[5])
+  } else {
+    # return an empty string (for the generic functions, that only calculate power)
+    ""
+  }
+}
+
 # assembles "Sample Size" line
 .nline <- function(x, utf, digits = 3) {
-  # if "n" is requested, c_a[1 / 2] and c_a[3 / 5] are used for coloring (in utf) and empty for ascii; c_a[4] is used for <<
-  if (x$requested == "n" && utf)
-    c_a <- c("\033[34m", "\033[0m", "  \033[1;35m", "\u25C4\u25C4", "\033[0m")
-  else if (x$requested == "n" && !utf)
-    c_a <- c("",         "",        "  ",           "<<",           "")
-  else
-    c_a <- rep("", 5)
-
-  # assembles / formats the sample size line which requires a bit of formatting (Sample Size can be preceeded by Total or Paired)
   if (any(c("n", "n.total", "n.paired") %in% names(x))) {
+    # colors and arrows when requested, otherwise ""
+    c_a <- .c_a(x$requested == "n", utf)
+    # assembles / formats the sample size line which requires a bit of formatting (Sample Size can be preceeded by Total or Paired)
     n_prefix <- ifelse(utils::hasName(x, "n.total") && !utils::hasName(x, "n"), "Total ", ifelse(utils::hasName(x, "n.paired"), "Paired ", ""))
     n_pad    <- strrep(" ", ifelse(utf, 7, 9) - nchar(n_prefix))
     n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
     sprintf("  %s%sSample Size%s = %s%s%s%s%s\n", c_a[1], n_prefix, n_pad, n_text, c_a[2], c_a[3], c_a[4], c_a[5])
   } else {
+    # return an empty string (for the generic functions, that only calculate power)
     ""
   }
 }
 
 # assembles / formats the "Statistical Power" line
 .pline <- function(x, utf = FALSE, digits = 3) {
-  # if "power" is requested, c_a[1 / 2] and c_a[3 / 5] are used for coloring (in utf) and empty for ascii; c_a[4] is used for <<
-  if (x$requested == "power" && utf)
-    c_a <- c("\033[34m", "\033[0m", "  \033[1;35m", "\u25C4\u25C4", "\033[0m")
-  else if (x$requested == "power" && !utf)
-    c_a <- c("",         "",        "  ",           "<<",           "")
-  else
-    c_a <- rep("", 5)
-
+  # colors and arrows when requested, otherwise ""
+  c_a <- .c_a(x$requested == "power", utf)
   sprintf("  %sStatistical Power%s = %.*f%s%s%s%s\n\n", c_a[1], strrep(" ", ifelse(utf, 1, 3)), digits, x$power, c_a[2], c_a[3], c_a[4], c_a[5])
 }
 
 .results <- function(x, utf = FALSE, digits = 3) {
-
   paste0(.topic("Results", utf),
+         .esline(x, utf, digits),
          .nline(x, utf, digits),
          sprintf("  Type 1 Error %s = %.*f\n", ifelse(utf, "(\u03B1)  ", "(alpha)"), digits, x$alpha),
          sprintf("  Type 2 Error %s = %.*f\n", ifelse(utf, "(\u03B2)  ", "(beta) "), digits, 1 - x$power),
@@ -621,7 +645,7 @@
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-.print.pwrss.student <- function(x, digits = 3, verbose = 1, utf = TRUE, ...) {
+.print.pwrss.ttest <- function(x, digits = 3, verbose = 1, utf = TRUE, ...) {
 
 
   cat(.header(x$requested, utf))
@@ -635,9 +659,7 @@
 
   if (verbose == 2) {
     #                      | var.name        |  ascii                  |  utf
-    parms_mtx <- t(matrix(c("d",               "Cohen's d",              "d",
-                            "null.d",          "Cohen's d Under Null",   "d\u2080\u2009",
-                            "margin",          "Margin",                 "\u03B4",
+    parms_mtx <- t(matrix(c("margin",          "Margin",                 "\u03B4",
                             "df",              "Degrees of Freedom",     "df",
                             "ncp.alternative", "Non-centrality of Alt.", "\u03BB",
                             "ncp.null",        "Non-centrality of Null", "\u03BB\u2080\u2009",
@@ -661,7 +683,7 @@
     cat(.defs(defs_mtx, utf))
   }
 
-} # .print.pwrss.student() ---------------------------------------------------------------------------------------------
+} # .print.pwrss.ttest() -----------------------------------------------------------------------------------------------
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -684,10 +706,8 @@
   cat(.hypotheses(h0_text, h1_text, utf))
 
   if (verbose == 2) {
-    #               | var.name  |  ascii                |  utf
-    parms_vec   <- c("d",         "Cohen's d",             "d",
-                     "null.d",    "Cohen's d Under Null",  "d\u2080\u2009",
-                     "margin",    "Margin",                "\u03B4")
+    #               | var.name  |  ascii                  |  utf
+    parms_vec   <- c("margin",    "Margin",                 "\u03B4")
     if (x$method == "guenther") {
       #             | var.name  |  ascii                  |  utf
       parms_vec <- c(parms_vec,
