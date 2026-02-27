@@ -1,7 +1,3 @@
-if(getRversion() >= "2.15.1")
-  utils::globalVariables(c("crtSnp"))
-
-
 clean.parms <- function(func.parms = list()) {
   func.parms[names(func.parms)[!grepl("^power$|^n$|^n2$|^n.paired$|^n.total$|^n.vector$", names(func.parms))]]
 }
@@ -23,9 +19,10 @@ isInt <- function(x) is.numeric(x) && !any(abs(x - round(x)) > .Machine$double.e
 # lenInt <- function(n) ifelse(n <= 1, 1, ceiling(log10(abs(n))) + as.integer(n %% 10 == 0))
 
 check.snap4plot <- function(snpFle = "", pltFnc = NULL, pltPrm = list(), pltWdt = 800, pltHgh = 800) {
-  if (ifelse(exists("crtSnp"), crtSnp, FALSE) || file.exists(file.path("_snaps", Sys.info()[["sysname"]], "plots", snpFle))) {
+  if (nchar(Sys.getenv("GITHUB_ACTIONS")) == 0) { # ensures that the code only runs on a local machine, not as GitHub action
     tmpFle <- tempfile(fileext = ".png")
     addPrm <- list(power = 0.80, alpha = 0.05, verbose = 0)[c("power", "alpha", "verbose") %in% names(formals(pltFnc))]
+    testthat::announce_snapshot_file(name = snpFle)
     grDevices::png(tmpFle, width = pltWdt, height = pltHgh)
     if (any(c("plot", "plot.main") %in% names(formals(pltFnc)))) {
       do.call(pltFnc, c(pltPrm, addPrm))
@@ -33,7 +30,7 @@ check.snap4plot <- function(snpFle = "", pltFnc = NULL, pltPrm = list(), pltWdt 
       plot(do.call(pltFnc, c(pltPrm, addPrm)))
     }
     grDevices::dev.off()
-    testthat::expect_snapshot_file(tmpFle, snpFle, variant = Sys.info()[["sysname"]])
+    testthat::expect_snapshot_file(path = tmpFle, name = snpFle, variant = Sys.info()[["sysname"]])
     unlink(tmpFle)
   }
 }
