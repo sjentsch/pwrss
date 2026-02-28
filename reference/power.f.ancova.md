@@ -243,6 +243,7 @@ power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.500 (vs. null.d = 0)
 #>   Sample Size          = 64 and 64  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199

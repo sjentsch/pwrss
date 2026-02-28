@@ -68,7 +68,7 @@ However, we adopt the rounding convention used by G</em>Power.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">power.np.wilcoxon</span><span class="op">(</span></span>
-<span>  <span class="va">d</span>,</span>
+<span>  d <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  null.d <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  margin <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n.ratio <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -275,6 +275,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0.250 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 265 and 265  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
@@ -305,6 +306,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0.250 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 208 and 208  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
@@ -336,6 +338,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0.100 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 576 and 576  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
@@ -367,6 +370,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0.100 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 5184 and 5184  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
@@ -401,6 +405,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 7175 and 7175  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
@@ -433,6 +438,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = -0.250 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 134  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
@@ -463,6 +469,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = -0.250 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 106  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.197</span>
@@ -494,6 +501,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = -0.100 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 289  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.199</span>
@@ -525,6 +533,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = -0.100 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 2599  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
@@ -559,6 +568,7 @@ Wilcoxon-Mann-Whitney test adjusting for ties. <em>Statistics in Medicine,
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Effect Size (d)      = 0 (vs. null.d = 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sample Size          = 3589  &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>

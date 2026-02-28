@@ -32,7 +32,7 @@ Chow et al. (2018) and Lakens (2017).
 
 ``` r
 power.t.welch(
-  d,
+  d = NULL,
   null.d = 0,
   margin = 0,
   var.ratio = 1,
