@@ -318,7 +318,7 @@
 #'                 design = "paired")
 #'
 #' @export power.t.student
-power.t.student <- function(d, null.d = 0, margin = 0,
+power.t.student <- function(d = NULL, null.d = 0, margin = 0,
                             n2 = NULL, n.ratio = 1, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             design = c("independent", "paired", "one.sample"),
@@ -330,7 +330,8 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   claim.basis <- tolower(match.arg(claim.basis))
   func.parms <- as.list(environment())
 
-  check.numeric(d, null.d)
+  if (!is.null(d)) check.numeric(d)
+  check.numeric(null.d)
   margin <- check.margins(margin, check.numeric, alternative)
   if (!is.null(n2)) check.sample.size(n2)
   check.positive(n.ratio)
@@ -338,7 +339,10 @@ power.t.student <- function(d, null.d = 0, margin = 0,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n2, power)
+  requested <- get.requested(es = d, n = n2, power = power)
+
+  if (requested == "es" && alternative == "two.one.sided")
+    stop("Determining the effect size is not possible if `alternative` is \"two.one.sided\".", call. = FALSE)
 
   pwr.student <- function(d, null.d, margin, n2, n.ratio,
                           alpha, alternative,
@@ -347,76 +351,56 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 
     if (design == "independent") {
       df <- n1 + n2 - 2
-      if (claim.basis == "md.pval") {
-        var.d <- (n1 + n2) / (n1 * n2)
-      } else {
-        var.d <- (n1 + n2) / (n1 * n2) + d ^ 2 / (2 * (df))
-      }
-    } # if independent
-
-    if (design %in% c("paired", "one.sample")) {
+      var.d <- (n1 + n2) / (n1 * n2) + ifelse(claim.basis == "md.pval", 0, d ^ 2 / (2 * df))
+    } else {
       df <- n2 - 1
-      if (claim.basis == "md.pval") {
-        var.d <- 1 / n2
-      } else {
-        var.d <- (1 / n2 + d ^ 2 / (2 * n2))
-      }
-    } # if paired or one.sample
+      var.d <- 1 / n2 + ifelse(claim.basis == "md.pval", 0, d ^ 2 / (2 * n2)) # not df, like above?
+    }
 
     se.d <- sqrt(var.d)
-    lambda <- (d - null.d) / sqrt(var.d)
-    null.lambda <- margin / sqrt(var.d)
-    # lambda <- (d - null.d - margin) / sqrt(var.d)
-    # null.lambda <- 0
+    lambda <- (d - null.d) / se.d
+    null.lambda <- margin / se.d
 
-    pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
-                            alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = 0)
-
-    list(power = pwr.obj$power,
-         t.alpha = pwr.obj$t.alpha,
-         ncp = pwr.obj$ncp,
-         null.ncp = pwr.obj$null.ncp,
-         se.d = se.d,
-         df = pwr.obj$df)
+    power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
+                 plot = FALSE, verbose = 0)[c("power", "t.alpha", "ncp", "null.ncp", "df")]
 
   } # pwr.student()
 
-  ss.student <- function(d, null.d, margin, power, n.ratio,
-                         alpha, alternative,
-                         design, claim.basis) {
-
-    n2 <- try(silent = TRUE,
-              suppressWarnings({
-                stats::uniroot(function(n2) {
-                  power - pwr.student(d = d, null.d = null.d, margin = margin,
-                                      n2 = n2, n.ratio = n.ratio,
-                                      alpha = alpha, alternative = alternative,
-                                      design = design, claim.basis = claim.basis)$power
-                }, interval = c(3, 1e10))$root
-              }) # supressWarnings
-    ) # try
-
-    if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n2
-
-  } # ss.student()
+  min.pwr <- function(d, n2, power) {
+    power - pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                        alternative = alternative, design = design, claim.basis = claim.basis)$power
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n2 <- ss.student(d = d, null.d = null.d, margin = margin,
-                     power = power, n.ratio = n.ratio,
-                     alpha = alpha, alternative = alternative,
-                     design = design, claim.basis = claim.basis)
+    n2 <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root))
+    if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
+
     n2 <- ifelse(ceiling, ceiling(n2), n2)
+
+  } else if (requested == "es") {
+
+    # a bit complicated because uniroot may fail with large N's because no local minimum can be found
+    # as (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
+    # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
+    for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
+      d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
+                                                               interval = c(0, 10), tol = 1e-12)$root))
+      # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
+      if (!inherits(d, "try-error") ||
+          (inherits(d, "try-error") && attr(d, "condition")[["message"]] != "f() values at end points not of opposite sign")) {
+        break
+      }
+    } # for (o ...)
+    if (inherits(d, "try-error"))
+      stop("Design is not feasible.", call. = FALSE)
 
   }
 
   n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
-  ifelse(design == "independent", n <- c(n1 = n1, n2 = n2), n <- n2)
+  if (design == "independent") n <- c(n1 = n1, n2 = n2) else n <- n2
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
                          alternative = alternative, design = design, claim.basis = claim.basis)
 
@@ -439,7 +423,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    .print.pwrss.student(print.obj, verbose = verbose, utf = utf)
+    .print.pwrss.ttest(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -449,6 +433,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
                            ncp = ncp,
                            null.ncp = null.ncp,
                            t.alpha = t.alpha,
+                           d = d,
                            power = power,
                            n = n),
                       class = c("pwrss", "t", "student")))
@@ -568,7 +553,7 @@ power.t.student <- function(d, null.d = 0, margin = 0,
 #' # see `?pwrss::power.t.student` for examples
 #'
 #' @export power.t.welch
-power.t.welch <- function(d, null.d = 0, margin = 0,
+power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
                           var.ratio = 1, n.ratio = 1, n2 = NULL,
                           power = NULL, alpha = 0.05,
                           alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -579,7 +564,8 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   claim.basis <- tolower(match.arg(claim.basis))
   func.parms <- as.list(environment())
 
-  check.numeric(d, null.d, var.ratio)
+  if (!is.null(d)) check.numeric(d)
+  check.numeric(null.d, var.ratio)
   margin <- check.margins(margin, check.numeric, alternative)
   check.positive(n.ratio)
   if (!is.null(n2)) check.sample.size(n2)
@@ -587,37 +573,24 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n2, power)
+  requested <- get.requested(es = d, n = n2, power = power)
 
-  # variance ratio constraint
-  vrc <- function(var.ratio, n2, n.ratio) {
-    sd2  <- sqrt((n2 * (n.ratio + 1) - 2) / (n2 - 1 + var.ratio * (n2 * n.ratio - 1)))
-    sd1 <- sqrt(var.ratio * sd2 ^ 2)
-    list(sd1 = sd1, sd2 = sd2)
-  } # vrc()
+  if (requested == "es" && alternative == "two.one.sided")
+    stop("Determining the effect size is not possible if `alternative` is \"two.one.sided\".", call. = FALSE)
 
-  welch_df <- function(sd1, sd2, n1, n2) {
-    (sd1 ^ 2 / n1 + sd2 ^ 2 / n2) ^ 2 /
-      (sd1^4 / (n1 ^ 2 * (n1 - 1)) + sd2^4 / (n2 ^ 2 * (n2 - 1)))
-  } # welch_df()
-
-  pwr.welch <- function(d, null.d, margin, var.ratio,
-                        n2, n.ratio, alpha, alternative,
-                        claim.basis) {
+  pwr.welch <- function(d, null.d, margin, var.ratio, n2, n.ratio, alpha, alternative, claim.basis) {
     n1 <- n.ratio * n2
 
-    sds <- vrc(var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio)
-    sd1 <- sds$sd1
-    sd2 <- sds$sd2
+    # variance ratio constraint
+    sd2  <- sqrt((n2 * (n.ratio + 1) - 2) / (n2 - 1 + var.ratio * (n2 * n.ratio - 1)))
+    sd1 <- sqrt(var.ratio * sd2 ^ 2)
 
-    gamma1 <- 1 / n1
-    gamma2 <- 1 / n2
+    # Welch df
+    df <- (sd1 ^ 2 / n1 + sd2 ^ 2 / n2) ^ 2 / (sd1 ^ 4 / (n1 ^ 2 * (n1 - 1)) + sd2 ^ 4 / (n2 ^ 2 * (n2 - 1)))
 
-    df <- welch_df(sd1 = sd1, sd2 = sd2, n1 = n1, n2 = n2)
-
-    var.delta <- gamma1 * sd1 ^ 2 + gamma2 * sd2 ^ 2
+    var.delta <- 1 / n1 * sd1 ^ 2 + 1 / n2 * sd2 ^ 2
     std <- sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
-    var.std <- ((n1 - 1) * sd1^4 + (n2 - 1) * sd2^4) / ((2 * (n1 - 1) * sd1 ^ 2 + 2 * (n2 - 1) * sd2 ^ 2) * (n1 + n2 - 2))
+    var.std <- ((n1 - 1) * sd1 ^ 4 + (n2 - 1) * sd2 ^ 4) / ((2 * (n1 - 1) * sd1 ^ 2 + 2 * (n2 - 1) * sd2 ^ 2) * (n1 + n2 - 2))
 
     if (claim.basis == "md.pval") {
       var.d.hc2 <- var.delta
@@ -626,50 +599,42 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
     }
 
     se.d <- sqrt(var.d.hc2)
-    lambda <- (d - null.d) / sqrt(var.d.hc2)
-    null.lambda <- margin / sqrt(var.d.hc2)
+    lambda <- (d - null.d) / se.d
+    null.lambda <- margin / se.d
 
-    pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
-                            alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = 0)
-
-    list(power = pwr.obj$power,
-         t.alpha = pwr.obj$t.alpha,
-         ncp = pwr.obj$ncp,
-         null.ncp = pwr.obj$null.ncp,
-         se.d = se.d,
-         df = pwr.obj$df)
+    power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
+                 plot = FALSE, verbose = 0)[c("power", "t.alpha", "ncp", "null.ncp", "df")]
 
   } # pwr.welch()
 
-  ss.welch <- function(d, null.d, margin, var.ratio,
-                       power, n.ratio, alpha, alternative,
-                       claim.basis) {
-
-    n2 <- try(silent = TRUE,
-             suppressWarnings({
-               stats::uniroot(function(n2) {
-                 power - pwr.welch(d = d, null.d = null.d, margin = margin,
-                                   var.ratio = var.ratio,
-                                   n2 = n2, n.ratio = n.ratio,
-                                   alpha = alpha, alternative = alternative,
-                                   claim.basis = claim.basis)$power
-               }, interval = c(3, 1e10))$root
-             }) # supressWarnings
-    ) # try
-
-    if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n2
-
-  } # ss.student()
-
+  min.pwr <- function(d, n2, power) {
+    power - pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                      alpha = alpha, alternative = alternative, claim.basis = claim.basis)$power
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n2 <- ss.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n.ratio = n.ratio,
-                   power = power, alpha = alpha, alternative = alternative, claim.basis = claim.basis)
+    n2 <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root))
+    if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
+
     n2 <- ifelse(ceiling, ceiling(n2), n2)
+
+  } else if (requested == "es") {
+
+    # a bit complicated because uniroot may fail with large N's because no local minimum can be found
+    # as (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
+    # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
+    for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
+      d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
+                                                               interval = c(0, 10), tol = 1e-12)$root))
+      # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
+      if (!inherits(d, "try-error") ||
+          (inherits(d, "try-error") && attr(d, "condition")[["message"]] != "f() values at end points not of opposite sign")) {
+        break
+      }
+    } # for (o ...)
+    if (inherits(d, "try-error"))
+      stop("Design is not feasible.", call. = FALSE)
 
   }
 
@@ -684,7 +649,6 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
   t.alpha <- pwr.obj$t.alpha
   ncp <- pwr.obj$ncp
   null.ncp <- pwr.obj$null.ncp
-  se.d <- pwr.obj$se.d
   df <- pwr.obj$df
 
   if (verbose > 0) {
@@ -693,7 +657,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
 
     print.obj <- list(requested = requested,
                       test = test,
-                      d = d, se.d = se.d, null.d = null.d,
+                      d = d, null.d = null.d,
                       margin = margin,
                       alpha = alpha, t.alpha = t.alpha,
                       alternative = alternative, n = n, df = df,
@@ -701,7 +665,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                       ncp.null = null.ncp,
                       power = power)
 
-    .print.pwrss.student(print.obj, verbose = verbose, utf = utf)
+    .print.pwrss.ttest(print.obj, verbose = verbose, utf = utf)
 
   }
 
@@ -711,6 +675,7 @@ power.t.welch <- function(d, null.d = 0, margin = 0,
                            ncp = ncp,
                            null.ncp = null.ncp,
                            t.alpha = t.alpha,
+                           d = d,
                            power = power,
                            n = n),
                       class = c("pwrss", "t", "welch")))

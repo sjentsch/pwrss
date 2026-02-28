@@ -156,7 +156,7 @@
     es_null <- paste0("null.", es_name)
     if (es_null %in% names(x)) {
       es_nlnm <- ifelse(utf, paste0(es_name, "\u2080"), es_null)
-      es_text <- sprintf("%s (vs. %s = %s)", es_text, es_nlnm, .fmt_val(x[[es_null]], digits)) 
+      es_text <- sprintf("%s (vs. %s = %s)", es_text, es_nlnm, .fmt_val(x[[es_null]], digits))
     }
     sprintf("  %sEffect Size (%s)%s = %s%s%s%s%s\n", c_a[1], es_name, es_pad, es_text, c_a[2], c_a[3], c_a[4], c_a[5])
   } else {

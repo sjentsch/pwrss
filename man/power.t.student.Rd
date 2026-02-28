@@ -9,7 +9,7 @@
 \title{Power Analysis for Student's t-Test}
 \usage{
 power.t.student(
-  d,
+  d = NULL,
   null.d = 0,
   margin = 0,
   n2 = NULL,

@@ -21,25 +21,41 @@ test_that("ensure.verbose works", {
 
 # get.requested --------------------------------------------------------------------------------------------------------
 test_that("get.requested works", {
-    d <- NULL; n <- NULL; power <- NULL
+    d <- NULL
+    n <- NULL
+    power <- NULL
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
-    d <- 0.20; n <- NULL; power <- NULL
+    d <- 0.20
+    n <- NULL
+    power <- NULL
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
-    d <- NULL; n <- 200; power <- NULL
+    d <- NULL
+    n <- 100
+    power <- NULL
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
-    d <- NULL; n <- NULL; power <- 0.80
+    d <- NULL
+    n <- NULL
+    power <- 0.80
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
-    d <- 0.20; n <- 200; power <- 0.8
+    d <- 0.20
+    n <- 200
+    power <- 0.8
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
-    d <- 0.20; n <- NULL; power <- 0.80
-    expect_equal(get.requested(es = d, n = n, power = power), "n")
-    d <- 0.20; n <- 1000; power <- NULL
-    expect_equal(get.requested(es = d, n = n, power = power), "power")
-    d <- NULL; n <- 1000; power <- 0.80
+    d <- NULL
+    n <- 1000
+    power <- 0.80
     expect_equal(get.requested(es = d, n = n, power = power), "es")
+    d <- 0.20
+    n <- NULL
+    power <- 0.80
+    expect_equal(get.requested(es = d, n = n, power = power), "n")
+    d <- 0.20
+    n <- 1000
+    power <- NULL
+    expect_equal(get.requested(es = d, n = n, power = power), "power")
 })

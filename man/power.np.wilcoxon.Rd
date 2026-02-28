@@ -9,7 +9,7 @@
 and Paired Designs)}
 \usage{
 power.np.wilcoxon(
-  d,
+  d = NULL,
   null.d = 0,
   margin = 0,
   n.ratio = 1,

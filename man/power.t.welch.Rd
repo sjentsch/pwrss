@@ -5,7 +5,7 @@
 \title{Power Analysis for Welch's t-Test}
 \usage{
 power.t.welch(
-  d,
+  d = NULL,
   null.d = 0,
   margin = 0,
   var.ratio = 1,
