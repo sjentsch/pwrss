@@ -375,7 +375,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
     print.obj <- c(list(requested = requested, test = test,
                         design = design, method = method, dist = distribution,
-                        d = d, null.d = null.d, margin = margin,
+                        null.d = null.d, margin = margin, # d is in list.out
                         alpha = alpha, alternative = alternative),
                    list.out)
 
