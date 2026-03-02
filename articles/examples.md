@@ -5072,10 +5072,11 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.197
+#>   Statistical Power         = 0.803
 ```
 
 #### Two-way
@@ -5105,10 +5106,11 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 256  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (eta.squared) = 0.030
+#>   Total Sample Size         = 256  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.200
+#>   Statistical Power         = 0.800
 ```
 
 #### Three-way
@@ -5139,10 +5141,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 480  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 480  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.196
+#>   Statistical Power         = 0.804
 ```
 
 #### Practical Effects
@@ -5174,10 +5177,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 3516  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 3516  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ### Means and SDs as Input
@@ -5209,10 +5213,11 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # vector of means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 NOTE: Keppel procedure allows only one-way ANOVA.
@@ -5539,10 +5544,11 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 158  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 158  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 `k.covariates` argument has trivial effect on the results. The
@@ -5576,10 +5582,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 388  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 388  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 #### Three-way
@@ -5610,10 +5617,11 @@ power.f.ancova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 960  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.010
+#>   Total Sample Size         = 960  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 #### Practical Effects
@@ -5646,10 +5654,11 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 410  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 410  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ### Means and SDs as Input
@@ -5685,10 +5694,11 @@ power.f.ancova.keppel(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 158  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 158  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.198
+#>   Statistical Power         = 0.802
 ```
 
 NOTE: Keppel procedure allows only one-way ANOVA.
@@ -5726,10 +5736,11 @@ power.f.ancova.shieh(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 160  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.195
-#>   Statistical Power    = 0.805
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 160  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.195
+#>   Statistical Power         = 0.805
 ```
 
 #### Two-way
@@ -5766,10 +5777,11 @@ power.f.ancova.shieh(mu.vector = c(0.30, 0.09, 0.05, 0.245), # vector of adjuste
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 388  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 388  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.198
+#>   Statistical Power         = 0.802
 ```
 
 ## Planned Contrasts (T-Test)
@@ -5812,10 +5824,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of planned contrasts, adjusted for alpha level
 power.t.contrasts(design, adjust.alpha = "fdr")
@@ -5875,10 +5888,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of planned contrasts
 power.t.contrasts(design)
@@ -5938,10 +5952,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of the planned contrasts
 power.t.contrasts(design)
@@ -6000,10 +6015,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of the planned contrasts
 power.t.contrasts(design)

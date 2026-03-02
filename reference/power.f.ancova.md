@@ -14,7 +14,7 @@ documentation.
 
 ``` r
 power.f.ancova(
-  eta.squared,
+  eta.squared = NULL,
   null.eta.squared = 0,
   factor.levels = 2,
   target.effect = NULL,
@@ -95,6 +95,10 @@ power.f.ancova(
 
   type of the statistical test (F-Test).
 
+- eta.squared:
+
+  (partial) eta-squared for the alternative.
+
 - df1:
 
   numerator degrees of freedom.
@@ -152,7 +156,7 @@ Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 # estimate sample size using ANOVA approach
 power.f.ancova(eta.squared = 0.059,
                factor.levels = 2,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -168,16 +172,17 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.197
+#>   Statistical Power         = 0.803
 #> 
 
 # estimate sample size using regression approach(F-Test)
 power.f.regression(r.squared = 0.059,
                    k.total = 1,
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -204,7 +209,7 @@ p <- 0.50 # proportion of sample in treatment (allocation rate)
 power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
                    sd.predictor = sqrt(p*(1-p)),
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -227,7 +232,7 @@ power.t.regression(beta = 0.50, r.squared = 0,
 #> 
 
 # estimate sample size using t test approach
-power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
+power.t.student(d = 0.50, power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -260,7 +265,7 @@ power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
 
 power.f.ancova(eta.squared = 0.03,
                factor.levels = c(2,2),
-               alpha = 0.05, power = 0.80)
+               power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -276,10 +281,11 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 256  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (eta.squared) = 0.030
+#>   Total Sample Size         = 256  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.200
+#>   Statistical Power         = 0.800
 #> 
 
 # estimate sample size using regression approach (F test)
@@ -288,7 +294,7 @@ power.f.ancova(eta.squared = 0.03,
 # only the interaction term (m = 1)
 power.f.regression(r.squared = 0.03,
                    k.total = 3, k.test = 1,
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -322,7 +328,7 @@ power.f.regression(r.squared = 0.03,
 power.f.ancova(eta.squared = 0.048,
                factor.levels = 2,
                k.covariates = 1,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -338,10 +344,11 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 158  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 158  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 #############################################
@@ -355,7 +362,7 @@ power.f.ancova(eta.squared = 0.048,
 power.f.ancova(eta.squared = 0.02,
                factor.levels = c(2,2),
                k.covariates = 1,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -371,9 +378,10 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 388  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 388  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 ```

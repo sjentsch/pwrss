@@ -161,10 +161,11 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 66  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.193
-#>   Statistical Power    = 0.807
+#>   Effect Size (eta.squared) = 0.111
+#>   Total Sample Size         = 66  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.193
+#>   Statistical Power         = 0.807
 #> 
 
 # effect size approach
@@ -188,10 +189,11 @@ power.f.ancova(eta.squared = 0.111, # effect size that is already adjusted for c
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 66  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.193
-#>   Statistical Power    = 0.807
+#>   Effect Size (eta.squared) = 0.111
+#>   Total Sample Size         = 66  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.193
+#>   Statistical Power         = 0.807
 #> 
 
 # regression approach

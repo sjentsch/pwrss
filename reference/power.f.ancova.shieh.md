@@ -184,10 +184,11 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 300
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.316
-#>   Statistical Power    = 0.684  <<
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 300
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.316
+#>   Statistical Power         = 0.684  <<
 #> 
 
 
@@ -214,10 +215,11 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 396  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 396  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 ###################################################################
@@ -250,10 +252,11 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 2796  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (eta.squared) = 0.003
+#>   Total Sample Size         = 2796  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.200
+#>   Statistical Power         = 0.800
 #> 
 # Elements of `mu.vector`, `sd.vector`, `n.vector` or `p.vector` should follow this specific order:
 #  A1:B1  A1:B2  A2:B1  A2:B2
@@ -299,10 +302,11 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 # power of planned contrasts, adjusted for alpha level
@@ -364,10 +368,11 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 # power of planned contrasts
@@ -429,10 +434,11 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 # power of the planned contrasts
@@ -493,10 +499,11 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 #> 
 
 # power of the planned contrasts
