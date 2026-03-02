@@ -1,9 +1,9 @@
 #' Power Analysis for Mixed-Effects Analysis of Variance (F-Test)
 #'
 #' @description
-#' Calculates power or sample size for mixed-effects ANOVA design with two
-#' factors (between and within). When there is only one group observed over
-#' time, this design is often referred to as repeated-measures ANOVA.
+#' Calculates power, sample size or effect size for mixed-effects ANOVA design
+#' with two factors (between and within). When there is only one group observed
+#' over time, this design is often referred to as repeated-measures ANOVA.
 #'
 #' Formulas are validated using G*Power and tables in the PASS documentation.
 #'
@@ -145,7 +145,7 @@
 #'                     power = 0.80, alpha = 0.05)
 #'
 #' @export power.f.mixed.anova
-power.f.mixed.anova <- function(eta.squared,
+power.f.mixed.anova <- function(eta.squared = NULL,
                                 null.eta.squared = 0,
                                 factor.levels = c(2, 2),
                                 factor.type = c("between", "within"),
@@ -159,101 +159,82 @@ power.f.mixed.anova <- function(eta.squared,
   effect <- tolower(match.arg(effect))
   func.parms <- as.list(environment())
 
-  check.nonnegative(eta.squared, null.eta.squared)
+  if (!is.null(eta.squared)) check.nonnegative(eta.squared)
+  check.nonnegative(null.eta.squared)
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n.total, power)
+  requested <- get.requested(es = eta.squared, n = n.total, power = power)
 
   if (!all(c("between", "within") %in% factor.type))
     stop(paste("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'),",
                "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
                "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
   if (length(factor.levels) != 2 || length(factor.type) != 2)
-    stop("Excatly two factors are allowed in this procedure.", call. = FALSE)
+    stop("Exactly two factors are allowed in this procedure.", call. = FALSE)
 
   n.levels.between <- factor.levels[which(tolower(factor.type) == "between")]
   n.levels.within <- factor.levels[which(tolower(factor.type) == "within")]
   if (n.levels.within > 1 && epsilon <  1 / (n.levels.within - 1))
     stop("Incorrect value for the non-sphericity correction factor (`epsilon`).", call. = FALSE)
 
-  f.squared <- eta.squared / (1 - eta.squared)
-  null.f.squared <- null.eta.squared / (1 - null.eta.squared)
-
-  if (!is.na(rho.within)) {
-
-    if (effect == "between") {
-      f.squared <- f.squared  * (n.levels.within / (1 + (n.levels.within - 1) * rho.within))
-      null.f.squared <- null.f.squared  * (n.levels.within / (1 + (n.levels.within - 1) * rho.within))
-    } else {
-      f.squared <- f.squared  * (n.levels.within / (1 - rho.within))
-      null.f.squared <- null.f.squared  * (n.levels.within / (1 - rho.within))
+  if (is.na(rho.within)) {
+    if (requested %in% c("power", "n")) {
+      warning("Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.", call. = FALSE)
+      correct4rho <- 1
+    } else if (requested == "es") {
+      stop("When the effect size shall be estimated, `rho.within` needs to be defined.", call. = FALSE)
     }
-
   } else {
-
-    warning("Assuming that `eta.squared` and `null.eta.squared` are already adjusted for within-subject correlation.", call. = FALSE)
-
+    correct4rho <- (n.levels.within / (1 + ifelse(effect == "between", n.levels.within - 1, -1) * rho.within))
   }
+
+  f.squared      <- eta.squared      / (1 - eta.squared) *      correct4rho
+  null.f.squared <- null.eta.squared / (1 - null.eta.squared) * correct4rho
 
   pwr.mixed <- function(f.squared, null.f.squared, n.total,
                         n.levels.between, n.levels.within, epsilon, alpha, effect) {
 
-    if (effect == "between") {
-      df1 <- n.levels.between - 1
-      df2 <- n.total - n.levels.between
-    } else if (effect == "within") {
-      df1 <- (n.levels.within - 1) * epsilon
-      df2 <- (n.total - n.levels.between) * df1
-    } else if (effect == "interaction") {
-      df1 <- (n.levels.between - 1) * (n.levels.within - 1) * epsilon
-      df2 <- (n.total - n.levels.between) * (n.levels.within - 1) * epsilon
-    }
+    df1 <- prod(c(n.levels.between - 1, (n.levels.within - 1) * epsilon)[c(effect != "within", effect != "between")])
+    df2 <- (n.total - n.levels.between) * ifelse(effect == "between", 1, (n.levels.within - 1) * epsilon)
 
-    u <- df1
-    v <- df2
-    if (u < 1 || v < 1) stop("Design is not feasible", call. = FALSE)
+    if (df1 < 1 || df2 < 1) stop("Design is not feasible", call. = FALSE)
     lambda <- f.squared * n.total * epsilon
     null.lambda <- null.f.squared * n.total * epsilon
-    f.alpha <- stats::qf(alpha, df1 = u, df2 = v, ncp = null.lambda, lower.tail = FALSE)
-    power <- stats::pf(f.alpha, df1 = u, df2 = v, ncp = lambda, lower.tail = FALSE)
+    f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.lambda, lower.tail = FALSE)
+    power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = lambda, lower.tail = FALSE)
 
     list(power = power, lambda = lambda, null.lambda = null.lambda,
-         df1 = u, df2 = v, f.alpha = f.alpha)
+         df1 = df1, df2 = df2, f.alpha = f.alpha)
 
   } # pwr.mixed()
 
-  ss.mixed <- function(f.squared, null.f.squared, n.levels.between, n.levels.within, epsilon, alpha, power, effect) {
-
-    n.min <- n.levels.between + 1
-
-    n.total <- try(silent = TRUE,
-                   stats::uniroot(function(n.total) {
-                     power - pwr.mixed(f.squared, null.f.squared, n.total, n.levels.between, n.levels.within,
-                                       epsilon, alpha, effect)$power
-                   }, interval = c(n.min, 1e10))$root
-                   ) # try
-
-    if (inherits(n.total, "try-error") || n.total == 1e+10)
-      stop("Design is not feasible.", call. = FALSE)
-
-    n.total
-
-  }
+  min.pwr <- function(f.squared, n.total, power) {
+    power - pwr.mixed(f.squared, null.f.squared, n.total, n.levels.between, n.levels.within, epsilon, alpha, effect)$power
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n.total <- ss.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
-                        n.levels.between = n.levels.between, n.levels.within = n.levels.within,
-                        epsilon = epsilon, alpha = alpha, power = power, effect = effect)
+    n.min <- n.levels.between + 1
+    n.total <- try(silent = TRUE, stats::uniroot(function(n.total) min.pwr(f.squared, n.total, power),
+                                                 interval = c(n.min, 1e10))$root)
+    if (inherits(n.total, "try-error") || n.total == 1e+10) stop("Design is not feasible.", call. = FALSE)
 
-    if (ceiling) n.total <- ceiling(n.total / n.levels.between) * n.levels.between
+  } else if (requested == "es") {
+
+    f.squared <- try(silent = TRUE, stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power),
+                                                   interval = c(0, 1), tol = 1e-12)$root)
+    if (inherits(f.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
+
+    eta.squared <- (f.squared / correct4rho) / (1 + (f.squared / correct4rho))
 
   }
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  if (ceiling) n.total <- ceiling(n.total / n.levels.between) * n.levels.between
+
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
                        n.total = n.total, n.levels.between = n.levels.between, n.levels.within = n.levels.within,
                        epsilon = epsilon, alpha = alpha, effect = effect)
@@ -265,20 +246,16 @@ power.f.mixed.anova <- function(eta.squared,
   null.ncp <-  pwr.obj$null.lambda
   f.alpha <- pwr.obj$f.alpha
 
-  if (effect == "between")     effect_bw <- paste0(c("B", "W"), "(", c(n.levels.between, n.levels.within), ")", collapse = "|")
-  if (effect == "within")      effect_bw <- paste0(c("W", "B"), "(", c(n.levels.within, n.levels.between), ")", collapse = "|")
-  if (effect == "interaction") effect_bw <- paste0(c("B", "W"), "(", c(n.levels.between, n.levels.within), ")", collapse = ":")
+  effect_bw <- fmt_effect_bw(effect, n.levels.between, n.levels.within)
 
   if (verbose > 0) {
 
-    if (n.levels.between == 1) test <- "Repeated Measures Analysis of Variance (F-Test)"
-    if (n.levels.within == 1) test <- "Analysis of Variance (F-Test)"
-    if (n.levels.within > 1 && n.levels.between > 1) test <- "Mixed-Effects Analysis of Variance (F-Test)"
-
-    print.obj <- list(test = test, effect = effect_bw, n.total = n.total,
+    print.obj <- list(test = fmt_test_anovamxd(n.levels.between, n.levels.within),
+                      effect = effect_bw, n.total = n.total,
                       requested = requested, factor.levels = factor.levels,
-                      power = power, ncp = ncp, null.ncp = null.ncp,
-                      alpha = alpha, f.alpha = f.alpha, df1 = df1, df2 = df2)
+                      ncp = ncp, null.ncp = null.ncp,
+                      eta.squared = eta.squared, power = power, alpha = alpha,
+                      f.alpha = f.alpha, df1 = df1, df2 = df2)
 
     .print.pwrss.ancova(print.obj, verbose = verbose, utf = utf)
 
@@ -292,6 +269,7 @@ power.f.mixed.anova <- function(eta.squared,
                            ncp = ncp,
                            null.ncp = null.ncp,
                            f.alpha = f.alpha,
+                           eta.squared = eta.squared,
                            power = power,
                            n.total = n.total),
                       class = c("pwrss", "f", "anova_mixed")))
@@ -327,3 +305,13 @@ pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
   invisible(mixed.anova.obj)
 
 } # pwrss.f.rmanova()
+
+fmt_test_anovamxd <- function(n.levels.between, n.levels.within) {
+  paste0(ifelse(n.levels.within > 1, ifelse(n.levels.between > 1, "Mixed-Effects ", "Repeated Measures "), ""),
+         "Analysis of Variance (F-Test)")
+}
+
+fmt_effect_bw <- function(effect, n.levels.between, n.levels.within) {
+  effects <- c(sprintf("B(%d)", n.levels.between), sprintf("W(%d)", n.levels.within))
+  paste(effects[sort(c(1, 2), decreasing = (effect == "within"))], collapse = ifelse(effect == "interaction", ":", "|"))
+}
