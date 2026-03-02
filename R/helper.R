@@ -13,11 +13,14 @@ ensure.verbose <- function(verbose = NULL) {
 # check the input parameters n, power and es, and return which calculation is requested
 get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
-  es.name <- deparse(substitute(es), nlines = 1)
-  n.name  <- deparse(substitute(n),  nlines = 1)
+  if (is.null(es) || !is.na(es)) {
+    parms <- sprintf("two of the parameters `%s`, `%s`, or `power`", deparse(substitute(es), n = 1), deparse(substitute(n), n = 1))
+  } else {
+    parms <- sprintf("one of the parameters `%s` or `power`", deparse(substitute(n), n = 1))
+  }
 
   if (sum(check.not_null(n, power, es)) != 2)
-    stop(sprintf("Exactly two of the parameters `%s`, `%s`, or `power` must be given, one has to be NULL.", es.name, n.name), call. = FALSE)
+    stop(sprintf("Exactly %s must be given, one has to be NULL.", parms), call. = FALSE)
 
   invisible(c("es", "n", "power")[check.null(es, n, power)]) # return what is requested / to be calculated
 

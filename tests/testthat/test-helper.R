@@ -46,6 +46,16 @@ test_that("get.requested works", {
     power <- 0.8
     expect_error(get.requested(es = d, n = n, power = power),
                  "Exactly two of the parameters `d`, `n`, or `power` must be given, one has to be NULL.")
+    d <- NA
+    n <- 200
+    power <- 0.8
+    expect_error(get.requested(es = d, n = n, power = power),
+                 "Exactly one of the parameters `n` or `power` must be given, one has to be NULL.")
+    d <- NA
+    n <- NULL
+    power <- NULL
+    expect_error(get.requested(es = d, n = n, power = power),
+                 "Exactly one of the parameters `n` or `power` must be given, one has to be NULL.")
     d <- NULL
     n <- 1000
     power <- 0.80
@@ -55,6 +65,14 @@ test_that("get.requested works", {
     power <- 0.80
     expect_equal(get.requested(es = d, n = n, power = power), "n")
     d <- 0.20
+    n <- 1000
+    power <- NULL
+    expect_equal(get.requested(es = d, n = n, power = power), "power")
+    d <- NA
+    n <- NULL
+    power <- 0.80
+    expect_equal(get.requested(es = d, n = n, power = power), "n")
+    d <- NA
     n <- 1000
     power <- NULL
     expect_equal(get.requested(es = d, n = n, power = power), "power")
