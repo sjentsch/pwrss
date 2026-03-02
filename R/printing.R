@@ -123,8 +123,8 @@
 }
 
 .hypotheses <- function(h0_text, h1_text, utf = FALSE) {
-  if (length(h0_text) > 1) h0_text <- paste(h0_text, collapse = paste0("\n", strrep(" ", 21)))
-  if (length(h1_text) > 1) h1_text <- paste(h1_text, collapse = paste0("\n", strrep(" ", 21)))
+  if (length(h0_text) > 1) h0_text <- paste(h0_text, collapse = paste0("\n", .pad("", 21)))
+  if (length(h1_text) > 1) h1_text <- paste(h1_text, collapse = paste0("\n", .pad("", 21)))
 
   paste0(.topic("Hypotheses", utf),
          sprintf("  %s %s : %s\n",   ifelse(utf, "H\u2080", "H0"), "(Null)       ", h0_text),
@@ -144,35 +144,39 @@
 }
 
 # assembles / formats the "Effect Size" line
-.esline <- function(x, utf = FALSE, digits = 3) {
-  if (any(c("d") %in% names(x))) {
+.esline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {
+  es_sel <- names(x) %in% c("d", "eta.squared")
+  if (sum(es_sel) == 1) {
     # colors and arrows when requested, otherwise ""
     c_a <- .c_a(x$requested == "es", utf)
 
     # determine effect size and null
-    es_name <- "d"
-    es_pad  <- strrep(" ", ifelse(utf, 4, 6) - nchar(es_name))
-    es_text <- sprintf("%s", .fmt_val(x[[es_name]], digits))
-    es_null <- paste0("null.", es_name)
-    if (es_null %in% names(x)) {
-      es_nlnm <- ifelse(utf, paste0(es_name, "\u2080"), es_null)
-      es_text <- sprintf("%s (vs. %s = %s)", es_text, es_nlnm, .fmt_val(x[[es_null]], digits))
+    es_fld  <- names(x)[es_sel]
+    es_adsc <- ifelse(utf, gsub("eta.squared", "\u03b7\u00b2", es_fld), es_fld)
+    es_pad  <- .pad(es_adsc, ifelse(utf, 4, 6) + a_pad)
+    es_val  <- sprintf("%s", .fmt_val(x[[es_fld]], digits))
+    if (paste0("null.", es_fld) %in% names(x)) {
+      es_ndsc <- ifelse(utf, paste0(es_adsc, "\u2080"), paste0("null.", es_adsc))
+      es_val  <- sprintf("%s (vs. %s = %s)", es_val, es_ndsc, .fmt_val(x[[paste0("null.", es_fld)]], digits))
     }
-    sprintf("  %sEffect Size (%s)%s = %s%s%s%s%s\n", c_a[1], es_name, es_pad, es_text, c_a[2], c_a[3], c_a[4], c_a[5])
-  } else {
+    sprintf("  %sEffect Size (%s)%s = %s%s%s%s%s\n", c_a[1], es_adsc, es_pad, es_val, c_a[2], c_a[3], c_a[4], c_a[5])
+  } else if (sum(es_sel) == 0) {
     # return an empty string (for the generic functions, that only calculate power)
     ""
+  } else {
+    print(names(x))
+    stop("`print.obj` contains more than one effect size.", call. = FALSE)
   }
 }
 
 # assembles "Sample Size" line
-.nline <- function(x, utf, digits = 3) {
+.nline <- function(x, utf, digits = 3, a_pad = 0) {
   if (any(c("n", "n.total", "n.paired") %in% names(x))) {
     # colors and arrows when requested, otherwise ""
     c_a <- .c_a(x$requested == "n", utf)
     # assembles / formats the sample size line which requires a bit of formatting (Sample Size can be preceeded by Total or Paired)
     n_prefix <- ifelse(utils::hasName(x, "n.total") && !utils::hasName(x, "n"), "Total ", ifelse(utils::hasName(x, "n.paired"), "Paired ", ""))
-    n_pad    <- strrep(" ", ifelse(utf, 7, 9) - nchar(n_prefix))
+    n_pad    <- .pad(n_prefix, ifelse(utf, 7, 9) + a_pad)
     n        <- x[[c("n", "n.total", "n.paired")[c("", "Total ", "Paired ") %in% n_prefix]]]
     n_text   <- paste(round(n, digits), collapse = ifelse(length(n) == 2, " and ", ", "))
     sprintf("  %s%sSample Size%s = %s%s%s%s%s\n", c_a[1], n_prefix, n_pad, n_text, c_a[2], c_a[3], c_a[4], c_a[5])
@@ -183,19 +187,20 @@
 }
 
 # assembles / formats the "Statistical Power" line
-.pline <- function(x, utf = FALSE, digits = 3) {
+.pline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {
   # colors and arrows when requested, otherwise ""
   c_a <- .c_a(x$requested == "power", utf)
-  sprintf("  %sStatistical Power%s = %.*f%s%s%s%s\n\n", c_a[1], strrep(" ", ifelse(utf, 1, 3)), digits, x$power, c_a[2], c_a[3], c_a[4], c_a[5])
+  sprintf("  %sStatistical Power%s = %.*f%s%s%s%s\n\n", c_a[1], .pad("", ifelse(utf, 1, 3) + a_pad), digits, x$power, c_a[2], c_a[3], c_a[4], c_a[5])
 }
 
 .results <- function(x, utf = FALSE, digits = 3) {
+  a_pad <- ifelse("eta.squared" %in% names(x) && !utf, 5, ifelse("r.squared" %in% names(x) && !utf, 3, 0))
   paste0(.topic("Results", utf),
-         .esline(x, utf, digits),
-         .nline(x, utf, digits),
-         sprintf("  Type 1 Error %s = %.*f\n", ifelse(utf, "(\u03B1)  ", "(alpha)"), digits, x$alpha),
-         sprintf("  Type 2 Error %s = %.*f\n", ifelse(utf, "(\u03B2)  ", "(beta) "), digits, 1 - x$power),
-         .pline(x, utf, digits))
+         .esline(x, utf, digits, a_pad),
+         .nline(x,  utf, digits, a_pad),
+         sprintf("  Type 1 Error %s%s = %.*f\n", ifelse(utf, "(\u03B1)  ", "(alpha)"), .pad("", a_pad), digits, x$alpha),
+         sprintf("  Type 2 Error %s%s = %.*f\n", ifelse(utf, "(\u03B2)  ", "(beta) "), .pad("", a_pad), digits, 1 - x$power),
+         .pline(x,  utf, digits, a_pad))
 }
 
 .defs <- function(defs_mtx, utf = FALSE) {
