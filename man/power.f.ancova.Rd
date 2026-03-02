@@ -7,7 +7,7 @@
 (F-Test)}
 \usage{
 power.f.ancova(
-  eta.squared,
+  eta.squared = NULL,
   null.eta.squared = 0,
   factor.levels = 2,
   target.effect = NULL,
@@ -65,6 +65,7 @@ by default.}
 \value{
 \item{parms}{list of parameters used in calculation.}
 \item{test}{type of the statistical test (F-Test).}
+\item{eta.squared}{(partial) eta-squared for the alternative.}
 \item{df1}{numerator degrees of freedom.}
 \item{df2}{denominator degrees of freedom.}
 \item{ncp}{non-centrality parameter for the alternative.}
@@ -101,22 +102,22 @@ of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 # estimate sample size using ANOVA approach
 power.f.ancova(eta.squared = 0.059,
                factor.levels = 2,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 
 # estimate sample size using regression approach(F-Test)
 power.f.regression(r.squared = 0.059,
                    k.total = 1,
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 
 # estimate sample size using regression approach (T-Test)
 p <- 0.50 # proportion of sample in treatment (allocation rate)
 power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
                    sd.predictor = sqrt(p*(1-p)),
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 
 # estimate sample size using t test approach
-power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
+power.t.student(d = 0.50, power = 0.80, alpha = 0.05)
 
 #############################################
 #              two-way ANOVA                #
@@ -128,7 +129,7 @@ power.t.student(d = 0.50, alpha = 0.05, power = 0.80)
 
 power.f.ancova(eta.squared = 0.03,
                factor.levels = c(2,2),
-               alpha = 0.05, power = 0.80)
+               power = 0.80, alpha = 0.05)
 
 # estimate sample size using regression approach (F test)
 # one dummy for treatment, one dummy for gender, and their interaction (k = 3)
@@ -136,7 +137,7 @@ power.f.ancova(eta.squared = 0.03,
 # only the interaction term (m = 1)
 power.f.regression(r.squared = 0.03,
                    k.total = 3, k.test = 1,
-                   alpha = 0.05, power = 0.80)
+                   power = 0.80, alpha = 0.05)
 
 #############################################
 #              one-way ANCOVA               #
@@ -150,7 +151,7 @@ power.f.regression(r.squared = 0.03,
 power.f.ancova(eta.squared = 0.048,
                factor.levels = 2,
                k.covariates = 1,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 
 #############################################
 #              two-way ANCOVA               #
@@ -163,7 +164,7 @@ power.f.ancova(eta.squared = 0.048,
 power.f.ancova(eta.squared = 0.02,
                factor.levels = c(2,2),
                k.covariates = 1,
-               alpha = 0.05, power = .80)
+               power = .80, alpha = 0.05)
 
 }
 \references{
