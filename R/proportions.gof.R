@@ -2,11 +2,11 @@
 # Chi-square test for independence/goodness-of-fit #
 ####################################################
 
-#' Power and Sample Size for Chi-square Goodness-of-Fit or Independence Tests
+#' Power Analysis for Chi-square Goodness-of-Fit or Independence Tests
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) for
-#' Chi-square goodness-of-fit or independence tests.
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) for Chi-square goodness-of-fit or independence tests.
 #'
 #' @details
 #' * NB: The \code{pwrss.chisq.gofit()} function is deprecated. However, it
@@ -49,6 +49,7 @@
 #'   \item{ncp}{non-centrality parameter under alternative.}
 #'   \item{null.ncp}{non-centrality parameter under null.}
 #'   \item{chisq.alpha}{critical value.}
+#'   \item{w}{Cohen's w effect size under alternative.}
 #'   \item{power}{statistical power \eqn{(1-\beta)}.}
 #'   \item{n}{total sample size.}
 #'
@@ -114,23 +115,23 @@
 #' power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 #'
 #' @export power.chisq.gof
-power.chisq.gof <- function(w, null.w = 0, df,
+power.chisq.gof <- function(w = NULL, null.w = 0, df,
                             n = NULL, power = NULL, alpha = 0.05,
                             ceiling = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- as.list(environment())
 
-  check.positive(w)
-  check.nonnegative(null.w)
+  if (!is.null(w)) check.proportion(w)
+  check.proportion(null.w)
   check.positive(df)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = w, n = n, power = power)
 
-  if (w < null.w)
+  if (!is.null(w) && w < null.w)
     stop("`w` should be greater than or equal to `null.w`.", call. = FALSE)
 
   pwr.chisq <- function(w, null.w, df, n, alpha) {
@@ -147,37 +148,26 @@ power.chisq.gof <- function(w, null.w = 0, df,
          chisq.alpha = chisq.alpha)
 
   } # pwr.chisq
-
-
-  ss.chisq <- function(w, null.w, df, power, alpha) {
-
-    n <- try(silent = TRUE,
-             suppressWarnings({
-               stats::uniroot(function(n) {
-                 power - pwr.chisq(w = w, null.w = null.w,
-                                   df = df, n = n, alpha = alpha)$power
-               }, interval = c(2, 1e10))$root
-             }) # supressWarnings
-
-    ) # try
-
-    if (inherits(n, "try-error") || n == 1e10)
-      stop("Design is not feasible.", call. = FALSE)
-
-    n
-
-  } # ss.chisq
-
+  
+  min.pwr <- function(w, n, power) {
+    power - pwr.chisq(w = w, null.w = null.w, df = df, n = n, alpha = alpha)$power
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- ss.chisq(w = w, null.w = null.w, df = df, power = power, alpha = alpha)
+    n <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n) min.pwr(w, n, power), interval = c(2, 1e10))$root))
+    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
+  } else if (requested == "es") {
+
+    w <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(w) min.pwr(w, n, power), interval = c(0, 1))$root))
+    if (inherits(w, "try-error")) stop("Design is not feasible.", call. = FALSE)
+  
   }
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.chisq(w = w, null.w = null.w, df = df, n = n, alpha = alpha)
 
   power <- pwr.obj$power
@@ -191,6 +181,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
 
     print.obj <- list(requested = requested,
                       test = test,
+                      w = w,
                       n = n,
                       df = df,
                       ncp.alternative = ncp.alternative,
@@ -209,6 +200,7 @@ power.chisq.gof <- function(w, null.w = 0, df,
                            ncp = ncp.alternative,
                            null.ncp = ncp.null,
                            chisq.alpha = chisq.alpha,
+                           w = w,
                            power = power,
                            n = n),
                       class = c("pwrss", "chisq", "gof")))
