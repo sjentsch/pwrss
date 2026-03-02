@@ -107,6 +107,113 @@ f.to.etasq <- function(f, verbose = 1) {
 } # f.to.etasq
 
 
+#' Conversion from R-squared to Cohen's f
+#'
+#' @description
+#' Helper function to convert between Cohen's f and R-squared.
+#'
+#' @param r.squared.full    R-squared for the full model.
+#' @param r.squared.reduced R-squared for the reduced model.
+#' @param verbose           \code{1} by default (returns results), if \code{0}
+#'                          no output is printed on the console.
+#'
+#' @return
+#'   \item{f.squared}{Cohen's f-squared.}
+#'   \item{f}{Cohen's f.}
+#'   \item{r.squared.full}{R-squared for the full model.}
+#'   \item{r.squared.reduced}{R-squared for the reduced model.}
+#'
+#' @references
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
+#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
+#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
+#'   111. https://doi.org/10.3389/fpsyg.2012.00111
+#'
+#' @examples
+#'
+#'   rsq.to.f(r.squared.full = 0.02) # small
+#'   rsq.to.f(r.squared.full = 0.13) # medium
+#'   rsq.to.f(r.squared.full = 0.26) # large
+#'
+#' @export rsq.to.f
+rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
+
+  check.nonnegative(r.squared.full, r.squared.reduced)
+  verbose <- ensure.verbose(verbose)
+
+  if (r.squared.full < r.squared.reduced)
+    stop("Expecting `r.squared.full` > `r.squared.reduced`.", call. = FALSE)
+
+  f.squared <- (r.squared.full - r.squared.reduced) / (1 - r.squared.full)
+
+  if (verbose > 0)
+    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
+
+  invisible(list(f.squared = f.squared, f = sqrt(f.squared),
+                 r.squared.full = r.squared.full,
+                 r.squared.reduced = r.squared.reduced))
+} # rsq.to.f
+
+
+#' Conversion from Cohen's f to R-squared
+#'
+#' @description
+#' Helper function to convert between Cohen's f and R-squared.
+#'
+#'
+#' @param f              Cohen's f.
+#' @param r.squared.full R-squared for the full model.
+#' @param verbose        \code{1} by default (returns results), if \code{0} no
+#'                       output is printed on the console.
+#'
+#' @return
+#'   \item{f}{Cohen's f.}
+#'   \item{f.squared}{Cohen's f-squared.}
+#'   \item{r.squared.full}{R-squared for the full model.}
+#'   \item{r.squared.reduced}{R-squared for the reduced model.}
+#'
+#' @references
+#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'   (2nd ed.). Lawrence Erlbaum Associates.
+#'
+#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
+#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
+#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
+#'   111. https://doi.org/10.3389/fpsyg.2012.00111
+#'
+#' @examples
+#'
+#'   f.to.rsq(f = 0.14) # small
+#'   f.to.rsq(f = 0.39) # medium
+#'   f.to.rsq(f = 0.59) # large
+#'
+#' @export f.to.rsq
+f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
+
+  check.nonnegative(f)
+  verbose <- ensure.verbose(verbose)
+
+  f.squared <- f ^ 2
+  if (is.null(r.squared.full)) {
+    r.squared.full <- f.squared / (1 + f.squared)
+    r.squared.reduced <- 0
+  } else {
+    change.r.squared <- f.squared * (1 - r.squared.full)
+    r.squared.reduced <- r.squared.full - change.r.squared
+  }
+
+  if (verbose > 0)
+    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
+
+  invisible(list(f.squared = f.squared, f = sqrt(f.squared),
+                 r.squared.full = r.squared.full,
+                 r.squared.reduced = r.squared.reduced))
+} # f.to.rsq
+
+
 #' Conversion from a correlation to a z-value (Fisher's z-transformation)
 #'
 #'
