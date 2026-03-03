@@ -57,6 +57,10 @@
 
 .pad <- function(dsc, maxlen) strrep(" ", maxlen + .nspacer(dsc) - nchar(dsc))
 
+.a_pad <- function(n, utf) {
+  ifelse("eta.squared" %in% n && !utf, 5, ifelse(any(grepl("^r.squared", n)) && !utf, 3, 0))
+}
+
 .keyparms <- function(x, parms_mtx, utf = FALSE, digits = 3) {
   spf_neg   <- ifelse(any(stats::na.omit(suppressWarnings(as.numeric(unlist(x[parms_mtx[, 1]])))) < 0), "+", "")
   parms_col <- ifelse(utf, 3, 2)
@@ -145,14 +149,15 @@
 
 # assembles / formats the "Effect Size" line
 .esline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {
-  es_sel <- names(x) %in% c("d", "eta.squared")
+  es_sel <- names(x) %in% c("d", "eta.squared", "r.squared", "r.squared.change", "w")
   if (sum(es_sel) == 1) {
     # colors and arrows when requested, otherwise ""
     c_a <- .c_a(x$requested == "es", utf)
 
     # determine effect size and null
     es_fld  <- names(x)[es_sel]
-    es_adsc <- ifelse(utf, gsub("eta.squared", "\u03b7\u00b2", es_fld), es_fld)
+    es_adsc <- ifelse(utf, gsub("r.squared|r.squared.change", "R\u00b2", gsub("eta.squared", "\u03b7\u00b2", es_fld)),
+                           gsub("r.squared|r.squared.change", "R-squared", es_fld))
     es_pad  <- .pad(es_adsc, ifelse(utf, 4, 6) + a_pad)
     es_val  <- sprintf("%s", .fmt_val(x[[es_fld]], digits))
     if (paste0("null.", es_fld) %in% names(x)) {
@@ -194,7 +199,7 @@
 }
 
 .results <- function(x, utf = FALSE, digits = 3) {
-  a_pad <- ifelse("eta.squared" %in% names(x) && !utf, 5, ifelse("r.squared" %in% names(x) && !utf, 3, 0))
+  a_pad <- .a_pad(names(x), utf)
   paste0(.topic("Results", utf),
          .esline(x, utf, digits, a_pad),
          .nline(x,  utf, digits, a_pad),
@@ -299,13 +304,13 @@
   if (verbose == 2) {
     #                     | ascii (utf at next line indented)
     defs_mtx <- t(matrix(c("psi : Contrast estimate, sum(contrast[i] * mu[i])",
-                             "\u03C8  \u2009\u2009: Contrast est. defined as \u2211(contrast\u1D62 * \u03BC\u1D62)",
+                             "\u03C8\u2009 : Contrast est. defined as \u2211(contrast\u1D62 * \u03BC\u1D62)",
                            "d   : Standardized contrast estimate",
-                             "d  \u2009\u2009: Standardized contrast estimate",
+                             "d\u2009 : Standardized contrast estimate",
                            "",
-                             "\u03BB  \u2009\u2009: Non-centrality parameter under alternative",
+                             "\u03BB\u2009 : Non-centrality parameter under alternative",
                            "",
-                             "\u03BB\u2080  : Non-centrality parameter under null"),
+                             "\u03BB\u2080 : Non-centrality parameter under null"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
     cat(.defs(defs_mtx, utf))
@@ -349,11 +354,11 @@
   if (verbose == 2) {
     #                     | ascii (utf at next line indented)
     defs_mtx <- t(matrix(c("psi : Contrast estimate, sum(contrast[i] * mu[i])",
-                             "\u03C8 (psi) \u2009\u2009: Contrast est. defined as \u2211(contrast\u1D62 * \u03BC\u1D62)",
+                             "\u03C8 (psi) : Contrast est. defined as \u2211(contrast\u1D62 * \u03BC\u1D62)",
                            "d   : Standardized contrast estimate",
-                             "d\u2009\u2009       : Standardized contrast estimate",
+                             "d       : Standardized contrast estimate",
                            "ncp : Non-centrality parameter under alt.",
-                             "\u03BB\u2080\u2009       : Non-centrality parameter under alt."),
+                             "\u03BB\u2080      : Non-centrality parameter under alt."),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
     cat(.defs(defs_mtx, utf))
@@ -379,8 +384,8 @@
 
   if (verbose == 2) {
     #                      | var.name         |  ascii          |  utf
-    parms_mtx <- t(matrix(c("delta",            "rho12 - rho13",  "\u03C1\u2081\u2082 - \u03C1\u2081\u2083          \u2009",
-                            "delta",            "rho12 - rho34",  "\u03C1\u2081\u2082 - \u03C1\u2083\u2084          \u2009",
+    parms_mtx <- t(matrix(c("delta",            "rho12 - rho13",  "\u03C1\u2081\u2082 - \u03C1\u2081\u2083\u2009",
+                            "delta",            "rho12 - rho34",  "\u03C1\u2081\u2082 - \u03C1\u2083\u2084\u2009",
                             "q",                "Cohen's q",      "Cohen's q",
                             "mean.alternative", "Mean of Alt.",   "\u03BC (Alternative)",
                             "sd.alternative",   "SD of Alt.",     "\u03C3 (Alternative)",
@@ -399,8 +404,8 @@
     defs_mtx <- t(matrix(c("rho12 : Correlation between variable V1 and V2", "\u03C1\u2081\u2082 : Correlation between variable V1 and V2",
                            "rho13 : Correlation between variable V1 and V3", "\u03C1\u2081\u2083 : Correlation between variable V1 and V3",
                            "rho34 : Correlation between variable V3 and V4", "\u03C1\u2083\u2084 : Correlation between variable V3 and V4",
-                           "",                                               "\u03BC  \u2009: Mean",
-                           "",                                               "\u03C3  \u2009: Standard deviation"),
+                           "",                                               "\u03BC\u2009  : Mean",
+                           "",                                               "\u03C3\u2009  : Standard deviation"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
     cat(.defs(defs_mtx[-2 - as.integer(x$common), ], utf))
@@ -446,8 +451,8 @@
                            "rho2 : Correlation (for some V1 ~ V2) in group 2",     "\u03C1\u2082 : Correlation (for some V1 ~ V2) in group 2",
                            "rho      : Correlation (for some V1 ~ V2) under alt.", "\u03C1\u2081 : Correlation (for some V1 ~ V2) under alternative",
                            "null.rho : Correlation (for some V1 ~ V2) under null", "\u03C1\u2080 : Correlation (for some V1 ~ V2) under null",
-                           "",                                                     "\u03BC \u2009\u2009: Mean",
-                           "",                                                     "\u03C3 \u2009\u2009: Standard deviation"),
+                           "",                                                     "\u03BC\u2009 : Mean",
+                           "",                                                     "\u03C3\u2009 : Standard deviation"),
 
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
@@ -678,10 +683,10 @@
 
   if (verbose == 2) {
     #                     | ascii                                                |  utf
-    defs_mtx <- t(matrix(c("",                                                     "d \u2009\u2009: Cohen's d under alternative",
+    defs_mtx <- t(matrix(c("",                                                     "d\u2009 : Cohen's d under alternative",
                            "",                                                     "d\u2080 : Cohen's d under null",
-                           "Margin : Smallest d - null.d difference that matters", "\u03B4 \u2009\u2009: Margin - ignorable d - d\u2080 difference",
-                           "",                                                     "\u03BB \u2009\u2009: Non-centrality parameter under alternative",
+                           "Margin : Smallest d - null.d difference that matters", "\u03B4\u2009 : Margin - ignorable d - d\u2080 difference",
+                           "",                                                     "\u03BB\u2009 : Non-centrality parameter under alternative",
                            "",                                                     "\u03BB\u2080 : Non-centrality parameter under null"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
@@ -738,7 +743,7 @@
     #                     | ascii                                         |  utf
     defs_vec   <- c("",                                                     "d\u2009 : Cohen's d under alternative",
                     "",                                                     "d\u2080 : Cohen's d under null",
-                    "Margin : Smallest d - null.d difference that matters", "\u03B4 \u2009\u2009: Margin - ignorable d - d\u2080 difference")
+                    "Margin : Smallest d - null.d difference that matters", "\u03B4\u2009 : Margin - ignorable d - d\u2080 difference")
     if (x$method == "guenther") {
       #            | utf (ascii is "" to keep the correct shape)
       defs_vec <- c(defs_vec,
@@ -850,7 +855,7 @@
                            "P[i,.] : Marginal probability for row i (sum over j)",       "P[i,.] : Marginal prob. for row i (sum over j)",
                            "P[.,j] : Marginal probability for column j (sum over i)",    "P[.,j] : Marginal prob. for column j (sum over i)\n",
                            "",                                                           "\u03BB      : Non-centrality parameter under alternative",
-                           "",                                                           "\u03BB\u2080     \u2009: Non-centrality parameter under null"),
+                           "",                                                           "\u03BB\u2080\u2009    : Non-centrality parameter under null"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
     cat(.defs(defs_mtx, utf))
@@ -948,8 +953,8 @@
 
   if (verbose == 2) {
     #               | var.name         |  ascii            |  utf
-    parms_vec <-   c("delta",            "prob - null.prob", "P - P\u2080             \u2009",
-                     "odds.ratio",       "Odds Ratio",       "Odds Ratio (OR")
+    parms_vec <-   c("delta",            "prob - null.prob", "P - P\u2080\u2009",
+                     "odds.ratio",       "Odds Ratio (OR)",  "Odds Ratio (OR)")
     if (x$method == "exact") {
       #             | var.name         |  ascii            |  utf
       parms_vec <- c(parms_vec,
@@ -1025,8 +1030,8 @@
   if (verbose == 2) {
     mrg_def_ascii <- sprintf("Margin : Smallest %s that matters", gsub("Change", "change", rsq))
     #                     | ascii       |  utf
-    defs_mtx <- t(matrix(c(mrg_def_ascii, "\u03B4 \u2009\u2009: Margin - ignorable R\u00B2 or \u0394R\u00B2",
-                           "",            "\u03BB \u2009\u2009: Non-centrality parameter under alternative",
+    defs_mtx <- t(matrix(c(mrg_def_ascii, "\u03B4\u2009 : Margin - ignorable R\u00B2 or \u0394R\u00B2",
+                           "",            "\u03BB\u2009 : Non-centrality parameter under alternative",
                            "",            "\u03BB\u2080 : Non-centrality parameter under null"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
@@ -1067,25 +1072,25 @@
   if (verbose == 2) {
     #                     | ascii (utf at next line indented)
     defs_mtx <- t(matrix(c("beta                 : Regression coefficient under alt.",
-                             "\u03B2      : Regression coefficient under alternative",
+                             "\u03B2       : Regression coefficient under alternative",
                            "null.beta            : Regression coefficient under null",
                              "\u03B2\u2080\u2009     : Regression coefficient under null",
                            "margin               : Smallest beta - null.beta difference that matters\n",
-                             "\u03B4      : Margin(s) - ignorable \u03B2 - \u03B2\u2080 difference\n",
+                             "\u03B4       : Margin(s) - ignorable \u03B2 - \u03B2\u2080 difference\n",
                            "Std. Beta Under Alt. = beta * [SD(X) / SD(Y)]",
-                             "Std. \u03B2 = \u03B2 * [\u03C3(X) / \u03C3(Y)]",
+                             "Std. \u03B2  = \u03B2  * [\u03C3(X) / \u03C3(Y)]",
                            "Std. Beta Under Null = null.beta * [SD(X) / SD(Y)]",
                              "Std. \u03B2\u2080\u2009= \u03B2\u2080 * [\u03C3(X) / \u03C3(Y)]",
                            "Std. Margin          = margin * [SD(X) / SD(Y)]\n",
-                             "Std. \u03B4 = \u03B4 * [\u03C3(X) / \u03C3(Y)]\n",
+                             "Std. \u03B4  = \u03B4  * [\u03C3(X) / \u03C3(Y)]\n",
                            "SD(X)                : Standard deviation of the predictor",
-                             "\u03C3(X)   : Standard devition of the predictor",
+                             "\u03C3(X)    : Standard devition of the predictor",
                            "SD(Y)                : Standard deviation of the outcome",
-                             "\u03C3(Y)   : Standard devition of the outcome\n",
+                             "\u03C3(Y)    : Standard devition of the outcome\n",
                            "",
-                             "\u03BB      : Non-centrality parameter under alternative",
+                             "\u03BB       : Non-centrality parameter under alternative",
                            "",
-                             "\u03BB\u2080     \u2009: Non-centrality parameter under null"),
+                             "\u03BB\u2080\u2009     : Non-centrality parameter under null"),
                   nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
 
     cat(.defs(defs_mtx, utf))
@@ -1196,7 +1201,7 @@
       #            | utf (ascii is "" to keep the correct shape)
       defs_vec <- c(defs_vec[seq(length(defs_vec) - 1)], paste0(defs_vec[length(defs_vec)], "\n"),
                     "", "\u03BC            : Mean of the alternative distribution",
-                    "", "\u03BC\u2080           \u2009: Mean of the null distribution")
+                    "", "\u03BC\u2080\u2009          : Mean of the null distribution")
     }
 
     defs_mtx <- t(matrix(defs_vec, nrow = 2, dimnames = list(c("ascii", "utf"), NULL)))
