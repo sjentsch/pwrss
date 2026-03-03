@@ -34,8 +34,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "normal", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80316583, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.80044222, n = 508))
+                 list(test = "z", odds.ratio = 1.41666667, mean = 2.80316571, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.800442184, n = 508))
 
     crrRes <- power.z.logistic(base.prob = 0.15, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal",
                                alternative = "one.sided", verbose = 0)
@@ -128,8 +128,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.8017953, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.80005882, n = 1811))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.80179519, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80005878, n = 1811))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, n = 1811, distribution = "bernoulli",
                                method = "hsieh", verbose = 0)
@@ -140,8 +140,8 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = "bernoulli", ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.416667, mean = 2.8017953, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.80005882, n = 1811))
+                 list(test = "z", odds.ratio = 1.416667, mean = 2.80179607, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.80005902, n = 1811))
 
     crrRes <- power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667, alpha = 0.05, power = 0.80,
                                distribution = list(dist = "bernoulli", prob = 0.30), verbose = 0)
@@ -273,13 +273,13 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = list(dist = "normal", mean = 0, sd = 1), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 1.5, mean = 3.6092542, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.950455902, n = 317))
+                 list(test = "z", odds.ratio = 1.5, mean = 3.6095505, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.950486233, n = 317))
     expect_equal(power.z.logistic(base.prob = 0.5, odds.ratio = 1.5, r.squared.pred = 0, alpha = 0.05, power = 0.95,
                                   method = "demidenko(vc)", distribution = list(dist = "normal", mean = 0, sd = 1), verbose = 0)$n, 337)
     expect_equal(power.z.logistic(base.prob = 0.5, odds.ratio = 1.5, r.squared.pred = 0, alpha = 0.05, power = 0.95,
                                   method = "demidenko", distribution = list(dist = "normal", mean = 0, sd = 1), verbose = 0)$n, 355)
-    # results are identical: z crit = 1.959964, power ~ 0.9504[5/8]6 (might be a typo), n = hsieh: 317, demidenko: 337 (vc) / 355
+    # results are identical: z crit = 1.959964, power = 0.950486, n = hsieh: 317, demidenko: 337 (vc) / 355
 
     # example 29.4 from the GPower manual (second example, binomial distribution)
     crrRes <- power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95,
@@ -291,16 +291,18 @@ test_that("regression.logistic.R works", {
                       r.squared.predictor = 0, alpha = 0.05, alternative = "two.sided", method = "hsieh",
                       distribution = list(dist = "binomial", prob = 0.5, size = 1), ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "odds.ratio", "mean", "sd", "vcf", "null.mean", "null.sd", "z.alpha", "power", "n")],
-                 list(test = "z", odds.ratio = 0.473684211, mean = 3.60521531, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
-                      z.alpha = 1.959964, power = 0.950041, n = 1437))
+                 list(test = "z", odds.ratio = 0.473684211, mean = 3.6054765, sd = 1, vcf = NA, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.959964, power = 0.950067919, n = 1437))
     expect_equal(power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95, method = "demidenko(vc)",
                                   distribution = list(dist = "binomial", prob = 0.5, size = 1), verbose = 0)$n, 1437)
     expect_equal(power.z.logistic(base.prob = 0.1, prob = 0.05, r.squared.pred = 0, alpha = 0.05, power = 0.95, method = "demidenko",
                                   distribution = list(dist = "binomial", prob = 0.5, size = 1), verbose = 0)$n, 1498)
-    # results are identical: z crit = 1.959964, power ~ 0.9500, n = hsieh: 1437, demidenko: 1437 (vc) / 1498
+    # results are identical: z crit = 1.959964, power = 0.950068, n = hsieh: 1437, demidenko: 1437 (vc) / 1498
 
     expect_error(power.z.logistic(base.prob = 0.15, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 0),
-                 "Specify `base.prob` & `prob` \n  or `base.prob` & `odds.ratio` \n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.")
+                 "Specify `base.prob` & `prob`\n  or `base.prob` & `odds.ratio`\n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.")
+#                 paste("Specify `base.prob` & `prob`\n  or `base.prob` & `odds.ratio`\n  or `base.prob` & `beta1`\n  or",
+#                       "`beta0` & `beta1`\n  or `base.prob` & `n` & `power` \\(the latter calculates `odds.ratio` as effect size\\)."))
     expect_message(power.z.logistic(base.prob = 0.15, prob = 0.20, odds.ratio = 1.5, alpha = 0.05, power = 0.80,
                                     distribution = "normal", verbose = 0),
                    "Using `base.prob` and `prob`, ignoring any specifications to `odds.ratio`, `beta0`, or `beta1`.")
@@ -314,9 +316,9 @@ test_that("regression.logistic.R works", {
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.20, alpha = 0.05, power = 0.80, distribution = "normal", verbose = 0),
                  "`prob` can not have the same value as `base.prob`.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, distribution = "normal", verbose = 0),
-                 "`n` and `power` cannot be NULL at the same time.")
+                 "Exactly two of the parameters `odds.ratio`, `n`, or `power` must be given, one has to be NULL.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.80, n = 50, distribution = "normal", verbose = 0),
-                 "Exactly / only one of the parameters `n` or `power` should be NULL.")
+                 "Exactly two of the parameters `odds.ratio`, `n`, or `power` must be given, one has to be NULL.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.80,
                                   distribution = list(dist = "normal", mean = 0, sd = 1, err = 1), verbose = 0),
                  "Unknown input type for `distribution`")
@@ -330,5 +332,5 @@ test_that("regression.logistic.R works", {
                  "Hsieh et al. \\(1998\\) is valid only for a binary covariate or a continuous covariate following normal distribution.")
     expect_error(power.z.logistic(base.prob = 0.20, prob = 0.40, alpha = 0.05, power = 0.80, distribution = "poisson",
                                   method = "hsieh", verbose = 0),
-                 "Not a valid distribution for the Hsieh et al. \\(1998\\) procedure.")
+                 "Hsieh et al. \\(1998\\) is valid only for a binary covariate or a continuous covariate following normal distribution.")
 })

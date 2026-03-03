@@ -203,7 +203,6 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
 
   if (all(check.not_null(base.prob, prob))) {
     check.proportion(prob, base.prob)
@@ -217,7 +216,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     check.positive(odds.ratio)
     if (any(check.not_null(prob, beta0, beta1)) && verbose >= 0)
       message("Using `base.prob` and `odds.ratio`, ignoring any specifications to `prob`, `beta0`, or `beta1`.")
-    prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
+    prob <- odds2prob(odds.ratio, base.prob)
     beta0 <- log(base.prob / (1 - base.prob))
     beta1 <- log(odds.ratio)
   } else if (all(check.not_null(base.prob, beta1))) {
@@ -226,7 +225,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     if (any(check.not_null(prob, beta0, odds.ratio)) && verbose >= 0)
       message("Using `base.prob` and `beta1`, ignoring any specifications to `prob`, `beta0`, or `odds.ratio`.")
     odds.ratio <- exp(beta1)
-    prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
+    prob <- odds2prob(odds.ratio, base.prob)
     beta0 <- log(base.prob / (1 - base.prob))
   } else if (all(check.not_null(beta0, beta1))) {
     check.numeric(beta0, beta1)
@@ -234,12 +233,23 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.prob`, `prob`, or `odds.ratio`.")
     base.prob <- exp(beta0) / (1 + exp(beta0))
     odds.ratio <- exp(beta1)
-    prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
+    prob <- odds2prob(odds.ratio, base.prob)
+#  } else if (all(check.not_null(base.prob, n, power))) { # calculate effect size
+#    check.proportion(base.prob)
+#    if (any(check.not_null(prob, odds.ratio, beta0, beta1)) && verbose >= 0)
+#      message("Calculating the effect size (`odds.ratio`), ignoring any specifications to `prob`, `odds.ratio`, `beta0` or `beta1`.")
+#    prob <- odds.ratio <- beta1 <- NULL
+#    beta0 <- log(base.prob / (1 - base.prob))
   } else {
-    stop("Specify `base.prob` & `prob` \n  or `base.prob` & `odds.ratio` \n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.", call. = FALSE)
+    stop("Specify `base.prob` & `prob`\n  or `base.prob` & `odds.ratio`\n  or `base.prob` & `beta1`\n  or `beta0` & `beta1`.", call. = FALSE)
+#   stop(paste("Specify `base.prob` & `prob`\n  or `base.prob` & `odds.ratio`\n  or `base.prob` & `beta1`\n  or",
+#              "`beta0` & `beta1`\n  or `base.prob` & `n` & `power` (the latter calculates `odds.ratio` as effect size)."), call. = FALSE)
   }
 
-  if (prob == base.prob) stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
+  if (!is.null(prob) && prob == base.prob) stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
+
+#  requested <- get.requested(es = odds.ratio, n = n, power = power)
+  requested <- get.requested(es = odds.ratio, n = n, power = power)
 
   # check distribution
   if (length(distribution) == 1 && is.character(distribution)) {
@@ -383,9 +393,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
   # Demidenko, E. (2007). Sample size determination for logistic
   # regression revisited. Statistics in Medicine, 26, 3385-3397.
-  pwr.demidenko <- function(beta0, beta1, n,
-                            r.squared.predictor, alpha, alternative,
-                            method, distribution) {
+  pwr.demidenko <- function(beta0, beta1, n, r.squared.predictor, alpha, alternative, method, distribution) {
 
     # variance correction factor
     if (method == "demidenko(vc)") {
@@ -419,100 +427,66 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
   } # pwr.demidenko()
 
-  ss.demidenko <- function(beta0, beta1, power,
-                           r.squared.predictor, alpha, alternative,
-                           method, distribution) {
+  # Hsieh, F. Y., Bloch, D. A., & Larsen, M. D. (1998). A simple method of sample size calculation for linear and
+  # logistic regression. Statistics in Medicine, 17, 1623-1634.
+  ss.hsieh <- function(base.prob, prob, r.squared.predictor, power, alpha, alternative, distribution) {
 
-    n <- stats::uniroot(function(n) {
-      power - pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                            r.squared.predictor = r.squared.predictor,
-                            alpha = alpha, alternative = alternative,
-                            method = method, distribution = distribution)$power
-    }, interval = c(2, 1e10))$root
+    odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
+    beta1 <- log(odds.ratio)
+    z.alpha <- stats::qnorm(alpha / ifelse(alternative == "two.sided", 2, 1), lower.tail = FALSE)
+    z.beta  <- stats::qnorm(1 - power, lower.tail = FALSE)
 
-    n
+    if ((tolower(distribution$dist) == "binomial" && distribution$size == 1) || tolower(distribution$dist) == "bernoulli") {
 
-  } # ss.demidenko()
-
-
-
-  # Hsieh, F. Y., Bloch, D. A., & Larsen, M. D. (1998). A simple
-  # method of sample size calculation for linear and logistic
-  # regression. Statistics in Medicine, 17, 1623-1634.
-  ss.hsieh <- function(base.prob, prob,
-                       r.squared.predictor,
-                       power, alpha, alternative,
-                       distribution) {
-
-    if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
-
-      if (tolower(distribution$dist) == "binomial" && distribution$size > 1)
-        stop(paste("Hsieh et al. (1998) is valid only for a binary covariate or a continuous covariate following normal",
-                   "distribution."), call. = FALSE)
       dist.prob <- distribution$prob
-      z.alpha <- stats::qnorm(ifelse(alternative == "two.sided", alpha / 2, alpha), lower.tail = FALSE)
-      z.beta  <- stats::qnorm(1 - power, lower.tail = FALSE)
       p.bar <- (1 - dist.prob) * base.prob + dist.prob * prob
-      beta1 <- log((prob / (1 - prob)) / (base.prob / (1 - base.prob)))
       n <- (z.alpha * sqrt(p.bar * (1 - p.bar) / dist.prob) +
             z.beta  * sqrt(base.prob * (1 - base.prob) + prob * (1 - prob) * (1 - dist.prob) / dist.prob)) ^ 2 /
             ((base.prob - prob) ^ 2 * (1 - dist.prob))
-      n <- n / (1 - r.squared.predictor)
 
     } else if (tolower(distribution$dist) == "normal") {
 
-      beta <- 1 - power
-      z.alpha <- stats::qnorm(ifelse(alternative == "two.sided", alpha / 2, alpha), lower.tail = FALSE)
-      z.beta <- stats::qnorm(beta, lower.tail = FALSE)
-      odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
-      beta1 <- log(odds.ratio)
       n <- (z.alpha + z.beta) ^ 2 / (base.prob * (1 - base.prob) * beta1 ^ 2)
-      n <- n / (1 - r.squared.predictor)
 
     } else {
 
-      stop("Not a valid distribution for the Hsieh et al. (1998) procedure.", call. = FALSE)
+      stop(paste("Hsieh et al. (1998) is valid only for a binary covariate or",
+                 "a continuous covariate following normal distribution."), call. = FALSE)
 
     }
 
+    n <- n / (1 - r.squared.predictor)
     list(n = n, ncp = z.alpha + z.beta, sd.ncp = 1, vcf = NA, z.alpha = z.alpha)
 
   } # ss.hsieh()
+  
+  min.pwr.demidenko <- function(odds.ratio, n, power) {
 
-
-  pwr.hsieh <- function(base.prob, prob,
-                       r.squared.predictor,
-                       n, alpha, alternative,
-                       distribution) {
-
-    power <- stats::uniroot(function(power) {
-      n - ss.hsieh(base.prob = base.prob, prob = prob,
-                   r.squared.predictor = r.squared.predictor,
-                   power = power, alpha = alpha,
-                   alternative = alternative,
-                   distribution = distribution)$n
-    }, interval = c(1e-3, 1 - 1e-3))$root
-
-    power
-
-  } # pwr.hsieh
-
-
+    power - pwr.demidenko(beta0 = beta0, beta1 = log(odds.ratio), n = n, r.squared.predictor = r.squared.predictor,
+                          alpha = alpha, alternative = alternative, method = method, distribution = distribution)$power
+  } # min.pwr.demidenko (for uniroot)
+  
+  min.ss.hsieh <- function(odds.ratio, n, power) {
+    n - ss.hsieh(base.prob = base.prob, prob = odds2prob(odds.ratio, base.prob), r.squared.predictor = r.squared.predictor,
+                 power = power, alpha = alpha, alternative = alternative, distribution = distribution)$n
+  } # min.ss.hsieh (for uniroot)
 
   if (method %in% c("demidenko(vc)", "demidenko")) {
 
     if (requested == "n") {
 
-      n <- ss.demidenko(beta0 = beta0, beta1 = beta1, power = power,
-                        r.squared.predictor = r.squared.predictor,
-                        alpha = alpha, alternative = alternative,
-                        method = method, distribution = distribution)
+      n <- stats::uniroot(function(n) min.pwr.demidenko(odds.ratio, n, power), interval = c(2, 1e10))$root
 
       if (ceiling) n <- ceiling(n)
 
+#    } else if (requested == "es") {
+
+#      odds.ratio <- stats::uniroot(function(odds.ratio) min.pwr.demidenko(odds.ratio, n, power), interval = c(1, 1e6), tol = 1e-12)$root
+#      
+#      beta1 <- log(odds.ratio)
     }
 
-    # calculate power (if requested == "power") or update it (if requested == "n")
+    # calculate power (if requested == "power") or update it (if requested == "n" / "es")
     pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n, r.squared.predictor = r.squared.predictor,
                              alpha = alpha, alternative = alternative, method = method, distribution = distribution)
 
@@ -529,16 +503,27 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
       n <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor,
                     power = power, alpha = alpha, alternative = alternative, distribution = distribution)$n
 
-      if (ceiling) n <- ceiling(n)
+      if (ceiling) {
+        n <- ceiling(n)
 
+        # update power (after n was changed)
+        power <- stats::uniroot(function(power) min.ss.hsieh(odds.ratio, n, power), interval = c(1e-6, 1 - 1e-6), tol = 1e-12)$root
+      }
+
+#    } else if (requested == "es") {
+
+#      odds.ratio <- stats::uniroot(function(odds.ratio) min.ss.hsieh(odds.ratio, n, power), interval = c(1, 1e6), tol = 1e-12)$root
+
+#      prob <- odds2prob(odds.ratio, base.prob)
+#          
+    } else if (requested == "power") {
+
+      power <- stats::uniroot(function(power) min.ss.hsieh(odds.ratio, n, power), interval = c(1e-6, 1 - 1e-6))$root
+    
     }
 
-    # calculate power (if requested == "power") or update it (if requested == "n")
-    power <- pwr.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor, n = n,
-                       alpha = alpha, alternative = alternative, distribution = distribution)
-
-    ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor, power = power,
-                       alpha = alpha, alternative = alternative, distribution = distribution)
+    ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor,
+                       power = power, alpha = alpha, alternative = alternative, distribution = distribution)
 
     z.alpha <- ss.obj$z.alpha
     ncp <- ss.obj$ncp
@@ -628,3 +613,7 @@ pwrss.z.logistic <- function(p1 = NULL, p0 = NULL, odds.ratio  = NULL,
 
 #' @export pwrss.z.logreg
 pwrss.z.logreg <- pwrss.z.logistic
+
+odds2prob <- function(odds.ratio, base.prob) {
+  odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
+}

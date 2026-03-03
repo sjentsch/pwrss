@@ -164,7 +164,6 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
 
   if (all(check.not_null(base.rate, rate.ratio))) {
     if (any(check.not_null(beta0, beta1)) && verbose >= 0)
@@ -178,11 +177,21 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
     check.numeric(beta0, beta1)
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
+#  } else if (all(check.not_null(base.rate, n, power))) {  calculate effect size
+#    check.nonnegative(base.rate)
+#    if (any(check.not_null(rate.ratio, beta0, beta1)) && verbose >= 0)
+#      message("Calculating the effect size (`rate.ratio`), ignoring any specifications to `rate.ratio`, `beta0` or `beta1`.")
+#    rate.ratio <- beta1 <- NULL
+#    beta0 <- log(base.rate)
   } else {
-    stop("Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`.", call. = FALSE)
+    stop("Specify `base.rate` & `rate.ratio`\n  or `beta0` & `beta1`.", call. = FALSE)
+#    stop(paste("Specify `base.rate` & `rate.ratio`\n  or `beta0` & `beta1`\n  or `base.rate` & `n` & `power`",
+#               "(the latter calculates `odds.ratio` as effect size)."), call. = FALSE)
   }
 
-  if (beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
+  requested <- get.requested(es = rate.ratio, n = n, power = power)
+
+  if (!is.null(beta1) && beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
 
   if (is.character(distribution) && length(distribution) == 1) {
     distribution <- switch(tolower(distribution),
@@ -367,35 +376,26 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 
   } # pwr.demidenko()
 
-  ss.demidenko <- function(beta0, beta1, power,
-                           r.squared.predictor,
-                           alpha, alternative,
-                           method, distribution) {
-
-    n <- stats::uniroot(function(n) {
-      power - pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n,
-                            r.squared.predictor = r.squared.predictor,
-                            alpha = alpha, alternative = alternative,
-                            method = method, distribution = distribution)$power
-    }, interval = c(2, 1e10))$root
-
-    n
-
-  } # ss.demidenko()
-
+  min.pwr <- function(rate.ratio, n, power) {
+    power - pwr.demidenko(beta0 = beta0, beta1 = log(rate.ratio), n = n, r.squared.predictor = r.squared.predictor,
+                          alpha = alpha, alternative = alternative, method = method, distribution = distribution)$power
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- ss.demidenko(beta0 = beta0, beta1 = beta1, power = power,
-                      r.squared.predictor = r.squared.predictor,
-                      alpha = alpha, alternative = alternative,
-                      method = method, distribution = distribution)
+    n <- stats::uniroot(function(n) min.pwr(rate.ratio, n, power), interval = c(2, 1e10))$root
 
     if (ceiling) n <- ceiling(n)
 
+#  } else if (requested == "es") {
+
+#    rate.ratio <- stats::uniroot(function(rate.ratio) min.pwr(rate.ratio, n, power), interval = c(1e-3, 1e3))$root
+#    
+#    beta1 <- log(rate.ratio)
+
   }
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n, r.squared.predictor = r.squared.predictor,
                            alpha = alpha, alternative = alternative, method = method, distribution = distribution)
 

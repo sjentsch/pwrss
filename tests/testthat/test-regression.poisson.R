@@ -1,5 +1,5 @@
-test_that("regression.poisson.R works", {
-    # power.z.poisson (= pwrss.z.poisson)
+# power.z.poisson (= pwrss.z.poisson) ----------------------------------------------------------------------------------
+test_that("power.z.poisson / pwrss.z.poisson work", {
     crrRes <- power.z.poisson(beta0 = 0.50, beta1 = -0.10, alpha = 0.05, power = 0.80, dist = "normal", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "poisson"))
     expect_equal(names(crrRes),
@@ -216,7 +216,9 @@ test_that("regression.poisson.R works", {
 #    }
 
     expect_error(power.z.poisson(beta0 = 0.50, alpha = 0.05, power = 0.80, verbose = 0),
-                 "Specify `base.rate` & `rate.ratio` or\n`beta0` & `beta1`")
+#                 paste("Specify `base.rate` & `rate.ratio`\n  or `beta0` & `beta1`\n  or `base.rate` & `n` & `power`",
+#                       "\\(the latter calculates `odds.ratio` as effect size\\)."))
+                "Specify `base.rate` & `rate.ratio`\n  or `beta0` & `beta1`")
     expect_message(power.z.poisson(beta0 = 0.50, beta1 = -0.10, base.rate = exp(0.50), alpha = 0.05, power = 0.80, verbose = 0),
                    "Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
     expect_message(power.z.poisson(base.rate = exp(0.50), rate.ratio = exp(-0.10), beta0 = 0.50, alpha = 0.05, power = 0.80, verbose = 0),
@@ -224,9 +226,9 @@ test_that("regression.poisson.R works", {
     expect_error(power.z.poisson(base.rate = exp(0.50), rate.ratio = exp(0.50), alpha = 0.05, power = 0.80, verbose = 0),
                  "`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.")
     expect_error(power.z.poisson(base.rate = exp(0.50), rate.ratio = exp(-0.10), alpha = 0.05, verbose = 0),
-                 "`n` and `power` cannot be NULL at the same time.")
+                 "Exactly two of the parameters `rate.ratio`, `n`, or `power` must be given, one has to be NULL.")
     expect_error(power.z.poisson(base.rate = exp(0.50), rate.ratio = exp(-0.10), alpha = 0.05, power = 0.80, n = 200, verbose = 0),
-                 "Exactly / only one of the parameters `n` or `power` should be NULL.")
+                 "Exactly two of the parameters `rate.ratio`, `n`, or `power` must be given, one has to be NULL.")
     expect_error(power.z.poisson(base.rate = exp(0.50), rate.ratio = exp(-0.10), alpha = 0.05, power = 0.80,
                                   distribution = list(dist = "normal", mean = 0, sd = 1, err = 1), verbose = 0),
                  "Unknown input type for `distribution`")
