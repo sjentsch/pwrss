@@ -1,110 +1,3 @@
-#' Conversion from R-squared to Cohen's f
-#'
-#' @description
-#' Helper function to convert between Cohen's f and R-squared.
-#'
-#' @param r.squared.full    R-squared for the full model.
-#' @param r.squared.reduced R-squared for the reduced model.
-#' @param verbose           \code{1} by default (returns results), if \code{0}
-#'                          no output is printed on the console.
-#'
-#' @return
-#'   \item{f.squared}{Cohen's f-squared.}
-#'   \item{f}{Cohen's f.}
-#'   \item{r.squared.full}{R-squared for the full model.}
-#'   \item{r.squared.reduced}{R-squared for the reduced model.}
-#'
-#' @references
-#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-#'   (2nd ed.). Lawrence Erlbaum Associates.
-#'
-#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
-#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
-#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
-#'   111. https://doi.org/10.3389/fpsyg.2012.00111
-#'
-#' @examples
-#'
-#'   rsq.to.f(r.squared.full = 0.02) # small
-#'   rsq.to.f(r.squared.full = 0.13) # medium
-#'   rsq.to.f(r.squared.full = 0.26) # large
-#'
-#' @export rsq.to.f
-rsq.to.f <- function(r.squared.full, r.squared.reduced = 0, verbose = 0) {
-
-  check.nonnegative(r.squared.full, r.squared.reduced)
-  verbose <- ensure.verbose(verbose)
-
-  if (r.squared.full < r.squared.reduced)
-    stop("Expecting `r.squared.full` > `r.squared.reduced`.", call. = FALSE)
-
-  f.squared <- (r.squared.full - r.squared.reduced) / (1 - r.squared.full)
-
-  if (verbose > 0)
-    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
-
-  invisible(list(f.squared = f.squared, f = sqrt(f.squared),
-                 r.squared.full = r.squared.full,
-                 r.squared.reduced = r.squared.reduced))
-} # rsq.to.f
-
-
-#' Conversion from Cohen's f to R-squared
-#'
-#' @description
-#' Helper function to convert between Cohen's f and R-squared.
-#'
-#'
-#' @param f              Cohen's f.
-#' @param r.squared.full R-squared for the full model.
-#' @param verbose        \code{1} by default (returns results), if \code{0} no
-#'                       output is printed on the console.
-#'
-#' @return
-#'   \item{f}{Cohen's f.}
-#'   \item{f.squared}{Cohen's f-squared.}
-#'   \item{r.squared.full}{R-squared for the full model.}
-#'   \item{r.squared.reduced}{R-squared for the reduced model.}
-#'
-#' @references
-#'   Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-#'   (2nd ed.). Lawrence Erlbaum Associates.
-#'
-#'   Selya, A. S., Rose, J. S., Dierker, L. C., Hedeker, D., & Mermelstein,
-#'   R. J. (2012). A practical guide to calculating Cohen's f2, a measure of
-#'   local effect size, from PROC MIXED. *Frontiers in Psychology, 3*, Article
-#'   111. https://doi.org/10.3389/fpsyg.2012.00111
-#'
-#' @examples
-#'
-#'   f.to.rsq(f = 0.14) # small
-#'   f.to.rsq(f = 0.39) # medium
-#'   f.to.rsq(f = 0.59) # large
-#'
-#' @export f.to.rsq
-f.to.rsq <- function(f, r.squared.full = NULL, verbose = 0) {
-
-  check.nonnegative(f)
-  verbose <- ensure.verbose(verbose)
-
-  f.squared <- f ^ 2
-  if (is.null(r.squared.full)) {
-    r.squared.full <- f.squared / (1 + f.squared)
-    r.squared.reduced <- 0
-  } else {
-    change.r.squared <- f.squared * (1 - r.squared.full)
-    r.squared.reduced <- r.squared.full - change.r.squared
-  }
-
-  if (verbose > 0)
-    print(c(f.squared = f.squared, f = sqrt(f.squared), r.squared.full = r.squared.full, r.squared.reduced = r.squared.reduced))
-
-  invisible(list(f.squared = f.squared, f = sqrt(f.squared),
-                 r.squared.full = r.squared.full,
-                 r.squared.reduced = r.squared.reduced))
-} # f.to.rsq
-
-
 ############################
 # linear regression f test #
 ############################
@@ -199,7 +92,7 @@ power.f.regression <- function(r.squared.change = NULL,
 
   func.parms <- as.list(environment())
 
-  # r.squared.change is checked below
+  if (!is.null(r.squared.change)) check.proportion(r.squared.change)
   check.numeric(margin)
   check.positive(k.total, k.tested)
   if (!is.null(n)) check.sample.size(n)
@@ -207,12 +100,12 @@ power.f.regression <- function(r.squared.change = NULL,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = r.squared.change, n = n, power = power)
 
-  if (!is.numeric(r.squared.change) || !is.finite(r.squared.change) || r.squared.change <= 0 || r.squared.change >= 1)
-    stop("Value for `r.squared.change` must be a finite number that is larger than 0 and smaller than 1.", call. = FALSE)
   if (k.tested >  k.total)
     stop("`k.tested` cannot be greater than `k.total`.", call. = FALSE)
+  if (!is.null(r.squared.change) && (r.squared.change == 0 || r.squared.change == 1))
+    stop("Value for `r.squared.change` must be larger than 0 and smaller than 1.", call. = FALSE)
 
   pwr.f.reg <- function(r.squared.change, margin, k.total, k.tested, n, alpha) {
 
@@ -232,38 +125,32 @@ power.f.regression <- function(r.squared.change = NULL,
     list(power = power, lambda = lambda, null.lambda = null.lambda,
          df1 = df1, df2 = df2, f.alpha = f.alpha)
 
-  } # pwr
+  } # pwr.f.reg()
+  
+  min.pwr <- function(r.squared.change, n, power) {
 
-  ss.f.reg <- function(r.squared.change, margin, k.total, k.tested, power, alpha) {
+    power - pwr.f.reg(r.squared.change = r.squared.change, margin = margin, k.total = k.total, k.tested = k.tested,
+                      n = n, alpha = alpha)$power
 
-    n <- try(silent = TRUE,
-             suppressWarnings({
-               stats::uniroot(function(n) {
-                 power - pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
-                                   k.total = k.total, k.tested = k.tested,
-                                   n = n, alpha = alpha)$power
-               }, interval = c(k.total + 2, 1e10))$root
-             }) # supressWarnings
-    ) # try
-
-    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n
-
-  } # ss.f.reg()
-
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- ss.f.reg(r.squared.change = r.squared.change, margin = margin,
-                  k.total = k.total, k.tested =  k.tested,
-                  power = power, alpha = alpha)
+    n <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n) min.pwr(r.squared.change, n, power),
+                                                            interval = c(k.total + 2, 1e10))$root))
+    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
+  } else if (requested == "es") {
+
+    r.squared.change <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(r.squared.change) min.pwr(r.squared.change, n, power),
+                                                                           interval = c(0, 1 - 1e-8), tol = 1e-12)$root))
+    if (inherits(r.squared.change, "try-error")) stop("Design is not feasible.", call. = FALSE)
+  
   }
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.f.reg(r.squared.change = r.squared.change, margin = margin,
                        k.total = k.total, k.tested = k.tested, n = n, alpha = alpha)
 
@@ -276,10 +163,8 @@ power.f.regression <- function(r.squared.change = NULL,
 
   if (verbose > 0) {
 
-    test <- ifelse(k.tested == k.total, "Linear Regression (F-Test)", "Hierarchical Linear Regression (F-Test)")
-
     print.obj <- list(requested = requested,
-                      test = test,
+                      test = paste0(ifelse(k.tested == k.total, "", "Hierarchical "), "Linear Regression (F-Test)"),
                       r.squared.change = r.squared.change,
                       k.total = k.total,
                       k.tested = k.tested,
@@ -304,10 +189,10 @@ power.f.regression <- function(r.squared.change = NULL,
                            ncp = lambda,
                            null.ncp = null.lambda,
                            f.alpha = f.alpha,
+                           r.squared.change = r.squared.change,
                            power = power,
                            n = n),
                       class = c("pwrss", "f", "regression")))
-
 
 } # pwrss.f.regression()
 
@@ -353,15 +238,14 @@ pwrss.f.reg <- pwrss.f.regression
 #' Power Analysis for Linear Regression: Single Coefficient (T-Test)
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) to test a
-#' single coefficient in multiple linear regression. The predictor is assumed
-#' to be continuous by default. However, one can calculate power or sample size
-#' for a binary predictor (such as treatment and control groups in an
-#' experimental design) by specifying \code{sd.predictor = sqrt(p*(1-p))} where
-#' \code{p} is the proportion of subjects in one of the groups. The sample size
-#' in each group would be \code{n*p} and \code{n*(1-p)}.
-#' \code{power.t.regression()}\code{pwrss.t.regression()} are the same
-#' functions, as well as \code{power.t.reg()} and \code{pwrss.t.reg()}.
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) to test a single coefficient in multiple linear regression. By
+#' default, the predictor is assumed to be continuous. However, one can
+#' calculate power, sample size or effect size for a binary predictor (such
+#' as treatment and control groups in an experimental design) by specifying
+#' \code{sd.predictor = sqrt(p * (1 - p))} where \code{p} is the proportion
+#' of subjects in one of the groups. The sample size in each group would be
+#' \code{n * p} and \code{n * (1 - p)}.
 #'
 #' Minimal effect and equivalence tests are implemented in line with Hodges and
 #' Lehmann (1954), Kim and Robinson (2019), Phillips (1990), and Dupont and
@@ -371,6 +255,22 @@ pwrss.f.reg <- pwrss.f.regression
 #' PASS documentation, and tables in Bulus (2021).
 #'
 #' @details
+#' * When it is requested to calculate the effect size (by giving both their
+#'   parameters `n` and `power`), `r.squared` must be empty and `beta` can be
+#'   empty (`NULL`). By default, a linear regression with one predictor is
+#'   assumed. If `beta`, `sd.predictor` and `sd.outcome` are given (i.e., in
+#'   cases where it is not requested to calculate the effect size), `r.squared`
+#'   is calculated as follows:
+#'   \code{r.squared = (beta * sd.predictor / sd.outcome) ^ 2}. If the given
+#'   `beta` results in an `r.squared` below this value, a warning will be
+#'   issued. To calculate `beta` from `r.squared`, the following formula can be
+#'   used: \code{beta = (sqrt(r.squared) * sd.outcome / sd.predictor)}.
+#' * To consider other covariates in the model provide a value greater than the
+#'   default value for \code{r.squared} (see above) along with the argument
+#'   \code{k.total > 1}. However, in such case, the above formula for
+#'   calculating `beta` can not be used.
+#' * \code{power.t.regression()}, \code{pwrss.t.regression()},
+#'   \code{power.t.reg()} and \code{pwrss.t.reg()} are the same functions.
 #' * NB: The \code{pwrss.z.regression()} function and its alias
 #'   \code{pwrss.z.reg()} are deprecated, but they will remain available as a
 #'   wrapper for the \code{power.t.regression()} function during a transition
@@ -398,14 +298,7 @@ pwrss.f.reg <- pwrss.f.regression
 #' @param sd.outcome   standard deviation of the outcome.
 #' @param k.total      integer; total number of predictors, including the
 #'                     predictor of interest.
-#' @param r.squared    model R-squared. The default is
-#'                     \code{r.squared = (beta * sd.predictor / sd.outcome) ^ 2}
-#'                     assuming a linear regression with one predictor. Thus,
-#'                     an \code{r.squared} below this value will throw a
-#'                     warning.
-#'                     To consider other covariates in the model provide a value
-#'                     greater than the default \code{r.squared} along with the
-#'                     argument \code{k.total > 1}.
+#' @param r.squared    model R-squared. Please see also Details below.
 #' @param n            integer; sample size.
 #' @param power        statistical power, defined as the probability of
 #'                     correctly rejecting a false null hypothesis, denoted as
@@ -432,6 +325,7 @@ pwrss.f.reg <- pwrss.f.regression
 #'   \item{ncp}{non-centrality parameter for the alternative.}
 #'   \item{null.ncp}{non-centrality parameter for the null.}
 #'   \item{t.alpha}{critical value(s).}
+#'   \item{r.squared}{model R-squared.}
 #'   \item{power}{statistical power \eqn{(1-\beta)}.}
 #'   \item{n}{sample size.}
 #'
@@ -506,9 +400,9 @@ pwrss.f.reg <- pwrss.f.regression
 #'             power = 0.80)
 #'
 #' @export power.t.regression
-power.t.regression <- function(beta, null.beta = 0, margin = 0,
+power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
                                sd.predictor = 1, sd.outcome = 1,
-                               r.squared = (beta * sd.predictor / sd.outcome) ^ 2,
+                               r.squared = NULL,
                                k.total = 1,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -517,76 +411,74 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
 
-  check.numeric(beta, null.beta)
+  if (!is.null(beta)) check.numeric(beta)
+  check.numeric(null.beta)
   margin <- check.margins(margin, check.numeric, alternative)
-  check.positive(sd.predictor, sd.outcome, k.total)
+  check.positive(sd.predictor, sd.outcome)
+  if (!is.null(r.squared)) check.proportion(r.squared)
+  check.positive(k.total)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
 
-  if (!is.numeric(r.squared) || r.squared > 1 || r.squared < 0)
-    stop("Incorrect value for `r.squared`, specify `r.squared` explicitly or modify `beta`, `sd.predictor`, `sd.outcome`.", call. = FALSE)
-  if (r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
+  if (is.null(r.squared) && !is.null(beta))
+    r.squared <- (beta * sd.predictor / sd.outcome) ^ 2
+  if (!is.null(r.squared) && (r.squared >= 1 || r.squared <= 0))
+    stop(paste("Incorrect value for `r.squared` (must be > 0 and < 1), specify `r.squared`",
+               "explicitly, or modify `beta`, `sd.predictor`, `sd.outcome`."), call. = FALSE)
+  if (!is.null(r.squared) && !is.null(beta) && r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
     warning("`r.squared` is possibly larger.", call. = FALSE)
+  if (is.null(r.squared) && k.total > 1)
+    warning(paste("When requesting to calculate the effect size, `r.squared` is calculated assuming onyl one predictor.",
+                  "With several predictors, `beta` should not be calculated using the formula under Details in the help",
+                  "for this function."), call. = FALSE)
 
-  pwr.t.reg <- function(beta, null.beta, margin,
-                        sd.outcome, sd.predictor,
-                        n, k.total, r.squared,
-                        alpha, alternative) {
+  # NB: Needs more careful consideration, how the different options (beta, k.total) will affect r.squared
+  requested <- get.requested(es = r.squared, n = n, power = power)
+
+  pwr.t.reg <- function(beta, null.beta, margin, sd.outcome, sd.predictor, n, k.total, r.squared, alpha, alternative) {
 
     df <- n - k.total - 1
     lambda <- (beta - null.beta)  / ((sd.outcome / sd.predictor) * sqrt((1 - r.squared) / n))
     null.lambda <- margin / ((sd.outcome / sd.predictor) * sqrt((1 - r.squared) / n))
 
-    pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df,
-                            alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = 0)
-    power <- pwr.obj$power
-    t.alpha <- pwr.obj$t.alpha
+    pwr.obj <- power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha,
+                            alternative = alternative, plot = FALSE, verbose = 0)
 
-    list(power = power, lambda = lambda, null.lambda = null.lambda, df = df, t.alpha = t.alpha)
+    list(power = pwr.obj$power, lambda = lambda, null.lambda = null.lambda, df = df, t.alpha = pwr.obj$t.alpha)
 
   } # pwr.t.reg()
 
+  min.pwr <- function(r.squared, beta, n, power) {
 
-  ss.t.reg <- function(beta, null.beta, margin,
-                       sd.outcome, sd.predictor,
-                       power, k.total, r.squared,
-                       alpha, alternative) {
+    beta2min <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor)
 
-    n <- try(silent = TRUE,
-             suppressWarnings({
-               stats::uniroot(function(n) {
-                 power - pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
-                                   sd.outcome = sd.outcome, sd.predictor = sd.predictor,
-                                   n = n, k.total = k.total, r.squared = r.squared,
-                                   alpha = alpha, alternative =  alternative)$power
-               }, interval = c(k.total + 2, 1e10))$root
-             }) # supressWarnings
-    ) # try
+    power - pwr.t.reg(beta = beta2min, null.beta = null.beta, margin = margin, sd.outcome = sd.outcome, sd.predictor = sd.predictor,
+                      n = n, k.total = k.total, r.squared = r.squared, alpha = alpha, alternative =  alternative)$power
 
-    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n
-
-  } # ss.t.reg()
-
+  } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- ss.t.reg(beta = beta, null.beta = null.beta, margin = margin,
-                  sd.outcome = sd.outcome, sd.predictor = sd.predictor,
-                  power = power, k.total = k.total, r.squared = r.squared,
-                  alpha = alpha, alternative =  alternative)
+    n <- try(suppressWarnings(stats::uniroot(function(n) min.pwr(r.squared, beta, n, power),
+                                             interval = c(k.total + 2, 1e10))$root), silent = TRUE)
+    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
+  } else if (requested == "es") {
+
+    r.squared <- try(suppressWarnings(stats::uniroot(function(r.squared) min.pwr(r.squared, beta, n, power),
+                                                     interval = c(1e-8, 1 - 1e-8), tol = 1e-12)$root), silent = TRUE)
+    if (inherits(r.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
+    
+    beta <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor) 
+      
   }
 
-  # calculate power (if requested == "power") or update it (if requested == "n")
+  # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.t.reg(beta = beta, null.beta = null.beta, margin = margin,
                        sd.outcome = sd.outcome, sd.predictor = sd.predictor,
                        n = n, k.total = k.total, r.squared = r.squared,
@@ -616,6 +508,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                       ncp.alternative = lambda,
                       ncp.null = null.lambda,
                       t.alpha = t.alpha,
+                      r.squared = r.squared,
                       alpha = alpha,
                       power = power)
 
@@ -632,6 +525,7 @@ power.t.regression <- function(beta, null.beta = 0, margin = 0,
                            t.alpha = t.alpha,
                            ncp = lambda,
                            null.ncp = null.lambda,
+                           r.squared = r.squared,
                            power = power,
                            n = n),
                       class = c("pwrss", "t", "regression")))
