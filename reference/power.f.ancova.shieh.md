@@ -1,10 +1,10 @@
 # Power Analysis for One-, Two-, Three-Way ANCOVA Using Means, Standard Deviations, and (Optionally) Contrasts (F test)
 
-Calculates power or sample size for one-, two-, three-way ANCOVA. For
-factorial designs, use the argument `factor.levels` but note that unique
-combination of levels (cells in this case) should follow a specific
-order for the test of interaction. The order of marginal means and
-standard deviations is printed as a warning message.
+Calculates power, sample size or effect size for one-, two-, three-way
+ANCOVA. For factorial designs, use the argument `factor.levels` but note
+that unique combination of levels (cells in this case) should follow a
+specific order for the test of interaction. The order of marginal means
+and standard deviations is printed as a warning message.
 
 Formulas are validated using examples and tables in Shieh (2020).
 
@@ -173,7 +173,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -204,7 +204,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -241,7 +241,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Covariance (F-Test)
+#> Two-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -291,7 +291,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -357,7 +357,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -423,7 +423,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -488,7 +488,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses

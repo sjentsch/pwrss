@@ -1,7 +1,7 @@
 # Power Analysis for Student's t-Test
 
-Calculates power or sample size (only one can be NULL at a time) for
-Student's t-Test.
+Calculates power, sample size or effect size (only one can be NULL at a
+time) for Student's t-Test.
 
 In contrast to previous versions, users can now specify whether their
 claims will be based on raw score mean difference with P-values or

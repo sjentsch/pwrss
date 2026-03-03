@@ -1,11 +1,11 @@
 # Power Analysis for One-, Two-, Three-Way ANOVA/ANCOVA Using Effect Size (F-Test)
 
-Calculates power or sample size for one-way, two-way, or three-way
-ANOVA/ANCOVA. Set `k.cov = 0` for ANOVA, and `k.cov > 0` for ANCOVA.
-Note that in the latter, the effect size (`eta.squared` should be
-obtained from the relevant ANCOVA model, which is already adjusted for
-the explanatory power of covariates (thus, an additional R-squared
-argument is not required as an input).
+Calculates power, sample size or effect size for one-way, two-way, or
+three-way ANOVA/ANCOVA. Set `k.covariates = 0` for ANOVA, and
+`k.covariates > 0` for ANCOVA. Note that in the latter, the effect size
+(`eta.squared` should be obtained from the relevant ANCOVA model, which
+is already adjusted for the explanatory power of covariates (thus, an
+additional R-squared argument is not required as an input).
 
 Formulas are validated using G\*Power and tables in the PASS
 documentation.
@@ -131,7 +131,7 @@ power.f.ancova(
 
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as `mu` or `mu.vec` instead of
-`mu.vector`, or such as `k` or `k.cov` instead of `k.covariates`.
+`mu.vector`, or such as `k` or `k.covariates` instead of `k.covariates`.
 
 ## References
 
@@ -151,7 +151,7 @@ Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 #############################################
 
 # Cohen's d = 0.50 between treatment and control
-# translating into Eta-squared = 0.059
+# translating into eta-squared = 0.059
 
 # estimate sample size using ANOVA approach
 power.f.ancova(eta.squared = 0.059,
@@ -161,7 +161,7 @@ power.f.ancova(eta.squared = 0.059,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Variance (F-Test)
+#> One-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -198,10 +198,11 @@ power.f.regression(r.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (R-squared) = 0.059
+#>   Sample Size             = 128  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.197
+#>   Statistical Power       = 0.803
 #> 
 
 # estimate sample size using regression approach (T-Test)
@@ -225,10 +226,11 @@ power.t.regression(beta = 0.50, r.squared = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (R-squared) = 0
+#>   Sample Size             = 128  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.199
+#>   Statistical Power       = 0.801
 #> 
 
 # estimate sample size using t test approach
@@ -259,7 +261,7 @@ power.t.student(d = 0.50, power = 0.80, alpha = 0.05)
 #              two-way ANOVA                #
 #############################################
 
-# a researcher is expecting a partial Eta-squared = 0.03
+# a researcher is expecting a partial eta-squared = 0.03
 # for interaction of treatment (Factor A) with
 # gender consisting of two levels (Factor B)
 
@@ -270,7 +272,7 @@ power.f.ancova(eta.squared = 0.03,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Variance (F-Test)
+#> Two-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -290,7 +292,7 @@ power.f.ancova(eta.squared = 0.03,
 
 # estimate sample size using regression approach (F test)
 # one dummy for treatment, one dummy for gender, and their interaction (k = 3)
-# partial Eta-squared is equivalent to the increase in R-squared by adding
+# partial eta-squared is equivalent to the increase in R-squared by adding
 # only the interaction term (m = 1)
 power.f.regression(r.squared = 0.03,
                    k.total = 3, k.test = 1,
@@ -310,10 +312,11 @@ power.f.regression(r.squared = 0.03,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 256  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.030
+#>   Sample Size             = 256  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 #> 
 
 #############################################
@@ -322,8 +325,8 @@ power.f.regression(r.squared = 0.03,
 
 # a researcher is expecting an adjusted difference of
 # Cohen's d = 0.45 between treatment and control after
-# controllling for the pretest (k.cov = 1)
-# translating into Eta-squared = 0.048
+# controllling for the pretest (k.covariates = 1)
+# translating into eta-squared = 0.048
 
 power.f.ancova(eta.squared = 0.048,
                factor.levels = 2,
@@ -333,7 +336,7 @@ power.f.ancova(eta.squared = 0.048,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -355,7 +358,7 @@ power.f.ancova(eta.squared = 0.048,
 #              two-way ANCOVA               #
 #############################################
 
-# a researcher is expecting an adjusted partial Eta-squared = 0.02
+# a researcher is expecting an adjusted partial eta-squared = 0.02
 # for interaction of treatment (Factor A) with
 # gender consisting of two levels (Factor B)
 
@@ -367,7 +370,7 @@ power.f.ancova(eta.squared = 0.02,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Covariance (F-Test)
+#> Two-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses

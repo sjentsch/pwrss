@@ -30,8 +30,7 @@
 - [`power.binom.test()`](https://metinbulus.github.io/pwrss/reference/power.binom.test.md)
   : Power Analysis for the Generic Binomial Test
 - [`power.chisq.gof()`](https://metinbulus.github.io/pwrss/reference/power.chisq.gof.md)
-  : Power and Sample Size for Chi-square Goodness-of-Fit or Independence
-  Tests
+  : Power Analysis for Chi-square Goodness-of-Fit or Independence Tests
 - [`power.chisq.test()`](https://metinbulus.github.io/pwrss/reference/power.chisq.test.md)
   : Statistical Power for the Generic Chi-Square Test
 - [`power.exact.fisher()`](https://metinbulus.github.io/pwrss/reference/power.exact.fisher.md)

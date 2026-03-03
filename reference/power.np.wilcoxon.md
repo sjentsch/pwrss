@@ -1,8 +1,8 @@
 # Power Analysis for Non-parametric Rank-Based Tests (One-Sample, Independent, and Paired Designs)
 
-Calculates power or sample size (only one can be NULL at a time) for
-non-parametric rank-based tests. The following tests and designs are
-available:
+Calculates power, sample size or effect size (only one can be NULL at a
+time) for non-parametric rank-based tests. The following tests and
+designs are available:
 
 - Wilcoxon Signed-Rank Test (One Sample)
 

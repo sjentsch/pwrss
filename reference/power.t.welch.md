@@ -1,8 +1,8 @@
 # Power Analysis for Welch's t-Test
 
-Calculates power or sample size (only one can be NULL at a time) for
-Welch's t-Tests. Welch's T-Test implementation relies on formulas
-proposed by Bulus (2024).
+Calculates power, sample size or effect size (only one can be NULL at a
+time) for Welch's t-Tests. Welch's T-Test implementation relies on
+formulas proposed by Bulus (2024).
 
 In contrast to previous versions, users can now specify whether their
 claims will be based on raw score mean difference with p-values or

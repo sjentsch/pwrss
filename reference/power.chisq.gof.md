@@ -1,13 +1,13 @@
-# Power and Sample Size for Chi-square Goodness-of-Fit or Independence Tests
+# Power Analysis for Chi-square Goodness-of-Fit or Independence Tests
 
-Calculates power or sample size (only one can be NULL at a time) for
-Chi-square goodness-of-fit or independence tests.
+Calculates power, sample size or effect size (only one can be NULL at a
+time) for Chi-square goodness-of-fit or independence tests.
 
 ## Usage
 
 ``` r
 power.chisq.gof(
-  w,
+  w = NULL,
   null.w = 0,
   df,
   n = NULL,
@@ -93,6 +93,10 @@ power.chisq.gof(
 
   critical value.
 
+- w:
+
+  Cohen's w effect size under alternative.
+
 - power:
 
   statistical power \\(1-\beta)\\.
@@ -147,6 +151,7 @@ power.chisq.gof(w = 0.44, df = 1, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.440
 #>   Sample Size          = 41  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
@@ -192,6 +197,7 @@ power.chisq.gof(w = 0.1302134, df = 1, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.130
 #>   Sample Size          = 463  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -240,6 +246,7 @@ power.chisq.gof(w = 0.03022008, df = 4, power = 0.80, alpha = 0.05)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.030
 #>   Sample Size          = 13069  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
