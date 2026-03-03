@@ -7,10 +7,9 @@
 #' and Paired Designs)
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) for
-#' non-parametric rank-based tests. The following tests and designs are
-#' available:
-#'
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) for non-parametric rank-based tests. The following tests and designs
+#' are available:
 #' * Wilcoxon Signed-Rank Test (One Sample)
 #' * Wilcoxon Rank-Sum or Mann-Whitney U Test (Independent Samples)
 #' * Wilcoxon Matched-Pairs Signed-Rank Test (Paired Samples)
@@ -225,26 +224,23 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
   if (requested == "es" && alternative == "two.one.sided")
     stop("Determining the effect size is not possible if `alternative` is \"two.one.sided\".", call. = FALSE)
 
+  propss <- n.ratio / (n.ratio + 1)
+
   pwr.wilcox <- function(d, null.d, margin, n2, n.ratio, alpha, independent, alternative, method) {
 
     n1 <- n2 * n.ratio
 
     if (method == "noether") {
 
-      propss <- n.ratio / (n.ratio + 1)
       prob <- d.to.cles(d = d, design = design, verbose = 0)$cles
       null.prob <- d.to.cles(d = null.d, design = design, verbose = 0)$cles
 
       if (alternative == "two.one.sided") {
-
         ignorable.prob.lower <- d.to.cles(d = min(margin) + null.d, design = design, verbose = 0)$cles
         ignorable.prob.upper <- d.to.cles(d = max(margin) + null.d, design = design, verbose = 0)$cles
         margin.prob <-  c(ignorable.prob.lower, ignorable.prob.upper) - null.prob
-
       } else {
-
         margin.prob <- d.to.cles(d = margin + null.d, design = design, verbose = 0)$cles - null.prob
-
       }
 
       lambda      <- sqrt(n2 + n2 * n.ratio) * sqrt(12 * propss * (1 - propss)) * (prob - null.prob)
@@ -292,18 +288,9 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
     lambda.max <- 4
 
     if (method == "noether") {
-
-      propss <- n.ratio / (n.ratio + 1)
       n2.max <- (lambda.max / (sqrt(12 * propss * (1 - propss)) * (H1_H0.min))) ^ 2 / (1 + n.ratio)
-
     } else {
-
-      if (independent) {
-        n2.max <- (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2
-      } else {
-        n2.max <- (lambda.max / H1_H0.min) ^ 2
-      }
-
+      n2.max <- ifelse(independent, (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2, (lambda.max / H1_H0.min) ^ 2)
     }
 
     # n2.max <- 1e+08
@@ -320,16 +307,13 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
   } else if (requested == "es") {
 
     # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-    # as (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
+    # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
-                                                               interval = c(0, 10), tol = 1e-12)$root))
+      d  <- try(suppressWarnings(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o),
+                                                interval = c(0, 10), tol = 1e-12)$root), silent = TRUE)
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-      if (!inherits(d, "try-error") ||
-          (inherits(d, "try-error") && attr(d, "condition")[["message"]] != "f() values at end points not of opposite sign")) {
-        break
-      }
+      if (uniroot_break(d)) break
     } # for (o ...)
     if (inherits(d, "try-error"))
       stop("Design is not feasible.", call. = FALSE)

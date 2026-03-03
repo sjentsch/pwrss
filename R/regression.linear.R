@@ -126,7 +126,7 @@ power.f.regression <- function(r.squared.change = NULL,
          df1 = df1, df2 = df2, f.alpha = f.alpha)
 
   } # pwr.f.reg()
-  
+
   min.pwr <- function(r.squared.change, n, power) {
 
     power - pwr.f.reg(r.squared.change = r.squared.change, margin = margin, k.total = k.total, k.tested = k.tested,
@@ -147,7 +147,7 @@ power.f.regression <- function(r.squared.change = NULL,
     r.squared.change <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(r.squared.change) min.pwr(r.squared.change, n, power),
                                                                            interval = c(0, 1 - 1e-8), tol = 1e-12)$root))
     if (inherits(r.squared.change, "try-error")) stop("Design is not feasible.", call. = FALSE)
-  
+
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")
@@ -425,13 +425,10 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
 
   if (is.null(r.squared) && !is.null(beta))
     r.squared <- (beta * sd.predictor / sd.outcome) ^ 2
-  if (!is.null(r.squared) && (r.squared >= 1 || r.squared <= 0))
-    stop(paste("Incorrect value for `r.squared` (must be > 0 and < 1), specify `r.squared`",
-               "explicitly, or modify `beta`, `sd.predictor`, `sd.outcome`."), call. = FALSE)
   if (!is.null(r.squared) && !is.null(beta) && r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
     warning("`r.squared` is possibly larger.", call. = FALSE)
   if (is.null(r.squared) && k.total > 1)
-    warning(paste("When requesting to calculate the effect size, `r.squared` is calculated assuming onyl one predictor.",
+    warning(paste("When requesting to calculate the effect size, `r.squared` is calculated assuming only one predictor.",
                   "With several predictors, `beta` should not be calculated using the formula under Details in the help",
                   "for this function."), call. = FALSE)
 
@@ -473,9 +470,9 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
     r.squared <- try(suppressWarnings(stats::uniroot(function(r.squared) min.pwr(r.squared, beta, n, power),
                                                      interval = c(1e-8, 1 - 1e-8), tol = 1e-12)$root), silent = TRUE)
     if (inherits(r.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
-    
-    beta <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor) 
-      
+
+    beta <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor)
+
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")

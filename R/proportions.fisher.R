@@ -111,7 +111,7 @@ power.exact.fisher <- function(prob1, prob2,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n2, power)
+  requested <- get.requested(es = NA, n = n2, power = power) # calculation of effect size not possible
 
   pwr.approx <- function(prob1, prob2, n2, n.ratio,
                          alpha, alternative,

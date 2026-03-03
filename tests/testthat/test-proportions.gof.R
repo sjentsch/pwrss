@@ -101,6 +101,8 @@ test_that("proportions.gof.R works", {
                  "`w` should be greater than or equal to `null.w`.")
     expect_error(power.chisq.gof(w = 1e-6, df = 1, power = 1 - 1e-6, alpha = 1e-6),
                  "Design is not feasible.")
+    expect_error(power.chisq.gof(df = 1, n = 2, power = 0.80, alpha = 0.05, verbose = 0),
+                 "Design is not feasible.")
     expect_error(pwrss.chisq.gofit(p1 = data.frame, power = 0.80, alpha = 0.05, verbose = FALSE),
                  "`p1` needs to be either a vector or a matrix.")
     expect_error(pwrss.chisq.gofit(p1 = array(1, c(2, 2, 2)), power = 0.80, alpha = 0.05, verbose = FALSE),

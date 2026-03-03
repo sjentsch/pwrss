@@ -5,8 +5,8 @@
 #' Power Analysis for the Test of One Proportion (Exact Method)
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) for test of
-#' a proportion against a constant using the exact method.
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) for test of a proportion against a constant using the exact method.
 #'
 #' Formulas are validated using PASS documentation.
 #'
@@ -78,85 +78,26 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   check.proportion(alpha)
   check.logical(utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
-
-  ss.exact <- function(prob, null.prob, power, alpha, alternative) {
-
-    n <- power.z.oneprop(prob = prob, null.prob = null.prob, power = power,
-                         alpha = alpha, alternative = alternative, verbose = 0)$n
-    n <- ceiling(n)
-
-    if (n > 500) {
-
-      steprob20 <- 20
-      achieved.power <- 0
-
-      while (achieved.power < power) {
-
-        achieved.power <- power.binom.test(size = n,
-                                           prob = prob,
-                                           null.prob = null.prob,
-                                           alpha = alpha,
-                                           alternative = alternative,
-                                           plot = FALSE,
-                                           verbose = 0)$power
-
-        if (achieved.power < power) n <- n + steprob20
-
-      } # while
-
-      n <- n - steprob20
-
-    } # n > 500
-
-    if (n > 100) {
-
-      step5 <- 5
-      achieved.power <- 0
-
-      while (achieved.power < power) {
-
-        achieved.power <- power.binom.test(size = n,
-                                           prob = prob,
-                                           null.prob = null.prob,
-                                           alpha = alpha,
-                                           alternative = alternative,
-                                           plot = FALSE,
-                                           verbose = 0)$power
-
-        if (achieved.power < power) n <- n + step5
-
-      } # while
-
-      n <- n - step5
-
-    } # n > 100
-
-    steprob1 <- 1
-    achieved.power <- 0
-
-    while (achieved.power < power) {
-
-      achieved.power <- power.binom.test(size = n,
-                                         prob = prob,
-                                         null.prob = null.prob,
-                                         alpha = alpha,
-                                         alternative = alternative,
-                                         plot = FALSE,
-                                         verbose = 0)$power
-
-      if (achieved.power < power) n <- n + steprob1
-
-    } # n < 50
-
-    n
-
-  } #  ss.exact()
+  requested <- get.requested(es = NA, n = n, power = power) # difficult to estimate effect size
 
   if (requested == "n") {
 
-    n <- ss.exact(prob = prob, null.prob = null.prob, power = power,
-             alpha = alpha, alternative = alternative)
+    n <- power.z.oneprop(prob = prob, null.prob = null.prob, power = power, alpha = alpha,
+                         alternative = alternative, ceiling = TRUE, verbose = 0)$n
+
+    # sort(...) generates a vector with 10, 30, 100, 300, ... < n
+    for (m in sort(vapply(10 ^ seq(floor(log10(n))), function(p) p * c(1, 3), numeric(2)), decreasing = TRUE)) {
+      if (n > m) {
+        step.prob <- round(m / 10)
+        achieved.power <- 0
+        while (achieved.power < power) {
+          achieved.power <- power.binom.test(size = n, prob = prob, null.prob = null.prob, alpha = alpha,
+                                             alternative = alternative, plot = FALSE, verbose = 0)$power
+          if (achieved.power < power) n <- n + step.prob
+        } # while
+        n <- n - ifelse(step.prob > 1, step.prob, 0)
+      } # n > m
+    }
 
   }
 
@@ -312,7 +253,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   check.proportion(alpha)
   check.logical(arcsine, correct, ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = NA, n = n, power = power)
 
   if (alternative == "two.one.sided" && std.error == "null") {
     std.error <- "alternative"
@@ -404,7 +345,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
                   `two.sided` = probs.to.h(prob, null.prob, FALSE)$h,
                   `one.sided` = probs.to.h(prob, null.prob, FALSE)$h,
                   `two.one.sided` = c(probs.to.h(prob, null.prob[1], FALSE)$h,
-                                   probs.to.h(prob, null.prob[2], FALSE)$h))
+                                      probs.to.h(prob, null.prob[2], FALSE)$h))
 
     } else {
 
@@ -440,12 +381,12 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
       if (prob > min(null.prob) && prob < max(null.prob)) {
         # equivalence
-        M <- stats::qnorm(alpha, sd = null.dist.sd, lower.tail = FALSE) +
-          stats::qnorm(beta / 2, sd = null.dist.sd, lower.tail = FALSE)
+        M <- stats::qnorm(alpha,     sd = null.dist.sd, lower.tail = FALSE) +
+             stats::qnorm(beta / 2,  sd = null.dist.sd, lower.tail = FALSE)
       } else {
         # minimal effect
         M <- stats::qnorm(alpha / 2, sd = null.dist.sd, lower.tail = FALSE) +
-          stats::qnorm(beta, sd = null.dist.sd, lower.tail = FALSE)
+             stats::qnorm(beta,      sd = null.dist.sd, lower.tail = FALSE)
       }
       n <- M ^ 2 * var.num / h ^ 2
       n <- max(n)
@@ -455,7 +396,6 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
     n
 
   } # ss.no.correction()
-
 
   ss <- function(prob, null.prob, power, std.error, arcsine, correct, alpha, alternative) {
 
@@ -476,16 +416,10 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
       sign.current <- sign(pwr.est - power)
 
-      if (sign.current != 0 &&
-         sign.previous != 0 &&
-         sign.previous != sign.current) {
-        sign.switch <-  sign.switch + 1
-      }
+      if (sign.current != 0 && sign.previous != 0 && sign.previous != sign.current)
+        sign.switch <- sign.switch + 1
 
-      ifelse(sign.current > 0,
-             n.init <- n.init - 1,
-             n.init <- n.init + 1)
-
+      n.init <- n.init + ifelse(sign.current > 0, -1, 1)
       sign.previous <- sign.current
 
       if (sign.switch >= 2) {
@@ -844,7 +778,7 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   check.correlation(rho.paired)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n2, power)
+  requested <- get.requested(es = NA, n = n2, power = power)
 
   if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
     stop("Provide a reasonable `margin` consistent with `prob1` - `prob2`.", call. = FALSE)

@@ -152,19 +152,17 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n.paired, power)
+  requested <- get.requested(es = NA, n = n.paired, power = power) # calculation of effect size not possible
 
   pwr.exact <- function(prob10, prob01, n.paired, alpha, alternative) {
 
     OR <- prob10 / prob01
+    OR2prob <- c(1 / (1 + OR), OR / (1 + OR))
 
-    if (alternative == "two.sided") prob <- 1 / (1 + OR)
-    if (alternative == "one.sided" && prob10 < prob01) prob <- min(1 / (1 + OR), OR / (1 + OR))
-    if (alternative == "one.sided" && prob10 > prob01) prob <- max(1 / (1 + OR), OR / (1 + OR))
+    prob <- ifelse(alternative == "two.sided", OR2prob[1], ifelse(prob10 < prob01, min(OR2prob), max(OR2prob)))
 
     prod1 <- stats::dbinom(x = seq(0, ceiling(n.paired)), size = ceiling(n.paired), prob = prob01 + prob10)
-    prod2 <- power.binom.test(prob = prob, null.prob = 0.50,
-                              size = seq(0, ceiling(n.paired)), alpha = alpha,
+    prod2 <- power.binom.test(prob = prob, null.prob = 0.50, size = seq(0, ceiling(n.paired)), alpha = alpha,
                               alternative = alternative, plot = FALSE, verbose = 0)$power
     power <- sum(prod1 * prod2)
 
@@ -174,17 +172,23 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
 
   ss.exact <- function(prob10, prob01, power, alpha, alternative) {
 
+    n.paired <- ss.approx(prob10, prob01, power, alpha, alternative)
     achieved.power <- 0
-    n.paired <-  ss.approx(prob10, prob01, power, alpha, alternative)
 
-    while (achieved.power < power && n.paired < 1e5) {
-
-      achieved.power <- pwr.exact(prob10 = prob10, prob01 = prob01,
-                                    n.paired = n.paired, alpha = alpha,
-                                    alternative = alternative)
-
-      if (achieved.power < power) n.paired <- n.paired + 1
-
+    # sort(...) generates a vector with 10, 30, 100, 300, ... < n.paired
+    if (n.paired < 1e5) {
+      for (m in sort(vapply(10 ^ seq(floor(log10(n.paired))), function(p) p * c(1, 3), numeric(2)), decreasing = TRUE)) {
+        if (n.paired > m) {
+          step.prob <- round(m / 10)
+          achieved.power <- 0
+          while (achieved.power < power) {
+            achieved.power <- pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired,
+                                        alpha = alpha, alternative = alternative)
+            if (achieved.power < power) n.paired <- n.paired + step.prob
+          } # while
+          n.paired <- n.paired - ifelse(step.prob > 1, step.prob, 0)
+        } # n.paired > m
+      }
     }
 
     if (n.paired > 1e5) stop("Sample size exceeds 100,000. Please check the assumptions.", call. = FALSE)
@@ -199,8 +203,7 @@ power.exact.mcnemar <- function(prob10, prob01, n.paired = NULL,
     PD <- prob10 + prob01
 
     # Machin, Campbell, Fayers, and Pinol (1997)
-    if (alternative == "two.sided") alpha <- alpha / 2
-    z.alpha <- stats::qnorm(1 - alpha, mean = 0, sd = 1, lower.tail = TRUE)
+    z.alpha <- stats::qnorm(1 - (alpha / ifelse(alternative == "two.sided", 2, 1)), mean = 0, sd = 1, lower.tail = TRUE)
     z.beta <- (sqrt((OR - 1) ^ 2 * PD * n.paired) - z.alpha * (1 + OR)) / sqrt((OR + 1) ^ 2 - (OR - 1) ^ 2 * PD)
     power <- stats::pnorm(z.beta, mean = 0, sd = 1, lower.tail = TRUE)
 

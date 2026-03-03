@@ -4,8 +4,8 @@
 #' Power Analysis for Student's t-Test
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) for
-#' Student's t-Test.
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) for Student's t-Test.
 #'
 #' In contrast to previous versions, users can now specify whether their claims
 #' will be based on raw score mean difference with P-values or standardized
@@ -381,16 +381,13 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
   } else if (requested == "es") {
 
     # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-    # as (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
+    # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
       d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
                                                                interval = c(0, 10), tol = 1e-12)$root))
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-      if (!inherits(d, "try-error") ||
-          (inherits(d, "try-error") && attr(d, "condition")[["message"]] != "f() values at end points not of opposite sign")) {
-        break
-      }
+      if (uniroot_break(d)) break
     } # for (o ...)
     if (inherits(d, "try-error"))
       stop("Design is not feasible.", call. = FALSE)
@@ -448,9 +445,9 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
 #' Power Analysis for Welch's t-Test
 #'
 #' @description
-#' Calculates power or sample size (only one can be NULL at a time) for Welch's
-#' t-Tests. Welch's T-Test implementation relies on formulas proposed by Bulus
-#' (2024).
+#' Calculates power, sample size or effect size (only one can be NULL at a
+#' time) for Welch's t-Tests. Welch's T-Test implementation relies on formulas
+#' proposed by Bulus (2024).
 #'
 #' In contrast to previous versions, users can now specify whether their claims
 #' will be based on raw score mean difference with p-values or standardized
@@ -622,16 +619,13 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
   } else if (requested == "es") {
 
     # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-    # as (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
+    # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
       d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
                                                                interval = c(0, 10), tol = 1e-12)$root))
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-      if (!inherits(d, "try-error") ||
-          (inherits(d, "try-error") && attr(d, "condition")[["message"]] != "f() values at end points not of opposite sign")) {
-        break
-      }
+      if (uniroot_break(d)) break
     } # for (o ...)
     if (inherits(d, "try-error"))
       stop("Design is not feasible.", call. = FALSE)

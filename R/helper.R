@@ -46,3 +46,8 @@ check.snap4plot <- function(snpFle = "", pltFnc = NULL, pltPrm = list(), pltWdt 
     unlink(tmpFle)
   }
 }
+
+uniroot_break <- function(ur.obj) {
+  !inherits(ur.obj, "try-error") ||
+    (inherits(ur.obj, "try-error") && attr(ur.obj, "condition")[["message"]] != "f() values at end points not of opposite sign")
+}

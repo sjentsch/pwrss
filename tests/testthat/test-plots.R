@@ -46,6 +46,7 @@ test_that("plots work", {
     check.snap4plot("t_plot_3", power.t.test, list(ncp =  1.96,                   df = 100, alternative = "one.sided"))
     check.snap4plot("t_plot_4", power.t.test, list(ncp =  0, null.ncp = c(-2, 2), df = 100, alternative = "two.one.sided"))
     check.snap4plot("t_plot_5", power.t.test, list(ncp =  2, null.ncp = c(-1, 1), df = 100, alternative = "two.one.sided"))
+    check.snap4plot("t_plot_6", power.t.test, list(ncp = -2, null.ncp = c(-1, 1), df = 100, alternative = "two.one.sided"))
 
     # z-tests ----------------------------------------------------------------------------------------------------------
     check.snap4plot("z_plot_1", power.z.test, list(mean =  1.96,                    alternative = "two.sided"))

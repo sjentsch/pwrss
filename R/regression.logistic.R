@@ -459,13 +459,13 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     list(n = n, ncp = z.alpha + z.beta, sd.ncp = 1, vcf = NA, z.alpha = z.alpha)
 
   } # ss.hsieh()
-  
+
   min.pwr.demidenko <- function(odds.ratio, n, power) {
 
     power - pwr.demidenko(beta0 = beta0, beta1 = log(odds.ratio), n = n, r.squared.predictor = r.squared.predictor,
                           alpha = alpha, alternative = alternative, method = method, distribution = distribution)$power
   } # min.pwr.demidenko (for uniroot)
-  
+
   min.ss.hsieh <- function(odds.ratio, n, power) {
     n - ss.hsieh(base.prob = base.prob, prob = odds2prob(odds.ratio, base.prob), r.squared.predictor = r.squared.predictor,
                  power = power, alpha = alpha, alternative = alternative, distribution = distribution)$n
@@ -482,7 +482,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 #    } else if (requested == "es") {
 
 #      odds.ratio <- stats::uniroot(function(odds.ratio) min.pwr.demidenko(odds.ratio, n, power), interval = c(1, 1e6), tol = 1e-12)$root
-#      
+#
 #      beta1 <- log(odds.ratio)
     }
 
@@ -515,11 +515,11 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 #      odds.ratio <- stats::uniroot(function(odds.ratio) min.ss.hsieh(odds.ratio, n, power), interval = c(1, 1e6), tol = 1e-12)$root
 
 #      prob <- odds2prob(odds.ratio, base.prob)
-#          
+#
     } else if (requested == "power") {
 
       power <- stats::uniroot(function(power) min.ss.hsieh(odds.ratio, n, power), interval = c(1e-6, 1 - 1e-6))$root
-    
+
     }
 
     ss.obj <- ss.hsieh(base.prob = base.prob, prob = prob, r.squared.predictor = r.squared.predictor,

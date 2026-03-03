@@ -203,7 +203,7 @@ power.z.mediation  <- function(beta.a, beta.b, beta.cp = 0,
   check.sample.size(n.simulation, n.draws)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = NA, n = n, power = power) # calculation of effect size not possible
 
   if (r.squared.outcome == 0 && "beta.cp" %in% names(match.call()))
     warning("Ignoring any specification to `beta.cp`.", call. = FALSE)

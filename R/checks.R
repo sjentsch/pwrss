@@ -186,20 +186,6 @@ check.correlation.matrix <- function(x) {
 
 } # check.correlation.matrix()
 
-check.n_power <- function(n = NULL, power = NULL) {
-
-  n.name <- deparse(substitute(n), nlines = 1)
-
-  if (is.null(n) && is.null(power))
-    stop(sprintf("`%s` and `power` cannot be NULL at the same time.", n.name), call. = FALSE)
-
-  if (!is.null(n) && !is.null(power))
-    stop(sprintf("Exactly / only one of the parameters `%s` or `power` should be NULL.", n.name), call. = FALSE)
-
-  invisible(ifelse(is.null(power), "power", "n")) # return what is requested / to be calculated
-
-} # check.power_n
-
 check.null <- function(...) {
 
   args <- list(...)

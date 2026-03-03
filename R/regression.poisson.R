@@ -390,7 +390,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL,
 #  } else if (requested == "es") {
 
 #    rate.ratio <- stats::uniroot(function(rate.ratio) min.pwr(rate.ratio, n, power), interval = c(1e-3, 1e3))$root
-#    
+#
 #    beta1 <- log(rate.ratio)
 
   }

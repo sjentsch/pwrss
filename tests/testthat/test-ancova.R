@@ -826,7 +826,31 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
                       tukey.kramer = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
-                      ncp.null = 0, power = 0.972006164, n.vector = rep(1500, 2), n.total = 3000))
+                      ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
+
+    crrCnt <- power.t.contrast(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = rep(1500, 2), contrast.vector = c(1, -1),
+                               r.squared = 0.50, k.covariates = 1, alpha = 0.05, tukey.kramer = FALSE, verbose = 0)
+    expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
+    expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
+    expect_equal(crrCnt[["parms"]],
+                 list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = rep(1500, 2), p.vector = NULL,
+                      contrast.vector = c(1, -1), r.squared = 0.5, k.covariates = 1, power = NULL, alpha = 0.05,
+                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
+                 list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
+                      ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
+
+    crrCnt <- power.t.contrast(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = c(1, -1),
+                               r.squared = 0.50, k.covariates = 1, power = 0.972006163, alpha = 0.05, tukey.kramer = FALSE, verbose = 0)
+    expect_equal(class(crrCnt), c("pwrss", "t", "contrast"))
+    expect_equal(names(crrCnt), c("parms", "test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total"))
+    expect_equal(crrCnt[["parms"]],
+                 list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = NULL, p.vector = rep(0.5, 2),
+                      contrast.vector = c(1, -1), r.squared = 0.5, k.covariates = 1, power = 0.972006163, alpha = 0.05,
+                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
+                 list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
+                      ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
 
     crrCnt <- power.t.contrast(mu.vector = c(1.5, 2, 3, 4), sd.vector = rep(2, 4), n.vector = rep(5, 4), contrast.vector = c(-3, -1, 1, 3),
                                k.covariates = 0, alpha = 0.05, verbose = 0) # example 11.3.3 from GPower
@@ -895,6 +919,9 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_error(power.t.contrast(mu.vector = c(0.20, 0), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = diag(2),
                                   r.squared = 0.50, k.covariates = 1, power = 0.8, alpha = 0.05, verbose = 0),
                  "The number of rows in the contrast matrix should be one.")
+    expect_error(power.t.contrast(mu.vector = c(0.001, 0, 0.0005), sd.vector = rep(1, 3), p.vector = rep(1 / 3, 3), contrast.vector = c(1, 0, -1),
+                                  r.squared = 0, k.covariates = 1e8, power = 1 - 1e-9, alpha = 1e-9, verbose = 0),
+                 "Design not feasible.")
     expect_warning(power.t.contrast(mu.vector = c(0.20, 0.20), sd.vector = rep(1, 2), p.vector = rep(0.5, 2), contrast.vector = c(1, -1),
                                     r.squared = 0.5, k.covariates = 1, power = 0.8, alpha = 0.05, verbose = 0),
                    "Using infinity \\(maximum integer number as defined in R\\) for `n.total` because `psi` = 0.")
@@ -906,4 +933,16 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
                    "The elements of the `p.vector` should sum to 1.")
     expect_error(power.t.contrasts(data.frame),
                  "This function only works with an object of type `pwrss`, `ancova`, and `shieh`.")
+})
+
+test_that("ANCOVA helper functions work", {
+    expect_equal(calc.df2(100, 12, 2), 86)
+    expect_equal(calc.df2(100, 12, 0), 88)
+    expect_equal(calc.df2(100,  0, 2), 98)
+    expect_equal(fmt_test_ancova(1, 0), "One-Way Analysis of Variance (F-Test)")
+    expect_equal(fmt_test_ancova(2, 1), "Two-Way Analysis of Covariance (F-Test)")
+    expect_equal(fmt_test_ancova(3, 0), "Three-Way Analysis of Variance (F-Test)")
+    expect_warning(check_var.ratio(c(0.2, 1, 2), rep(20, 3)),
+                   "Interpretation of results may no longer be valid when variances differ beyond sampling error.")
+    expect_null(check_var.ratio(c(1.1, 1, 0.9), rep(20, 3)))
 })

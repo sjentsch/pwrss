@@ -41,7 +41,7 @@
 
 .fmt_val <- function(val = NA, digits = 3, spf_neg = "") {
   if (is.numeric(val)) {
-    fmt <- paste(rep(paste0("%", spf_neg, ifelse(isInt(val), "d", paste0(".", digits, "f"))), length(val)),
+    fmt <- paste(rep(paste0("%", spf_neg, paste0(".", ifelse(isInt(val), 0, digits), "f")), length(val)),
                  collapse = ifelse(length(val) < 3, " and ", ", "))
   } else if (is.character(val) || is.na(val)) {
     fmt <- paste0(strrep(" ", nchar(spf_neg)), "%s")

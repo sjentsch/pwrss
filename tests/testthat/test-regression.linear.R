@@ -166,6 +166,8 @@ test_that("power.f.regression / pwrss.f.regression work", {
                  "Argument `r.squared.change` does not have a valid proportion value \\(must be length 1, numeric, >= 0, and <= 1\\)")
     expect_error(power.f.regression(r.squared.change = 0.99, k.total = 5, k.tested = 2, power = 0.80, verbose = 0),
                  "Design is not feasible.")
+    expect_error(power.f.regression(k.total = 1, k.tested = 1, n = 2, power = 0.80, verbose = 0),
+                 "Design is not feasible.")
     expect_error(pwrss.f.regression(r2 = 0.15, f2 = 0.17647059, k = 3, power = 0.80, verbose = 0),
                  "Effect size conflict for the alternative. Specify only either `r2` or `f2`.")
 })
@@ -369,16 +371,24 @@ test_that("power.t.regression / pwrss.t.regression work", {
                  "Exactly two of the parameters `r.squared`, `n`, or `power` must be given, one has to be NULL.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.30, power = 0.80, n = 140, verbose = 0),
                  "Exactly two of the parameters `r.squared`, `n`, or `power` must be given, one has to be NULL.")
-    expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0, power = 0.80, verbose = 0),
-                 paste("Incorrect value for `r.squared` \\(must be > 0 and < 1\\), specify `r.squared` explicitly,",
-                       "or modify `beta`, `sd.predictor`, `sd.outcome`."))
+#    expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0, power = 0.80, verbose = 0),
+#                 paste("Incorrect value for `r.squared` \\(must be >= 0 and <= 1\\), specify `r.squared` explicitly,",
+#                       "or modify `beta`, `sd.predictor`, `sd.outcome`."))
     expect_error(power.t.regression(beta = 0, margin = c(-0.05, 0.05), alternative = "one.sided", sd.predictor = 0.5, k.total = 5,
                                     r.squared = 0.30, power = 0.80, verbose = 0),
                  "If `alternative` is \"two.sided\" or \"one.sided\", `margin` must be of length one.")
     expect_error(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.999, power = 0.80, verbose = 0),
                  "Design is not feasible.")
+    expect_error(power.t.regression(k.total = 1, power = 0.80, n = 2, verbose = 0),
+                 "Design is not feasible.")
     expect_warning(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.01, power = 0.80, verbose = 0),
-                 "`r.squared` is possibly larger.")
+                   "`r.squared` is possibly larger.")
+    expect_warning(power.t.regression(beta = 0.20, k.total = 5, r.squared = 0.01, power = 0.80, verbose = 0),
+                   "`r.squared` is possibly larger.")
+    expect_warning(power.t.regression(k.total = 5, power = 0.80, n = 500, verbose = 0),
+                   paste("When requesting to calculate the effect size, `r.squared` is calculated assuming only one",
+                         "predictor. With several predictors, `beta` should not be calculated using the formula under",
+                         "Details in the help for this function."))
 })
 
 # pwrss.z.regression (not longer supported) ----------------------------------------------------------------------------

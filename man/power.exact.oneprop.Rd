@@ -58,8 +58,8 @@ default.}
 \item{n}{sample size.}
 }
 \description{
-Calculates power or sample size (only one can be NULL at a time) for test of
-a proportion against a constant using the exact method.
+Calculates power, sample size or effect size (only one can be NULL at a
+time) for test of a proportion against a constant using the exact method.
 
 Formulas are validated using PASS documentation.
 }

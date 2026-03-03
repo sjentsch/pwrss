@@ -148,7 +148,7 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
          chisq.alpha = chisq.alpha)
 
   } # pwr.chisq
-  
+
   min.pwr <- function(w, n, power) {
     power - pwr.chisq(w = w, null.w = null.w, df = df, n = n, alpha = alpha)$power
   } # min.pwr (for uniroot)
@@ -164,7 +164,7 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
 
     w <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(w) min.pwr(w, n, power), interval = c(0, 1))$root))
     if (inherits(w, "try-error")) stop("Design is not feasible.", call. = FALSE)
-  
+
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")

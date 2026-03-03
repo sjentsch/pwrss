@@ -134,7 +134,7 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
   check.proportion(alpha)
   check.logical(pooled, common.index, ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = NA, n = n, power = power)
 
   pwr.steiger <- function(rho1, rho2, cov.null, cov.alt, n, alpha, alternative) {
 
@@ -454,7 +454,7 @@ power.z.twocors <- function(rho1, rho2,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n2, power)
+  requested <- get.requested(es = NA, n = n2, power = power)
 
   z1 <- cor.to.z(rho1, FALSE)$z
   z2 <- cor.to.z(rho2, FALSE)$z
@@ -653,7 +653,7 @@ power.z.onecor <- function(rho, null.rho = 0,
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- check.n_power(n, power)
+  requested <- get.requested(es = rho, n = n, power = power)
 
   z <- cor.to.z(rho, FALSE)$z
   null.z <- cor.to.z(null.rho, FALSE)$z
@@ -670,6 +670,7 @@ power.z.onecor <- function(rho, null.rho = 0,
     }
 
     if (ceiling) n <- ceiling(n)
+
   }
 
   lambda <- (z - null.z) / sqrt(1 / (n - 3))

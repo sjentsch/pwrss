@@ -75,19 +75,19 @@ by default.}
 \item{n.total}{total sample size.}
 }
 \description{
-Calculates power or sample size for one-way, two-way, or three-way
-ANOVA/ANCOVA. Set \code{k.cov = 0} for ANOVA, and \code{k.cov > 0} for
-ANCOVA. Note that in the latter, the effect size (\code{eta.squared} should
-be obtained from the relevant ANCOVA model, which is already adjusted for
-the explanatory power of covariates (thus, an additional R-squared argument
-is not required as an input).
+Calculates power, sample size or effect size for one-way, two-way, or
+three-way ANOVA/ANCOVA. Set \code{k.covariates = 0} for ANOVA, and
+\code{k.covariates > 0} for ANCOVA. Note that in the latter, the effect
+size (\code{eta.squared} should be obtained from the relevant ANCOVA model,
+which is already adjusted for the explanatory power of covariates (thus,
+an additional R-squared argument is not required as an input).
 
 Formulas are validated using G*Power and tables in the PASS documentation.
 }
 \details{
 Note that R has a partial matching feature which allows you to specify
 shortened versions of arguments, such as \code{mu} or \code{mu.vec} instead
-of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
+of \code{mu.vector}, or such as \code{k} or \code{k.covariates} instead of
 \code{k.covariates}.
 }
 \examples{
@@ -97,7 +97,7 @@ of \code{mu.vector}, or such as \code{k} or \code{k.cov} instead of
 #############################################
 
 # Cohen's d = 0.50 between treatment and control
-# translating into Eta-squared = 0.059
+# translating into eta-squared = 0.059
 
 # estimate sample size using ANOVA approach
 power.f.ancova(eta.squared = 0.059,
@@ -123,7 +123,7 @@ power.t.student(d = 0.50, power = 0.80, alpha = 0.05)
 #              two-way ANOVA                #
 #############################################
 
-# a researcher is expecting a partial Eta-squared = 0.03
+# a researcher is expecting a partial eta-squared = 0.03
 # for interaction of treatment (Factor A) with
 # gender consisting of two levels (Factor B)
 
@@ -133,7 +133,7 @@ power.f.ancova(eta.squared = 0.03,
 
 # estimate sample size using regression approach (F test)
 # one dummy for treatment, one dummy for gender, and their interaction (k = 3)
-# partial Eta-squared is equivalent to the increase in R-squared by adding
+# partial eta-squared is equivalent to the increase in R-squared by adding
 # only the interaction term (m = 1)
 power.f.regression(r.squared = 0.03,
                    k.total = 3, k.test = 1,
@@ -145,8 +145,8 @@ power.f.regression(r.squared = 0.03,
 
 # a researcher is expecting an adjusted difference of
 # Cohen's d = 0.45 between treatment and control after
-# controllling for the pretest (k.cov = 1)
-# translating into Eta-squared = 0.048
+# controllling for the pretest (k.covariates = 1)
+# translating into eta-squared = 0.048
 
 power.f.ancova(eta.squared = 0.048,
                factor.levels = 2,
@@ -157,7 +157,7 @@ power.f.ancova(eta.squared = 0.048,
 #              two-way ANCOVA               #
 #############################################
 
-# a researcher is expecting an adjusted partial Eta-squared = 0.02
+# a researcher is expecting an adjusted partial eta-squared = 0.02
 # for interaction of treatment (Factor A) with
 # gender consisting of two levels (Factor B)
 

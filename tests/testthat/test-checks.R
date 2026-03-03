@@ -107,12 +107,4 @@ test_that("checks.R works", {
     expect_error(check.correlation.matrix(tstMtx), "Correlation matrix `tstMtx` is not positive definite")
     # neither I nor ChatGPT could not generate test cases for (1) a matrix that is not invertible (determinant of 0 or lower)
     # and (2) a matrix that is not well conditioned (kappa > 1000)
-
-    # check.n_power
-    expect_equal(check.n_power(100, NULL), "power")
-    expect_equal(check.n_power(NULL, 0.8), "n")
-    expect_error(check.n_power(100, 0.8),
-                 "Exactly / only one of the parameters `100` or `power` should be NULL.")
-    expect_error(check.n_power(NULL, NULL),
-                 "`NULL` and `power` cannot be NULL at the same time.")
 })

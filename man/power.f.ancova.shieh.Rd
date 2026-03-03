@@ -89,11 +89,11 @@ by default.}
 \item{n.total}{total sample size.}
 }
 \description{
-Calculates power or sample size for one-, two-, three-way ANCOVA. For
-factorial designs, use the argument \code{factor.levels} but note that
-unique combination of levels (cells in this case) should follow a specific
-order for the test of interaction. The order of marginal means and standard
-deviations is printed as a warning message.
+Calculates power, sample size or effect size for one-, two-, three-way
+ANCOVA. For factorial designs, use the argument \code{factor.levels} but
+note that unique combination of levels (cells in this case) should follow a
+specific order for the test of interaction. The order of marginal means and
+standard deviations is printed as a warning message.
 
 Formulas are validated using examples and tables in Shieh (2020).
 }
