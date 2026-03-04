@@ -218,14 +218,14 @@ power.f.mixed.anova <- function(eta.squared = NULL,
   if (requested == "n") {
 
     n.min <- n.levels.between + 1
-    n.total <- try(silent = TRUE, stats::uniroot(function(n.total) min.pwr(f.squared, n.total, power),
-                                                 interval = c(n.min, 1e10))$root)
+    n.total <- try(stats::uniroot(function(n.total) min.pwr(f.squared, n.total, power), interval = c(n.min, 1e10))$root,
+                   silent = TRUE)
     if (inherits(n.total, "try-error") || n.total == 1e+10) stop("Design is not feasible.", call. = FALSE)
 
   } else if (requested == "es") {
 
-    f.squared <- try(silent = TRUE, stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power),
-                                                   interval = c(0, 1), tol = 1e-12)$root)
+    f.squared <- try(stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power), interval = c(0, 1), tol = 1e-12)$root,
+                     silent = TRUE)
     if (inherits(f.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     eta.squared <- (f.squared / correct4rho) / (1 + (f.squared / correct4rho))

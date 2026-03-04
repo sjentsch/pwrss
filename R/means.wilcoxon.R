@@ -277,8 +277,8 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
   }
 
   min.pwr <- function(d, n2, power) {
-    power - pwr.wilcox(d = d, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                       independent = independent, alternative = alternative, method = method)$power
+    power - suppressWarnings(pwr.wilcox(d = d, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
+                                        independent = independent, alternative = alternative, method = method))$power
   } # min.pwr (for stats::uniroot)
 
   # calculate sample size
@@ -299,7 +299,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
     # because ncp is too large
 
     # estimation, using wilcoxon adjustment (* w)
-    n2 <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n2) min.pwr(d, n2 * w, power), interval = c(2, n2.max))$root * w))
+    n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2 * w, power), interval = c(2, n2.max))$root * w, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     n2 <- ifelse(ceiling, ceiling(n2), n2)
@@ -310,8 +310,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
     # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      d  <- try(suppressWarnings(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o),
-                                                interval = c(0, 10), tol = 1e-12)$root), silent = TRUE)
+      d  <- try(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o), interval = c(0, 10), tol = 1e-12)$root, silent = TRUE)
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
       if (uniroot_break(d)) break
     } # for (o ...)
@@ -352,12 +351,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
   if (verbose > 0) {
 
-    test <- switch(design,
-                   `independent` = "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)",
-                   `paired`      = "Wilcoxon Signed-Rank Test (Paired Samples)",
-                   `one.sample`  = "Wilcoxon Signed-Rank Test (One Sample)")
-
-    print.obj <- c(list(requested = requested, test = test,
+    print.obj <- c(list(requested = requested, test = fmt_test_wilcoxon(design),
                         design = design, method = method, dist = distribution,
                         null.d = null.d, margin = margin, # d is in list.out
                         alpha = alpha, alternative = alternative),
@@ -452,6 +446,13 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
   invisible(wilcox.obj)
 
 } # end of pwrss.np.2groups()
+
+fmt_test_wilcoxon <- function(design) {
+  switch(design,
+         `independent` = "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)",
+         `paired`      = "Wilcoxon Signed-Rank Test (Paired Samples)",
+         `one.sample`  = "Wilcoxon Signed-Rank Test (One Sample)")
+}
 
 #' @export pwrss.np.2means
 pwrss.np.2means <- function(...) {

@@ -155,14 +155,14 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
 
   if (requested == "n") {
 
-    n <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n) min.pwr(w, n, power), interval = c(2, 1e10))$root))
+    n <- try(stats::uniroot(function(n) min.pwr(w, n, power), interval = c(2, 1e10))$root, silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
   } else if (requested == "es") {
 
-    w <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(w) min.pwr(w, n, power), interval = c(0, 1))$root))
+    w <- try(stats::uniroot(function(w) min.pwr(w, n, power), interval = c(0, 1))$root, silent = TRUE)
     if (inherits(w, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
   }
@@ -175,12 +175,10 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
   ncp.null <- pwr.obj$null.lambda
   chisq.alpha <- pwr.obj$chisq.alpha
 
-  test <- "Chi-Square Test for Goodness-of-Fit or Independence"
-
   if (verbose > 0) {
 
     print.obj <- list(requested = requested,
-                      test = test,
+                      test = "Chi-Square Test for Goodness-of-Fit or Independence",
                       w = w,
                       n = n,
                       df = df,
@@ -195,7 +193,7 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
   }
 
   invisible(structure(list(parms = func.parms,
-                           test = test,
+                           test = "chisq",
                            df = df,
                            ncp = ncp.alternative,
                            null.ncp = ncp.null,

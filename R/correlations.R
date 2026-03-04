@@ -159,26 +159,9 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
   } # pwr.steiger()
 
-  ss.steiger <- function(rho1, rho2,
-                         cov.null, cov.alt,
-                         power, alpha, alternative) {
-
-    n <- try(silent = TRUE,
-             suppressWarnings({
-               stats::uniroot(function(n) {
-                 power - pwr.steiger(rho1 = rho1, rho2 = rho2,
-                                     cov.null = cov.null, cov.alt = cov.alt,
-                                     n = n, alpha = alpha,
-                                     alternative = alternative)$power
-               }, interval = c(5, 1e+09))$root
-             }) # supressWarnings
-    ) # try
-
-    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
-
-    n
-
-  } # ss.steiger()
+  min.pwr <- function(rho1, n, power) {
+    power - pwr.steiger(rho1 = rho1, rho2 = rho2, cov.null = cov.null, cov.alt = cov.alt, n = n, alpha = alpha, alternative = alternative)$power
+  } # min.pwr (for uniroot)
 
   if (common.index) {
 
@@ -190,10 +173,10 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
     if (alternative == "two.sided" && rho12 == rho13)
       stop("`common.index` is TRUE and `alternative` is \"two.sided\" but `rho12` = `rho13`.", call. = FALSE)
 
-    cor.mat <- matrix(c(1, rho12, rho13,
-                           rho12, 1, rho23,
-                           rho13, rho23, 1),
-                         nrow = 3, ncol = 3)
+    cor.mat <- matrix(c(1,     rho12, rho13,
+                        rho12,     1, rho23,
+                        rho13, rho23, 1),
+                      nrow = 3, ncol = 3)
     check.correlation.matrix(cor.mat)
 
     # common index
@@ -238,11 +221,11 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
     if (alternative == "two.sided" && rho12 == rho34)
       stop("`common.index` is FALSE and `alternative` = \"two.sided\" but `rho12` = `rho34`.", call. = FALSE)
 
-    cor.mat <- matrix(c(1, rho12, rho13, rho14,
-                             rho12, 1, rho23, rho24,
-                             rho13, rho23, 1, rho34,
-                             rho14, rho24, rho34, 1),
-                           nrow = 4, ncol = 4)
+    cor.mat <- matrix(c(1,     rho12, rho13, rho14,
+                        rho12,     1, rho23, rho24,
+                        rho13, rho23,     1, rho34,
+                        rho14, rho24, rho34, 1),
+                        nrow = 4, ncol = 4)
     check.correlation.matrix(cor.mat)
 
     # no common index
@@ -252,17 +235,17 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
       ## under null
       psi.ab.cd.0 <- 0.50 * ((rho13 - rho.bar.ab.cd * rho23) * (rho24 - rho23 * rho.bar.ab.cd) +
-                               (rho14 - rho13 * rho.bar.ab.cd) * (rho23 - rho.bar.ab.cd * rho13) +
-                               (rho13 - rho14 * rho.bar.ab.cd) * (rho24 - rho.bar.ab.cd * rho14) +
-                               (rho14 - rho.bar.ab.cd * rho24) * (rho23 - rho24 * rho.bar.ab.cd)) # rho12 = rho34
+                             (rho14 - rho13 * rho.bar.ab.cd) * (rho23 - rho.bar.ab.cd * rho13) +
+                             (rho13 - rho14 * rho.bar.ab.cd) * (rho24 - rho.bar.ab.cd * rho14) +
+                             (rho14 - rho.bar.ab.cd * rho24) * (rho23 - rho24 * rho.bar.ab.cd)) # rho12 = rho34
       cov.ab.cd.0 <- psi.ab.cd.0 / (1 - rho.bar.ab.cd ^ 2) ^ 2
       # sigma.ab.cd.0 <- sqrt((2 - 2 * cov.ab.cd.0) / (n - 3))
 
       ## under alt
       psi.ab.cd.1 <- 0.50 * ((rho13 - rho12 * rho23) * (rho24 - rho23 * rho34) +
-                               (rho14 - rho13 * rho34) * (rho23 - rho12 * rho13) +
-                               (rho13 - rho14 * rho34) * (rho24 - rho12 * rho14) +
-                               (rho14 - rho12 * rho24) * (rho23 - rho24 * rho34))
+                             (rho14 - rho13 * rho34) * (rho23 - rho12 * rho13) +
+                             (rho13 - rho14 * rho34) * (rho24 - rho12 * rho14) +
+                             (rho14 - rho12 * rho24) * (rho23 - rho24 * rho34))
       cov.ab.cd.1 <- psi.ab.cd.1 / ((1 - rho12 ^ 2) * (1 - rho34 ^ 2))
       # sigma.ab.cd.1 <- sqrt((2 - 2 * cov.ab.cd.1) / (n - 3))
 
@@ -270,17 +253,17 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
       ## under null
       psi.ab.cd.0 <- 0.50 * ((rho13 - rho12 * rho23) * (rho24 - rho23 * rho12) +
-                               (rho14 - rho13 * rho12) * (rho23 - rho12 * rho13) +
-                               (rho13 - rho14 * rho12) * (rho24 - rho12 * rho14) +
-                               (rho14 - rho12 * rho24) * (rho23 - rho24 * rho12)) # rho12 = rho34
+                             (rho14 - rho13 * rho12) * (rho23 - rho12 * rho13) +
+                             (rho13 - rho14 * rho12) * (rho24 - rho12 * rho14) +
+                             (rho14 - rho12 * rho24) * (rho23 - rho24 * rho12)) # rho12 = rho34
       cov.ab.cd.0 <- psi.ab.cd.0 / ((1 - rho12 ^ 2) * (1 - rho12 ^ 2))
       # sigma.ab.cd.0 <- sqrt((2 - 2 * cov.ab.cd.0) / (n - 3))
 
       ## under alt
       psi.ab.cd.1 <- 0.50 * ((rho13 - rho12 * rho23) * (rho24 - rho23 * rho34) +
-                               (rho14 - rho13 * rho34) * (rho23 - rho12 * rho13) +
-                               (rho13 - rho14 * rho34) * (rho24 - rho12 * rho14) +
-                               (rho14 - rho12 * rho24) * (rho23 - rho24 * rho34))
+                             (rho14 - rho13 * rho34) * (rho23 - rho12 * rho13) +
+                             (rho13 - rho14 * rho34) * (rho24 - rho12 * rho14) +
+                             (rho14 - rho12 * rho24) * (rho23 - rho24 * rho34))
       cov.ab.cd.1 <- psi.ab.cd.1 / ((1 - rho12 ^ 2) * (1 - rho34 ^ 2))
       # sigma.ab.cd.1 <- sqrt((2 - 2 * cov.ab.cd.1) / (n - 3))
 
@@ -301,8 +284,8 @@ power.z.twocors.steiger <- function(rho12, rho13, rho23,
 
   if (requested == "n") {
 
-    n <- ss.steiger(rho1 = rho1, rho2 = rho2, cov.null = cov.null, cov.alt = cov.alt,
-                    power = power, alpha = alpha, alternative = alternative)
+    n <- try(stats::uniroot(function(n) min.pwr(rho1, n, power), interval = c(5, 1e+09))$root, silent = TRUE)
+    if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 

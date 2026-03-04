@@ -129,23 +129,23 @@ power.f.regression <- function(r.squared.change = NULL,
 
   min.pwr <- function(r.squared.change, n, power) {
 
-    power - pwr.f.reg(r.squared.change = r.squared.change, margin = margin, k.total = k.total, k.tested = k.tested,
-                      n = n, alpha = alpha)$power
+    power - suppressWarnings(pwr.f.reg(r.squared.change = r.squared.change, margin = margin, k.total = k.total,
+                                       k.tested = k.tested, n = n, alpha = alpha))$power
 
   } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n) min.pwr(r.squared.change, n, power),
-                                                            interval = c(k.total + 2, 1e10))$root))
+    n <- try(stats::uniroot(function(n) min.pwr(r.squared.change, n, power), interval = c(k.total + 2, 1e10))$root, silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
   } else if (requested == "es") {
 
-    r.squared.change <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(r.squared.change) min.pwr(r.squared.change, n, power),
-                                                                           interval = c(0, 1 - 1e-8), tol = 1e-12)$root))
+    r.squared.change <- try(stats::uniroot(function(r.squared.change) min.pwr(r.squared.change, n, power),
+                                           interval = c(0, 1 - 1e-8), tol = 1e-12)$root,
+                            silent = TRUE)
     if (inherits(r.squared.change, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
   }
@@ -452,23 +452,25 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
 
     beta2min <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor)
 
-    power - pwr.t.reg(beta = beta2min, null.beta = null.beta, margin = margin, sd.outcome = sd.outcome, sd.predictor = sd.predictor,
-                      n = n, k.total = k.total, r.squared = r.squared, alpha = alpha, alternative =  alternative)$power
+    power - suppressWarnings(pwr.t.reg(beta = beta2min, null.beta = null.beta, margin = margin, sd.outcome = sd.outcome,
+                                       sd.predictor = sd.predictor, n = n, k.total = k.total, r.squared = r.squared,
+                                       alpha = alpha, alternative =  alternative))$power
 
   } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n <- try(suppressWarnings(stats::uniroot(function(n) min.pwr(r.squared, beta, n, power),
-                                             interval = c(k.total + 2, 1e10))$root), silent = TRUE)
+    n <- try(stats::uniroot(function(n) min.pwr(r.squared, beta, n, power), interval = c(k.total + 2, 1e10))$root,
+             silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n <- ceiling(n)
 
   } else if (requested == "es") {
 
-    r.squared <- try(suppressWarnings(stats::uniroot(function(r.squared) min.pwr(r.squared, beta, n, power),
-                                                     interval = c(1e-8, 1 - 1e-8), tol = 1e-12)$root), silent = TRUE)
+    r.squared <- try(stats::uniroot(function(r.squared) min.pwr(r.squared, beta, n, power),
+                                    interval = c(1e-8, 1 - 1e-8), tol = 1e-12)$root,
+                     silent = TRUE)
     if (inherits(r.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     beta <- ifelse(!is.null(beta), beta, sqrt(r.squared) * sd.outcome / sd.predictor)

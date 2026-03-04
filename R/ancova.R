@@ -239,16 +239,18 @@ power.f.ancova <- function(eta.squared = NULL,
 
   if (requested == "n") {
 
-    n.total <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n.total) min.pwr(f.squared, n.total, power),
-                                                                  interval = c(n.groups + k.covariates + 2, 1e10))$root))
+    n.total <- try(stats::uniroot(function(n.total) min.pwr(f.squared, n.total, power),
+                                  interval = c(n.groups + k.covariates + 2, 1e10))$root,
+                   silent = TRUE)
     if (inherits(n.total, "try-error") || n.total == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     if (ceiling) n.total <- ceiling(n.total / n.groups) * n.groups
 
   } else if (requested == "es") {
 
-    f.squared <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power),
-                                                                    interval = c(0, 1), tol = 1e-12)$root))
+    f.squared <- try(stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power),
+                                    interval = c(0, 1), tol = 1e-12)$root,
+                     silent = TRUE)
     eta.squared <- f.squared / (1 + f.squared)
 
   }
@@ -1710,11 +1712,9 @@ power.t.contrasts <- function(x = NULL,
                              n.total = round(power.out$n.total, 3),
                              power = round(power.out$power, 3))
 
-    test <- "Multiple Contrast Analyses (T-Tests)"
-
-    print.obj <- list(test = test, requested = requested,
-                      alpha = alpha, adjust.alpha = adjust.alpha,
-                      null.ncp = 0, data = print.data)
+    print.obj <- list(test = "Multiple Contrast Analyses (T-Tests)", requested = requested,
+                      alpha = alpha, adjust.alpha = adjust.alpha, null.ncp = 0,
+                      data = print.data)
 
     .print.pwrss.contrasts(print.obj, verbose = verbose, utf = utf)
 

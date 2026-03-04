@@ -701,6 +701,20 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt, do.call(power.t.contrasts,
                                  c(crrRes[["parms"]][c("mu.vector", "sd.vector", "p.vector", "r.squared", "k.covariates", "alpha",
                                                        "contrast.matrix")], list(n.vector = crrRes$n.vector, verbose = 0))))
+
+    crrCnt <- do.call(power.t.contrasts,
+                      c(crrRes[["parms"]][c("mu.vector", "sd.vector", "p.vector", "r.squared", "k.covariates", "alpha")],
+                        list(contrast.matrix = mtxCnt[1, ], power = 0.80, verbose = 0))) # linear trend as vector
+    expect_equal(class(crrCnt), c("pwrss", "t", "contrasts"))
+    expect_equal(names(crrCnt), c("parms", "test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power"))
+    expect_equal(crrCnt[["parms"]],
+                 list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
+                      r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt[1, ], power = 0.80, alpha = 0.05,
+                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
+                 list(test = "t", contrast = 1, comparison = "A3 <=> A1", psi = 0.035355339, d = 0.05, ncp = 2.80208252,
+                      df = 9419, t.alpha = 1.96021588, n.total = 9423, power = 0.80006019))
+
     crrCnt <- do.call(power.t.contrast,
                       c(crrRes[["parms"]][c("mu.vector", "sd.vector", "p.vector", "r.squared", "k.covariates", "alpha")],
                         list(contrast.vector = mtxCnt[1, ], power = 0.8, verbose = 0)))

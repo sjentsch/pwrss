@@ -367,13 +367,13 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
   } # pwr.student()
 
   min.pwr <- function(d, n2, power) {
-    power - pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                        alternative = alternative, design = design, claim.basis = claim.basis)$power
+    power - suppressWarnings(pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                                         alternative = alternative, design = design, claim.basis = claim.basis))$power
   } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n2 <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root))
+    n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     n2 <- ifelse(ceiling, ceiling(n2), n2)
@@ -384,8 +384,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
     # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
-                                                               interval = c(0, 10), tol = 1e-12)$root))
+      d  <- try(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o), interval = c(0, 10), tol = 1e-12)$root, silent = TRUE)
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
       if (uniroot_break(d)) break
     } # for (o ...)
@@ -409,10 +408,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
 
   if (verbose > 0) {
 
-    test <- sprintf("Student's T-Test (%s)",
-                    switch(design, `independent` = "Independent Samples", `paired` = "Paired Samples", `one.sample` = "One Sample"))
-
-    print.obj <- list(requested = requested, test = test,
+    print.obj <- list(requested = requested, test = fmt_test_student(design),
                       d = d, null.d = null.d, margin = margin,
                       alpha = alpha, t.alpha = t.alpha,
                       alternative = alternative, n = n, df = df,
@@ -605,13 +601,13 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
   } # pwr.welch()
 
   min.pwr <- function(d, n2, power) {
-    power - pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
-                      alpha = alpha, alternative = alternative, claim.basis = claim.basis)$power
+    power - suppressWarnings(pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                                       alpha = alpha, alternative = alternative, claim.basis = claim.basis))$power
   } # min.pwr (for uniroot)
 
   if (requested == "n") {
 
-    n2 <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root))
+    n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
     n2 <- ifelse(ceiling, ceiling(n2), n2)
@@ -622,8 +618,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
     # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
     for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      d  <- try(silent = TRUE, suppressWarnings(stats::uniroot(function(d)  min.pwr(d, n2, power + 10 ^ o),
-                                                               interval = c(0, 10), tol = 1e-12)$root))
+      d  <- try(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o), interval = c(0, 10), tol = 1e-12)$root, silent = TRUE)
       # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
       if (uniroot_break(d)) break
     } # for (o ...)
@@ -647,10 +642,8 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
 
   if (verbose > 0) {
 
-    test <- "Welch's T-Test (Independent Samples)"
-
     print.obj <- list(requested = requested,
-                      test = test,
+                      test = "Welch's T-Test (Independent Samples)",
                       d = d, null.d = null.d,
                       margin = margin,
                       alpha = alpha, t.alpha = t.alpha,
@@ -825,6 +818,11 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
   invisible(t.obj)
 
 } # pwrss.t.2means()
+
+fmt_test_student <- function(design) {
+  sprintf("Student's T-Test (%s)",
+          switch(design, `independent` = "Independent Samples", `paired` = "Paired Samples", `one.sample` = "One Sample"))
+}
 
 # defunct
 #' @export pwrss.z.mean

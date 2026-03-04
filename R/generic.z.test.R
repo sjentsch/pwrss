@@ -118,9 +118,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     # if (sd != 1 || null.sd != 1)
     #   stop("Plotting is not available when the standard deviation of the standard normal distribution deviates from one.", call. = FALSE)
 
-    try(silent = TRUE,
-        suppressWarnings(.plot.t.t1t2(ncp = mean, null.ncp = null.mean, df = Inf, alpha = alpha, alternative = alternative))
-    ) # try
+    suppressWarnings(.plot.t.t1t2(ncp = mean, null.ncp = null.mean, df = Inf, alpha = alpha, alternative = alternative))
 
   }
 

@@ -731,6 +731,13 @@ test_that("power.np.wilcoxon / pwrss.np.2groups work", {
     # uses a different calculation (Lehmann without continuity correction in GPower, Guenther in pwrss)
     # results are slightly off: t / z crit = 1.6448536 (GPower) vs. 1.65185978 (pwrss), power = 0.6461276 (GPower) vs. 0.65052962 (pwrss)
 
+    expect_equal(fmt_test_wilcoxon("independent"),
+                 "Wilcoxon Rank-Sum Test (Independent Samples) \n(Wilcoxon-Mann-Whitney or Mann-Whitney U Test)")
+    expect_equal(fmt_test_wilcoxon("paired"),
+                 "Wilcoxon Signed-Rank Test (Paired Samples)")
+    expect_equal(fmt_test_wilcoxon("one.sample"),
+                 "Wilcoxon Signed-Rank Test (One Sample)")
+
     expect_error(power.np.wilcoxon(d = 0.10, margin = -11, power = 0.80, alternative = "one.sided", verbose = 0),
                  "Possibly incorrect value for `margin` \\(should be within -10 ... 10\\).")
     expect_error(power.np.wilcoxon(d = -0.20, power = 0.80, alternative = "two.sided", design = "paired", method = "noether", verbose = 0),
