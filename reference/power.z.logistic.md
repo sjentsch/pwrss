@@ -422,7 +422,7 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 3549  <<
+#>   Sample Size          = 3550  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
 #>   Statistical Power    = 0.800
