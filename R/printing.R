@@ -5,7 +5,7 @@
 
     RC <- switch(requested,
                  `n` =     "           \033[34m SAMPLE SIZE CALCULATION \033[0m              ",
-                 `es` =    "           \033[34m EFFECT SIZE CALCULATION \033[0m              ",
+                 `es` =    "     \033[34m MINIMUM DETECTABLE EFFECT CALCULATION \033[0m      ",
                  `power` = "               \033[34m POWER CALCULATION \033[0m                ")
 
     paste0(paste0("\u2554", strrep("\u2550", 50), "\u2557", "\n"),
@@ -16,7 +16,7 @@
 
     RC <- switch(requested,
                  `n` =     "             SAMPLE SIZE CALCULATION              ",
-                 `es` =    "             EFFECT SIZE CALCULATION              ",
+                 `es` =    "      MINIMUM DETECTABLE EFFECT CALCULATION       ",
                  `power` = "                POWER CALCULATION                 ")
 
     paste0(paste0("+", strrep("-", 50), "+", "\n"),
@@ -192,10 +192,16 @@
 }
 
 # assembles / formats the "Statistical Power" line
-.pline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {
-  # colors and arrows when requested, otherwise ""
-  c_a <- .c_a(x$requested == "power", utf)
-  sprintf("  %sStatistical Power%s = %.*f%s%s%s%s\n\n", c_a[1], .pad("", ifelse(utf, 1, 3) + a_pad), digits, x$power, c_a[2], c_a[3], c_a[4], c_a[5])
+.pline <- function(x, utf = FALSE, digits = 3) {
+  # if "power" is requested, c_a[1 / 2] and c_a[3 / 5] are used for coloring (in utf) and empty for ascii; c_a[4] is used for <<
+  if (x$requested == "power" && utf)
+    c_a <- c("\033[34m", "\033[0m", "  \033[1;35m", "\u25C4\u25C4", "\033[0m")
+  else if (x$requested == "power" && !utf)
+    c_a <- c("",         "",        "  ",           "<<",           "")
+  else
+    c_a <- rep("", 5)
+
+  sprintf("  %sStatistical Power%s = %.*f%s%s%s%s\n", c_a[1], strrep(" ", ifelse(utf, 1, 3)), digits, x$power, c_a[2], c_a[3], c_a[4], c_a[5])
 }
 
 .results <- function(x, utf = FALSE, digits = 3) {
@@ -222,7 +228,6 @@
 
   paste0(paste(defs_out, collapse = ""), "\n")
 }
-
 
 
 # print functions ------------------------------------------------------------------------------------------------------

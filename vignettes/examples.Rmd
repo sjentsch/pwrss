@@ -1,6 +1,6 @@
 ---
 title: "Practical Power Analysis in R"
-author: Metin Bulus
+author: Metin Bulus & Sebastian Jentschke
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{Practical Power Analysis in R}
@@ -53,7 +53,7 @@ If you find the package and related material useful please cite as:
 
 **Acknowledgments**
 
-This open-source project has benefited from users who have taken the time to report typos and identify bugs. I would like to acknowledge those who have helped improve the accuracy and quality of the project by reporting these issues. If I have missed anyone who has provided similar feedback, please let me know.
+This open-source project has benefited from users who have taken the time to report typos and identify bugs. We would like to acknowledge those who have helped improve the accuracy and quality of the project by reporting these issues. If we have missed anyone who has provided similar feedback, please let me know.
 
 Error reports from (alphabetic order): <br>
 Adrian Olszewski (bug report);

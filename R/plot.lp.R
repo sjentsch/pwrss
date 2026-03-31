@@ -1,9 +1,11 @@
-##################################
-# generic t and z test functions #
-##################################
+###############################################
+# generic lambda-prime distribution functions #
+###############################################
+
+
 
 # type = 1 for light red, 2 for light blue
-.plot.t.dist <- function(ncp = 0, df = Inf,
+.plot.lp.dist <- function(ncp = 0, df = Inf,
                          xlim, ylim = c(0, 0.50),
                          type = 1, ticks = TRUE) {
 
@@ -15,9 +17,9 @@
          color <- grDevices::adjustcolor(2, alpha.f = 1),
          color <- grDevices::adjustcolor(4, alpha.f = 1))
 
-  # non-central t function
+  # non-central lambda-prime function
   funt <- function(x) {
-    stats::dt(x, df = df, ncp = ncp)
+    sadists::dlambdap(x, df = df, t = ncp)
   }
 
   # plot central t distribution
@@ -47,7 +49,7 @@
 }
 
 # type = 1 for light red shade, 2 for light blue shade, 3 for light black stripes
-.paint.t.dist <- function(ncp = 0, df = Inf, xlim, type = 1) {
+.paint.lp.dist <- function(ncp = 0, df = Inf, xlim, type = 1) {
 
   color <- switch(type,
                   `1` = grDevices::adjustcolor(2, alpha.f = 0.3),
@@ -55,9 +57,9 @@
                   `3` = grDevices::adjustcolor(1, alpha.f = 0.3),
                   `s` = grDevices::adjustcolor(2, alpha.f = 0.6))
 
-  # non-central t function
+  # non-central lambda-prime function
   funt <- function(x) {
-    stats::dt(x, df = df, ncp = ncp)
+    sadists::dlambdap(x, df = df, t = ncp)
   }
 
   x <- seq(min(xlim), max(xlim), by = .001)
@@ -71,12 +73,12 @@
     graphics::polygon(x = xs, y = ys, col = color, density = 25, angle = 45, border = NA)
   }
 
-  invisible(stats::pt(max(xlim), df = df, ncp = ncp, lower.tail = TRUE) -
-            stats::pt(min(xlim), df = df, ncp = ncp, lower.tail = TRUE))
+  invisible(sadists::plambdap(max(xlim), df = df, t = ncp, lower.tail = TRUE) -
+              sadists::plambdap(min(xlim), df = df, t = ncp, lower.tail = TRUE))
 
 }
 
-.plot.t.t1t2 <- function(ncp, null.ncp = 0, df = Inf, alpha = 0.05,
+.plot.lp.t1t2 <- function(ncp, null.ncp = 0, df = Inf, alpha = 0.05,
                          alternative = c("one.sided", "two.sided", "two.one.sided"),
                          plot.main = NULL, plot.sub = NULL, digits = 2) {
 
@@ -94,50 +96,58 @@
     # equivalence test
     if (ncp > min(null.ncp) && ncp < max(null.ncp)) {
 
-      t.alpha.upper <- stats::qt(alpha, df = df, ncp = min(null.ncp), lower.tail = FALSE)
-      t.alpha.lower <- stats::qt(alpha, df = df, ncp = max(null.ncp), lower.tail = TRUE)
+      t.alpha.upper <- sadists::qlambdap(alpha, df = df, t = min(null.ncp), lower.tail = FALSE)
+      t.alpha.lower <- sadists::qlambdap(alpha, df = df, t = max(null.ncp), lower.tail = TRUE)
       t.alpha <- c(t.alpha.lower, t.alpha.upper)
 
-      yt.alpha <- stats::dt(rev(t.alpha), df = df, ncp = null.ncp)
+      # yt.alpha <- sadists::dlambdap(t.alpha, df = df, t = null.ncp)
+      yt.alpha.upper <- sadists::dlambdap(t.alpha.upper, df = df, t = min(null.ncp))
+      yt.alpha.lower <- sadists::dlambdap(t.alpha.lower, df = df, t = max(null.ncp))
+      yt.alpha <- c(yt.alpha.lower, yt.alpha.upper)
 
     }
 
     # minimum effect test
     if (ncp < min(null.ncp) || ncp > max(null.ncp)) {
 
-      t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = min(null.ncp), lower.tail = TRUE)
-      t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = max(null.ncp), lower.tail = FALSE)
+      t.alpha.lower <- sadists::qlambdap(alpha / 2, df = df, t = min(null.ncp), lower.tail = TRUE)
+      t.alpha.upper <- sadists::qlambdap(alpha / 2, df = df, t = max(null.ncp), lower.tail = FALSE)
       t.alpha <- c(t.alpha.lower, t.alpha.upper)
 
-      yt.alpha <- stats::dt(t.alpha, df = df, ncp = null.ncp)
+      # yt.alpha <- sadists::dlambdap(t.alpha, df = df, t = null.ncp)
+      yt.alpha.lower<- sadists::dlambdap(t.alpha.lower, df = df, t = min(null.ncp))
+      yt.alpha.upper <- sadists::dlambdap(t.alpha.upper, df = df, t = max(null.ncp))
+      yt.alpha <- c(yt.alpha.lower, yt.alpha.upper)
 
     }
 
   } else if (alternative == "two.sided") {
 
-    t.alpha.upper <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = FALSE)
-    t.alpha.lower <- stats::qt(alpha / 2, df = df, ncp = null.ncp, lower.tail = TRUE)
+    t.alpha.upper <- sadists::qlambdap(alpha / 2, df = df, t = null.ncp, lower.tail = FALSE)
+    t.alpha.lower <- sadists::qlambdap(alpha / 2, df = df, t = null.ncp, lower.tail = TRUE)
     t.alpha <- rbind(t.alpha.lower, t.alpha.upper)
 
-    yt.alpha <- stats::dt(t.alpha, df = df, ncp = null.ncp)
+    yt.alpha <- sadists::dlambdap(t.alpha, df = df, t = null.ncp)
 
   } else if (alternative == "one.sided") {
 
     ifelse(ncp > null.ncp,
            lower.tail <- FALSE,
            lower.tail <- TRUE)
-    t.alpha <- stats::qt(alpha, df = df, ncp = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
+    t.alpha <- sadists::qlambdap(alpha, df = df, t = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
 
-    yt.alpha <- stats::dt(t.alpha, df = df, ncp = null.ncp)
+    yt.alpha <- sadists::dlambdap(t.alpha, df = df, t = null.ncp)
 
   } # alternative
 
   # x-axis limits
   ifelse(df < 20, prob.extreme <- 0.001, prob.extreme <- 0.0001)
-  lower <- min(min(stats::qt(prob.extreme, df = df, ncp = ncp, lower.tail = TRUE)),
-               stats::qt(prob.extreme, df = df, ncp = null.ncp, lower.tail = TRUE))
-  upper <- max(max(stats::qt(1 - prob.extreme, df = df, ncp = ncp, lower.tail = TRUE)),
-               stats::qt(1 - prob.extreme, df = df, ncp = null.ncp, lower.tail = TRUE))
+  lower <- min(min(sadists::qlambdap(prob.extreme, df = df, t = ncp, lower.tail = TRUE)),
+               sadists::qlambdap(prob.extreme, df = df, t = min(null.ncp), lower.tail = TRUE), 
+               sadists::qlambdap(prob.extreme, df = df, t = max(null.ncp), lower.tail = TRUE))
+  upper <- max(max(sadists::qlambdap(1 - prob.extreme, df = df, t = ncp, lower.tail = TRUE)),
+               sadists::qlambdap(1 - prob.extreme, df = df, t = min(null.ncp), lower.tail = TRUE),
+               sadists::qlambdap(1 - prob.extreme, df = df, t = max(null.ncp), lower.tail = TRUE))
   xlim <- c(lower, upper)
 
   plot.window.dim <- grDevices::dev.size("cm")
@@ -148,35 +158,35 @@
   # plots
   if (alternative == "two.one.sided") {
 
-    .plot.t.dist(ncp = null.ncp[1], df = df, xlim = xlim, type = 1, ticks = TRUE)
+    .plot.lp.dist(ncp = null.ncp[1], df = df, xlim = xlim, type = 1, ticks = TRUE)
     graphics::par(new = TRUE)
-    .plot.t.dist(ncp = null.ncp[2], df = df, xlim = xlim, type = 1, ticks = FALSE)
+    .plot.lp.dist(ncp = null.ncp[2], df = df, xlim = xlim, type = 1, ticks = FALSE)
     graphics::par(new = TRUE)
-    .plot.t.dist(ncp = ncp, df = df, xlim = xlim, type = 2, ticks = FALSE)
+    .plot.lp.dist(ncp = ncp, df = df, xlim = xlim, type = 2, ticks = FALSE)
 
-    graphics::text(ncp, stats::dt(ncp, df = df, ncp = ncp) + 0.05,
+    graphics::text(ncp, sadists::dlambdap(ncp, df = df, t = ncp) + 0.05,
                    labels = expression(H[1]),
                    cex = cex.legend, col = grDevices::adjustcolor(4, alpha.f = 1))
 
-    graphics::text(null.ncp[1], stats::dt(null.ncp[1], df = df, ncp = null.ncp[1]) + 0.05,
+    graphics::text(null.ncp[1], sadists::dlambdap(null.ncp[1], df = df, t = null.ncp[1]) + 0.05,
                    labels = expression(H[0]),
                    cex = cex.legend, col = grDevices::adjustcolor(2, alpha.f = 1))
 
-    graphics::text(null.ncp[2], stats::dt(null.ncp[2], df = df, ncp = null.ncp[2]) + 0.05,
+    graphics::text(null.ncp[2], sadists::dlambdap(null.ncp[2], df = df, t = null.ncp[2]) + 0.05,
                    labels = expression(H[0]),
                    cex = cex.legend, col = grDevices::adjustcolor(2, alpha.f = 1))
 
   } else {
 
-    .plot.t.dist(ncp = ncp, df = df, xlim = xlim, type = 2, ticks = TRUE)
+    .plot.lp.dist(ncp = ncp, df = df, xlim = xlim, type = 2, ticks = TRUE)
     graphics::par(new = TRUE)
-    .plot.t.dist(ncp = null.ncp, df = df, xlim = xlim, type = 1, ticks = FALSE)
+    .plot.lp.dist(ncp = null.ncp, df = df, xlim = xlim, type = 1, ticks = FALSE)
 
-    graphics::text(ncp, stats::dt(ncp, df = df, ncp = ncp) + 0.05,
+    graphics::text(ncp, sadists::dlambdap(ncp, df = df, t = ncp) + 0.05,
                    labels = expression(H[1]),
                    cex = cex.legend, col = grDevices::adjustcolor(4, alpha.f = 1))
 
-    graphics::text(null.ncp, stats::dt(null.ncp, df = df, ncp = null.ncp) + 0.05,
+    graphics::text(null.ncp, sadists::dlambdap(null.ncp, df = df, t = null.ncp) + 0.05,
                    labels = expression(H[0]),
                    cex = cex.legend, col = grDevices::adjustcolor(2, alpha.f = 1))
 
@@ -192,14 +202,14 @@
     # equivalence test
     if (ncp > min(null.ncp) && ncp < max(null.ncp)) {
 
-      .paint.t.dist(ncp = null.ncp[1], df = df, xlim = c(t.alpha[2], max(xlim)), type = 1)
-      .paint.t.dist(ncp = null.ncp[2], df = df, xlim = c(min(xlim), t.alpha[1]), type = 1)
+      .paint.lp.dist(ncp = null.ncp[1], df = df, xlim = c(t.alpha[2], max(xlim)), type = 1)
+      .paint.lp.dist(ncp = null.ncp[2], df = df, xlim = c(min(xlim), t.alpha[1]), type = 1)
 
-      .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], max(xlim)), type = 2)
-      .paint.t.dist(ncp = ncp, df = df, xlim = c(min(xlim), t.alpha[2]), type = 2)
+      .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], max(xlim)), type = 2)
+      .paint.lp.dist(ncp = ncp, df = df, xlim = c(min(xlim), t.alpha[2]), type = 2)
 
       ifelse(t.alpha[1] > t.alpha[2],
-             power <- .paint.t.dist(ncp = ncp, df = df, xlim = t.alpha, type = 3),
+             power <- .paint.lp.dist(ncp = ncp, df = df, xlim = t.alpha, type = 3),
              power <- 0)
 
     }
@@ -207,33 +217,33 @@
     # minimum effect test
     if (ncp < min(null.ncp) || ncp > max(null.ncp)) {
 
-      .paint.t.dist(ncp = null.ncp[1], df = df, xlim = c(t.alpha[1], min(xlim)), type = 1)
-      .paint.t.dist(ncp = null.ncp[2], df = df, xlim = c(max(xlim), t.alpha[2]), type = 1)
+      .paint.lp.dist(ncp = null.ncp[1], df = df, xlim = c(t.alpha[1], min(xlim)), type = 1)
+      .paint.lp.dist(ncp = null.ncp[2], df = df, xlim = c(max(xlim), t.alpha[2]), type = 1)
 
       if (ncp > max(null.ncp)) {
-        .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], min(xlim)), type = 2)
+        .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], min(xlim)), type = 2)
       } else {
-        .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], max(xlim)), type = 2)
+        .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], max(xlim)), type = 2)
       }
 
-      power.upper <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 3)
-      power.lower <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 3)
+      power.upper <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 3)
+      power.lower <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 3)
       power <- power.upper + power.lower
 
     }
 
   } else if (alternative == "two.sided") {
 
-    .paint.t.dist(ncp = null.ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 1)
-    .paint.t.dist(ncp = null.ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 1)
+    .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 1)
+    .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 1)
 
-    .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], t.alpha[2]), type = 2)
+    .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], t.alpha[2]), type = 2)
     
     # type S region
     if(ncp > null.ncp) {
-      .paint.t.dist(ncp = ncp, df = df, xlim = c(min(t.alpha), min(xlim)), type = 1)
+      .paint.lp.dist(ncp = ncp, df = df, xlim = c(min(t.alpha), min(xlim)), type = 1)
     } else {
-      .paint.t.dist(ncp = ncp, df = df, xlim = c(max(t.alpha), max(xlim)), type = 1)
+      .paint.lp.dist(ncp = ncp, df = df, xlim = c(max(t.alpha), max(xlim)), type = 1)
     }
     
     # type S
@@ -244,8 +254,8 @@
 
     # type M
     type.m <- suppressWarnings({ 
-      bounds <- qt(c(1e-10, 1 - 1e-10), df = df, ncp = ncp)     
-      integrand <- function(t) abs(t) * dt(t, df = df, ncp = ncp)
+      bounds <- sadists::qlambdap(c(1e-10, 1 - 1e-10), df = df, t = ncp)     
+      integrand <- function(t) abs(t) * sadists::dlambdap(t, df = df, t= ncp)
       numerator <- integrate(integrand, min(bounds), min(t.alpha))$value +
         integrate(integrand, max(t.alpha), max(bounds))$value
       denominator  <- abs(ncp) * (pt(min(t.alpha), df = df, ncp = ncp) + pt(max(t.alpha), df = df, ncp = ncp, lower.tail = FALSE))
@@ -253,23 +263,23 @@
     })
     type.m <- round(type.m, digits)
 
-    power.left <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 3)
-    power.right <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 3)
+    power.left <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], min(xlim)), type = 3)
+    power.right <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 3)
     power <- power.left + power.right
 
   } else {
 
     ifelse(ncp < null.ncp,
-           .paint.t.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 1),
-           .paint.t.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 1))
+           .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 1),
+           .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 1))
 
     ifelse(ncp < null.ncp,
-           .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 2),
-           .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 2))
+           .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 2),
+           .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 2))
 
     ifelse(ncp < null.ncp,
-           power <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 3),
-           power <- .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 3))
+           power <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 3),
+           power <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 3))
 
   } # end of paint regions
 
@@ -330,4 +340,4 @@
                      angle = c(45, NA, NA))
   }
 
-} # end of .plot.t.t1t2()
+} # end of .plot.lp.t1t2()

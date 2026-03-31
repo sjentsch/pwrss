@@ -1358,9 +1358,18 @@ power.t.contrast <- function(mu.vector, sd.vector,
     d <- psi / sqrt(ifelse(k.covariates == 0, sigma2_pooled, sigma2_error))
 
     if (k.covariates == 0) {
+      
+      # Shieh (2023, p. 3/18)
+      # Shieh G (2023) Assessing standardized
+      # contrast effects in ANCOVA: Confidence intervals,
+      # precision evaluations, and sample size
+      # requirements. PLoS ONE 18(2): e0282161. 
+      # https://doi.org/10.1371/journal.pone.0282161
+      
+      ss_wts <- sum((contrast.vector^2) / n.vector)
+      se_psi <- sqrt(sigma2_error * ss_wts)
 
-      # psi / sigma_pooled needs perhaps some weighting with a?
-      power <- power.t.test(ncp = psi / sigma2_pooled, df = df, plot = FALSE, verbose = 0)$power
+      power <- power.t.test(ncp = psi / se_psi, df = df, plot = FALSE, verbose = 0)$power
 
       if (calculate.lambda)
         lambda <- psi / sigma2_pooled
