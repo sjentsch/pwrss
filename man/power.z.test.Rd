@@ -58,7 +58,11 @@ default.}
 \item{sd}{standard deviation of the alternative distribution.}
 \item{null.mean}{mean of the null distribution.}
 \item{null.sd}{standard deviation of the null distribution.}
+\item{alpha}{type 1 error rate (user-specified).}
 \item{z.alpha}{critical value(s).}
+\item{beta}{type 2 error rate.}
+\item{type.s}{type S error rate (only for two-tailed test).}
+\item{type.m}{type M error rate (only for two-tailed test).}
 \item{power}{statistical power \eqn{(1-\beta)}.}
 }
 \description{

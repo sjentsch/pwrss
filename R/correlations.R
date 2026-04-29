@@ -745,8 +745,9 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
 #' Power Analysis for One-Sample Correlation (Exact)
 #'
 #' @description
-#' Calculates power, sample size, or minimum detectable correlation (only one can be NULL at a time) to test a
-#' (Pearson) correlation against a constant using exact method described in Barabesi and Greco (2002).
+#' Calculates power, sample size, or minimum detectable correlation (only one
+#' can be NULL at a time) to test a (Pearson) correlation against a constant
+#' using exact method described in Barabesi and Greco (2002).
 #'
 #' Formulas are validated using G*Power.
 #'
@@ -756,6 +757,7 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
 #' @param rho         correlation.
 #' @param null.rho    correlation when null is true. Only 0 is allowed for now.
 #' @param n           sample size.
+#' @param n.max       max. number of observations in the sample (default: 500).
 #' @param power       statistical power, defined as the probability of
 #'                    correctly rejecting a false null hypothesis, denoted as
 #'                    \eqn{1 - \beta}.
@@ -781,24 +783,24 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
 #'   \item{n}{sample size.}
 #'
 #' @references
-#'   Barabesi & Greco (2002): A note on the exact computation of the Student t, 
-#'   Snecdor F and sample correlation coefficient distribution function. 
-#'   The Statistician, 51(Part 1), 105-110. 
-#'
+#'   Barabesi, L., & Greco, L. (2002). A Note on the Exact Computation of the
+#'   Student t, Snedecor F and Sample Correlation Coefficient Distribution
+#'   Functions. Journal of the Royal Statistical Society. Series D (The
+#'   Statistician), 51(1), 105–110. https://www.jstor.org/stable/3650394
 #'
 #' @examples
 #' # expected correlation is 0.20 and it is different from 0
 #' # it could be 0.20 as well as -0.20
 #' power.exact.onecor(rho = 0.20,
-#'                power = 0.80,
-#'                alpha = 0.05,
-#'                alternative = "two.sided")
+#'                    power = 0.80,
+#'                    alpha = 0.05,
+#'                    alternative = "two.sided")
 #'
 #' # expected correlation is 0.20 and it is greater than 0
-#' power.exact.onecor(rho = 0.20, null.rho = 0.10,
-#'                power = 0.80,
-#'                alpha = 0.05,
-#'                alternative = "one.sided")
+#' power.exact.onecor(rho = 0.20,
+#'                    power = 0.80,
+#'                    alpha = 0.05,
+#'                    alternative = "one.sided")
 #'
 #'
 #' @export power.exact.onecor
@@ -808,7 +810,7 @@ power.exact.onecor <- function(rho = NULL, null.rho = 0,
                                verbose = 1, utf = FALSE) {
   
   alternative <- tolower(match.arg(alternative))
-  func.parms <- clean.parms(as.list(environment()))
+  func.parms <- as.list(environment())
   
   if (null.rho != 0) stop("'null.rho' cannot be different from 0 at the moment", call. = FALSE)
   if (!is.null(rho)) check.correlation(rho, null.rho)
@@ -819,7 +821,7 @@ power.exact.onecor <- function(rho = NULL, null.rho = 0,
   
   check.proportion(alpha)
   check.logical(utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   
   if(is.null(rho)) requested <- "es"
   if(is.null(n)) requested <- "n"
@@ -873,8 +875,8 @@ power.exact.onecor <- function(rho = NULL, null.rho = 0,
     
     if (n %% 2 == 0) {
       # n even:
-      upper.even <- n/2 - 2
-      upper.odd  <- n/2 - 1
+      upper.even <- n / 2 - 2
+      upper.odd  <- n / 2 - 1
       
       sum.even <- 0
       if (upper.even >= 0) {
@@ -890,8 +892,8 @@ power.exact.onecor <- function(rho = NULL, null.rho = 0,
       
       out <- (1/pi) * (
         acos(rho) +
-          r * sqrt(1 - rho^2) * sum.even -
-          rho * sqrt(1 - r^2) * sum.odd
+          r * sqrt(1 - rho ^ 2) * sum.even -
+          rho * sqrt(1 - r ^ 2) * sum.odd
       )
       
     } else {
@@ -912,8 +914,8 @@ power.exact.onecor <- function(rho = NULL, null.rho = 0,
       
       out <- (1/pi) * (
         acos(-r) +
-          r * sqrt(1 - rho^2) * sum.odd -
-          rho * sqrt(1 - r^2) * sum.even
+          r * sqrt(1 - rho ^ 2) * sum.odd -
+          rho * sqrt(1 - r ^ 2) * sum.even
       )
     }
     

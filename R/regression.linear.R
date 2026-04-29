@@ -364,7 +364,7 @@ pwrss.f.reg <- pwrss.f.regression
 #' # binary predictor x (and 4 covariates)
 #' p <- 0.50 # proportion of subjects in one group
 #' power.t.regression(beta = 0.20,
-#'             sd.predictor = sqrt(p*(1-p)),
+#'             sd.predictor = sqrt(p * (1 - p)),
 #'             k.total = 5,
 #'             r.squared = 0.30,
 #'             power = 0.80)
@@ -384,7 +384,7 @@ pwrss.f.reg <- pwrss.f.regression
 #' power.t.regression(beta = 0.20, # Cohen's d
 #'             margin = 0.05, # superiority margin in Cohen's d unit
 #'             alternative = "one.sided",
-#'             sd.predictor = sqrt(p*(1-p)),
+#'             sd.predictor = sqrt(p * (1 - p)),
 #'             k.total = 5,
 #'             r.squared = 0.30,
 #'             power = 0.80)
@@ -394,7 +394,7 @@ pwrss.f.reg <- pwrss.f.regression
 #' power.t.regression(beta = 0, # Cohen's d
 #'             margin = c(-0.05, 0.05), # equivalence bounds in Cohen's d unit
 #'             alternative = "two.one.sided",
-#'             sd.predictor = sqrt(p*(1 - p)),
+#'             sd.predictor = sqrt(p * (1 - p)),
 #'             k.total = 5,
 #'             r.squared = 0.30,
 #'             power = 0.80)
@@ -460,7 +460,8 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
 
   if (requested == "n") {
 
-    n <- try(stats::uniroot(function(n) min.pwr(r.squared, beta, n, power), interval = c(k.total + 2, 1e10))$root,
+    n <- try(stats::uniroot(function(n) min.pwr(r.squared, beta, n, power),
+                            interval = c(k.total + 3, 1e10), tol = 1e-12)$root,
              silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 

@@ -141,7 +141,7 @@ power.t.regression(beta = 0.20,
 # binary predictor x (and 4 covariates)
 p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0.20,
-            sd.predictor = sqrt(p*(1-p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)
@@ -161,7 +161,7 @@ p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0.20, # Cohen's d
             margin = 0.05, # superiority margin in Cohen's d unit
             alternative = "one.sided",
-            sd.predictor = sqrt(p*(1-p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)
@@ -171,7 +171,7 @@ p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0, # Cohen's d
             margin = c(-0.05, 0.05), # equivalence bounds in Cohen's d unit
             alternative = "two.one.sided",
-            sd.predictor = sqrt(p*(1 - p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)

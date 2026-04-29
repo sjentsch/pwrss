@@ -76,9 +76,7 @@ precise.}
 \item{distribution}{character; distribution family. Can be one of the
 \code{c("normal", "poisson", "uniform",
                            "exponential", "binomial", "bernouilli",
-                           "lognormal")} for Demidenko procedures, and 
-                           \code{c("normal", "binomial", "bernouilli")} 
-                           for the Signorini procedure}
+                           "lognormal")}.}
 
 \item{ceiling}{logical; whether sample size should be rounded
 up. \code{TRUE} by default.}

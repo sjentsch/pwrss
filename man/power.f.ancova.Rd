@@ -109,11 +109,11 @@ power.f.regression(r.squared = 0.059,
                    k.total = 1,
                    power = 0.80, alpha = 0.05)
 
-# estimate sample size using regression approach (T-Test)
+# estimate sample size using regression approach (t-Test)
 p <- 0.50 # proportion of sample in treatment (allocation rate)
 power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
-                   sd.predictor = sqrt(p*(1-p)),
+                   sd.predictor = sqrt(p * (1 - p)),
                    power = 0.80, alpha = 0.05)
 
 # estimate sample size using t test approach

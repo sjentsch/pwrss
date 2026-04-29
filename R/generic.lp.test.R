@@ -81,7 +81,7 @@ power.lp.test <- function(ncp, null.ncp = 0,
     stop("`df` must be numeric, have a value of at least 1 and have a length of 1.", call. = FALSE)
   check.proportion(alpha)
   check.logical(plot, utf)
-  verbose <- ensure_verbose(verbose)
+  verbose <- ensure.verbose(verbose)
   
   if(ncp > 40 || any(null.ncp > 40)) stop("Consider using a z-test. Lambda-prime distribution with large non-centrality can be unreliable", call. = FALSE)
   
@@ -100,12 +100,13 @@ power.lp.test <- function(ncp, null.ncp = 0,
     Phi.m <- pt(q = min(t.alpha), df = df, ncp = ncp)  
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
     
-    type.m <- suppressWarnings({ 
+    type.m <- suppressWarnings({
       bounds <- sadists::qlambdap(c(1e-10, 1 - 1e-10), df = df, t = ncp)  
       integrand <- function(t) abs(t) * sadists::dlambdap(t, df = df, t = ncp)
       numerator <- integrate(integrand, min(bounds), min(t.alpha))$value +
         integrate(integrand, max(t.alpha), max(bounds))$value
-      denominator  <- abs(ncp) * (sadists::plambdap(min(t.alpha), df = df, t = ncp) + sadists::plambdap(max(t.alpha), df = df, t = ncp, lower.tail = FALSE))
+      denominator  <- abs(ncp) * (sadists::plambdap(min(t.alpha), df = df, t = ncp) +
+                                  sadists::plambdap(max(t.alpha), df = df, t = ncp, lower.tail = FALSE))
       numerator / denominator 
     })
     

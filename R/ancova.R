@@ -116,11 +116,11 @@ check_var.ratio <- function(sd.vector, n.vector, alpha = 0.05) {
 #'                    k.total = 1,
 #'                    power = 0.80, alpha = 0.05)
 #'
-#' # estimate sample size using regression approach (T-Test)
+#' # estimate sample size using regression approach (t-Test)
 #' p <- 0.50 # proportion of sample in treatment (allocation rate)
 #' power.t.regression(beta = 0.50, r.squared = 0,
 #'                    k.total = 1,
-#'                    sd.predictor = sqrt(p*(1-p)),
+#'                    sd.predictor = sqrt(p * (1 - p)),
 #'                    power = 0.80, alpha = 0.05)
 #'
 #' # estimate sample size using t test approach
@@ -198,7 +198,7 @@ power.f.ancova <- function(eta.squared = NULL,
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = eta.squared, n = n.total, power = power)
 
-  f.squared <- eta.squared / (1 - eta.squared)
+  if (!is.null(eta.squared)) f.squared <- eta.squared / (1 - eta.squared)
   null.f.squared <- null.eta.squared / (1 - null.eta.squared)
 
   n.way <- length(factor.levels)
@@ -251,6 +251,8 @@ power.f.ancova <- function(eta.squared = NULL,
     f.squared <- try(stats::uniroot(function(f.squared) min.pwr(f.squared, n.total, power),
                                     interval = c(0, 1), tol = 1e-12)$root,
                      silent = TRUE)
+    if (inherits(f.squared, "try-error")) stop("Design is not feasible.", call. = FALSE)
+
     eta.squared <- f.squared / (1 + f.squared)
 
   }
