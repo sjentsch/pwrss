@@ -147,7 +147,7 @@
     rep("", 5)
 }
 
-# assembles / formats the "Effect Size" line
+# assembles / formats the "Minimum Detectable Effect" line
 .esline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {
   es_sel <- names(x) %in% c("d", "eta.squared", "r.squared", "r.squared.change", "w")
   if (sum(es_sel) == 1) {
@@ -173,6 +173,13 @@
     stop("`print.obj` contains more than one effect size.", call. = FALSE)
   }
 }
+
+# assembles / formats the "Minimum Detectable Effect" line
+#.eline <- function(x, utf = FALSE, digits = 3) {
+#  c_a <- .c_a(x$requested == "es", utf)
+#  
+#  sprintf("  %sEffect Size%s = %.*f%s%s%s%s\n", c_a[1], strrep(" ", ifelse(utf, 1, 3)), digits, x$es, c_a[2], c_a[3], c_a[4], c_a[5])
+#}
 
 # assembles "Sample Size" line
 .nline <- function(x, utf = FALSE, digits = 3, a_pad = 0) {

@@ -13,6 +13,8 @@
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.
+#' @param req.sign    whether estimated prob is smaller or larger than the other 
+#'                    (when minimum detectable prob is of interest).
 #' @param n2          integer; sample size for the second group.
 #' @param n.ratio     n1 / n2 ratio.
 #' @param power       statistical power, defined as the probability of
@@ -93,7 +95,7 @@
 #'                    prob01 = 0.16, prob00 = 0.24)
 #'
 #' @export power.exact.fisher
-power.exact.fisher <- function(prob1, prob2,
+power.exact.fisher <- function(prob1 = NULL, prob2 = NULL, req.sign = "+",
                                n.ratio = 1, n2 = NULL,
                                power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided"),
@@ -104,19 +106,21 @@ power.exact.fisher <- function(prob1, prob2,
   method <- tolower(match.arg(method))
   func.parms <- as.list(environment())
 
-  check.proportion(prob1, prob2)
-  check.positive(n.ratio)
-  if (!is.null(n2)) check.sample.size(n2)
+  if (!is.null(prob1)) check.proportion(prob1)
+  if (!is.null(prob2)) check.proportion(prob2)
+  if (!is.null(n2))    check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
+  check.positive(n.ratio)
   check.proportion(alpha)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- get.requested(es = NA, n = n2, power = power) # calculation of effect size not possible
+  requested <- get.requested(es = list(prob1, prob2), n = n2, power = power)
 
   pwr.approx <- function(prob1, prob2, n2, n.ratio,
-                         alpha, alternative,
-                         # correct.continuity = FALSE,
-                         pooled.stderr = FALSE) {
+                         alpha, alternative
+                         #, correct.continuity = FALSE,
+                         # pooled.stderr = FALSE
+                         ) {
 
     # Gpower
     # sigma0 <- sqrt(((n1 * (1 - prob1) + n2 * (1 - prob2)) / (n1 * n2)) * ((n1 * prob1 + n2 *prob2) / (n1 + n2)))
@@ -183,6 +187,7 @@ power.exact.fisher <- function(prob1, prob2,
     n2
 
   } # ss.approx()
+
 
   pwr.exact <- function(prob1, prob2, n2, n.ratio, alpha, alternative) {
 
@@ -301,7 +306,35 @@ power.exact.fisher <- function(prob1, prob2,
 
       n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
 
-    }
+    } else if (requested == "es") {
+      
+      if (is.null(prob1)) {
+        
+        prob1 <- stats::optimize(
+          f = function(prob1) {
+            (power - pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                               alpha = alpha, alternative = alternative)) ^ 2 
+          },
+          maximum = FALSE,
+          lower = ifelse(check.pos_sign(req.sign),  prob2, 0.0001),
+          upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob2))$minimum
+        
+      } else {
+        
+        prob2 <- stats::optimize(
+          f = function(prob2) {
+            (power - pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                               alpha = alpha, alternative = alternative)) ^ 2
+          },
+          maximum = FALSE,
+          lower = ifelse(check.pos_sign(req.sign),  prob1, 0.0001),
+          upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob1))$minimum
+        
+      } # prob1 or prob2?
+      
+      n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
+      
+    } # n, power, es?
 
     n.total <- n1 + n2
 
@@ -315,7 +348,7 @@ power.exact.fisher <- function(prob1, prob2,
     sd.null <- NA
     z.alpha <- NA
 
-  }  else if (method == "approximate") {
+  } else if (method == "approximate") {
 
     if (requested == "n") {
 
@@ -334,7 +367,35 @@ power.exact.fisher <- function(prob1, prob2,
 
       n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
 
-    }
+    } else if (requested == "es") {
+      
+      if (is.null(prob1)) {
+        
+        prob1 <- stats::optimize(
+          f = function(prob1) {
+            (power - pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                               alpha = alpha, alternative = alternative)$power)^2 
+          },
+          maximum = FALSE,
+          lower = ifelse(check.pos_sign(req.sign),  prob2, 0.0001)
+          upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob2))$minimum
+        
+      } else {
+        
+        prob2 <- stats::optimize(
+          f = function(prob2) {
+            (power - pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                               alpha = alpha, alternative = alternative)$power)^2 
+          },
+          maximum = FALSE,
+          lower = ifelse(check.pos_sign(req.sign),  prob1, 0.0001)
+          upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob1))$minimum
+        
+      } # prob1 or prob2?
+      
+      n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
+      
+    } # n, power, es?
 
     n.total <- n1 + n2
 
@@ -380,6 +441,8 @@ power.exact.fisher <- function(prob1, prob2,
 
   invisible(structure(list(parms = func.parms,
                            test = ifelse(method == "exact", "exact", "z"),
+                           prob1 = prob1,
+                           prob2 = prob2,
                            delta = prob1 - prob2,
                            odds.ratio = (prob1 / (1 - prob1)) /  (prob2 / (1 - prob2)),
                            mean = mean.alternative,

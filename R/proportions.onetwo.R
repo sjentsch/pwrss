@@ -63,7 +63,7 @@
 #'                     alternative = "one.sided")
 #'
 #' @export power.exact.oneprop
-power.exact.oneprop <- function(prob, null.prob = 0.50,
+power.exact.oneprop <- function(prob = NULL, req.sign = "+", null.prob = 0.50,
                                 n = NULL, power = NULL, alpha = 0.05,
                                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                                 verbose = 1, utf = FALSE) {
@@ -71,14 +71,14 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
 
-  check.proportion(prob)
+  if (!is.null(prob)) check.proportion(prob)
   null.prob <- check.margins(null.prob, check.proportion, alternative)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(utf)
   verbose <- ensure.verbose(verbose)
-  requested <- get.requested(es = NA, n = n, power = power) # difficult to estimate effect size
+  requested <- get.requested(es = prob, n = n, power = power)
 
   if (requested == "n") {
 
@@ -99,10 +99,19 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
       } # n > m
     }
 
+  } else if (requested == "es") {
+    
+    if (power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+    
+    prob <- prob.binom.test(power = power, size = n, prob = NULL, sign = sign,
+                            null.prob = null.prob, alpha = alpha, alternative = alternative,
+                            plot = FALSE, verbose = 0, utf = FALSE)$prob
+    
   }
 
   # calculate power (if requested == "power") or update it (if requested == "n")
-  pwr.obj <- power.binom.test(size = n, prob = prob, null.prob = null.prob, alpha = alpha, alternative = alternative,
+  pwr.obj <- power.binom.test(size = n, prob = prob, null.prob = null.prob,
+                              alpha = alpha, alternative = alternative,
                               plot = FALSE, verbose = 0)
 
   alpha <- pwr.obj$alpha
@@ -235,7 +244,7 @@ power.exact.oneprop <- function(prob, null.prob = 0.50,
 #'                 alternative = "one.sided")
 #'
 #' @export power.z.oneprop
-power.z.oneprop <- function(prob, null.prob = 0.50,
+power.z.oneprop <- function(prob = NULL, sign = "+", null.prob = 0.50,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             std.error = c("null", "alternative"),
@@ -246,20 +255,20 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
   std.error <- tolower(match.arg(std.error))
   func.parms <- as.list(environment())
 
-  check.proportion(prob)
+  if (!is.null(prob)) check.proportion(prob)
   null.prob <- check.margins(null.prob, check.proportion, alternative)
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
   check.logical(arcsine, correct, ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- get.requested(es = NA, n = n, power = power)
+  requested <- get.requested(es = prob, n = n, power = power)
 
   if (alternative == "two.one.sided" && std.error == "null") {
     std.error <- "alternative"
     warning("`std.error` = \"null\" is ignored. Using \"alternative\" for equivalence or minimal effect testing.", call. = FALSE)
   }
-
+  
   if (arcsine && correct) warning("Continuity correction does not apply to arcsine transformation approach.", call. = FALSE)
 
   pwr <- function(prob, null.prob, n, std.error, arcsine, correct, alpha, alternative) {
@@ -440,7 +449,32 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
     if (ceiling) n <- ceiling(n)
 
-  }
+  } # sample size
+  
+  if (requested == "es") {
+    
+    if(power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+    
+    min <- 0.0001
+    max <- 0.9999
+    
+    if(sign %in% c("-", -1, "-1", "negative")) max <- min(null.prob)
+    if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) min <- max(null.prob)
+    if(sign %in% c(" ", 0, "0", "")) {max <- max(null.prob); min <- min(null.prob)}
+    
+    prob <- stats::optimize(
+      f = function(prob) {
+        (power - pwr(prob = prob, null.prob = null.prob, 
+                     n = n, std.error = std.error,
+                     arcsine = arcsine, correct = correct, 
+                     alpha = alpha, alternative = alternative)$power)^2 
+      },
+      maximum = FALSE,
+      lower = min,
+      upper = max,
+    )$minimum
+    
+  } # effect size
 
   # calculate power (if requested == "power") or update it (if requested == "n")
   pwr.obj <- pwr(prob = prob, null.prob = null.prob, n = n, std.error = std.error,
@@ -482,6 +516,7 @@ power.z.oneprop <- function(prob, null.prob = 0.50,
 
   invisible(structure(list(parms = func.parms,
                            test = "z",
+                           prob = prob, 
                            delta = delta,
                            odds.ratio = odds.ratio,
                            mean = mean.alternative,
@@ -548,6 +583,8 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.
+#' @param sign        whether estimated prob is smaller or larger than the other 
+#'                    (when minimum detectable prob is of interest).
 #' @param n.ratio     sample size ratio (n1 / n2).
 #' @param n2          integer; sample size for the second group.
 #' @param power       statistical power, defined as the probability of
@@ -623,18 +660,20 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
 #'                        paired = TRUE)
 #'
 #' @export power.exact.twoprops
-power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
+power.exact.twoprops <- function(prob1 = NULL, prob2 = NULL, sign = "+",
+                                 n.ratio = 1, n2 = NULL,
                                  power = NULL, alpha = 0.05,
                                  alternative = c("two.sided", "one.sided"),
                                  paired = FALSE, rho.paired = 0.50,
                                  method = c("exact", "approximate"),
                                  ceiling = TRUE, verbose = 1, utf = FALSE) {
-
+  
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
-
-  check.proportion(prob1, prob2)
+  
   check.positive(n.ratio)
+  if(!is.null(prob1)) check.proportion(prob1)
+  if(!is.null(prob2)) check.proportion(prob2)
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
@@ -642,25 +681,82 @@ power.exact.twoprops <- function(prob1, prob2, n.ratio = 1, n2 = NULL,
   check.correlation(rho.paired)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
+  requested <- get.requested(es = list(prob1, prob2), n = n2, power = power)
 
+  
+  if(requested == "es") {
+    
+    pwr.exact <- function(prob1, prob2, n.ratio, n2, power, alpha,
+                          alternative, paired, rho.paired, method) {
+      
+      if (paired) {
+        
+        jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
+        
+        power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
+                            power = power, n.paired = n2, alpha = alpha,
+                            alternative = alternative, method =  method,
+                            ceiling = FALSE, verbose = 0, utf = FALSE)
+        
+      } else {
+        
+        power.exact.fisher(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
+                           alpha = alpha, power = power,
+                           alternative = alternative, method = method,
+                           ceiling = FALSE, verbose = FALSE, utf = FALSE)
+        
+      } # paired
+      
+    } # power.exact()
+    
+    if (power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+    
+    if (is.null(prob1)) {
+      
+      prob1 <- stats::optimize(
+        f = function(prob1) {
+          (power - pwr.exact(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio, 
+                             n2 = n2, power = NULL, alpha = alpha, alternative = alternative, 
+                             paired = paired, rho.paired = rho.paired, method = method)$power) ^ 2
+        },
+        maximum = FALSE,
+        lower = ifelse(check.pos_sign(req.sign),  prob2, 0.0001),
+        upper = ifelse(check.pos_sign(req.sign), 0.9999, prob2))$minimum
+      
+    } else {
+      
+      prob2 <- stats::optimize(
+        f = function(prob2) {
+          (power - pwr.exact(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio, 
+                             n2 = n2, power = NULL, alpha = alpha, alternative = alternative, 
+                             paired = paired, rho.paired = rho.paired, method = method)$power) ^ 2
+        },
+        maximum = FALSE,
+        lower = ifelse(check.pos_sign(req.sign),  prob1, 0.0001),
+        upper = ifelse(check.pos_sign(req.sign), 0.9999, prob1))$minimum
+      
+    } # prob1 or prob2?
+    
+  } # effect size
+  
   if (paired) {
-
+    
     jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
-
+    
     power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
                         power = power, n.paired = n2, alpha = alpha,
                         alternative = alternative, method =  method,
                         ceiling = ceiling, verbose = verbose, utf = utf)
-
+    
   } else {
-
+    
     power.exact.fisher(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
                        alpha = alpha, power = power,
                        alternative = alternative, method = method,
                        ceiling = ceiling, verbose = verbose, utf = utf)
-
-  }
-
+    
+  } # power and sample size
+  
 } # power.exact.twoprops()
 
 #' @export power.exact.twoprop
@@ -690,6 +786,8 @@ power.exact.twoprop <- power.exact.twoprops
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.
+#' @param sign        whether estimated prob is smaller or larger than the other 
+#'                    (when minimum detectable prob is of interest).
 #' @param margin      ignorable \code{prob1} - \code{prob2} difference. For two
 #'                    one-sided tests provide lower and upper margins in the
 #'                    form of \code{c(lower, upper)}.
@@ -756,7 +854,8 @@ power.exact.twoprop <- power.exact.twoprops
 #'                    alternative = "one.sided")
 #'
 #' @export power.z.twoprops
-power.z.twoprops <- function(prob1, prob2, margin = 0,
+power.z.twoprops <- function(prob1 = NULL, prob2 = NULL, 
+                             sign = "+", margin = 0,
                              n.ratio = 1, n2 = NULL,
                              power = NULL, alpha = 0.05,
                              alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -769,21 +868,20 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   std.error <- tolower(match.arg(std.error))
   func.parms <- as.list(environment())
 
-  check.proportion(prob1, prob2)
-  check.positive(n.ratio)
+  if (!is.null(prob1)) check.proportion(prob1)
+  if (!is.null(prob2)) check.proportion(prob2)
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
+  check.positive(n.ratio)
   check.proportion(alpha)
   check.logical(arcsine, correct, paired)
   check.correlation(rho.paired)
   check.logical(ceiling, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- get.requested(es = NA, n = n2, power = power)
+  requested <- get.requested(es = list(prob1, prob2), n = n2, power = power)
 
   if (!is.numeric(margin) || any(margin > 0.99) || any(margin < -0.99))
     stop("Provide a reasonable `margin` consistent with `prob1` - `prob2`.", call. = FALSE)
-  if (any(abs((prob1 - prob2) - margin) < 1e-6))
-    stop("The value of margin should be different from the prob1 - prob2 difference.", call. = FALSE)
   if (alternative == "two.one.sided" && paired)
       stop("Two one-sided tests are currently not available for paired proportions.", call. = FALSE)
   if (alternative == "two.one.sided" && arcsine)
@@ -995,21 +1093,95 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
   } # ss()
 
 
-  if (paired) {
+  if (paired) { 
 
     if (margin != 0) warning("`margin` argument is ignored.", call. = FALSE)
+    
+    if(requested == "es") {
+      
+      if(power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+      
+      pwr.exact <- function(prob1, prob2, n.ratio, n2, power, alpha,
+                            alternative, paired, rho.paired, method) {
+        
+        jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
+        
+        power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
+                            power = power, n.paired = n2, alpha = alpha,
+                            alternative = alternative, method =  "approx",
+                            ceiling = FALSE, verbose = 0, utf = FALSE)$power
+        
+      } # power
+      
+      min <- 0.0001
+      max <- 0.9999
+      
+      if(sign %in% c("-", -1, "-1", "negative")) max <- ifelse(is.null(prob1), prob2, prob1)
+      if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) min <- ifelse(is.null(prob1), prob2, prob1)
+      if(sign %in% c(" ", 0, "0", "")) {
+        stop("'sign' can only be '+' and '-' for this function", call. = FALSE)
+      }
+      
+      if(is.null(prob1)) {
+        
+        prob.lim.obj <- prob.limits.paired(prob1 = NULL, prob2 = prob2, rho = rho.paired)
+        prob.min <- prob.lim.obj[[1]]
+        prob.max <- prob.lim.obj[[2]]
+        
+        prob1 <- stats::optimize(
+          f = function(prob1) {
+            (power - pwr.exact(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio, 
+                               n2 = n2, power = NULL, alpha = alpha, alternative = alternative, 
+                               paired = paired, rho.paired = rho.paired))^2 
+          },
+          maximum = FALSE,
+          lower = max(min, prob.min),
+          upper = min(max, prob.max),
+        )$minimum
+        
+      } else {
+        
+        prob.lim.obj <- prob.limits.paired(prob1 = prob1, prob2 = NULL, rho = rho.paired)
+        prob.min <- prob.lim.obj[[1]]
+        prob.max <- prob.lim.obj[[2]]
+        
+        prob2 <- stats::optimize(
+          f = function(prob2) {
+            (power - pwr.exact(prob1 = prob1, prob2 = prob2, n.ratio = n.ratio, 
+                               n2 = n2, power = NULL, alpha = alpha, alternative = alternative, 
+                               paired = paired, rho.paired = rho.paired))^2 
+          },
+          maximum = FALSE,
+          lower = max(min, prob.min),
+          upper = min(max, prob.max),
+        )$minimum
+        
+      } # prob1 or prob2?
+      
+    } # effect size
+    
+    
+    # update or estimate power or sample size
+    if(requested == "es") power <- NULL
 
     jp <- joint.probs.2x2(prob1 = prob1, prob2 = prob2, rho = rho.paired, verbose = 0)
 
-    power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
-                        power = power, n.paired = n2, alpha = alpha,
-                        method =  "approx",
-                        alternative = alternative,
-                        ceiling = ceiling, verbose = verbose)
+    obj.mcnemar <- power.exact.mcnemar(prob10 = jp$prob10, prob01 = jp$prob01,
+                                       power = power, n.paired = n2, alpha = alpha,
+                                       method =  "approx",
+                                       alternative = alternative,
+                                       ceiling = ceiling, verbose = verbose)
+    obj.mcnemar$prob1 <- prob1
+    obj.mcnemar$prob2 <- prob2
+    
+    obj.mcnemar
 
-  } else {
+  } else { # paired?
 
     if (requested == "n") {
+      
+      if (any(abs((prob1 - prob2) - margin) < 1e-6))
+        stop("The value of margin should be different from the prob1 - prob2 difference.", call. = FALSE)
 
       ss.obj <- ss(prob1 = prob1, prob2 = prob2, margin = margin,
                    power = power, n.ratio = n.ratio, arcsine = arcsine,
@@ -1025,10 +1197,62 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
       n.total <- n1 + n2
 
     } else if (requested == "power") {
+      
+      if (any(abs((prob1 - prob2) - margin) < 1e-6))
+        stop("The value of margin should be different from the prob1 - prob2 difference.", call. = FALSE)
 
        n1 <- ifelse(ceiling, ceiling(n2 * n.ratio), n2 * n.ratio)
 
-    }
+    } else if (requested == "es") {
+      
+      n1 <- ifelse(ceiling, ceiling(n2 * n.ratio), n2 * n.ratio)
+      
+      if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) {
+        if(is.null(prob1)) {min <- max(prob2 + margin); max <- 0.9999}
+        if(is.null(prob2)) {min <- max(prob1 - margin); max <- 0.9999}
+      }
+      
+      if(sign %in% c("-", -1, "-1", "negative")) {
+        if(is.null(prob1)) {min <- 0.0001; max <- min(prob2 + margin)}
+        if(is.null(prob2)) {min <- 0.0001; max <- min(prob1 - margin)}
+      }
+      
+      if(sign %in% c(" ", 0, "0", "")) {
+        if(is.null(prob1)) {min <- min(prob2 + margin); max <- max(prob2 + margin)}
+        if(is.null(prob2)) {min <- min(prob1 - margin); max <- max(prob1 - margin)}
+      }
+      
+      if(is.null(prob1)) {
+        
+        prob1 <- stats::optimize(
+          f = function(prob1) {
+            (power - pwr(prob1 = prob1, prob2 = prob2, margin = margin, 
+                         n2 = n2, n.ratio = n.ratio, arcsine = arcsine,
+                         std.error = std.error, correct = correct, 
+                         alpha = alpha, alternative = alternative)$power)^2 
+          },
+          maximum = FALSE,
+          lower = min,
+          upper = max,
+        )$minimum
+        
+      } else {
+        
+        prob2 <- stats::optimize(
+          f = function(prob2) {
+            (power - pwr(prob1 = prob1, prob2 = prob2, margin = margin, 
+                         n2 = n2, n.ratio = n.ratio, arcsine = arcsine,
+                         std.error = std.error, correct = correct, 
+                         alpha = alpha, alternative = alternative)$power)^2 
+          },
+          maximum = FALSE,
+          lower = min,
+          upper = max,
+        )$minimum
+        
+      } # prob1 or prob2?
+      
+    } # n, es, power? 
 
     n.ratio <- n1 / n2
     n.total <- n1 + n2
@@ -1072,6 +1296,8 @@ power.z.twoprops <- function(prob1, prob2, margin = 0,
 
     invisible(structure(list(parms = func.parms,
                              test = "z",
+                             prob1 = prob1,
+                             prob2 = prob2,
                              delta = delta,
                              odds.ratio = odds.ratio,
                              mean = mean.alternative,
