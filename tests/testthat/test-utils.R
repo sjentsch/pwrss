@@ -2,7 +2,7 @@
 test_that("inflate.sample works", {
     expect_equal(vapply(2 ^ seq(10), inflate.sample, numeric(1), rate = 0.05, verbose = 0), c(3, 5,  9, 17, 34, 68, 135, 270, 539, 1078))
     expect_equal(vapply(2 ^ seq(10), inflate.sample, numeric(1), rate = 0.20, verbose = 0), c(3, 5, 10, 20, 40, 80, 160, 320, 640, 1280))
-    expect_equal(vapply(2 ^ seq(10), inflate.sample, numeric(1), rate = 0.20, ceiling = FALSE, verbose = 0),
+    expect_equal(vapply(2 ^ seq(10), inflate.sample, numeric(1), rate = 0.20, ceil.n = FALSE, verbose = 0),
                  c(2.5, 5, 10, 20, 40, 80, 160, 320, 640, 1280))
     expect_equal(capture.output(invisible(vapply(2 ^ seq(10), inflate.sample, numeric(1), rate = 0.20))), "35102040801603206401280")
 })

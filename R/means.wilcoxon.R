@@ -53,7 +53,7 @@
 #'                     "double.exponential", "laplace", or "logistic".
 #' @param method       character; non-parametric approach: "guenther" (default)
 #'                     or "noether"
-#' @param ceiling      logical; whether sample size should be rounded up.
+#' @param ceil.n       logical; whether sample size should be rounded up.
 #'                     \code{TRUE} by default.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
@@ -195,7 +195,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
                               design = c("independent", "paired", "one.sample"),
                               distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
                               method = c("guenther", "noether"),
-                              ceiling = TRUE, verbose = 1, utf = FALSE) {
+                              ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   distribution <- tolower(match.arg(distribution))
@@ -210,15 +210,14 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = d, n = n2, power = power)
-  independent <- (design == "independent")
 
   if (any(abs(margin) > 10))
       stop("Possibly incorrect value for `margin` (should be within -10 ... 10).", call. = FALSE)
 
-  if (method == "noether" && !independent)
+  if (method == "noether" && design != "independent")
     stop("Specify `method` = \"guenther\" to request Wilcoxon signed-rank test for matched pairs.", call. = FALSE)
 
   if (requested == "es" && alternative == "two.one.sided")
@@ -226,7 +225,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
   propss <- n.ratio / (n.ratio + 1)
 
-  pwr.wilcox <- function(d, null.d, margin, n2, n.ratio, alpha, independent, alternative, method) {
+  pwr.wilcox <- function(d, null.d, margin, n2, n.ratio, alpha, design, alternative, method) {
 
     n1 <- n2 * n.ratio
 
@@ -251,7 +250,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
     } else if (method == "guenther") {
 
-      if (independent) {
+      if (design == "independent") {
         df <- n1 + n2 - 2
         lambda      <- (d - null.d) / sqrt(1 / n1 + 1 / n2)
         null.lambda <- (margin)     / sqrt(1 / n1 + 1 / n2)
@@ -278,7 +277,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
   min.pwr <- function(d, n2, power) {
     power - suppressWarnings(pwr.wilcox(d = d, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                                        independent = independent, alternative = alternative, method = method))$power
+                                        design = design, alternative = alternative, method = method))$power
   } # min.pwr (for stats::uniroot)
 
   # calculate sample size
@@ -290,19 +289,15 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
     if (method == "noether") {
       n2.max <- (lambda.max / (sqrt(12 * propss * (1 - propss)) * (H1_H0.min))) ^ 2 / (1 + n.ratio)
     } else {
-      n2.max <- ifelse(independent, (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2, (lambda.max / H1_H0.min) ^ 2)
+      n2.max <- ifelse(design == "independent", (1 + 1 / n.ratio) / (H1_H0.min / lambda.max) ^ 2, (lambda.max / H1_H0.min) ^ 2)
     }
-
-    # n2.max <- 1e+08
-    # too big of a number throws warning in stats::uniroot()
-    # full precision may not have been achieved in 'pnt{final}'
-    # because ncp is too large
+    val.rng <- c(ceiling(2 * w), n2.max)
 
     # estimation, using wilcoxon adjustment (* w)
-    n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2 * w, power), interval = c(2, n2.max))$root * w, silent = TRUE)
+    n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2 * w, power), interval = val.rng)$root * w, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    n2 <- ifelse(ceiling, ceiling(n2), n2)
+    n2 <- ifelse(ceil.n, ceiling(n2), n2)
 
   } else if (requested == "es") {
 
@@ -321,13 +316,13 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0,
 
   pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
                         n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                        independent = independent, alternative = alternative,
+                        design = design, alternative = alternative,
                         method = method)
 
   if (pwr.obj$power < 0) stop("Design is not feasible.", call. = FALSE)
 
-  n1 <- ifelse(ceiling, ceiling(n2 * n.ratio), n2 * n.ratio)
-  if (independent) n <- c(n1 = n1, n2 = n2) else n <- n2
+  n1 <- ifelse(ceil.n, ceiling(n2 * n.ratio), n2 * n.ratio)
+  if (design == "independent") n <- c(n1 = n1, n2 = n2) else n <- n2
 
   if (method == "guenther") {
     list.out <- list(d = d,
@@ -438,7 +433,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                                   alternative = alternative,
                                   distribution = distribution,
                                   method = method,
-                                  ceiling = TRUE,
+                                  ceil.n = TRUE,
                                   verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use `power.np.wilcoxon()`. \n")

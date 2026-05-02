@@ -37,8 +37,8 @@
                    col.ticks = "gray30", col.axis = "gray30")
 
     graphics::axis(side = 2,
-                   #at = seq(0, ymax, 0.02),
-                   #labels = seq(0, ymax, 0.02),
+                   #at = seq(0, y.max, 0.02),
+                   #labels = seq(0, y.max, 0.02),
                    tick = TRUE,
                    col.ticks = "gray30", col.axis = "gray30")
 
@@ -205,11 +205,11 @@
 
 
   # y-axis limits
-  ymax.HA <- stats::dbinom(round(prob * size), size = size, prob = prob)
-  ymax.H0 <- stats::dbinom(round(null.prob * size), size = size, prob = null.prob)
+  y.max.HA <- stats::dbinom(round(prob * size), size = size, prob = prob)
+  y.max.H0 <- stats::dbinom(round(null.prob * size), size = size, prob = null.prob)
 
-  ymax <- max(c(ymax.HA, ymax.H0))
-  ylim <- c(0, ymax * 1.20)
+  y.max <- max(c(y.max.HA, y.max.H0))
+  ylim <- c(0, y.max * 1.20)
 
   plot.window.dim <- grDevices::dev.size("cm")
   cex.legend <- min(plot.window.dim[1] / 18, plot.window.dim[2] / 15)
@@ -226,11 +226,11 @@
     .plot.binom.dist(prob = prob, size = size, xlim = xlim, ylim = ylim, type = 2)
 
 
-    graphics::text(round(prob * size), ymax.HA * 1.05,
+    graphics::text(round(prob * size), y.max.HA * 1.05,
                    labels = expression(H[1]),
                    cex = cex.legend, col = grDevices::adjustcolor(4, alpha.f = 1))
 
-    graphics::text(round(null.prob * size), ymax.H0 * 1.05,
+    graphics::text(round(null.prob * size), y.max.H0 * 1.05,
                    labels = expression(H[0]),
                    cex = cex.legend, col = grDevices::adjustcolor(2, alpha.f = 1))
 
@@ -240,11 +240,11 @@
     graphics::par(new = TRUE)
     .plot.binom.dist(prob = null.prob, size = size, xlim = xlim, ylim = ylim, type = 1)
 
-    graphics::text(round(prob * size), ymax.HA * 1.05,
+    graphics::text(round(prob * size), y.max.HA * 1.05,
                    labels = expression(H[1]),
                    cex = cex.legend, col = grDevices::adjustcolor(4, alpha.f = 1))
 
-    graphics::text(round(null.prob * size), ymax.H0 * 1.05,
+    graphics::text(round(null.prob * size), y.max.H0 * 1.05,
                    labels = expression(H[0]),
                    cex = cex.legend, col = grDevices::adjustcolor(2, alpha.f = 1))
 

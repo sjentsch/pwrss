@@ -41,10 +41,6 @@
 #'   \code{power.t.student()} or \code{power.t.welch()} functions during a
 #'   transition period.
 #'
-#' @aliases power.t.student pwrss.t.2means pwrss.z.2means pwrss.t.mean
-#'          pwrss.z.mean
-#'
-#'
 #' @param d           Cohen's d or Hedges' g.
 #' @param null.d      Cohen's d or Hedges' g under null, typically 0(zero).
 #' @param margin      margin - ignorable \code{d} - \code{null.d} difference.
@@ -68,7 +64,7 @@
 #'                    on standardized mean differences and confidence
 #'                    intervals.
 #' @param design      character; "independent", "paired" or "one.sample".
-#' @param ceiling     logical; whether sample size should be rounded up.
+#' @param ceil.n      logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
@@ -106,6 +102,9 @@
 #'   Lakens, D. (2017). Equivalence tests: A practical primer for t tests,
 #'   correlations, and meta-analyses. *Social psychological and personality
 #'   science, 8*(4), 355-362. https://doi.org/10.1177/1948550617697177
+#'
+#'
+#' @aliases power.t.student pwrss.t.2means pwrss.z.2means pwrss.t.mean pwrss.z.mean
 #'
 #' @examples
 #'
@@ -323,7 +322,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
                             design = c("independent", "paired", "one.sample"),
                             claim.basis = c("md.pval", "smd.ci"),
-                            ceiling = TRUE, verbose = 1, utf = FALSE) {
+                            ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   design <- tolower(match.arg(design))
@@ -337,7 +336,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
   check.positive(n.ratio)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = d, n = n2, power = power)
 
@@ -376,7 +375,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
     n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    n2 <- ifelse(ceiling, ceiling(n2), n2)
+    n2 <- ifelse(ceil.n, ceiling(n2), n2)
 
   } else if (requested == "es") {
 
@@ -393,7 +392,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
 
   }
 
-  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
+  n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
   if (design == "independent") n <- c(n1 = n1, n2 = n2) else n <- n2
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")
@@ -504,7 +503,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0,
 #'                    differences and p-values, "smd.ci" when claims are based
 #'                    on standardized mean differences and confidence
 #'                    intervals.
-#' @param ceiling     logical; whether sample size should be rounded up.
+#' @param ceil.n      logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
@@ -552,7 +551,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
                           power = NULL, alpha = 0.05,
                           alternative = c("two.sided", "one.sided", "two.one.sided"),
                           claim.basis = c("md.pval", "smd.ci"),
-                          ceiling = TRUE, verbose = 1, utf = FALSE) {
+                          ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   claim.basis <- tolower(match.arg(claim.basis))
@@ -565,7 +564,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
   if (!is.null(n2)) check.sample.size(n2)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = d, n = n2, power = power)
 
@@ -611,7 +610,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
     n2 <- try(stats::uniroot(function(n2) min.pwr(d, n2, power), interval = c(3, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    n2 <- ifelse(ceiling, ceiling(n2), n2)
+    n2 <- ifelse(ceil.n, ceiling(n2), n2)
 
   } else if (requested == "es") {
 
@@ -628,7 +627,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0,
 
   }
 
-  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
+  n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
   n <- c(n1 = n1, n2 = n2)
 
   # calculate power (if requested == "power") or update it (if requested == "n")
@@ -720,7 +719,7 @@ pwrss.t.mean <- function(mu, sd = 1, mu0 = 0, margin = 0, alpha = 0.05,
                                  alternative = alternative,
                                  design = "one.sample",
                                  claim.basis = "md.pval",
-                                 ceiling = TRUE, verbose = verbose)
+                                 ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.t.student() function. \n")
 
@@ -804,7 +803,7 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
                              alternative = alternative,
                              design = "paired",
                              claim.basis = "md.pval",
-                             ceiling = TRUE, verbose = verbose)
+                             ceil.n = TRUE, verbose = verbose)
   } else {
     t.obj <- power.t.welch(d = d, margin = margin.d,
                            var.ratio = sd1 ^ 2 / sd2 ^ 2,
@@ -812,7 +811,7 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
                            power = power, alpha = alpha,
                            alternative = alternative,
                            claim.basis = "md.pval",
-                           ceiling = TRUE, verbose = verbose)
+                           ceil.n = TRUE, verbose = verbose)
   }
 
   # cat("This function will be removed in the future. \n Please use power.t.student() or power.t.welch() function. \n")

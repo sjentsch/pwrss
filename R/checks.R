@@ -3,13 +3,17 @@ check.proportion <- function(...) {
 
   args <- list(...)
   arg.names <- vapply(substitute(list(...))[-1], function(fn) paste0("`", deparse(fn, nlines = 1), "`"), character(1))
+  fnc.name <- as.character(match.call()[[1]])
+  val.rng <- c(ifelse(fnc.name == "check.power", 0.01, 0), ifelse(fnc.name == "check.power", 0.99, 1))
 
-  check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && x >= 0 && x <= 1, logical(1))
+  check <- vapply(args, function(x) length(x) == 1 && is.numeric(x) && x >= val.rng[1] && x <= val.rng[2], logical(1))
 
   if (any(!check))
-    stop(format_errmsg(arg.names[!check], as.character(match.call()[[1]])), call. = FALSE)
+    stop(format_errmsg(arg.names[!check], fnc.name), call. = FALSE)
 
-} # check.probs()
+} # check.proportion()
+
+check.power <- check.proportion
 
 check.correlation <- function(...) {
 
@@ -195,6 +199,18 @@ check.null <- function(...) {
 
 check.not_null <- function(...) !check.null(...) # check.not_null
 
+check.pos_sign <- function(req.sign, has.zero = FALSE) {
+  if (req.sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) {
+    TRUE
+  } else if (req.sign %in% c("-", -1, "-1", "negative")) {
+    FALSE
+  } else if (has.zero && req.sign %in% c(" ", 0, "0", "")) {
+    NULL
+  } else {
+    stop(sprintf("`req.sign` can only be `%s` for this function.", ifelse(has.zero, "+`, `-` and ` ", "+` and `-")), call. = FALSE)
+  }
+} # check.pos_sign
+
 # helper function(s) ---------------------------------------------------------------------------------------------------
 format_errmsg <- function(names = c(), fnc.name = NULL) {
   sprintf("Argument%s %s %s not have %svalid %s value%s (must be length 1, %s)",
@@ -215,6 +231,8 @@ fnc2type <- function(fnc.name = "") {
 valid.cond <- function(fnc.name = "") {
   if (fnc.name == "check.proportion") {
     "numeric, >= 0, and <= 1"
+  } else if (fnc.name == "check.power") {
+    "numeric, >= 0.01, and <= 0.99"
   } else if (fnc.name == "check.correlation") {
     "numeric, >= -1, and <= 1"
   } else if (fnc.name == "check.logical") {

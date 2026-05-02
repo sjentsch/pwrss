@@ -33,7 +33,7 @@
 #'                \eqn{1 - \beta}.
 #' @param alpha   type 1 error rate, defined as the probability of incorrectly
 #'                rejecting a true null hypothesis, denoted as \eqn{\alpha}.
-#' @param ceiling logical; whether sample size should be rounded up.
+#' @param ceil.n  logical; whether sample size should be rounded up.
 #'                \code{TRUE} by default.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
@@ -117,7 +117,7 @@
 #' @export power.chisq.gof
 power.chisq.gof <- function(w = NULL, null.w = 0, df,
                             n = NULL, power = NULL, alpha = 0.05,
-                            ceiling = TRUE, verbose = 1, utf = FALSE) {
+                            ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- as.list(environment())
 
@@ -127,7 +127,7 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = w, n = n, power = power)
 
@@ -158,7 +158,7 @@ power.chisq.gof <- function(w = NULL, null.w = 0, df,
     n <- try(stats::uniroot(function(n) min.pwr(w, n, power), interval = c(2, 1e10))$root, silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    if (ceiling) n <- ceiling(n)
+    if (ceil.n) n <- ceiling(n)
 
   } else if (requested == "es") {
 
@@ -245,7 +245,7 @@ pwrss.chisq.gofit <- function(p1 = NULL, p0 = NULL,
 
   gof.obj <- power.chisq.gof(w = w, null.w = 0, df = df,
                              n = n, power = power, alpha = alpha,
-                             ceiling = TRUE, verbose = verbose)
+                             ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.chisq.gof() function. \n")
 

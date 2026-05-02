@@ -33,11 +33,11 @@
 #'                    to the z-test based on the normal approximation.
 #' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
-#' @param ceiling     logical; if \code{TRUE} rounds up sample size in each
+#' @param ceil.n      logical; if \code{TRUE} rounds up sample size in each
 #'                    cell. This procedure assumes symmetry for concordant
 #'                    probs, which are 'p11' and 'p00'). Thus results may
 #'                    differ from other software by a few units. To match
-#'                    results set 'ceiling = FALSE'.
+#'                    results set 'ceil.n = FALSE'.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
 #'                    (plus key parameters and definitions), if \code{0} no
@@ -143,7 +143,7 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
                                 power = NULL,  alpha = 0.05,
                                 alternative = c("two.sided", "one.sided"),
                                 method = c("exact", "approximate"),
-                                ceiling = TRUE, verbose = 1, utf = FALSE) {
+                                ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -154,7 +154,7 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
   if (!is.null(n.paired)) check.sample.size(n.paired)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = list(prob01, prob10), n = n.paired, power = power)
 
@@ -262,14 +262,14 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
                            alternative = alternative)
       n.discordant <- sum(n.paired * c(prob10, prob01))
 
-      if (ceiling) {
+      if (ceil.n) {
         n.paired <- sum(ceiling(n.paired * c(prob11, prob10, prob01, prob00)))
         n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
       }
 
     } else if (requested == "power") {
 
-      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
+      n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
     } else if (requested == "es") { 
       
@@ -297,7 +297,7 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
         
       } # prob10 or prob01?
       
-      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
+      n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
       
     } # effect size
     
@@ -319,14 +319,14 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
                             alternative = alternative)
       n.discordant <- sum(n.paired * c(prob10, prob01))
 
-      if (ceiling) {
+      if (ceil.n) {
         n.paired <- sum(ceiling(n.paired * c(prob11, prob10, prob01, prob00)))
         n.discordant <- sum(ceiling(n.paired * c(prob10, prob01)))
       }
 
     } else if (requested == "power") {
 
-      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
+      n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
     } else if (requested == "es") { 
       
@@ -354,7 +354,7 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
         
       } # prob10 or prob01?
       
-      n.discordant <- ifelse(ceiling, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
+      n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
       
     } # effect size
 

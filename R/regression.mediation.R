@@ -87,7 +87,7 @@
 #' @param n.draws             integer; number of draws from the distribution of
 #'                            the path coefficients for each replication
 #'                            (applies when method = "monte.carlo").
-#' @param ceiling             logical; whether sample size should be rounded
+#' @param ceil.n              logical; whether sample size should be rounded
 #'                            up. \code{TRUE} by default.
 #' @param verbose             \code{1} by default (returns test, hypotheses,
 #'                            and results), if \code{2} a more detailed output
@@ -192,7 +192,7 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
                                alternative = c("two.sided", "one.sided"),
                                method = c("sobel", "aroian", "goodman", "joint", "monte.carlo"),
                                n.simulation = 1000, n.draws = 1000,
-                               ceiling = TRUE, verbose = 1, utf = FALSE) {
+                               ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   method <- tolower(match.arg(method))
@@ -224,9 +224,22 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
   check.proportion(alpha)
   check.sample.size(n.simulation, n.draws)
   check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = list(beta.a, beta.b), n = n, power = power)
+
+  if (is.null(r.squared.mediator)) {
+    if (any(check.null(beta.a, sd.predictor, sd.mediator)))
+      stop(paste("If `r.squared.mediator` is not given as a parameter, neither of `beta.a`, `sd.predictor` or",
+                 "`sd.mediator` can be NULL"), call. = FALSE)
+    r.squared.mediator = beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2
+  }
+  if (is.null(r.squared.outcome)) {
+    if (any(check.null(beta.b, beta.cp, sd.mediator, sd.predictor)))
+      stop(paste("If `r.squared.outcome` is not given as a parameter, neither of `beta.b`, `beta.cp`, `sd.mediator` or",
+                 "`sd.predictor` can be NULL"), call. = FALSE)
+    r.squared.outcome = (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2)  / sd.outcome ^ 2
+  }
 
   if (r.squared.outcome == 0 && "beta.cp" %in% names(match.call()))
     warning("Ignoring any specification to `beta.cp`.", call. = FALSE)
@@ -322,6 +335,7 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
     method <- tolower(match.arg(method))
 
     if (method == "sobel") {
+
       n <- stats::uniroot(function(n) {
         se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
                           r.squared.mediator = r.squared.mediator, n = n)
@@ -537,7 +551,7 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
     
   } # sample size or effect size
   
-  if (ceiling) n <- ceiling(n)
+  if (ceil.n) n <- ceiling(n)
   
   if (is.null(r.squared.mediator)) r.squared.mediator <- beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2
   if (is.null(r.squared.outcome)) r.squared.outcome <- (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2
@@ -636,7 +650,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    method = "sobel",
                                    n.simulation = nsims,
                                    n.draws = ndraws,
-                                   ceiling = TRUE,
+                                   ceil.n = TRUE,
                                    verbose = 0)
 
     aroian.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -647,7 +661,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                     method = "aroian",
                                     n.simulation = nsims,
                                     n.draws = ndraws,
-                                    ceiling = TRUE,
+                                    ceil.n = TRUE,
                                     verbose = 0)
 
     goodman.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -658,7 +672,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                      method = "goodman",
                                      n.simulation = nsims,
                                      n.draws = ndraws,
-                                     ceiling = TRUE,
+                                     ceil.n = TRUE,
                                      verbose = 0)
 
     joint.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -669,7 +683,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    method = "joint",
                                    n.simulation = nsims,
                                    n.draws = ndraws,
-                                   ceiling = TRUE,
+                                   ceil.n = TRUE,
                                    verbose = 0)
 
     monte.carlo.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -680,7 +694,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                          method = "monte.carlo",
                                          n.simulation = nsims,
                                          n.draws = ndraws,
-                                         ceiling = TRUE,
+                                         ceil.n = TRUE,
                                          verbose = 0)
 
     power.out <- data.frame(rbind(
@@ -704,7 +718,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                    method = "sobel",
                                    n.simulation = nsims,
                                    n.draws = ndraws,
-                                   ceiling = TRUE,
+                                   ceil.n = TRUE,
                                    verbose = 0)
 
     aroian.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -715,7 +729,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                     method = "aroian",
                                     n.simulation = nsims,
                                     n.draws = ndraws,
-                                    ceiling = TRUE,
+                                    ceil.n = TRUE,
                                     verbose = 0)
 
     goodman.obj <- power.z.mediation(beta.a = a, beta.b = b, beta.cp = cp,
@@ -726,7 +740,7 @@ pwrss.z.mediation  <- function(a, b, cp = 0,
                                      method = "goodman",
                                      n.simulation = nsims,
                                      n.draws = ndraws,
-                                     ceiling = TRUE,
+                                     ceil.n = TRUE,
                                      verbose = 0)
 
     power.out <- data.frame(rbind(

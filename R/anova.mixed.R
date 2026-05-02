@@ -51,7 +51,7 @@
 #'                         denoted as \eqn{\alpha}.
 #' @param effect           character; the effect of interest: "between",
 #'                         "within", or "interaction".
-#' @param ceiling          logical; \code{TRUE} by default. If \code{FALSE}
+#' @param ceil.n           logical; \code{TRUE} by default. If \code{FALSE}
 #'                         sample size in each group is NOT rounded up.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
@@ -154,7 +154,7 @@ power.f.mixed.anova <- function(eta.squared = NULL,
                                 n.total = NULL,
                                 power = NULL, alpha = 0.05,
                                 effect = c("between", "within", "interaction"),
-                                ceiling = TRUE, verbose = 1, utf = FALSE) {
+                                ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   effect <- tolower(match.arg(effect))
   func.parms <- as.list(environment())
@@ -164,7 +164,7 @@ power.f.mixed.anova <- function(eta.squared = NULL,
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = eta.squared, n = n.total, power = power)
 
@@ -232,7 +232,7 @@ power.f.mixed.anova <- function(eta.squared = NULL,
 
   }
 
-  if (ceiling) n.total <- ceiling(n.total / n.levels.between) * n.levels.between
+  if (ceil.n) n.total <- ceiling(n.total / n.levels.between) * n.levels.between
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")
   pwr.obj <- pwr.mixed(f.squared = f.squared, null.f.squared = null.f.squared,
@@ -298,7 +298,7 @@ pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
                                          factor.type = c("between", "within"),
                                          rho.within = corr.rm, epsilon = epsilon,
                                          power = power, alpha = alpha,
-                                         effect = type, ceiling = TRUE, verbose = verbose)
+                                         effect = type, ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.f.mixed.anova() function. \n")
 

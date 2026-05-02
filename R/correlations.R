@@ -97,7 +97,7 @@ rho.limits <- function(cor.mat, i, j, tol = 1e-8, n.grid = 1000) {
 #'                     means calculations pertain to correlations with no
 #'                     common index (where all relevant correlations must be
 #'                     explicitly specified). Check examples below.
-#' @param ceiling      logical; if \code{TRUE} rounds up sample size.
+#' @param ceil.n       logical; if \code{TRUE} rounds up sample size.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
 #'                     (plus key parameters and definitions), if \code{0} no
@@ -178,7 +178,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
                             n = NULL, power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
                             pooled = TRUE, common.index = FALSE,
-                            ceiling = TRUE, verbose = 1, utf = FALSE) {
+                            ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
@@ -186,7 +186,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(pooled, common.index, ceiling, utf)
+  check.logical(pooled, common.index, ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = list(rho12, ifelse(common.index, rho13, rho34)), n = n, power = power)
 
@@ -380,7 +380,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
         
         rho12.limits <- rho.limits(cor.mat = cor.mat, i = 1, j = 2)
         
-        rho12 <- optimize(
+        rho12 <- stats::optimize(
           f = function(rho12) {
             (power - pwr.steiger(rho12 = rho12, rho13 = rho13, rho23 = rho23,
                                  rho14 = rho14, rho24 = rho24, rho34 = rho34,
@@ -401,7 +401,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
         
         rho13.limits <- rho.limits(cor.mat = cor.mat, i = 1, j = 3)
         
-        rho13 <- optimize(
+        rho13 <- stats::optimize(
           f = function(rho13) {
             (power - pwr.steiger(rho12 = rho12, rho13 = rho13, rho23 = rho23,
                                  rho14 = rho14, rho24 = rho24, rho34 = rho34,
@@ -427,7 +427,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
         
         rho12.limits <- rho.limits(cor.mat = cor.mat, i = 1, j = 2)
         
-        rho12 <- optimize(
+        rho12 <- stats::optimize(
           f = function(rho12) {
             (power - pwr.steiger(rho12 = rho12, rho13 = rho13, rho23 = rho23,
                                  rho14 = rho14, rho24 = rho24, rho34 = rho34,
@@ -449,7 +449,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
         
         rho34.limits <- rho.limits(cor.mat = cor.mat, i = 3, j = 4)
         
-        rho34 <- optimize(
+        rho34 <- stats::optimize(
           f = function(rho34) {
             (power - pwr.steiger(rho12 = rho12, rho13 = rho13, rho23 = rho23,
                                  rho14 = rho14, rho24 = rho24, rho34 = rho34,
@@ -479,7 +479,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
                     alternative = alternative,
                     common.index = common.index)
 
-    if (ceiling) n <- ceiling(n)
+    if (ceil.n) n <- ceiling(n)
 
   } else if (requested == "es") {
     
@@ -590,7 +590,7 @@ power.z.steiger <- power.z.twocors.steiger
 #'                    \eqn{\alpha}.
 #' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
-#' @param ceiling     logical; whether sample size should be rounded up.
+#' @param ceil.n      logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
@@ -641,7 +641,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
                             n2 = NULL, n.ratio = 1,
                             power = NULL, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
-                            ceiling = TRUE, verbose = 1, utf = FALSE) {
+                            ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
@@ -652,7 +652,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
   if (!is.null(power)) check.proportion(power)
   check.positive(n.ratio)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = list(rho1, rho2), n = n2, power = power)
  
@@ -694,7 +694,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
       n2 <- stats::uniroot(function(n2) M ^ 2 - (z1 - z2) ^ 2 / (1 / (n.ratio * n2 - 3) + 1 / (n2 - 3)), interval = c(0, 1e10))$root
     }
 
-    n2 <- ifelse(ceiling, ceiling(n2), n2)
+    n2 <- ifelse(ceil.n, ceiling(n2), n2)
    
   } else if (requested == "es") { 
     
@@ -702,7 +702,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
     
     if (is.null(rho1)) {
       
-      rho1 <- optimize(
+      rho1 <- stats::optimize(
         f = function(rho1) {
           (power - pwr(rho1 = rho1, rho2 = rho2, n2 = n2, n.ratio = n.ratio, 
                        alpha = alpha, alternative = alternative)$power) ^ 2
@@ -713,7 +713,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
       
     } else {
       
-      rho2 <- optimize(
+      rho2 <- stats::optimize(
         f = function(rho2) {
           (power - pwr(rho1 = rho1, rho2 = rho2, n2 = n2, n.ratio = n.ratio, 
                        alpha = alpha, alternative = alternative)$power) ^ 2
@@ -726,7 +726,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
     
   } # effect size
 
-  n1 <- ifelse(ceiling, ceiling(n.ratio * n2), n.ratio * n2)
+  n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
   
   # update or estimate power
   pwr.obj <- pwr(rho1 = rho1, rho2 = rho2, n2 = n2, n.ratio = n.ratio, 
@@ -807,7 +807,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
                              n2 = n2, n.ratio = kappa,
                              power = power, alpha = alpha,
                              alternative = alternative,
-                             ceiling = TRUE, verbose = verbose)
+                             ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.z.twocors() function. \n")
 
@@ -844,7 +844,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 #'                    \eqn{\alpha}.
 #' @param alternative character; the direction or type of the hypothesis test:
 #'                    "two.sided" or "one.sided".
-#' @param ceiling     logical; whether sample size should be rounded up.
+#' @param ceil.n      logical; whether sample size should be rounded up.
 #'                    \code{TRUE} by default.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
@@ -896,7 +896,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
 power.z.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0,
                            n = NULL, power = NULL, alpha = 0.05,
                            alternative = c("two.sided", "one.sided"),
-                           ceiling = TRUE, verbose = 1, utf = FALSE) {
+                           ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
@@ -906,7 +906,7 @@ power.z.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0,
   if (!is.null(power)) check.proportion(power)
   check.correlation(null.rho)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = rho, n = n, power = power)
 
@@ -950,13 +950,13 @@ power.z.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0,
       n <- M ^ 2 / (z - null.z) ^ 2 + 3
     }
 
-    if (ceiling) n <- ceiling(n)
+    if (ceil.n) n <- ceiling(n)
 
   } else if (requested == "es") {
     
     if (power > 0.99) stop("`power` cannot be larger than 0.99.", call. = FALSE)
   
-    rho <- optimize(
+    rho <- stats::optimize(
       f = function(rho) {
         (power - pwr(rho = rho, null.rho = null.rho, n = n, 
                      alpha = alpha, alternative = alternative)$power) ^ 2 
@@ -1039,7 +1039,7 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
   onecor.obj <- power.z.onecor(rho = r, null.rho = r0,
                                n = n, power = power, alpha = alpha,
                                alternative = alternative,
-                               ceiling = TRUE, verbose = verbose)
+                               ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.z.onecor() function. \n")
 

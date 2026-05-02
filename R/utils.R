@@ -3,7 +3,7 @@
 #'
 #' @param n       sample size.
 #' @param rate    attrition rate.
-#' @param ceiling rounds-up the inflated sample size.
+#' @param ceil.n  rounds-up the inflated sample size.
 #' @param verbose \code{1} by default (returns test, hypotheses, and results),
 #'                if \code{2} a more detailed output is given (plus key
 #'                parameters and definitions), if \code{0} no output is printed
@@ -15,12 +15,12 @@
 #' inflate.sample(n = 100, rate = 0.05)
 #'
 #' @export inflate.sample
-inflate.sample <- function(n, rate = 0.05, ceiling = TRUE, verbose = 1) {
+inflate.sample <- function(n, rate = 0.05, ceil.n = TRUE, verbose = 1) {
 
   check.sample.size(n)
   verbose <- ensure.verbose(verbose)
 
-  n.adj <- ifelse(ceiling, ceiling(n / (1 - rate)), n / (1 - rate))
+  n.adj <- ifelse(ceil.n, ceiling(n / (1 - rate)), n / (1 - rate))
 
   if (verbose > 0)
     cat(n.adj)

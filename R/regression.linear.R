@@ -38,7 +38,7 @@
 #' @param alpha            type 1 error rate, defined as the probability of
 #'                         incorrectly rejecting a true null hypothesis,
 #'                         denoted as \eqn{\alpha}.
-#' @param ceiling          logical; whether sample size should be rounded up.
+#' @param ceil.n           logical; whether sample size should be rounded up.
 #'                         \code{TRUE} by default.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
@@ -88,7 +88,7 @@ power.f.regression <- function(r.squared.change = NULL,
                                k.total,
                                k.tested = k.total,
                                n = NULL, power = NULL, alpha = 0.05,
-                               ceiling = TRUE, verbose = 1, utf = FALSE) {
+                               ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- as.list(environment())
 
@@ -98,7 +98,7 @@ power.f.regression <- function(r.squared.change = NULL,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = r.squared.change, n = n, power = power)
 
@@ -139,7 +139,7 @@ power.f.regression <- function(r.squared.change = NULL,
     n <- try(stats::uniroot(function(n) min.pwr(r.squared.change, n, power), interval = c(k.total + 2, 1e10))$root, silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    if (ceiling) n <- ceiling(n)
+    if (ceil.n) n <- ceiling(n)
 
   } else if (requested == "es") {
 
@@ -215,7 +215,7 @@ pwrss.f.regression <- function(r2 = NULL, f2 = NULL,
   pwrss.f.reg.obj <- power.f.regression(r.squared.change = r2, margin = 0,
                                         k.total = k, k.tested = m,
                                         n = n, power = power, alpha = alpha,
-                                        ceiling = TRUE, verbose = verbose)
+                                        ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.f.regression() function. \n")
 
@@ -278,7 +278,7 @@ pwrss.f.reg <- pwrss.f.regression
 #'
 #'
 #' @aliases power.t.regression pwrss.t.regression pwrss.z.regression
-#'          pwrss.t.reg pwrss.z.reg power.t.reg
+#' @aliases pwrss.t.reg pwrss.z.reg power.t.reg
 #'
 #' @param beta         regression coefficient. One can use standardized
 #'                     regression coefficient, but should keep
@@ -308,7 +308,7 @@ pwrss.f.reg <- pwrss.f.regression
 #'                     \eqn{\alpha}.
 #' @param alternative  character; the direction or type of the hypothesis test:
 #'                     "two.sided", "one.sided", or "two.one.sided".
-#' @param ceiling      logical; whether sample size should be rounded up.
+#' @param ceil.n       logical; whether sample size should be rounded up.
 #'                     \code{TRUE} by default.
 #' @param verbose      \code{1} by default (returns test, hypotheses, and
 #'                     results), if \code{2} a more detailed output is given
@@ -406,7 +406,7 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
                                k.total = 1,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided", "two.one.sided"),
-                               ceiling = TRUE, verbose = 1, utf = FALSE) {
+                               ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   func.parms <- as.list(environment())
@@ -420,7 +420,7 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
   if (!is.null(n)) check.sample.size(n)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
 
   if (is.null(r.squared) && !is.null(beta))
@@ -465,7 +465,7 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0,
              silent = TRUE)
     if (inherits(n, "try-error") || n == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    if (ceiling) n <- ceiling(n)
+    if (ceil.n) n <- ceiling(n)
 
   } else if (requested == "es") {
 
@@ -557,7 +557,7 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
                                         r.squared = r2, k.total = k,
                                         n = n, power = power, alpha = alpha,
                                         alternative = alternative,
-                                        ceiling = TRUE, verbose = verbose)
+                                        ceil.n = TRUE, verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.t.regression() function. \n")
 

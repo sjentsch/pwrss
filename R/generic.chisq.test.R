@@ -36,10 +36,11 @@
 #' power.chisq.test(ncp = 20, df = 100, alpha = 0.05)
 #'
 #' @export power.chisq.test
-power.chisq.test <- function(ncp, null.ncp = 0, df, alpha = 0.05,
+power.chisq.test <- function(ncp = NULL, null.ncp = 0, df = NULL, alpha = 0.05,
                              plot = TRUE, verbose = 1, utf = FALSE) {
 
-  check.positive(ncp, df)
+  if (!is.null(ncp)) check.positive(ncp)
+  if (!is.null(df)) check.positive(df)
   check.nonnegative(null.ncp)
   check.proportion(alpha)
   check.logical(plot, utf)
@@ -108,60 +109,49 @@ power.chisq <- power.chisq.test
 #' @examples
 #' # power is defined as the probability of observing a test statistics greater
 #' # than the critical value
-#' ncp.chisq.test(ncp =  NULL, power = 0.80, df = 100, alpha = 0.05)
+#' ncp.chisq.test(ncp = NULL, power = 0.80, df = 100, alpha = 0.05)
 #'
 #' @export ncp.chisq.test
-ncp.chisq.test <- function(power = 0.80, ncp = NULL, null.ncp = 0,
-                           df = NULL, alpha = 0.05,
-                           plot = TRUE, verbose = 1, utf = FALSE) {
+ncp.chisq.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df = NULL,
+                           alpha = 0.05, plot = TRUE, verbose = 1, utf = FALSE) {
   
-  if(power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+  check.power(power)
   
-  if(is.null(ncp)) {
+  if (is.null(ncp) && is.null(df)) {
     
-    if(is.null(df)) stop("'df' cannot be NULL", call. = FALSE)
-    if(df < 1) stop("Degrees of freedom cannot be smaller than 1.", call. = FALSE)
+    if (is.null(df)) stop("`ncp` and `df` cannot be NULL at the same time", call. = FALSE)
+
+  } else if (is.null(ncp)) {
     
-    max <- qchisq(1 - 1e-10, ncp = null.ncp, df = df)
-    while (power.chisq.test(ncp = max, null.ncp = null.ncp,
-                        df = df, alpha = alpha, 
-                        plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
-      max <- max * 1.10
+    if (df < 1) stop("Degrees of freedom cannot be smaller than 1.", call. = FALSE)
+    
+    max.thresh <- qchisq(1 - 1e-10, ncp = null.ncp, df = df)
+    while (power.chisq.test(ncp = max.thresh, null.ncp = null.ncp, df = df, alpha = alpha, 
+                            plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
+      max.thresh <- max.thresh * 1.10
     }
     
-    ncp <- optimize(
+    ncp <- stats::optimize(
       f = function(ncp) {
-        (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp,
-                                  df = df, alpha = alpha, 
-                                  plot = FALSE, verbose = 0, utf = FALSE)$power)^2
+        (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, 
+                                  plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
       },
-      maximum = FALSE,
-      lower = 0,
-      upper = max,
-    )$minimum
+      maximum = FALSE, lower = 0, upper = max.thresh)$minimum
     
-  } # ncp is null
-  
-  if(is.null(df)) {
+  } else if (is.null(df)) {
     
-    if(is.null(ncp)) stop("'ncp' cannot be NULL", call. = FALSE)
-    
-    df <- optimize(
+    df <- stats::optimize(
       f = function(df) {
         (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp,
                                   df = df, alpha = alpha,
-                                  plot = FALSE, verbose = 0, utf = FALSE)$power)^2
+                                  plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
       },
-      maximum = FALSE,
-      lower = 1,
-      upper = 1e10,
-    )$minimum
+      maximum = FALSE, lower = 1, upper = 1e10)$minimum
     
   } # df is null
   
-  power.chisq.test(ncp = ncp, null.ncp = null.ncp,
-                          df = df, alpha = alpha,
-                          plot = plot, verbose = verbose, utf = utf)
+  power.chisq.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha,
+                   plot = plot, verbose = verbose, utf = utf)
   
 } # ncp.chisq.test
 

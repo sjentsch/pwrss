@@ -171,7 +171,8 @@ power.binom <- power.binom.test
 #' @param size        number of trials (zero or more).
 #' @param prob        probability of success on each trial under alternative.
 #' @param null.prob   probability of success on each trial under null.
-#' @param sign        whether 'prob' is expected to be greater '+1', less than '-1', or within '0' the null.prob' bounds.
+#' @param req.sign    whether 'prob' is expected to be greater '+1', less than
+#'                    '-1', or within '0' the null.prob' bounds.
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
@@ -199,22 +200,22 @@ power.binom <- power.binom.test
 #'
 #' @examples
 #' # one-sided
-#' prob.binom.test(size = 200, prob = NULL, sign = "+", power = 0.80, null.prob = 0.5,
+#' prob.binom.test(size = 200, prob = NULL, req.sign = "+", power = 0.80, null.prob = 0.5,
 #'                  alpha = 0.05, alternative = "one.sided")
 #'
 #' # two-sided
-#' prob.binom.test(size = 200, prob = NULL, sign = "+", power = 0.80, null.prob = 0.5,
+#' prob.binom.test(size = 200, prob = NULL, req.sign = "+", power = 0.80, null.prob = 0.5,
 #'                  alpha = 0.05, alternative = "two.sided")
 #'
 #' # equivalence
-#' prob.binom.test(size = 200, prob = NULL, sign = "0", power = 0.80, null.prob = c(0.4, 0.6),
+#' prob.binom.test(size = 200, prob = NULL, req.sign = "0", power = 0.80, null.prob = c(0.4, 0.6),
 #'                  alpha = 0.05, alternative = "two.one.sided")
 #'
 #' @export prob.binom.test
 prob.binom.test <- function(power = 0.80, 
                             size,
                             prob = NULL,
-                            sign = "+",
+                            req.sign = "+",
                             null.prob = 0.5,
                             alpha = 0.05,
                             alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -223,30 +224,33 @@ prob.binom.test <- function(power = 0.80,
                             utf = FALSE) {
   
   alternative <- tolower(match.arg(alternative))
+  check.power(power)
+  check.sample.size(size)
+  if (!is.null(prob)) check.proportion(prob)
+  check.margins(null.prob, check.proportion, alternative)
+  check.proportion(alpha)
+  check.logical(plot, utf)
+  verbose <- ensure.verbose(verbose)
+
+  pos.sign <- check.pos_sign(req.sign, TRUE)
+  if (is.null(pos.sign)) {
+    val.rng <- sort(null.prob)
+  } else if (pos.sign == FALSE) {
+    val.rng <- c(0.0001, min(null.prob))
+  } else if (pos.sign == TRUE) {
+    val.rng <- c(max(null.prob), 0.9999)
+  }
   
-  if(power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
-  
-  min <- 0.0001
-  max <- 0.9999
-  
-  if(sign %in% c("-", -1, "-1", "negative")) max <- min(null.prob)
-  if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) min <- max(null.prob)
-  if(sign %in% c(" ", 0, "0", "")) {max <- max(null.prob); min <- min(null.prob)}
-  
-  prob <- optimize(
+  prob <- stats::optimize(
     f = function(prob) {
-      (power - power.binom.test(size = size, prob = prob, null.prob = null.prob,
-                                alpha = alpha, alternative = alternative,
-                                plot = FALSE, verbose = 0, utf = FALSE)$power)^2
+      (power - power.binom.test(size = size, prob = prob, null.prob = null.prob, alpha = alpha,
+                                alternative = alternative, plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
     },
-    maximum = FALSE,
-    lower = min,
-    upper = max,
-  )$minimum
+    maximum = FALSE, interval = val.rng)$minimum
   
-  power.binom.test(size = size, prob = prob, null.prob = null.prob,
-                   alpha = alpha, alternative = alternative,
+  power.binom.test(size = size, prob = prob, null.prob = null.prob, alpha = alpha, alternative = alternative,
                    plot = plot, verbose = verbose, utf = utf)
   
 } # prob.binom.test
+
 prob.binom <- prob.binom.test

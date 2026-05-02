@@ -197,7 +197,8 @@ power.z <- power.z.test
 #'                    `c(-value, +value)`.
 #' @param null.sd     standard deviation of the null. Do not change this value
 #'                    except when some sort of correction is applied.
-#' @param sign        whether 'mean' is expected to be greater '+1', less than '-1', or within '0' the null.mean' bounds.
+#' @param req.sign    whether 'mean' is expected to be greater '+1', less than
+#'                    '-1', or within '0' the null.mean' bounds.
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
 #'                    \eqn{\alpha}.
@@ -253,7 +254,7 @@ power.z <- power.z.test
 #'              alternative = "two.one.sided")
 #'
 #' @export mean.z.test
-mean.z.test <- function(power = 0.80, mean = NULL, sign = "+",
+mean.z.test <- function(power = 0.80, mean = NULL, req.sign = "+",
                         sd = 1, null.mean = 0, null.sd = 1,
                         alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
                         plot = TRUE, verbose = 1, utf = FALSE) {
@@ -265,32 +266,27 @@ mean.z.test <- function(power = 0.80, mean = NULL, sign = "+",
   if(!is.null(mean)) 
     stop("'mean' should remain NULL", call. = FALSE)
   
-  min.null <- stats::qnorm(alpha, mean = min(null.mean), sd = sd)
-  min <- stats::qnorm(1e-10, mean = min.null, sd = sd)
+  min.alt <- stats::qnorm(1e-10,     mean = stats::qnorm(alpha,     mean = min(null.mean), sd = sd), sd = sd)
+  max.alt <- stats::qnorm(1 - 1e-10, mean = stats::qnorm(1 - alpha, mean = max(null.mean), sd = sd), sd = sd)
   
-  max.null <- stats::qnorm(1 - alpha, mean = max(null.mean), sd = sd)
-  max <- stats::qnorm(1 - 1e-10, mean = max.null, sd = sd)
+  pos.sign <- check.pos_sign(req.sign, TRUE)
+  if (is.null(pos.sign)) {
+    val.rng <- sort(null.mean)
+  } else if (pos.sign == FALSE) {
+    val.rng <- c(min.alt, min(null.mean))
+  } else if (pos.sign == TRUE) {
+    val.rng <- c(max(null.mean), max.alt)
+  }
   
-  if(sign %in% c("-", -1, "-1", "negative")) max <- min(null.mean)
-  if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) min <- max(null.mean)
-  if(sign %in% c(" ", 0, "0", "")) {max <- max(null.mean); min <- min(null.mean)}
-  
-  mean <- optimize(
+  mean <- stats::optimize(
     f = function(mean) {
-      (power - power.z.test(mean = mean, sd = sd, 
-                            null.mean = null.mean, null.sd = null.sd,
-                            alpha = alpha, alternative = alternative,
-                            plot = FALSE, verbose = 0, utf = FALSE)$power)^2
+      (power - power.z.test(mean = mean, sd = sd, null.mean = null.mean, null.sd = null.sd, alpha = alpha,
+                            alternative = alternative, plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
     },
-    maximum = FALSE,
-    lower = min,
-    upper = max,
-  )$minimum
+    maximum = FALSE, interval = val.rng)$minimum
   
-  power.z.test(mean = mean, sd = sd,  
-                      null.mean = null.mean, null.sd = null.sd,
-                      alpha = alpha, alternative = alternative,
-                      plot = plot, verbose = verbose, utf = utf)
+  power.z.test(mean = mean, sd = sd, null.mean = null.mean, null.sd = null.sd, alpha = alpha,
+               alternative = alternative, plot = plot, verbose = verbose, utf = utf)
   
 } # mean.z.test
 

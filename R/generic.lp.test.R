@@ -191,6 +191,8 @@ power.lp <- power.lp.test
 #'                    form `c(lower, upper)`. If a single value is provided, it
 #'                    is interpreted as the absolute bound and automatically
 #'                    expanded to `c(-value, +value)`.
+#' @param req.sign    whether `ncp` is expected to be greater '+1', less than
+#'                    '-1', or within '0' the null.ncp' bounds.
 #' @param df          degrees of freedom.
 #' @param alpha       type 1 error rate, defined as the probability of
 #'                    incorrectly rejecting a true null hypothesis, denoted as
@@ -235,7 +237,7 @@ power.lp <- power.lp.test
 #' # power is defined as the probability of observing a test statistic greater
 #' # than the upper critical value (for the lower bound) AND less than the
 #' # lower critical value (for the upper bound)
-#' ncp.lp.test(power = 0.80, sign = "0",
+#' ncp.lp.test(power = 0.80, req.sign = "0",
 #'            null.ncp = c(-2, 2), df = 100, alpha = 0.05,
 #'            alternative = "two.one.sided")
 #'
@@ -243,75 +245,67 @@ power.lp <- power.lp.test
 #' # power is defined as the probability of observing a test statistic greater
 #' # than the upper critical value (for the upper bound) OR less than the lower
 #' # critical value (for the lower bound).
-#' ncp.lp.test(power = 0.80, sign = "+",
+#' ncp.lp.test(power = 0.80, req.sign = "+",
 #'            null.ncp = c(-1, 1), df = 100, alpha = 0.05,
 #'            alternative = "two.one.sided")
 #'
 #' @export ncp.lp.test
-ncp.lp.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, sign = "+",
+ncp.lp.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, req.sign = "+",
                         df = NULL, alpha = 0.05,
                         alternative = c("two.sided", "one.sided", "two.one.sided"),
                         plot = TRUE, verbose = 1, utf = FALSE) {
   
   alternative <- tolower(match.arg(alternative))
   
-  if(power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
+  if (power > 0.99) stop("Power cannot be larger than 0.99.", call. = FALSE)
   
   # supress messages because 
   # if(is.null(ncp) & is.null(df)) 
   #  stop("Only one of the 'ncp' or 'df' can be NULL", call. = FALSE)
   # in PDQutils:::AS269
   
-  if(is.null(ncp)) {
+  if (is.null(ncp)) {
     
     if(is.null(df)) stop("'df' cannot be NULL", call. = FALSE)
     if(df < 3) stop("Degrees of freedom cannot be smaller than 3.", call. = FALSE)
     
-    suppressMessages({ 
-      min.null <- sadists::qlambdap(alpha, t = min(null.ncp), df = df)
-      min <- sadists::qlambdap(1e-10, t = min.null, df = df)
-    })
     suppressMessages({
-      max.null <- sadists::qlambdap(1 - alpha, t = max(null.ncp), df = df)
-      max <- sadists::qlambdap(1 - 1e-10, t = max.null, df = df)
+      min.alt <- sadists::qlambdap(1e-10,     t = sadists::qlambdap(alpha,     t = min(null.ncp), df = df), df = df)
+      max.alt <- sadists::qlambdap(1 - 1e-10, t = sadists::qlambdap(1 - alpha, t = max(null.ncp), df = df), df = df)
     })
-    
-    if(sign %in% c("-", -1, "-1", "negative")) max <- min(null.ncp)
-    if(sign %in% c("+", 1, "1", "+1", "positive", "pozitive")) min <- max(null.ncp)
-    if(sign %in% c(" ", 0, "0", "")) {max <- max(null.ncp); min <- min(null.ncp)}
-    
+
+    pos.sign <- check.pos_sign(req.sign, TRUE)
+    if (is.null(pos.sign)) {
+      val.rng <- sort(null.ncp)
+    } else if (pos.sign == FALSE) {
+      val.rng <- c(min.alt, min(null.ncp))
+    } else if (pos.sign == TRUE) {
+      val.rng <- c(max(null.ncp), max.alt)
+    }
+
     suppressMessages({
-      ncp <- optimize(
+      ncp <- stats::optimize(
         f = function(ncp) {
-          (power - power.lp.test(ncp = ncp, null.ncp = null.ncp,
-                                 df = df, alpha = alpha, alternative = alternative,
-                                 plot = FALSE, verbose = 0, utf = FALSE)$power)^2
+          (power - power.lp.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, alternative = alternative,
+                                 plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
         },
-        maximum = FALSE,
-        lower = min,
-        upper = max,
-      )$minimum
+        maximum = FALSE, interval = val.rng)$minimum
     })
     
-  } # ncp is null
-  
-  if(is.null(df)) {
+  } else if (is.null(df)) { # ncp is null
     
     stop("Solving for degrees of freedom is not allowed at the moment due to numerical instability in PDQutils:::AS269 function.", call. = FALSE)
     
     if(is.null(ncp)) stop("'ncp' cannot be NULL", call. = FALSE)
     
     suppressMessages({
-      df <- optimize(
+      df <- stats::optimize(
         f = function(df) {
           (power - power.lp.test(ncp = ncp, null.ncp = null.ncp,
                                  df = df, alpha = alpha, alternative = alternative,
                                  plot = FALSE, verbose = 0, utf = FALSE)$power)^2
         },
-        maximum = FALSE,
-        lower = 1,
-        upper = 1e10,
-      )$minimum
+        maximum = FALSE, lower = 1, upper = 1e10)$minimum
     })
     
   } # df is null

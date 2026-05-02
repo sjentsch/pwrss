@@ -66,7 +66,7 @@ check_var.ratio <- function(sd.vector, n.vector, alpha = 0.05) {
 #' @param alpha            type 1 error rate, defined as the probability of
 #'                         incorrectly rejecting a true null hypothesis,
 #'                         denoted as \eqn{\alpha}.
-#' @param ceiling          logical; if \code{FALSE} sample size in each cell
+#' @param ceil.n           logical; if \code{FALSE} sample size in each cell
 #'                         is not rounded up.
 #' @param verbose          \code{1} by default (returns test, hypotheses, and
 #'                         results), if \code{2} a more detailed output is
@@ -182,7 +182,7 @@ power.f.ancova <- function(eta.squared = NULL,
                            n.total = NULL,
                            power = NULL,
                            alpha = 0.05,
-                           ceiling = TRUE,
+                           ceil.n = TRUE,
                            verbose = 1,
                            utf = FALSE) {
 
@@ -194,7 +194,7 @@ power.f.ancova <- function(eta.squared = NULL,
   if (!is.null(n.total)) check.sample.size(n.total)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = eta.squared, n = n.total, power = power)
 
@@ -244,7 +244,7 @@ power.f.ancova <- function(eta.squared = NULL,
                    silent = TRUE)
     if (inherits(n.total, "try-error") || n.total == 1e10) stop("Design is not feasible.", call. = FALSE)
 
-    if (ceiling) n.total <- ceiling(n.total / n.groups) * n.groups
+    if (ceil.n) n.total <- ceiling(n.total / n.groups) * n.groups
 
   } else if (requested == "es") {
 
@@ -317,7 +317,7 @@ pwrss.f.ancova <- function(eta2 = NULL, f2 = NULL,
                                n.total = n,
                                power = power,
                                alpha = alpha,
-                               ceiling = TRUE,
+                               ceil.n = TRUE,
                                verbose = verbose)
 
   # cat("This function will be removed in the future. \n Please use power.f.ancova() function. \n")
@@ -368,7 +368,7 @@ pwrss.f.ancova <- function(eta2 = NULL, f2 = NULL,
 #' @param alpha         type 1 error rate, defined as the probability of
 #'                      incorrectly rejecting a true null hypothesis, denoted
 #'                      as \eqn{\alpha}.
-#' @param ceiling       logical; whether sample size should be rounded up.
+#' @param ceil.n        logical; whether sample size should be rounded up.
 #'                      \code{TRUE} by default.
 #' @param verbose       \code{1} by default (returns test, hypotheses, and
 #'                      results), if \code{2} a more detailed output is given
@@ -431,7 +431,7 @@ power.f.ancova.keppel <- function(mu.vector,
                                   k.covariates = 0,
                                   power = NULL,
                                   alpha = 0.05,
-                                  ceiling = TRUE,
+                                  ceil.n = TRUE,
                                   verbose = 1,
                                   utf = FALSE) {
 
@@ -458,7 +458,7 @@ power.f.ancova.keppel <- function(mu.vector,
     stop("Explanatory power of covariates is expected to be non-zero when number of covariates is non-zero.", call. = FALSE)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = NA, n = n.vector, power = power) # effect size can not be calculated
 
@@ -498,7 +498,7 @@ power.f.ancova.keppel <- function(mu.vector,
     }, interval = c(length(mu.vector) + k.covariates + 2, 1e10))$root
 
     n.vector <- n.total * p.vector
-    if (ceiling) n.vector <- ceiling(n.vector)
+    if (ceil.n) n.vector <- ceiling(n.vector)
 
   }
 
@@ -866,7 +866,7 @@ factorial.contrasts <- function(factor.levels = c(3, 2),
 #' @param alpha           type 1 error rate, defined as the probability of
 #'                        incorrectly rejecting a true null hypothesis, denoted
 #'                        as \eqn{\alpha}.
-#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#' @param ceil.n          logical; \code{TRUE} by default. If \code{FALSE}
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
@@ -1042,7 +1042,7 @@ power.f.ancova.shieh <- function(mu.vector,
                                  contrast.matrix = NULL,
                                  power = NULL,
                                  alpha = 0.05,
-                                 ceiling = TRUE,
+                                 ceil.n = TRUE,
                                  verbose = 1,
                                  utf = FALSE) {
 
@@ -1066,7 +1066,7 @@ power.f.ancova.shieh <- function(mu.vector,
   if (!is.null(power)) check.proportion(power)
   if (alpha > 1 || alpha < 0 || !is.numeric(alpha) || length(alpha) != 1)
     stop("Type 1 error rate (alpha) takes a value between 0 and 1.", call. = FALSE)
-  check.logical(ceiling, utf)
+  check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = NA, n = n.vector, power = power) # calculation of effect size not possible
 
@@ -1162,7 +1162,7 @@ power.f.ancova.shieh <- function(mu.vector,
     }, interval = c(length(mu.vector) + k.covariates + 1, 1e10))$root
     n.vector <- n.total * p.vector
 
-    if (ceiling) n.vector <- ceiling(n.vector)
+    if (ceil.n) n.vector <- ceiling(n.vector)
 
   }
 
@@ -1253,7 +1253,7 @@ power.f.ancova.shieh <- function(mu.vector,
 #'                        as \eqn{\alpha}.
 #' @param tukey.kramer    logical; \code{FALSE} by default. If \code{TRUE}
 #'                        adjustments will be made to control Type 1 error.
-#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#' @param ceil.n          logical; \code{TRUE} by default. If \code{FALSE}
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
@@ -1299,7 +1299,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
                              r.squared = 0, k.covariates = 1,
                              power = NULL,
                              alpha = 0.05, tukey.kramer = FALSE,
-                             ceiling = TRUE, verbose = 1, utf = FALSE) {
+                             ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   func.parms <- as.list(environment())
 
@@ -1314,7 +1314,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
   check.nonnegative(k.covariates)
   if (!is.null(power)) check.proportion(power)
   check.proportion(alpha)
-  check.logical(tukey.kramer, ceiling, utf)
+  check.logical(tukey.kramer, ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = NA, n = n.vector, power = power) # calculation of effect size not possible
 
@@ -1438,7 +1438,7 @@ power.t.contrast <- function(mu.vector, sd.vector,
     }
 
     n.vector <- n.total * p.vector
-    if (ceiling) n.vector <- ceiling(n.vector)
+    if (ceil.n) n.vector <- ceiling(n.vector)
 
   }
 
@@ -1559,7 +1559,7 @@ adjust.alpha <- function(n, alpha = 0.05,
 #'                        "bonferroni", "holm", "hochberg", "hommel", "BH",
 #'                        "BY", "fdr") to control Type 1 error. See
 #'                        \code{?stats::p.adjust}.
-#' @param ceiling         logical; \code{TRUE} by default. If \code{FALSE}
+#' @param ceil.n          logical; \code{TRUE} by default. If \code{FALSE}
 #'                        sample sizes in each cell are NOT rounded up.
 #' @param verbose         \code{1} by default (returns test, hypotheses, and
 #'                        results), if \code{2} a more detailed output is given
@@ -1612,7 +1612,7 @@ power.t.contrasts <- function(x = NULL,
                               adjust.alpha = c("none", "tukey", "bonferroni",
                                                "holm", "hochberg", "hommel",
                                                "BH", "BY", "fdr"),
-                              ceiling = TRUE, verbose = 1, utf = FALSE) {
+                              ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
   if (!is.null(x)) {
 
@@ -1626,7 +1626,7 @@ power.t.contrasts <- function(x = NULL,
       r.squared <- x$parms$r.squared
       k.covariates <- x$parms$k.covariates
       contrast.matrix <- x$parms$contrast.matrix
-      ceiling <- x$parms$ceiling
+      ceil.n <- x$parms$ceil.n
       power <- NULL
 
     } else {
@@ -1646,7 +1646,7 @@ power.t.contrasts <- function(x = NULL,
     check.nonnegative(k.covariates)
     if (!is.null(power)) check.proportion(power)
     check.proportion(alpha)
-    check.logical(ceiling)
+    check.logical(ceil.n)
 
   } # if data is null
 
@@ -1695,7 +1695,7 @@ power.t.contrasts <- function(x = NULL,
                                         k.covariates = k.covariates,
                                         alpha = alpha, power = power,
                                         tukey.kramer = tukey.kramer,
-                                        ceiling = ceiling,
+                                        ceil.n = ceil.n,
                                         verbose = 0)
 
     power.out.i <- cbind(psi = pwr.t.contr.obj$psi,

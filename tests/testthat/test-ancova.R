@@ -6,7 +6,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 0,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.059, df1 = 1, df2 = 126, ncp = 8.02550478, null.ncp = 0,
                       f.alpha = 3.91632464, power = 0.8027032, n.total = 128))
@@ -19,7 +19,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, target.effect = NULL, k.covariates = 0,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(4)", eta.squared = 0.059, df1 = 3, df2 = 176, ncp = 11.2858661, null.ncp = 0,
                       f.alpha = 2.65593888, power = 0.805367138, n.total = 180))
@@ -30,7 +30,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.059, null.eta.squared = 0, factor.levels = 4, target.effect = NULL, k.covariates = 0,
-                      n.total = 180, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 180, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(4)", eta.squared = 0.059, df1 = 3, df2 = 176, ncp = 11.2858661, null.ncp = 0,
                       f.alpha = 2.65593888, power = 0.805367138, n.total = 180))
@@ -41,7 +41,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = NULL, null.eta.squared = 0, factor.levels = 4, target.effect = NULL, k.covariates = 0,
-                      n.total = 180, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 180, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(4)", eta.squared = 0.058319032, df1 = 3, df2 = 176, ncp = 11.14753955, null.ncp = 0,
                       f.alpha = 2.65593888, power = 0.8, n.total = 180))
@@ -52,7 +52,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.030, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 0,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", eta.squared = 0.030, df1 = 1, df2 = 252, ncp = 7.91752577, null.ncp = 0,
                       f.alpha = 3.87862445, power = 0.800416655, n.total = 256))
@@ -63,7 +63,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.030, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 0,
-                      n.total = 256, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 256, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", eta.squared = 0.030, df1 = 1, df2 = 252, ncp = 7.91752577, null.ncp = 0,
                       f.alpha = 3.87862445, power = 0.800416655, n.total = 256))
@@ -74,7 +74,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = NULL, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 0,
-                      n.total = 256, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 256, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", eta.squared = 0.029969086, df1 = 1, df2 = 252, ncp = 7.909115,
                       null.ncp = 0, f.alpha = 3.87862445, power = 0.8, n.total = 256))
@@ -85,7 +85,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.048, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 1,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.048, df1 = 1, df2 = 155, ncp = 7.96638655, null.ncp = 0,
                       f.alpha = 3.90215432, power = 0.8009416, n.total = 158))
@@ -96,7 +96,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.048, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 1,
-                      n.total = 158, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 158, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.048, df1 = 1, df2 = 155, ncp = 7.96638655, null.ncp = 0,
                       f.alpha = 3.90215432, power = 0.8009416, n.total = 158))
@@ -107,7 +107,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = NULL, null.eta.squared = 0, factor.levels = 2, target.effect = NULL, k.covariates = 1,
-                      n.total = 158, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 158, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.047890306, df1 = 1, df2 = 155, ncp = 7.9472653,
                       null.ncp = 0, f.alpha = 3.90215432, power = 0.8, n.total = 158))
@@ -118,7 +118,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2), target.effect = NULL, k.covariates = 1,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", eta.squared = 0.020, df1 = 1, df2 = 383, ncp = 7.9183673, null.ncp = 0,
                       f.alpha = 3.8658527, power = 0.80148462, n.total = 388))
@@ -129,7 +129,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2, 2), target.effect = NULL, k.covariates = 1,
-                      n.total = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", eta.squared = 0.020, df1 = 1, df2 = 383, ncp = 8, null.ncp = 0,
                       f.alpha = 3.86585275, power = 0.8054821, n.total = 392))
@@ -140,7 +140,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.020, null.eta.squared = 0, factor.levels = c(2, 2, 2), target.effect = NULL, k.covariates = 1,
-                      n.total = 392, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 392, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", eta.squared = 0.020, df1 = 1, df2 = 383, ncp = 8, null.ncp = 0,
                       f.alpha = 3.86585275, power = 0.8054821, n.total = 392))
@@ -151,7 +151,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = NULL, null.eta.squared = 0, factor.levels = c(2, 2, 2), target.effect = NULL, k.covariates = 1,
-                      n.total = 392, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = 392, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", eta.squared = 0.0197265246, df1 = 1, df2 = 383,
                       ncp = 7.8884085, null.ncp = 0, f.alpha = 3.86585275, power = 0.8, n.total = 392))
@@ -163,7 +163,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.05882353, null.eta.squared = 0, factor.levels = 10, target.effect = NULL, k.covariates = 0,
-                      n.total = NULL, power = 0.95, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      n.total = NULL, power = 0.95, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A(10)", eta.squared = 0.05882353, df1 = 9, df2 = 380, ncp = 24.375, null.ncp = 0,
                       f.alpha = 1.90453773, power = 0.95236341, n.total = 390))
@@ -176,7 +176,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.333068578, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A",
-                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A from A(3):B(3):C(4)", eta.squared = 0.333068578, df1 = 2, df2 = 72,
                       ncp = 53.935690, null.ncp = 0, f.alpha = 3.12390745, power = 0.9999994, n.total = 108))
@@ -189,7 +189,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.056657511, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A:B",
-                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A:B from A(3):B(3):C(4)", eta.squared = 0.056657511, df1 = 4, df2 = 72,
                       ncp = 6.48652139, null.ncp = 0, f.alpha = 2.49891858, power = 0.47563458, n.total = 108))
@@ -202,7 +202,7 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.097562917, null.eta.squared = 0, factor.levels = c(3, 3, 4), target.effect = "A:B:C",
-                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      k.covariates = 0, n.total = 108, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A:B:C from A(3):B(3):C(4)", eta.squared = 0.097562917, df1 = 12, df2 = 72,
                       ncp = 11.675933, null.ncp = 0, f.alpha = 1.889242097, power = 0.51344242, n.total = 108))
@@ -215,11 +215,11 @@ test_that("power.f.ancova / pwrss.f.ancova work", {
                  c("parms", "test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(eta.squared = 0.00990099, null.eta.squared = 0, factor.levels = c(3, 2, 5), target.effect = "A:C",
-                      k.covariates = 0, n.total = 2283, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      k.covariates = 0, n.total = 2283, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.total")],
                  list(test = "F", effect = "A:C from A(3):B(2):C(5)", eta.squared = 0.00990099, df1 = 8, df2 = 2253,
                       ncp = 22.83, null.ncp = 0, f.alpha = 1.94250745, power = 0.950077975, n.total = 2283))
-    # -> GPower does ceiling for n.total not per group -> when using power = 0.95 as parameter, GPower returns a N = 2283,
+    # -> GPower does ceil.n for n.total not per group -> when using power = 0.95 as parameter, GPower returns a N = 2283,
     #    pwrss returns 2310 (i.e., `ceiling(2283 / 30) * 30` = 2310)
     # if n.total = 2283 (instead power = 0.95), results identical: power ~ 0.950078, n = 2283, ncp ~ 22.83, f.alpha ~ 1.942507
 
@@ -249,7 +249,7 @@ test_that("power.f.ancova.keppel works", {
                    "n.vector", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.50, 0.00), sd.vector = rep(1, 2), n.vector = NULL, p.vector = rep(0.50, 2), factor.levels = NULL,
-                      r.squared = 0.50, k.covariates = 1, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      r.squared = 0.50, k.covariates = 1, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.111111111, f = 0.353553391, df1 = 1, df2 = 63, ncp = 8.25,
                       null.ncp = 0, f.alpha = 3.993364924, power = 0.807379456, n.vector = c(33, 33), n.total = 66))
@@ -262,7 +262,7 @@ test_that("power.f.ancova.keppel works", {
                    "n.vector", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.50, 0.00), sd.vector = rep(1, 2), n.vector = rep(33, 2), p.vector = rep(0.50, 2), factor.levels = NULL,
-                      r.squared = 0.50, k.covariates = 1, power = NULL, alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      r.squared = 0.50, k.covariates = 1, power = NULL, alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.111111111, f = 0.353553391, df1 = 1, df2 = 63, ncp = 8.25,
                       null.ncp = 0, f.alpha = 3.993364924, power = 0.807379456, n.vector = rep(33, 2), n.total = 66))
@@ -275,7 +275,7 @@ test_that("power.f.ancova.keppel works", {
                    "n.vector", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.50, 0.00, 0.40, 0.20), sd.vector = rep(1, 4), n.vector = NULL, p.vector = rep(0.25, 4),
-                      factor.levels = 4, r.squared = 0.50, k.covariates = 1, power = 0.80, alpha = 0.05, ceiling = TRUE,
+                      factor.levels = 4, r.squared = 0.50, k.covariates = 1, power = 0.80, alpha = 0.05, ceil.n = TRUE,
                       verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(4)", eta.squared = 0.068684517, f = 0.27156951, df1 = 3, df2 = 147, ncp = 11.21,
@@ -290,7 +290,7 @@ test_that("power.f.ancova.keppel works", {
                    "n.vector", "n.total"))
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.50, 0.00, 0.40, 0.20), sd.vector = rep(1, 4), n.vector = rep(38, 4), p.vector = rep(0.25, 4),
-                      factor.levels = 4, r.squared = 0.50, k.covariates = 1, power = NULL, alpha = 0.05, ceiling = TRUE,
+                      factor.levels = 4, r.squared = 0.50, k.covariates = 1, power = NULL, alpha = 0.05, ceil.n = TRUE,
                       verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(4)", eta.squared = 0.068684517, f = 0.27156951, df1 = 3, df2 = 147, ncp = 11.21,
@@ -543,7 +543,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.2, 0.0), sd.vector = rep(1, 2), n.vector = rep(150, 2), p.vector = NULL,
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = NULL, power = NULL,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.019543331, f = 0.141183873, df1 = 1, df2 = 297, ncp = 5.97986577,
                       null.ncp = 0, f.alpha = 3.87295916, power = 0.683501582, n.vector = c(150, 150), n.total = 300))
@@ -557,7 +557,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.2, 0.0), sd.vector = rep(1, 2), n.vector = NULL, p.vector = rep(0.5, 2),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = NULL, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.01955905041, f = 0.141241773, df1 = 1, df2 = 393, ncp = 7.89989848,
                       null.ncp = 0, f.alpha = 3.86522919, power = 0.800619012, n.vector = c(198, 198), n.total = 396))
@@ -571,7 +571,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.2, 0.0), sd.vector = rep(1, 2), n.vector = NULL, p.vector = rep(0.5, 2),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 2, contrast.matrix = NULL, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2)", eta.squared = 0.0195109904, f = 0.141064681, df1 = 1, df2 = 394, ncp = 7.91989924,
                       null.ncp = 0, f.alpha = 3.86516859, power = 0.801596275, n.vector = c(199, 199), n.total = 398))
@@ -586,7 +586,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.20, 0.25, 0.15, 0.05), sd.vector = rep(1, 4), n.vector = NULL, p.vector = rep(0.25, 4),
                       factor.levels = c(2, 2), r.squared = 0.5, k.covariates = 1, contrast.matrix = NULL, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = -1, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = -1, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2):B(2)", eta.squared = 0.0028036103, f = 0.05302351, df1 = 1, df2 = 2791, ncp = 7.86093347,
                       null.ncp = 0, f.alpha = 3.84479279, power = 0.800332660, n.vector = rep(699, 4), n.total = 2796))
@@ -601,7 +601,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.20, 0.25, 0.30, 0.15, 0.05, 0.10, 0.00, 0.05), sd.vector = rep(1, 8), n.vector = NULL,
                       p.vector = rep(1 / 8, 8), factor.levels = c(2, 2, 2), r.squared = 0.5, k.covariates = 1,
-                      contrast.matrix = NULL, power = 0.80, alpha = 0.05, ceiling = TRUE, verbose = -1, utf = FALSE))
+                      contrast.matrix = NULL, power = 0.80, alpha = 0.05, ceil.n = TRUE, verbose = -1, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(2):B(2):C(2)", eta.squared = 0.0012482409, f = 0.035352524, df1 = 1, df2 = 6279,
                       ncp = 7.85874841, null.ncp = 0, f.alpha = 3.84294023, power = 0.800373625, n.vector = rep(786, 8), n.total = 6288))
@@ -617,7 +617,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077115847, f = 0.0881562, df1 = 2, df2 = 1241, ncp = 9.67553677,
                       null.ncp = 0, f.alpha = 3.00297552, power = 0.800762614, n.vector = rep(415, 3), n.total = 1245))
@@ -627,7 +627,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(415, 3), p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = NULL, alpha = 0.05, adjust.alpha = "fdr",
-                      ceiling = TRUE, verbose = 0, utf = FALSE))
+                      ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A1 <=> A3", "A2 <=> A3"), psi = c(-0.05, 0.10),
                       d = c(-0.070710678, 0.141421356), ncp = c(-1.018167467, 2.036334933), df = rep(1241, 2),
@@ -645,7 +645,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077115847, f = 0.0881562, df1 = 2, df2 = 1241, ncp = 9.67553677,
                       null.ncp = 0, f.alpha = 3.00297552, power = 0.800762614, n.vector = rep(415, 3), n.total = 1245))
@@ -654,7 +654,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(415, 3), p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = NULL, alpha = 0.05,
-                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "none", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A2 <=> A1", "A3 <=> A1 A2"), psi = c(0.075, -0.0083333333),
                       d = c(0.106066017, -0.011785113), ncp = c(3.0545024, -0.5878393), df = rep(1241, 2),
@@ -667,7 +667,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       contrast.vector = mtxCnt[1, ], r.squared = 0.5, k.covariates = 1, power = 0.80, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.075, d = 0.106066017, df = 1046, t.alpha = c(-1.9622345, 1.9622345), ncp = 2.8049032,
                       ncp.null = 0, power = 0.800208158, n.vector = rep(350, 3), n.total = 1050))
@@ -684,7 +684,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077115847, f = 0.0881562, df1 = 2, df2 = 1241, ncp = 9.67553677,
                       null.ncp = 0, f.alpha = 3.00297552, power = 0.800762614, n.vector = rep(415, 3), n.total = 1245))
@@ -693,7 +693,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(415, 3), p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = NULL, alpha = 0.05,
-                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "none", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A3 <=> A1", "A1 A3 <=> A2"), psi = c(0.035355339, -0.102062073),
                       d = c(0.05, -0.144337567), ncp = c(1.01816747, -2.9391963), df = rep(1241, 2),
@@ -710,7 +710,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt[1, ], power = 0.80, alpha = 0.05,
-                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "none", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = 1, comparison = "A3 <=> A1", psi = 0.035355339, d = 0.05, ncp = 2.80208252,
                       df = 9419, t.alpha = 1.96021588, n.total = 9423, power = 0.80006019))
@@ -723,7 +723,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       contrast.vector = mtxCnt[1, ], r.squared = 0.5, k.covariates = 1, power = 0.80, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.035355339, d = 0.05, df = 9419, t.alpha = c(-1.96021588, 1.96021588), ncp = 2.80208252,
                       ncp.null = 0, power = 0.80006019, n.vector = rep(3141, 3), n.total = 9423))
@@ -740,7 +740,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 2, contrast.matrix = mtxCnt, power = 0.80,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077054286, f = 0.08812073, df1 = 2, df2 = 1240, ncp = 9.66775275,
                       null.ncp = 0, f.alpha = 3.0029814, power = 0.80041063, n.vector = rep(415, 3), n.total = 1245))
@@ -749,7 +749,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(415, 3), p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 2, contrast.matrix = mtxCnt, power = NULL, alpha = 0.05,
-                      adjust.alpha = "tukey", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "tukey", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A3 <=> A1", "A1 A3 <=> A2"), psi = c(0.035355339, -0.102062073),
                       d = c(0.05, -0.144337567), ncp = c(1.017741531, -2.937966734), df = rep(1240, 2), t.alpha = rep(2.34652362, 2),
@@ -767,7 +767,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       contrast.vector = mtxCnt[2, ], r.squared = 0.5, k.covariates = 2, power = 0.80,
-                      alpha = 0.05, tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = -0.102062073, d = -0.144337567, df = 1132, t.alpha = c(-1.96206183, 1.96206183),
                       ncp = -2.8074314, ncp.null = 0, power = 0.80096821, n.vector = rep(379, 3), n.total = 1137))
@@ -785,7 +785,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrRes[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       factor.levels = NULL, r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.8,
-                      alpha = 0.05, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      alpha = 0.05, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrRes[c("test", "effect", "eta.squared", "f", "df1", "df2", "ncp", "null.ncp", "f.alpha", "power", "n.vector", "n.total")],
                  list(test = "F", effect = "A(3)", eta.squared = 0.0077115847, f = 0.0881562, df1 = 2, df2 = 1241, ncp = 9.67553677,
                       null.ncp = 0, f.alpha = 3.00297552, power = 0.800762614, n.vector = rep(415, 3), n.total = 1245))
@@ -794,7 +794,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = rep(415, 3), p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = NULL, alpha = 0.05,
-                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "none", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A1 <=> A2 A3", "A1 A2 <=> A3"), psi = c(-0.1, 0.025),
                       d = c(-0.141421356, 0.035355339), ncp = c(-2.35135704, 0.58783926), df = rep(1241, 2),
@@ -811,7 +811,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       r.squared = 0.5, k.covariates = 1, contrast.matrix = mtxCnt, power = 0.80076261, alpha = 0.05,
-                      adjust.alpha = "none", ceiling = TRUE, verbose = 0, utf = FALSE))
+                      adjust.alpha = "none", ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "contrast", "comparison", "psi", "d", "ncp", "df", "t.alpha", "n.total", "power")],
                  list(test = "t", contrast = seq(2), comparison = c("A1 <=> A2 A3", "A1 A2 <=> A3"), psi = c(-0.1, 0.025),
                       d = c(-0.141421356, 0.035355339), ncp = c(-2.806340906, 2.804411203), df = c(1769, 28310),
@@ -825,7 +825,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.15, 0.30, 0.20), sd.vector = rep(1, 3), n.vector = NULL, p.vector = rep(1 / 3, 3),
                       contrast.vector = mtxCnt[1, ], r.squared = 0.5, k.covariates = 1, power = 0.80, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = -0.1, d = -0.141421356, df = 1766, t.alpha = c(-1.96130819, 1.96130819), ncp = -2.80396433,
                       ncp.null = 0, power = 0.8002398, n.vector = rep(590, 3), n.total = 1770))
@@ -837,7 +837,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = rep(1500, 2), p.vector = NULL,
                       contrast.vector = c(1, -1), r.squared = 0.5, k.covariates = 1, power = NULL, alpha = 0.05,
-                      tukey.kramer = TRUE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = TRUE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
                       ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
@@ -849,7 +849,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = rep(1500, 2), p.vector = NULL,
                       contrast.vector = c(1, -1), r.squared = 0.5, k.covariates = 1, power = NULL, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
                       ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
@@ -861,7 +861,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(0.20, 0.10), sd.vector = rep(1, 2), n.vector = NULL, p.vector = rep(0.5, 2),
                       contrast.vector = c(1, -1), r.squared = 0.5, k.covariates = 1, power = 0.972006163, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 0.1, d = 0.141421356, df = 2997, t.alpha = c(-1.96075583, 1.96075583), ncp = 3.87233747,
                       ncp.null = 0, power = 0.972006163, n.vector = rep(1500, 2), n.total = 3000))
@@ -873,7 +873,7 @@ test_that("power.f.ancova.shieh / power.t.contrasts / power.t.contrast work", {
     expect_equal(crrCnt[["parms"]],
                  list(mu.vector = c(1.5, 2, 3, 4), sd.vector = rep(2, 4), n.vector = rep(5, 4), p.vector = NULL,
                       contrast.vector = c(-3, -1, 1, 3), r.squared = 0, k.covariates = 0, power = NULL, alpha = 0.05,
-                      tukey.kramer = FALSE, ceiling = TRUE, verbose = 0, utf = FALSE))
+                      tukey.kramer = FALSE, ceil.n = TRUE, verbose = 0, utf = FALSE))
     expect_equal(crrCnt[c("test", "psi", "d", "df", "t.alpha", "ncp", "ncp.null", "power", "n.vector", "n.total")],
                  list(test = "t", psi = 8.5, d = 4.25, df = 16, t.alpha = 2.1199053 * c(-1, 1), ncp = 2.125,
                       ncp.null = 0, power = 0.514737, n.vector = rep(5, 4), n.total = 20))
