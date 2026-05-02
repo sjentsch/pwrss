@@ -21,7 +21,7 @@ power.t.regression(
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided", "two.one.sided"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -66,7 +66,7 @@ incorrectly rejecting a true null hypothesis, denoted as
 \item{alternative}{character; the direction or type of the hypothesis test:
 "two.sided", "one.sided", or "two.one.sided".}
 
-\item{ceiling}{logical; whether sample size should be rounded up.
+\item{ceil.n}{logical; whether sample size should be rounded up.
 \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

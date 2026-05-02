@@ -5,7 +5,8 @@
 \title{Power Analysis for the Test of One Proportion (Exact Method)}
 \usage{
 power.exact.oneprop(
-  prob,
+  prob = NULL,
+  req.sign = "+",
   null.prob = 0.5,
   n = NULL,
   power = NULL,

@@ -15,7 +15,7 @@ power.t.welch(
   alpha = 0.05,
   alternative = c("two.sided", "one.sided", "two.one.sided"),
   claim.basis = c("md.pval", "smd.ci"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -54,7 +54,7 @@ differences and p-values, "smd.ci" when claims are based
 on standardized mean differences and confidence
 intervals.}
 
-\item{ceiling}{logical; whether sample size should be rounded up.
+\item{ceil.n}{logical; whether sample size should be rounded up.
 \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

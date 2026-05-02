@@ -6,6 +6,7 @@
 \usage{
 power.exact.onecor(
   rho = NULL,
+  req.sign = "+",
   null.rho = 0,
   n = NULL,
   n.max = 500,
@@ -18,6 +19,9 @@ power.exact.onecor(
 }
 \arguments{
 \item{rho}{correlation.}
+
+\item{req.sign}{whether estimated rho is smaller or larger than the null.rho
+(when minimum detectable rho is of interest).}
 
 \item{null.rho}{correlation when null is true. Only 0 is allowed for now.}
 

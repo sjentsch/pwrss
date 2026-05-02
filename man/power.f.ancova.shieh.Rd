@@ -16,7 +16,7 @@ power.f.ancova.shieh(
   contrast.matrix = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -64,7 +64,7 @@ as \eqn{1 - \beta}.}
 incorrectly rejecting a true null hypothesis, denoted
 as \eqn{\alpha}.}
 
-\item{ceiling}{logical; \code{TRUE} by default. If \code{FALSE}
+\item{ceil.n}{logical; \code{TRUE} by default. If \code{FALSE}
 sample sizes in each cell are NOT rounded up.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

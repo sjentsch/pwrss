@@ -20,7 +20,7 @@ power.np.wilcoxon(
   design = c("independent", "paired", "one.sample"),
   distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
   method = c("guenther", "noether"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -58,7 +58,7 @@ incorrectly rejecting a true null hypothesis, denoted as
 \item{method}{character; non-parametric approach: "guenther" (default)
 or "noether"}
 
-\item{ceiling}{logical; whether sample size should be rounded up.
+\item{ceil.n}{logical; whether sample size should be rounded up.
 \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

@@ -15,7 +15,7 @@ power.f.ancova.keppel(
   k.covariates = 0,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -53,7 +53,7 @@ correctly rejecting a false null hypothesis, denoted as
 incorrectly rejecting a true null hypothesis, denoted
 as \eqn{\alpha}.}
 
-\item{ceiling}{logical; whether sample size should be rounded up.
+\item{ceil.n}{logical; whether sample size should be rounded up.
 \code{TRUE} by default.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

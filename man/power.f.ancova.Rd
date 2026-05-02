@@ -15,7 +15,7 @@ power.f.ancova(
   n.total = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -50,7 +50,7 @@ denoted as \eqn{1 - \beta}.}
 incorrectly rejecting a true null hypothesis,
 denoted as \eqn{\alpha}.}
 
-\item{ceiling}{logical; if \code{FALSE} sample size in each cell
+\item{ceil.n}{logical; if \code{FALSE} sample size in each cell
 is not rounded up.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and

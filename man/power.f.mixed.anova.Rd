@@ -16,7 +16,7 @@ power.f.mixed.anova(
   power = NULL,
   alpha = 0.05,
   effect = c("between", "within", "interaction"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -68,7 +68,7 @@ denoted as \eqn{\alpha}.}
 \item{effect}{character; the effect of interest: "between",
 "within", or "interaction".}
 
-\item{ceiling}{logical; \code{TRUE} by default. If \code{FALSE}
+\item{ceil.n}{logical; \code{TRUE} by default. If \code{FALSE}
 sample size in each group is NOT rounded up.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and
