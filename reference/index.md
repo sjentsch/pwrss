@@ -25,8 +25,22 @@
 - [`marginal.probs.2x2()`](https://metinbulus.github.io/pwrss/reference/marginal.probs.2x2.md)
   : Helper function to converts marginal probabilities to joint
   probabilities for the McNemar test applied to paired binary data.
+- [`mean(`*`<z.test>`*`)`](https://metinbulus.github.io/pwrss/reference/mean.z.test.md)
+  : Finds the Mean (Non-centrality Parameter) for the Generic z-Test
 - [`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
   : Conversion from Means and Standard Deviations to Cohen's d
+- [`means.to.etasq()`](https://metinbulus.github.io/pwrss/reference/means.to.etasq.md)
+  : Conversion from Means and Standard Deviations to Cohen's f and
+  Eta-squared
+- [`ncp.chisq.test()`](https://metinbulus.github.io/pwrss/reference/ncp.chisq.test.md)
+  : Find Non-Centrality Parameter for the Generic Chi-Square Test
+- [`ncp.f.test()`](https://metinbulus.github.io/pwrss/reference/ncp.f.test.md)
+  : Find Non-Centrality Parameter for the Generic F-Test
+- [`ncp.lp.test()`](https://metinbulus.github.io/pwrss/reference/ncp.lp.test.md)
+  : Find Non-Centrality Parameter for the Generic Lambda-Prime
+  Distribution
+- [`ncp.t.test()`](https://metinbulus.github.io/pwrss/reference/ncp.t.test.md)
+  : Find Non-Centrality Parameter for the Generic t-Test
 - [`power.binom.test()`](https://metinbulus.github.io/pwrss/reference/power.binom.test.md)
   : Power Analysis for the Generic Binomial Test
 - [`power.chisq.gof()`](https://metinbulus.github.io/pwrss/reference/power.chisq.gof.md)
@@ -37,6 +51,8 @@
   : Power Analysis for Fisher's Exact Test (Independent Proportions)
 - [`power.exact.mcnemar()`](https://metinbulus.github.io/pwrss/reference/power.exact.mcnemar.md)
   : Power Analysis for McNemar's Exact Test (Paired Proportions)
+- [`power.exact.onecor()`](https://metinbulus.github.io/pwrss/reference/power.exact.onecor.md)
+  : Power Analysis for One-Sample Correlation (Exact)
 - [`power.exact.oneprop()`](https://metinbulus.github.io/pwrss/reference/power.exact.oneprop.md)
   : Power Analysis for the Test of One Proportion (Exact Method)
 - [`power.exact.twoprops()`](https://metinbulus.github.io/pwrss/reference/power.exact.twoprops.md)
@@ -58,6 +74,8 @@
   (F-Test)
 - [`power.f.test()`](https://metinbulus.github.io/pwrss/reference/power.f.test.md)
   : Statistical Power for the Generic F-Test
+- [`power.lp.test()`](https://metinbulus.github.io/pwrss/reference/power.lp.test.md)
+  : Statistical Power for the Lambda-Prime Distribution
 - [`power.np.wilcoxon()`](https://metinbulus.github.io/pwrss/reference/power.np.wilcoxon.md)
   : Power Analysis for Non-parametric Rank-Based Tests (One-Sample,
   Independent, and Paired Designs)
@@ -96,6 +114,8 @@
 - [`power.z.twoprops()`](https://metinbulus.github.io/pwrss/reference/power.z.twoprops.md)
   : Power Analysis for Testing Difference Between Two Proportions
   (Normal Approximation Method)
+- [`prob.binom.test()`](https://metinbulus.github.io/pwrss/reference/prob.binom.test.md)
+  : Find Probability (Non-Centrality) for the Generic Binomial Test
 - [`probs.to.h()`](https://metinbulus.github.io/pwrss/reference/probs.to.h.md)
   : Conversion from Probability Difference to Cohen's h
 - [`probs.to.w()`](https://metinbulus.github.io/pwrss/reference/probs.to.w.md)

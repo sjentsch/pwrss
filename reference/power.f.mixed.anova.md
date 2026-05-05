@@ -22,7 +22,7 @@ power.f.mixed.anova(
   power = NULL,
   alpha = 0.05,
   effect = c("between", "within", "interaction"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -88,7 +88,7 @@ power.f.mixed.anova(
   character; the effect of interest: "between", "within", or
   "interaction".
 
-- ceiling:
+- ceil.n:
 
   logical; `TRUE` by default. If `FALSE` sample size in each group is
   NOT rounded up.

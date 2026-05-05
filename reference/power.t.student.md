@@ -41,7 +41,7 @@ power.t.student(
   alternative = c("two.sided", "one.sided", "two.one.sided"),
   design = c("independent", "paired", "one.sample"),
   claim.basis = c("md.pval", "smd.ci"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -97,7 +97,7 @@ power.t.student(
   p-values, "smd.ci" when claims are based on standardized mean
   differences and confidence intervals.
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 
@@ -187,6 +187,7 @@ science, 8*(4), 355-362. https://doi.org/10.1177/1948550617697177
 ## Examples
 
 ``` r
+
 #######################
 # Independent Samples #
 #######################

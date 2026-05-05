@@ -70,7 +70,7 @@ an additional R-squared argument is not required as an input).</p>
 <span>  n.total <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  ceiling <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ceil.n <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  utf <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -125,7 +125,7 @@ incorrectly rejecting a true null hypothesis,
 denoted as \(\alpha\).</p></dd>
 
 
-<dt id="arg-ceiling">ceiling<a class="anchor" aria-label="anchor" href="#arg-ceiling"></a></dt>
+<dt id="arg-ceil-n">ceil.n<a class="anchor" aria-label="anchor" href="#arg-ceil-n"></a></dt>
 <dd><p>logical; if <code>FALSE</code> sample size in each cell
 is not rounded up.</p></dd>
 
@@ -257,11 +257,11 @@ https://doi.org/10.29299/kefad.1209913</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power       = 0.803</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># estimate sample size using regression approach (T-Test)</span></span></span>
+<span class="r-in"><span><span class="co"># estimate sample size using regression approach (t-Test)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># proportion of sample in treatment (allocation rate)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="power.t.regression.html">power.t.regression</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.50</span>, r.squared <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>                   k.total <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>                   sd.predictor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   sd.predictor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                   power <span class="op">=</span> <span class="fl">0.80</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |             SAMPLE SIZE CALCULATION              |</span>

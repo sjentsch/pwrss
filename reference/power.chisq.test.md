@@ -7,9 +7,9 @@ and Type 2 error plots.
 
 ``` r
 power.chisq.test(
-  ncp,
+  ncp = NULL,
   null.ncp = 0,
-  df,
+  df = NULL,
   alpha = 0.05,
   plot = TRUE,
   verbose = 1,
@@ -54,6 +54,26 @@ power.chisq.test(
   encoding allows for it). `FALSE` by default.
 
 ## Value
+
+- df:
+
+  degrees of freedom.
+
+- ncp:
+
+  non-centrality parameter under alternative.
+
+- ncp.null:
+
+  non-centrality parameter under null.
+
+- alpha:
+
+  type 1 error rate (user-specified).
+
+- chisq.alpha:
+
+  critical value.
 
 - power:
 

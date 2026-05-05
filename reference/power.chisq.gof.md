@@ -13,7 +13,7 @@ power.chisq.gof(
   n = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -52,7 +52,7 @@ power.chisq.gof(
   type 1 error rate, defined as the probability of incorrectly rejecting
   a true null hypothesis, denoted as \\\alpha\\.
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 

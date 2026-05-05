@@ -36,6 +36,7 @@ power.z.logistic(
   odds.ratio = NULL,
   beta0 = NULL,
   beta1 = NULL,
+  req.sign = "+",
   n = NULL,
   power = NULL,
   r.squared.predictor = 0,
@@ -43,7 +44,7 @@ power.z.logistic(
   alternative = c("two.sided", "one.sided"),
   method = c("demidenko(vc)", "demidenko", "hsieh"),
   distribution = "normal",
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -77,6 +78,11 @@ power.z.logistic(
 
   regression coefficient for the predictor X defined as
   `beta1 = log((prob / (1 - prob)) / (base.prob / (1 - base.prob)))`
+
+- req.sign:
+
+  sign of the beta1 coefficient (when minimum detectable effect or beta1
+  is of interest).
 
 - n:
 
@@ -121,7 +127,7 @@ power.z.logistic(
   `c("normal", "binomial", "bernouilli")` for the Hsieh et al. (1998)
   procedure.
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 

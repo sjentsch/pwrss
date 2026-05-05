@@ -22,7 +22,7 @@ power.f.ancova(
   n.total = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -70,7 +70,7 @@ power.f.ancova(
   type 1 error rate, defined as the probability of incorrectly rejecting
   a true null hypothesis, denoted as \\\alpha\\.
 
-- ceiling:
+- ceil.n:
 
   logical; if `FALSE` sample size in each cell is not rounded up.
 
@@ -146,6 +146,7 @@ Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 ## Examples
 
 ``` r
+
 #############################################
 #              one-way ANOVA                #
 #############################################
@@ -205,11 +206,11 @@ power.f.regression(r.squared = 0.059,
 #>   Statistical Power       = 0.803
 #> 
 
-# estimate sample size using regression approach (T-Test)
+# estimate sample size using regression approach (t-Test)
 p <- 0.50 # proportion of sample in treatment (allocation rate)
 power.t.regression(beta = 0.50, r.squared = 0,
                    k.total = 1,
-                   sd.predictor = sqrt(p*(1-p)),
+                   sd.predictor = sqrt(p * (1 - p)),
                    power = 0.80, alpha = 0.05)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |

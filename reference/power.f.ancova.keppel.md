@@ -21,7 +21,7 @@ power.f.ancova.keppel(
   k.covariates = 0,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -74,7 +74,7 @@ power.f.ancova.keppel(
   type 1 error rate, defined as the probability of incorrectly rejecting
   a true null hypothesis, denoted as \\\alpha\\.
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 
@@ -137,6 +137,7 @@ handbook (4th ed.). Pearson.
 ## Examples
 
 ``` r
+
 # required sample size to detect a mean difference of
 # Cohen's d = 0.50 for a one-way two-group design
 power.f.ancova.keppel(mu.vector = c(0.50, 0), # marginal means

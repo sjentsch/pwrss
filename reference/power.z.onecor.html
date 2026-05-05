@@ -50,13 +50,14 @@ Formulas are validated using PASS and G*Power."></head><body>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">power.z.onecor</span><span class="op">(</span></span>
-<span>  <span class="va">rho</span>,</span>
+<span>  rho <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  req.sign <span class="op">=</span> <span class="st">"+"</span>,</span>
 <span>  null.rho <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"one.sided"</span><span class="op">)</span>,</span>
-<span>  ceiling <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ceil.n <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  utf <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -68,6 +69,11 @@ Formulas are validated using PASS and G*Power."></head><body>
 
 <dl><dt id="arg-rho">rho<a class="anchor" aria-label="anchor" href="#arg-rho"></a></dt>
 <dd><p>correlation.</p></dd>
+
+
+<dt id="arg-req-sign">req.sign<a class="anchor" aria-label="anchor" href="#arg-req-sign"></a></dt>
+<dd><p>whether estimated rho is smaller or larger than the null.rho
+(when minimum detectable rho is of interest).</p></dd>
 
 
 <dt id="arg-null-rho">null.rho<a class="anchor" aria-label="anchor" href="#arg-null-rho"></a></dt>
@@ -95,7 +101,7 @@ incorrectly rejecting a true null hypothesis, denoted as
 "two.sided" or "one.sided".</p></dd>
 
 
-<dt id="arg-ceiling">ceiling<a class="anchor" aria-label="anchor" href="#arg-ceiling"></a></dt>
+<dt id="arg-ceil-n">ceil.n<a class="anchor" aria-label="anchor" href="#arg-ceil-n"></a></dt>
 <dd><p>logical; whether sample size should be rounded up.
 <code>TRUE</code> by default.</p></dd>
 

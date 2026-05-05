@@ -29,7 +29,7 @@ power.np.wilcoxon(
   design = c("independent", "paired", "one.sample"),
   distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
   method = c("guenther", "noether"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -86,7 +86,7 @@ power.np.wilcoxon(
 
   character; non-parametric approach: "guenther" (default) or "noether"
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 

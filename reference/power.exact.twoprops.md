@@ -11,8 +11,9 @@ Validated via G\*Power and PASS documentation.
 
 ``` r
 power.exact.twoprops(
-  prob1,
-  prob2,
+  prob1 = NULL,
+  prob2 = NULL,
+  req.sign = "+",
   n.ratio = 1,
   n2 = NULL,
   power = NULL,
@@ -21,7 +22,7 @@ power.exact.twoprops(
   paired = FALSE,
   rho.paired = 0.5,
   method = c("exact", "approximate"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -36,6 +37,11 @@ power.exact.twoprops(
 - prob2:
 
   probability of success in the second group.
+
+- req.sign:
+
+  whether estimated prob is smaller or larger than the other (when
+  minimum detectable prob is of interest).
 
 - n.ratio:
 
@@ -73,7 +79,7 @@ power.exact.twoprops(
   character; whether to use "approximate" or "exact" method. Default is
   `"exact"` (only in the `power.exact.twoprops()` function).
 
-- ceiling:
+- ceil.n:
 
   logical; `TRUE` rounds up sample size in each group.
 

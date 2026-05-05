@@ -10,7 +10,8 @@ Formulas are validated using PASS documentation.
 
 ``` r
 power.exact.oneprop(
-  prob,
+  prob = NULL,
+  req.sign = "+",
   null.prob = 0.5,
   n = NULL,
   power = NULL,
@@ -26,6 +27,11 @@ power.exact.oneprop(
 - prob:
 
   probability of success under alternative.
+
+- req.sign:
+
+  whether `prob` is smaller or larger than `null.prob` (when minimum
+  detectable prob is of interest).
 
 - null.prob:
 

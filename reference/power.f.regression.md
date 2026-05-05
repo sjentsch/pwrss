@@ -20,7 +20,7 @@ power.f.regression(
   n = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -61,7 +61,7 @@ power.f.regression(
   type 1 error rate, defined as the probability of incorrectly rejecting
   a true null hypothesis, denoted as \\\alpha\\.
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 
@@ -133,6 +133,7 @@ Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 ## Examples
 
 ``` r
+
 # in the outcome (R-squared = 0.15).
 power.f.regression(r.squared = 0.15,
                    k.total = 3, # total number of predictors

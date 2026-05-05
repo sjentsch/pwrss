@@ -22,7 +22,7 @@ power.f.ancova.shieh(
   contrast.matrix = NULL,
   power = NULL,
   alpha = 0.05,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -85,7 +85,7 @@ power.f.ancova.shieh(
   type 1 error rate, defined as the probability of incorrectly rejecting
   a true null hypothesis, denoted as \\\alpha\\.
 
-- ceiling:
+- ceil.n:
 
   logical; `TRUE` by default. If `FALSE` sample sizes in each cell are
   NOT rounded up.
@@ -158,6 +158,7 @@ https://doi.org/10.1007/s11336-019-09692-3
 ## Examples
 
 ``` r
+
 ###################################################################
 ##########################  main effect  ##########################
 ###################################################################

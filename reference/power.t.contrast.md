@@ -19,7 +19,7 @@ power.t.contrast(
   power = NULL,
   alpha = 0.05,
   tukey.kramer = FALSE,
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -74,7 +74,7 @@ power.t.contrast(
   logical; `FALSE` by default. If `TRUE` adjustments will be made to
   control Type 1 error.
 
-- ceiling:
+- ceil.n:
 
   logical; `TRUE` by default. If `FALSE` sample sizes in each cell are
   NOT rounded up.

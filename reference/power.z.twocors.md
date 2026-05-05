@@ -10,14 +10,15 @@ Formulas are validated using PASS and G\*Power.
 
 ``` r
 power.z.twocors(
-  rho1,
-  rho2,
+  rho1 = NULL,
+  rho2 = NULL,
+  req.sign = "+",
   n2 = NULL,
   n.ratio = 1,
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -32,6 +33,11 @@ power.z.twocors(
 - rho2:
 
   correlation in the second group.
+
+- req.sign:
+
+  whether estimated rho is smaller or larger than the other (when
+  minimum detectable rho is of interest).
 
 - n2:
 
@@ -57,7 +63,7 @@ power.z.twocors(
   character; the direction or type of the hypothesis test: "two.sided"
   or "one.sided".
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 

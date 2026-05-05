@@ -76,9 +76,25 @@ power.t.test(
 
   non-centrality parameter under null.
 
+- alpha:
+
+  type 1 error rate (user-specified).
+
 - t.alpha:
 
   critical value(s).
+
+- beta:
+
+  type 2 error rate.
+
+- type.s:
+
+  type S error rate (only for two-tailed test).
+
+- type.m:
+
+  type M error rate (only for two-tailed test).
 
 - power:
 

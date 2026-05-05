@@ -18,12 +18,19 @@
 <url><loc>https://metinbulus.github.io/pwrss/reference/inflate.sample.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/joint.probs.2x2.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/marginal.probs.2x2.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/mean.z.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/means.to.d.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/means.to.etasq.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/ncp.chisq.test.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/ncp.f.test.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/ncp.lp.test.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/ncp.t.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.binom.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.chisq.gof.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.chisq.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.exact.fisher.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.exact.mcnemar.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/power.exact.onecor.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.exact.oneprop.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.exact.twoprops.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.f.ancova.html</loc></url>
@@ -32,6 +39,7 @@
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.f.mixed.anova.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.f.regression.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.f.test.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/power.lp.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.np.wilcoxon.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.t.contrast.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.t.contrasts.html</loc></url>
@@ -48,6 +56,7 @@
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.z.twocors.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.z.twocors.steiger.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/power.z.twoprops.html</loc></url>
+<url><loc>https://metinbulus.github.io/pwrss/reference/prob.binom.test.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/probs.to.h.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/probs.to.w.html</loc></url>
 <url><loc>https://metinbulus.github.io/pwrss/reference/q.to.cors.html</loc></url>

@@ -10,14 +10,15 @@ Validated using the PASS documentation and G\*Power.
 
 ``` r
 power.exact.mcnemar(
-  prob10,
-  prob01,
+  prob10 = NULL,
+  prob01 = NULL,
+  req.sign = "+",
   n.paired = NULL,
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided"),
   method = c("exact", "approximate"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -36,6 +37,11 @@ power.exact.mcnemar(
   (joint) probability of failure in case (or after) but success in
   matched control (or before). prob10' and 'prob01' are known as
   discordant probs.
+
+- req.sign:
+
+  whether estimated prob is smaller or larger than the other (when
+  minimum detectable prob is of interest).
 
 - n.paired:
 
@@ -64,12 +70,12 @@ power.exact.mcnemar(
   Fisher's exact test, while "approximate" refers to the z-test based on
   the normal approximation.
 
-- ceiling:
+- ceil.n:
 
   logical; if `TRUE` rounds up sample size in each cell. This procedure
-  assumes symmetry for concordant probs, which are 'p11' and 'p00').
+  assumes symmetry for concordant probs, which are `p11` and `p00`).
   Thus results may differ from other software by a few units. To match
-  results set 'ceiling = FALSE'.
+  results set `ceil.n` to FALSE.
 
 - verbose:
 

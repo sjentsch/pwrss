@@ -31,7 +31,7 @@ power.t.regression(
   power = NULL,
   alpha = 0.05,
   alternative = c("two.sided", "one.sided", "two.one.sided"),
-  ceiling = TRUE,
+  ceil.n = TRUE,
   verbose = 1,
   utf = FALSE
 )
@@ -94,7 +94,7 @@ power.t.regression(
   character; the direction or type of the hypothesis test: "two.sided",
   "one.sided", or "two.one.sided".
 
-- ceiling:
+- ceil.n:
 
   logical; whether sample size should be rounded up. `TRUE` by default.
 
@@ -200,6 +200,7 @@ https://doi.org/10.1007/10.1016/s0197-2456(98)00037-3
 ## Examples
 
 ``` r
+
 # continuous predictor x (and 4 covariates)
 power.t.regression(beta = 0.20,
             k.total = 5,
@@ -230,7 +231,7 @@ power.t.regression(beta = 0.20,
 # binary predictor x (and 4 covariates)
 p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0.20,
-            sd.predictor = sqrt(p*(1-p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)
@@ -292,7 +293,7 @@ p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0.20, # Cohen's d
             margin = 0.05, # superiority margin in Cohen's d unit
             alternative = "one.sided",
-            sd.predictor = sqrt(p*(1-p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)
@@ -323,7 +324,7 @@ p <- 0.50 # proportion of subjects in one group
 power.t.regression(beta = 0, # Cohen's d
             margin = c(-0.05, 0.05), # equivalence bounds in Cohen's d unit
             alternative = "two.one.sided",
-            sd.predictor = sqrt(p*(1 - p)),
+            sd.predictor = sqrt(p * (1 - p)),
             k.total = 5,
             r.squared = 0.30,
             power = 0.80)

@@ -63,7 +63,7 @@ over time, this design is often referred to as repeated-measures ANOVA.</p>
 <span>  power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"between"</span>, <span class="st">"within"</span>, <span class="st">"interaction"</span><span class="op">)</span>,</span>
-<span>  ceiling <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ceil.n <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  utf <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -139,7 +139,7 @@ denoted as \(\alpha\).</p></dd>
 "within", or "interaction".</p></dd>
 
 
-<dt id="arg-ceiling">ceiling<a class="anchor" aria-label="anchor" href="#arg-ceiling"></a></dt>
+<dt id="arg-ceil-n">ceil.n<a class="anchor" aria-label="anchor" href="#arg-ceil-n"></a></dt>
 <dd><p>logical; <code>TRUE</code> by default. If <code>FALSE</code>
 sample size in each group is NOT rounded up.</p></dd>
 
