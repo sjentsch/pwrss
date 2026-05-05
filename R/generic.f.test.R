@@ -112,31 +112,30 @@ power.f <- power.f.test
 #' @export ncp.f.test
 ncp.f.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df1 = NULL, df2 = NULL,
                        alpha = 0.05, plot = TRUE, verbose = 1, utf = FALSE) {
-  
+
   check.power(power)
-  
+
   if (is.null(df1) || df1 < 1) stop("'df1' cannot be NULL, and need to be at least 1.", call. = FALSE)
   if (is.null(df2) || df2 < 3) stop("'df2' cannot be NULL, and need to be at least 2.", call. = FALSE)
-  
+
   max.thresh <- qf(1 - 1e-10, ncp = null.ncp, df1 = df1, df2 = df2)
-  while (power.f.test(ncp = max.thresh, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha, 
+  while (power.f.test(ncp = max.thresh, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha,
                       plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
     max.thresh <- max.thresh * 1.10
   }
-  
+
   ncp <- stats::optimize(
     f = function(ncp) {
       (power - power.f.test(ncp = ncp, null.ncp = null.ncp,
-                            df1 = df1, df2 = df2, alpha = alpha, 
+                            df1 = df1, df2 = df2, alpha = alpha,
                             plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
     },
     maximum = FALSE, lower = 0, upper = max.thresh)$minimum
-  
+
   power.f.test(ncp = ncp, null.ncp = null.ncp,
                df1 = df1, df2 = df2, alpha = alpha,
                plot = plot, verbose = verbose, utf = utf)
-  
+
 } # ncp.f.test
 
 ncp.f <- ncp.f.test
-

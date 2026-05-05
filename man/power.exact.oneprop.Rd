@@ -19,6 +19,9 @@ power.exact.oneprop(
 \arguments{
 \item{prob}{probability of success under alternative.}
 
+\item{req.sign}{whether \code{prob} is smaller or larger than \code{null.prob}
+(when minimum detectable prob is of interest).}
+
 \item{null.prob}{probability of success under null.}
 
 \item{n}{integer; sample size.}

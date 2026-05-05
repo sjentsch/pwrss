@@ -710,7 +710,7 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
   if (verbose > 0)
     print(c(rho.min = rho.min, rho.max = rho.max, prob11 = prob11, prob10 = prob10, prob01 = prob01, prob00 = prob00))
 
-  invisible(list(parms = func.parms, rho.min = rho.min, rho.max = rho.max, 
+  invisible(list(parms = func.parms, rho.min = rho.min, rho.max = rho.max,
                  prob11 = prob11, prob10 = prob10, prob01 = prob01, prob00 = prob00))
 
 } # joint.probs.2x2
@@ -720,56 +720,56 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
 # find limits of prob2 given prob1 and rho (or prob1 given prob2 and rho)
 prob.limits.paired <- function(prob1 = NULL, prob2 = NULL, rho = 0.50,
                                grid.min = 0.0001, grid.max = 0.9999, step = 0.0001) {
-  
+
   rho.limits <- function(prob1, prob2) {
-    
+
     rho.min <- max(
       -sqrt(prob1 * prob2 / ((1 - prob1) * (1 - prob2))),
       -sqrt((1 - prob1) * (1 - prob2) / (prob2 * prob2))
     )
-    
+
     rho.max <- min(
       sqrt(prob1 * (1 - prob2) / (prob2 * (1 - prob1))),
       sqrt(prob2 * (1 - prob1) / (prob1 * (1 - prob2)))
     )
-    
+
     c(rho.min, rho.max)
-    
+
   } # rho.limits
-  
+
   rho.is.feasible <- function(prob1, prob2, rho) {
-    
+
     limits <- rho.limits(prob1, prob2)
     rho >= limits[1] & rho <= limits[2]
-    
+
   } # rho.is.feasible
-  
+
   if (is.null(prob2) && !is.null(prob1)) {
-    
+
     feasible <- function(x) rho.is.feasible(prob1 = prob1, prob2 = x, rho = rho)
-    
+
   } else if (is.null(prob1) && !is.null(prob2)) {
-    
+
     feasible <- function(x) rho.is.feasible(prob1 = x, prob2 = prob2, rho = rho)
-    
+
   } else {
-    
+
     stop("Exactly one of prob1 or prob2 must be NULL", call. = FALSE)
-    
+
   }
-  
+
   # find the feasible region
   grid <- seq(grid.min, grid.max, by = step)
   good <- sapply(grid, feasible)
-  
+
   if (!any(good)) {
     stop("No feasible values found. Check that rho is achievable given the fixed probability.")
   }
-  
+
   feasible.vals <- grid[good]
-  
+
   c(prob.min = min(feasible.vals), prob.max = max(feasible.vals))
-  
+
 } # prob.limits.paired
 
 
@@ -1102,7 +1102,7 @@ probs.to.w <- function(prob.matrix, null.prob.matrix = NULL, verbose = 1) {
 #'                r.squared = 0.50)
 #' @export means.to.etasq
 means.to.etasq <- function(mu.vector, sd.vector, n.vector, k.covariates = 0, r.squared = 0, factor.levels = NULL, verbose = 1) {
-  
+
   if (!is.vector(mu.vector) || !is.numeric(mu.vector))
     stop("Provide a vector of means (`mu.vector`) with its length equal to number of groups.", call. = FALSE)
   check.vector(mu.vector, check.numeric)
@@ -1120,27 +1120,27 @@ means.to.etasq <- function(mu.vector, sd.vector, n.vector, k.covariates = 0, r.s
   check.nonnegative(k.covariates)
   if (r.squared > 0 && k.covariates < 1)
     stop("Explanatory power of covariates is expected to be non-zero when number of covariates is non-zero.", call. = FALSE)
-  
+
   n.total <- sum(n.vector)
   mu_bar <- sum(n.vector * mu.vector) / n.total
-  
+
   sigma2_pooled <- sum((n.vector - 1) * sd.vector ^ 2) / (n.total - length(mu.vector))
-  
+
   sigma2_between <- sum(n.vector * (mu.vector - mu_bar) ^ 2) / n.total
   sigma2_error <- sigma2_pooled * (1 - r.squared)
-  
+
   f.squared <- sigma2_between / sigma2_error
   eta.squared <- sigma2_between / (sigma2_between + sigma2_error)
-  
+
   u <- prod(factor.levels - 1)
   v <- n.total - length(mu.vector) - k.covariates
   lambda <- f.squared * n.total
-  
+
   if (verbose > 0)
     print(c(f = sqrt(f.squared), eta.squared = eta.squared,
             df1 = u, df2 = v, ncp = lambda))
-  
+
   invisible(list(f = sqrt(f.squared), eta.squared = eta.squared,
                  df1 = u, df2 = v, ncp = lambda))
-  
+
 } # means.to.etasq

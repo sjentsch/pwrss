@@ -6,128 +6,129 @@ test_that("proportions.mcnemar.R works", {
     crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n.paired = 100, alpha = 0.05, alternative = "two.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.20, prob01 = 0.10, n.paired = 100, power = NULL, alpha = 0.05, alternative = "two.sided",
+                 list(prob10 = 0.20, prob01 = 0.10, req.sign = "+", n.paired = 100, power = NULL, alpha = 0.05, alternative = "two.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = 0.1, odds.ratio = 2, size = 30, prob = 2 / 3, null.prob = 0.5,
-                      binom.alpha = c(9, 20), mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.042773945, power = 0.373077084, n.paired = 100))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.20, prob01 = 0.10, delta = 0.10, odds.ratio = 2, size = 30,
+                      prob = 2 / 3, null.prob = 0.5, binom.alpha = c(9, 20), mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.042773945, power = 0.373077084, n.paired = 100))
 
     crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n.paired = 100, alpha = 0.05, alternative = "one.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.10, prob01 = 0.20, n.paired = 100, power = NULL, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.10, prob01 = 0.20, req.sign = "+", n.paired = 100, power = NULL, alpha = 0.05, alternative = "one.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = -0.1, odds.ratio = 0.5, size = 30, prob = 1 / 3, null.prob = 0.5,
-                      binom.alpha = 10, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.049368573, power = 0.514606143, n.paired = 100))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.10, prob01 = 0.20, delta = -0.10, odds.ratio = 0.5, size = 30,
+                      prob = 1 / 3, null.prob = 0.5, binom.alpha = 10, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.049368573, power = 0.514606143, n.paired = 100))
 
     crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n.paired = 100, alpha = 0.05, alternative = "one.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.20, prob01 = 0.10, n.paired = 100, power = NULL, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.20, prob01 = 0.10, req.sign = "+", n.paired = 100, power = NULL, alpha = 0.05, alternative = "one.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = 0.1, odds.ratio = 2, size = 30, prob = 2 / 3, null.prob = 0.5,
-                      binom.alpha = 19, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.049368573, power = 0.514606143, n.paired = 100))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.20, prob01 = 0.10, delta = 0.10, odds.ratio = 2, size = 30,
+                      prob = 2 / 3, null.prob = 0.5, binom.alpha = 19, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.049368573, power = 0.514606143, n.paired = 100))
 
-    crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n = 500, alpha = 0.05, alternative = "two.sided",
+    crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n.paired = 500, alpha = 0.05, alternative = "two.sided",
                                   method = "approximate", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "twoprops"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.10, prob01 = 0.20, n.paired = 500, power = NULL, alpha = 0.05, alternative = "two.sided",
+                 list(prob10 = 0.10, prob01 = 0.20, req.sign = "+", n.paired = 500, power = NULL, alpha = 0.05, alternative = "two.sided",
                       method = "approximate", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "z", delta = -0.1, odds.ratio = 0.5, size = 150, prob = 1 / 3, null.prob = 0.5,
-                      binom.alpha = c(62, 87), mean = -4.118767908, sd = 1, null.mean = 0, null.sd = 1, z.alpha = 1.95996398 * c(-1, 1),
-                      alpha = 0.05, power = 0.98456731, n.paired = 500))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "z", prob10 = 0.10, prob01 = 0.20, delta = -0.10, odds.ratio = 0.5, size = 150,
+                      prob = 1 / 3, null.prob = 0.5, binom.alpha = c(62, 87), mean = -4.118767908, sd = 1,
+                      null.mean = 0, null.sd = 1, z.alpha = 1.95996398 * c(-1, 1), alpha = 0.05, power = 0.98456731,
+                      n.paired = 500))
 
-    crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n = 500, alpha = 0.05, alternative = "one.sided",
+    crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, n.paired = 500, alpha = 0.05, alternative = "one.sided",
                                   method = "approximate", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "twoprops"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.20, prob01 = 0.10, n.paired = 500, power = NULL, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.20, prob01 = 0.10, req.sign = "+", n.paired = 500, power = NULL, alpha = 0.05, alternative = "one.sided",
                       method = "approximate", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "z", delta = 0.1, odds.ratio = 2, size = 150, prob = 2 / 3, null.prob = 0.5,
-                      binom.alpha = 85, mean = 4.1241548, sd = 1, null.mean = 0, null.sd = 1, z.alpha = 1.64485363,
-                      alpha = 0.05, power = 0.993418, n.paired = 500))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "z", prob10 = 0.20, prob01 = 0.10, delta = 0.10, odds.ratio = 2, size = 150,
+                      prob = 2 / 3, null.prob = 0.5, binom.alpha = 85, mean = 4.1241548, sd = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = 1.64485363, alpha = 0.05, power = 0.993418, n.paired = 500))
 
-    crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n = 500, alpha = 0.05, alternative = "one.sided",
+    crrRes <- power.exact.mcnemar(prob10 = 0.10, prob01 = 0.20, n.paired = 500, alpha = 0.05, alternative = "one.sided",
                                   method = "approximate", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "twoprops"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.10, prob01 = 0.20, n.paired = 500, power = NULL, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.10, prob01 = 0.20, req.sign = "+", n.paired = 500, power = NULL, alpha = 0.05, alternative = "one.sided",
                       method = "approximate", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "z", delta = -0.1, odds.ratio = 0.5, size = 150, prob = 1 / 3, null.prob = 0.5,
-                      binom.alpha = 64, mean = -4.1241548, sd = 1, null.mean = 0, null.sd = 1, z.alpha = -1.64485363,
-                      alpha = 0.05, power = 0.993418, n.paired = 500))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "z", prob10 = 0.10, prob01 = 0.20, delta = -0.10, odds.ratio = 0.5, size = 150,
+                      prob = 1 / 3, null.prob = 0.5, binom.alpha = 64, mean = -4.1241548, sd = 1, null.mean = 0, null.sd = 1,
+                      z.alpha = -1.64485363, alpha = 0.05, power = 0.993418, n.paired = 500))
 
     crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, power = 0.80, alpha = 0.05, alternative = "two.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.20, prob01 = 0.10, n.paired = NULL, power = 0.80, alpha = 0.05, alternative = "two.sided",
+                 list(prob10 = 0.20, prob01 = 0.10, req.sign = "+", n.paired = NULL, power = 0.80, alpha = 0.05, alternative = "two.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = 0.1, odds.ratio = 2, size = 75, prob = 2 / 3, null.prob = 0.5,
-                      binom.alpha = c(28, 46), mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.036954904, power = 0.801446921, n.paired = 249))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.20, prob01 = 0.10, delta = 0.10, odds.ratio = 2, size = 75,
+                      prob = 2 / 3, null.prob = 0.5, binom.alpha = c(28, 46), mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.036954904, power = 0.801446921, n.paired = 249))
 
     crrRes <- power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10, power = 0.80, alpha = 0.05, alternative = "one.sided",
                                   method = "exact", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.20, prob01 = 0.10, n.paired = NULL, power = 0.80, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.20, prob01 = 0.10, req.sign = "+", n.paired = NULL, power = 0.80, alpha = 0.05, alternative = "one.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = 0.1, odds.ratio = 2, size = 60, prob = 2 / 3, null.prob = 0.5,
-                      binom.alpha = 36, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.04623049, power = 0.80298386, n.paired = 200))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.20, prob01 = 0.10, delta = 0.10, odds.ratio = 2, size = 60,
+                      prob = 2 / 3, null.prob = 0.5, binom.alpha = 36, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.04623049, power = 0.80298386, n.paired = 200))
 
     crrRes <- power.exact.mcnemar(prob10 = 0.08, prob01 = 0.32, n = 50, alpha = 0.05, alternative = "one.sided",
                                   method = "exact", verbose = 0) # example 5.3 from GPower
     expect_equal(class(crrRes), c("pwrss", "exact", "mcnemar"))
-    expect_equal(names(crrRes), c("parms", "test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd",
-                                  "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
+    expect_equal(names(crrRes), c("parms", "test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob",
+                                  "binom.alpha", "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired"))
     expect_equal(crrRes[["parms"]],
-                 list(prob10 = 0.08, prob01 = 0.32, n.paired = 50, power = NULL, alpha = 0.05, alternative = "one.sided",
+                 list(prob10 = 0.08, prob01 = 0.32, req.sign = "+", n.paired = 50, power = NULL, alpha = 0.05, alternative = "one.sided",
                       method = "exact", ceil.n = TRUE, verbose = 0, utf = FALSE))
-    expect_equal(crrRes[c("test", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha", "mean", "sd", "null.mean",
-                          "null.sd", "z.alpha", "alpha", "power", "n.paired")],
-                 list(test = "exact", delta = -0.24, odds.ratio = 0.25, size = 20, prob = 0.2, null.prob = 0.5,
-                      binom.alpha = 5, mean = NA, sd = NA, null.mean = NA, null.sd = NA, z.alpha = NA,
-                      alpha = 0.0206947327, power = 0.839356985, n.paired = 50))
+    expect_equal(crrRes[c("test", "prob10", "prob01", "delta", "odds.ratio", "size", "prob", "null.prob", "binom.alpha",
+                          "mean", "sd", "null.mean", "null.sd", "z.alpha", "alpha", "power", "n.paired")],
+                 list(test = "exact", prob10 = 0.08, prob01 = 0.32, delta = -0.24, odds.ratio = 0.25, size = 20,
+                      prob = 0.2, null.prob = 0.5, binom.alpha = 5, mean = NA, sd = NA, null.mean = NA, null.sd = NA,
+                      z.alpha = NA, alpha = 0.0206947327, power = 0.839356985, n.paired = 50))
     # -> reasonable close for power = 0.839343 (GPower) / 0.839357 (pwrss); quite off for alpha = 0.032578 (GPower) / 0.020695 (pwrss)
     # likely due to missing alpha-balancing
 

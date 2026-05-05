@@ -49,7 +49,7 @@ on the console.}
 \item{power}{statistical power \eqn{(1-\beta)}.}
 }
 \description{
-Finds non-centrality parameter and degress of freedom for the generic chi-square test with (optional) Type 1 and
+Finds non-centrality parameter and degrees of freedom for the generic chi-square test with (optional) Type 1 and
 Type 2 error plots.
 }
 \examples{

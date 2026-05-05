@@ -212,7 +212,7 @@ power.binom <- power.binom.test
 #'                  alpha = 0.05, alternative = "two.one.sided")
 #'
 #' @export prob.binom.test
-prob.binom.test <- function(power = 0.80, 
+prob.binom.test <- function(power = 0.80,
                             size,
                             prob = NULL,
                             req.sign = "+",
@@ -222,7 +222,7 @@ prob.binom.test <- function(power = 0.80,
                             plot = TRUE,
                             verbose = 1,
                             utf = FALSE) {
-  
+
   alternative <- tolower(match.arg(alternative))
   check.power(power)
   check.sample.size(size)
@@ -240,17 +240,17 @@ prob.binom.test <- function(power = 0.80,
   } else if (pos.sign == TRUE) {
     val.rng <- c(max(null.prob), 0.9999)
   }
-  
+
   prob <- stats::optimize(
     f = function(prob) {
       (power - power.binom.test(size = size, prob = prob, null.prob = null.prob, alpha = alpha,
                                 alternative = alternative, plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
     },
     maximum = FALSE, interval = val.rng)$minimum
-  
+
   power.binom.test(size = size, prob = prob, null.prob = null.prob, alpha = alpha, alternative = alternative,
                    plot = plot, verbose = verbose, utf = utf)
-  
+
 } # prob.binom.test
 
 prob.binom <- prob.binom.test

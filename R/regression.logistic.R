@@ -47,7 +47,7 @@
 #'                            \code{beta0 = log(base.prob/(1-base.prob))}
 #' @param beta1               regression coefficient for the predictor X defined as
 #'                            \code{beta1 = log((prob / (1 - prob)) / (base.prob / (1 - base.prob)))}
-#' @param req.sign            sign of the beta1 coefficient (when minimum 
+#' @param req.sign            sign of the beta1 coefficient (when minimum
 #'                            detectable effect or beta1 is of interest).
 #' @param odds.ratio          odds ratio defined as
 #'                            \code{odds.ratio = exp(beta1) = (prob / (1 - prob)) / (base.prob / (1 - base.prob))}
@@ -210,7 +210,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     check.proportion(prob, base.prob)
     if (any(check.not_null(odds.ratio, beta0, beta1)) && verbose >= 0)
       message("Using `base.prob` and `prob`, ignoring any specifications to `odds.ratio`, `beta0`, or `beta1`.")
-    if (prob == base.prob) 
+    if (prob == base.prob)
       stop("`prob` can not have the same value as `base.prob`.", call. = FALSE)
     odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
     beta0 <- log(base.prob / (1 - base.prob))
@@ -235,7 +235,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     check.numeric(beta0, beta1)
     if (any(check.not_null(base.prob, prob, odds.ratio)) && verbose >= 0)
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.prob`, `prob`, or `odds.ratio`.")
-    if (beta0 == beta1) 
+    if (beta0 == beta1)
       stop("`beta1` can not have the same value as `beta0`.", call. = FALSE)
     base.prob <- exp(beta0) / (1 + exp(beta0))
     odds.ratio <- exp(beta1)
@@ -440,7 +440,7 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
     z.alpha <- stats::qnorm(alpha / ifelse(alternative == "two.sided", 2, 1), lower.tail = FALSE)
     z.beta  <- stats::qnorm(1 - power, lower.tail = FALSE)
 
-    if (tolower(distribution$dist) == "binomial" && distribution$size > 1) {
+    if (tolower(distribution$dist) == "binomial" && distribution$size == 1) {
 
       dist.prob <- distribution$prob
       p.bar <- (1 - dist.prob) * base.prob + dist.prob * prob
@@ -483,23 +483,23 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
       if (ceil.n) n <- ceiling(n)
 
     } else if (requested == "es") {
-    
+
       # reasonable bounds for logistics
       var.obj <- var.beta(beta0 = beta0, beta1 = beta0, distribution = distribution)
       bound.values <- c((qlogis(0.0001) - beta0) / c(var.obj$min, var.obj$max),
                         (qlogis(0.9999) - beta0) / c(var.obj$min, var.obj$max))
       val.rng <- c(min(bound.values), 0, max(bound.values))[ifelse(check.pos_sign(req.sign), -1, -3)]
-    
+
       beta1 <- try(stats::uniroot(function(beta1) min.pwr.demidenko(beta1, n, power), interval = val.rng)$root)
-      if (inherits(beta1, "try-error")) 
-        stop(sprintf("Design is not feasible. Try `req.sign` = '%s'", ifelse(check.pos_sign(req.sign), '-', '+')), call. = FALSE)
+      if (inherits(beta1, "try-error"))
+        stop(sprintf("Design is not feasible. Try `req.sign` = \"%s\"", ifelse(check.pos_sign(req.sign), "-", "+")), call. = FALSE)
 
       base.prob <- exp(beta0) / (1 + exp(beta0))
       odds.ratio <- exp(beta1)
       prob <- odds.ratio * (base.prob / (1 - base.prob)) / (1 + odds.ratio * (base.prob / (1 - base.prob)))
- 
+
     }
-  
+
     # calculate power (if requested == "power") or update it (if requested == "n" / "es")
     pwr.obj <- pwr.demidenko(beta0 = beta0, beta1 = beta1, n = n, r.squared.predictor = r.squared.predictor,
                              alpha = alpha, alternative = alternative, method = method, distribution = distribution)
@@ -523,10 +523,10 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
       # reasonable bounds for prob
       val.rng <- c(0.0001, prob, 0.9999)[ifelse(check.pos_sign(req.sign), -1, -3)]
-    
+
       prob <- try(stats::uniroot(function(prob) min.ss.hsieh(prob, n, power), interval = val.rng)$root)
-      if (inherits(prob, "try-error")) 
-        stop(sprintf("Design is not feasible. Try `req.sign` = '%s'", ifelse(check.pos_sign(req.sign), '-', '+')), call. = FALSE)
+      if (inherits(prob, "try-error"))
+        stop(sprintf("Design is not feasible. Try `req.sign` = \"%s\"", ifelse(check.pos_sign(req.sign), "-", "+")), call. = FALSE)
 
       odds.ratio <- (prob / (1 - prob)) / (base.prob / (1 - base.prob))
       beta0 <- log(base.prob / (1 - base.prob))

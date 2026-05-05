@@ -177,7 +177,7 @@
 # assembles / formats the "Minimum Detectable Effect" line
 #.eline <- function(x, utf = FALSE, digits = 3) {
 #  c_a <- .c_a(x$requested == "es", utf)
-#  
+#
 #  sprintf("  %sEffect Size%s = %.*f%s%s%s%s\n", c_a[1], strrep(" ", ifelse(utf, 1, 3)), digits, x$es, c_a[2], c_a[3], c_a[4], c_a[5])
 #}
 

@@ -1096,7 +1096,7 @@ test_that("printing.R works", {
     # .print.pwrss.ttest -----------------------------------------------------------------------------------------------
     crrAsc <- capture.output(power.t.student(power = 0.80, n2 = 400, alternative = "two.sided", design = "independent", verbose = 2))
     expect_equal(crrAsc, c("+--------------------------------------------------+",
-                           "|             EFFECT SIZE CALCULATION              |",
+                           "|      MINIMUM DETECTABLE EFFECT CALCULATION       |",
                            "+--------------------------------------------------+", "",
                            "Student's T-Test (Independent Samples)", "",
                            "----------------------------------------------------",
@@ -1128,7 +1128,7 @@ test_that("printing.R works", {
     crrPty <- capture.output(power.t.student(power = 0.80, n2 = 400, alternative = "two.sided", design = "independent",
                                              verbose = 2, utf = TRUE))
     expect_equal(crrPty, c("╔══════════════════════════════════════════════════╗",
-                           "║           \033[34m EFFECT SIZE CALCULATION \033[0m              ║",
+                           "║     \033[34m MINIMUM DETECTABLE EFFECT CALCULATION \033[0m      ║",
                            "╚══════════════════════════════════════════════════╝", "",
                            "Student's T-Test (Independent Samples)", "",
                            "────────────────────────────────────────────────────",

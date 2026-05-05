@@ -13,7 +13,7 @@
 #'
 #' @param prob1       probability of success in the first group.
 #' @param prob2       probability of success in the second group.
-#' @param req.sign    whether estimated prob is smaller or larger than the other 
+#' @param req.sign    whether estimated prob is smaller or larger than the other
 #'                    (when minimum detectable prob is of interest).
 #' @param n2          integer; sample size for the second group.
 #' @param n.ratio     n1 / n2 ratio.
@@ -303,20 +303,20 @@ power.exact.fisher <- function(prob1 = NULL, prob2 = NULL, req.sign = "+",
       n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
 
     } else if (requested == "es") {
-      
+
       if (is.null(prob1)) {
-        
+
         prob1 <- stats::optimize(
           f = function(prob1) {
             (power - pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                               alpha = alpha, alternative = alternative)) ^ 2 
+                               alpha = alpha, alternative = alternative)) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),  prob2, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob2))$minimum
-        
+
       } else {
-        
+
         prob2 <- stats::optimize(
           f = function(prob2) {
             (power - pwr.exact(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
@@ -325,11 +325,11 @@ power.exact.fisher <- function(prob1 = NULL, prob2 = NULL, req.sign = "+",
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),  prob1, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob1))$minimum
-        
+
       } # prob1 or prob2?
-      
+
       n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
-      
+
     } # n, power, es?
 
     n.total <- n1 + n2
@@ -364,33 +364,33 @@ power.exact.fisher <- function(prob1 = NULL, prob2 = NULL, req.sign = "+",
       n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
 
     } else if (requested == "es") {
-      
+
       if (is.null(prob1)) {
-        
+
         prob1 <- stats::optimize(
           f = function(prob1) {
             (power - pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                               alpha = alpha, alternative = alternative)$power)^2 
+                               alpha = alpha, alternative = alternative)$power) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),  prob2, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob2))$minimum
-        
+
       } else {
-        
+
         prob2 <- stats::optimize(
           f = function(prob2) {
             (power - pwr.approx(prob1 = prob1, prob2 = prob2, n2 = n2, n.ratio = n.ratio,
-                               alpha = alpha, alternative = alternative)$power)^2 
+                               alpha = alpha, alternative = alternative)$power) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),  prob1, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 0.9999,  prob1))$minimum
-        
+
       } # prob1 or prob2?
-      
+
       n1 <- ifelse(ceil.n, ceiling(n.ratio * n2), n.ratio * n2)
-      
+
     } # n, power, es?
 
     n.total <- n1 + n2

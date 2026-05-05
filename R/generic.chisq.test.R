@@ -77,7 +77,7 @@ power.chisq <- power.chisq.test
 #' Find Non-Centrality Parameter for the Generic Chi-Square Test
 #'
 #' @description
-#' Finds non-centrality parameter and degress of freedom for the generic chi-square test with (optional) Type 1 and
+#' Finds non-centrality parameter and degrees of freedom for the generic chi-square test with (optional) Type 1 and
 #' Type 2 error plots.
 #'
 #' @aliases ncp.chisq
@@ -114,32 +114,32 @@ power.chisq <- power.chisq.test
 #' @export ncp.chisq.test
 ncp.chisq.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df = NULL,
                            alpha = 0.05, plot = TRUE, verbose = 1, utf = FALSE) {
-  
+
   check.power(power)
-  
+
   if (is.null(ncp) && is.null(df)) {
-    
+
     if (is.null(df)) stop("`ncp` and `df` cannot be NULL at the same time", call. = FALSE)
 
   } else if (is.null(ncp)) {
-    
+
     if (df < 1) stop("Degrees of freedom cannot be smaller than 1.", call. = FALSE)
-    
+
     max.thresh <- qchisq(1 - 1e-10, ncp = null.ncp, df = df)
-    while (power.chisq.test(ncp = max.thresh, null.ncp = null.ncp, df = df, alpha = alpha, 
+    while (power.chisq.test(ncp = max.thresh, null.ncp = null.ncp, df = df, alpha = alpha,
                             plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
       max.thresh <- max.thresh * 1.10
     }
-    
+
     ncp <- stats::optimize(
       f = function(ncp) {
-        (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha, 
+        (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha,
                                   plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
       },
       maximum = FALSE, lower = 0, upper = max.thresh)$minimum
-    
+
   } else if (is.null(df)) {
-    
+
     df <- stats::optimize(
       f = function(df) {
         (power - power.chisq.test(ncp = ncp, null.ncp = null.ncp,
@@ -147,12 +147,12 @@ ncp.chisq.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df = NULL,
                                   plot = FALSE, verbose = 0, utf = FALSE)$power) ^ 2
       },
       maximum = FALSE, lower = 1, upper = 1e10)$minimum
-    
+
   } # df is null
-  
+
   power.chisq.test(ncp = ncp, null.ncp = null.ncp, df = df, alpha = alpha,
                    plot = plot, verbose = verbose, utf = utf)
-  
+
 } # ncp.chisq.test
 
 ncp.chisq <- ncp.chisq.test

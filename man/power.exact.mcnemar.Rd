@@ -53,9 +53,9 @@ to the z-test based on the normal approximation.}
 
 \item{ceil.n}{logical; if \code{TRUE} rounds up sample size in each
 cell. This procedure assumes symmetry for concordant
-probs, which are 'p11' and 'p00'). Thus results may
+probs, which are \code{p11} and \code{p00}). Thus results may
 differ from other software by a few units. To match
-results set 'ceil.n = FALSE'.}
+results set \code{ceil.n} to FALSE.}
 
 \item{verbose}{\code{1} by default (returns test, hypotheses, and
 results), if \code{2} a more detailed output is given

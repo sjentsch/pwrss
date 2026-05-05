@@ -14,23 +14,22 @@ ensure.verbose <- function(verbose = NULL) {
 get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
   es_vars <- gsub("list", "", deparse(substitute(es), n = 1))
-  if (is.list(es) && all(unlist(lapply(es, is.null)))) {
-    stop(sprintf("Exactly one of the `%s` can be NULL, not both.", 
-                 paste(strsplit(gsub("[() ]", "", es_vars), ",")[[1]], collapse = "` or `")), call. = FALSE)
-  } else if (is.list(es) && all(unlist(lapply(es, is.null)))) {
-    es <- NULL
-  } else {
-    es <- unlist(es)[1] # works for vectors too (then unlist has no effect)
+  if (is.list(es)) {
+    if        (sum(unlist(lapply(es, is.null))) == 2) {
+      stop(sprintf("Exactly one of `%s` can be NULL, not both.",
+                   paste(strsplit(gsub("[() ]", "", es_vars), ",")[[1]], collapse = "` or `")), call. = FALSE)
+    } else if (sum(unlist(lapply(es, is.null))) == 1) {
+      es <- NULL
+    }
   }
-  
-  if (is.null(es) || !is.na(es)) {
-    parms <- sprintf("two of the parameters `%s`, `%s`, or `power`", es_vars, deparse(substitute(n), n = 1))
-  } else {
-    parms <- sprintf("one of the parameters `%s` or `power`", deparse(substitute(n), n = 1))
-  }
+  es <- unlist(es)[1] # works for vectors too (then unlist has no effect)
 
-  if (sum(check.not_null(n, power, es)) != 2)
+  if (sum(check.not_null(n, power, es)) != 2) {
+    parms <- ifelse(is.null(es) || !is.na(es),
+                    sprintf("two of the parameters `%s`, `%s`, or `power`", es_vars, deparse(substitute(n), n = 1)),
+                    sprintf("one of the parameters `%s` or `power`", deparse(substitute(n), n = 1)))
     stop(sprintf("Exactly %s must be given, one has to be NULL.", parms), call. = FALSE)
+  }
 
   invisible(c("es", "n", "power")[check.null(es, n, power)]) # return what is requested / to be calculated
 

@@ -16,7 +16,7 @@
 #' @param prob01      (joint) probability of failure in case (or after) but
 #'                    success in matched control (or before). prob10' and
 #'                    'prob01' are known as discordant probs.
-#' @param req.sign    whether estimated prob is smaller or larger than the other 
+#' @param req.sign    whether estimated prob is smaller or larger than the other
 #'                    (when minimum detectable prob is of interest).
 #' @param n.paired    number of pairs, which is sum of cell frequencies in the
 #'                    2 x 2 table (f11 + f10 + f01 + f00), or number of rows in
@@ -35,9 +35,9 @@
 #'                    "two.sided" or "one.sided".
 #' @param ceil.n      logical; if \code{TRUE} rounds up sample size in each
 #'                    cell. This procedure assumes symmetry for concordant
-#'                    probs, which are 'p11' and 'p00'). Thus results may
+#'                    probs, which are `p11` and `p00`). Thus results may
 #'                    differ from other software by a few units. To match
-#'                    results set 'ceil.n = FALSE'.
+#'                    results set `ceil.n` to FALSE.
 #' @param verbose     \code{1} by default (returns test, hypotheses, and
 #'                    results), if \code{2} a more detailed output is given
 #'                    (plus key parameters and definitions), if \code{0} no
@@ -271,36 +271,36 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
 
       n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
-    } else if (requested == "es") { 
-      
+    } else if (requested == "es") {
+
       if (is.null(prob10)) {
-        
+
         prob10 <- stats::optimize(
           f = function(prob10) {
-            (power - pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired, 
-                               alpha = alpha, alternative = alternative))^2 
+            (power - pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired,
+                               alpha = alpha, alternative = alternative)) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),     prob01, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 1 - prob01, min(prob01, 1 - prob01)))$minimum
-        
+
       } else {
-      
+
         prob01 <- stats::optimize(
           f = function(prob01) {
-            (power - pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired, 
-                               alpha = alpha, alternative = alternative))^2 
+            (power - pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired,
+                               alpha = alpha, alternative = alternative)) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),     prob10, 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 1 - prob10, min(prob10, 1 - prob10)))$minimum
-        
+
       } # prob10 or prob01?
-      
+
       n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
-      
+
     } # effect size
-    
+
     # calculate power (if requested == "power") or update it (if requested == "n")
     power <- pwr.exact(prob10 = prob10, prob01 = prob01, n.paired = n.paired, alpha = alpha, alternative = alternative)
 
@@ -328,13 +328,13 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
 
       n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
 
-    } else if (requested == "es") { 
-      
+    } else if (requested == "es") {
+
       if (is.null(prob10)) {
-        
+
         prob10 <- stats::optimize(
           f = function(prob10) {
-            (power - pwr.approx(prob10 = prob10, prob01 = prob01, n.paired = n.paired, 
+            (power - pwr.approx(prob10 = prob10, prob01 = prob01, n.paired = n.paired,
                                 alpha = alpha, alternative = alternative)$power) ^ 2
           },
           maximum = FALSE,
@@ -342,20 +342,20 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
           upper = ifelse(check.pos_sign(req.sign), 1 - prob01, min(prob01, 1 - prob01)))$minimum
 
       } else {
-        
+
         prob01 <- stats::optimize(
           f = function(prob01) {
-            (power - pwr.approx(prob10 = prob10, prob01 = prob01, n.paired = n.paired, 
+            (power - pwr.approx(prob10 = prob10, prob01 = prob01, n.paired = n.paired,
                                 alpha = alpha, alternative = alternative)$power) ^ 2
           },
           maximum = FALSE,
           lower = ifelse(check.pos_sign(req.sign),     prob10,                 0.0001),
           upper = ifelse(check.pos_sign(req.sign), 1 - prob10, min(prob10, 1 - prob10)))$minimum
-        
+
       } # prob10 or prob01?
-      
+
       n.discordant <- ifelse(ceil.n, sum(ceiling(n.paired * c(prob10, prob01))), sum(n.paired * c(prob10, prob01)))
-      
+
     } # effect size
 
     # calculate power (if requested == "power") or update it (if requested == "n")
@@ -454,8 +454,8 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
 
   invisible(structure(list(parms = func.parms,
                            test = ifelse(method == "exact", "exact", "z"),
-                           prob01 = prob01,
                            prob10 = prob10,
+                           prob01 = prob01,
                            delta = prob10 - prob01,
                            odds.ratio = prob10 / prob01,
                            size = n.discordant,

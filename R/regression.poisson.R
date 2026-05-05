@@ -146,7 +146,7 @@
 #'                 dist = dist.x)
 #'
 #' @export power.z.poisson
-power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, beta1 = NULL, req.sign = NULL,
+power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, beta1 = NULL, req.sign = "+",
                             n = NULL, power = NULL, r.squared.predictor = 0, mean.exposure = 1, alpha = 0.05,
                             alternative = c("two.sided", "one.sided"),
                             method = c("demidenko(vc)", "demidenko", "signorini"),
@@ -163,7 +163,6 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
   check.proportion(alpha)
   check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
-  requested <- get.requested(es = list(beta1, rate.ratio), n = n, power = power)
 
   if (all(check.not_null(base.rate, rate.ratio))) {
     if (any(check.not_null(beta0, beta1)) && verbose >= 0)
@@ -171,14 +170,13 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
     check.nonnegative(base.rate, rate.ratio)
     beta0 <- log(base.rate)
     beta1 <- log(rate.ratio)
-    if (beta0 == beta1) stop("`beta0` can not have the same value as `beta1`.", call. = FALSE)
   } else if (all(check.not_null(beta0, beta1))) {
     if (any(check.not_null(base.rate, rate.ratio)) && verbose >= 0)
       message("Using `beta0` and `beta1`, ignoring any specifications to `base.rate` or `rate.ratio`.")
     check.numeric(beta0, beta1)
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
-  } else if (requested == "es" && check.not_null(base.rate)) { # calculate effect size
+  } else if (all(check.not_null(base.rate, n, power))) { # calculate effect size
     check.nonnegative(base.rate)
     if (any(check.not_null(rate.ratio, beta0, beta1)) && verbose >= 0)
       message("Calculating the effect size (`rate.ratio`), ignoring any specifications to `rate.ratio`, `beta0` or `beta1`.")
@@ -189,8 +187,10 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
                "(the latter calculates `odds.ratio` as effect size)."), call. = FALSE)
   }
 
-  if (!is.null(beta1) && beta0 == beta1) stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
-  if (base.rate == rate.ratio) stop("`base.rate` can not have the same value as `rate.ratio`.", call. = FALSE)
+  if (!is.null(beta1) && beta0 == beta1)
+    stop("`beta0` / `base.rate` can not have the same value as `beta1` / `rate.ratio`.", call. = FALSE)
+
+  requested <- get.requested(es = list(base.rate, rate.ratio), n = n, power = power)
 
   if (is.character(distribution) && length(distribution) == 1) {
     distribution <- switch(tolower(distribution),
@@ -325,7 +325,7 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
 
     }
 
-    list(var.beta0 = var.beta0, var.beta1 = var.beta1, 
+    list(var.beta0 = var.beta0, var.beta1 = var.beta1,
          distribution = tolower(distribution$dist),
          min = min.thresh, max = max.thresh)
 
@@ -354,17 +354,13 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
     # Demidenko, E. (2007). Sample size determination for logistic regression revisited. Statistics in Medicine, 26, 3385-3397.
     if (method == "signorini") {
       if (tolower(distribution$dist) == "normal") {
-        mean <- distribution$mean
-        sd <- distribution$sd
-        var.beta0 <- 1 / sd^2
-        var.beta1 <- exp(-(beta1 * mean + beta1^2 * sd^2 / 2)) / sd^2 
+        var.beta0 <- 1 / distribution$sd ^ 2
+        var.beta1 <- exp(-(beta1 * distribution$mean + beta1 ^ 2 * distribution$sd ^ 2 / 2)) / distribution$sd ^ 2
         ncp <- beta1 / sqrt(var.beta0 / (n * (1 - r.squared.predictor) * mean.exposure))
         sd.ncp <- sqrt(var.beta1 / var.beta0)
       } else if (tolower(distribution$dist) %in% c("binomial", "bernoulli")) {
-        ifelse(tolower(distribution$dist) == "bernoulli", size <- 1, size <- distribution$size)
-        prob <- distribution$prob
-        var.beta0 <- 1 / (prob * (1 - prob))
-        var.beta1 <- 1 / (1 - prob) + 1 / (prob * exp(beta1))
+        var.beta0 <- 1 / (distribution$prob * (1 - distribution$prob))
+        var.beta1 <- 1 / (1 - distribution$prob) + 1 / (distribution$prob * exp(beta1))
         ncp <- beta1 * sqrt(exp(beta0) * n * (1 - r.squared.predictor) * mean.exposure / var.beta0)
         sd.ncp <- sqrt(var.beta1 / var.beta0)
       } else {
@@ -395,21 +391,21 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
     n <- stats::uniroot(function(n) min.pwr(beta1, n, power), interval = c(2, 1e10))$root
 
     if (ceil.n) n <- ceiling(n)
- 
+
   } else if (requested == "es") {
-    
+
     var.obj <- var.beta(beta0 = beta0, beta1 = beta0, distribution = distribution)
     bound.values <- c((log(min(1e-6)) - log(mean.exposure) - beta0) / c(var.obj$min, var.obj$max),
                       (log(max(1e10)) - log(mean.exposure) - beta0) / c(var.obj$min, var.obj$max))
     val.rng <- c(min(bound.values), 0, max(bound.values))[ifelse(check.pos_sign(req.sign), -1, -3)]
 
     beta1 <-  try(stats::uniroot(function(beta1) min.pwr(beta1, n, power), interval = val.rng)$root)
-    if (inherits(beta1, "try-error")) 
-      stop(sprintf("Design is not feasible. Try `req.sign` = '%s'", ifelse(check.pos_sign(req.sign), '-', '+')), call. = FALSE)
-    
+    if (inherits(beta1, "try-error"))
+      stop(sprintf("Design is not feasible. Try `req.sign` = \"%s\"", ifelse(check.pos_sign(req.sign), "-", "+")), call. = FALSE)
+
     base.rate <- exp(beta0)
     rate.ratio <- exp(beta1)
-    
+
   } # calculate sample size or effect size
 
   # calculate power (if requested == "power") or update it (if requested == "n" / "es")

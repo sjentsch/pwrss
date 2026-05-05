@@ -228,28 +228,28 @@
     .paint.t.dist(ncp = null.ncp, df = df, xlim = c(t.alpha[2], max(xlim)), type = 1)
 
     .paint.t.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], t.alpha[2]), type = 2)
-    
+
     # type S region
-    if(ncp > null.ncp) {
+    if (ncp > null.ncp) {
       .paint.t.dist(ncp = ncp, df = df, xlim = c(min(t.alpha), min(xlim)), type = 1)
     } else {
       .paint.t.dist(ncp = ncp, df = df, xlim = c(max(t.alpha), max(xlim)), type = 1)
     }
-    
+
     # type S
-    Phi.p <- pt(q = max(t.alpha), df = df, ncp = ncp)  
-    Phi.m <- pt(q = min(t.alpha), df = df, ncp = ncp)  
+    Phi.p <- pt(q = max(t.alpha), df = df, ncp = ncp)
+    Phi.m <- pt(q = min(t.alpha), df = df, ncp = ncp)
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
     type.s <- round(type.s, digits)
 
     # type M
-    type.m <- suppressWarnings({ 
-      bounds <- qt(c(1e-10, 1 - 1e-10), df = df, ncp = ncp)     
+    type.m <- suppressWarnings({
+      bounds <- qt(c(1e-10, 1 - 1e-10), df = df, ncp = ncp)
       integrand <- function(t) abs(t) * dt(t, df = df, ncp = ncp)
       numerator <- integrate(integrand, min(bounds), min(t.alpha))$value +
         integrate(integrand, max(t.alpha), max(bounds))$value
       denominator  <- abs(ncp) * (pt(min(t.alpha), df = df, ncp = ncp) + pt(max(t.alpha), df = df, ncp = ncp, lower.tail = FALSE))
-      numerator / denominator 
+      numerator / denominator
     })
     type.m <- round(type.m, digits)
 
@@ -292,7 +292,7 @@
   beta <- round(1 - power, digits)
   power <- round(power, digits)
 
-  if(alternative == "two.sided") {
+  if (alternative == "two.sided") {
     graphics::legend("topright", cex = cex.legend,
                      c(as.expression(bquote(Power == .(power))),
                        as.expression(bquote(alpha == .(alpha))),

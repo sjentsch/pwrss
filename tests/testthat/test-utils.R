@@ -196,18 +196,23 @@ test_that("probs.to.h works", {
 test_that("joint.probs.2x2 works", {
     expect_equal(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414, verbose = 0),
                  list(parms = list(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414, verbose = 0),
+                      rho.min = -1, rho.max = 0.9607843,
                       prob11 = 0.353393936, prob10 = 0.156606064, prob01 = 0.136606064, prob00 = 0.353393936))
     expect_equal(joint.probs.2x2(prob1 = 0.55, prob2 = 0.45, rho = 0.4141414, verbose = 0),
                  list(parms = list(prob1 = 0.55, prob2 = 0.45, rho = 0.4141414, verbose = 0),
+                      rho.min = -1, rho.max = 0.818181818,
                       prob11 = 0.35, prob10 = 0.200000004, prob01 = 0.100000003, prob00 = 0.35))
     expect_equal(joint.probs.2x2(prob1 = 0.60, prob2 = 0.40, rho = 0.4141414, verbose = 0),
                  list(parms = list(prob1 = 0.60, prob2 = 0.40, rho = 0.4141414, verbose = 0),
+                      rho.min = -1, rho.max = 2 / 3,
                       prob11 = 0.339393936, prob10 = 0.260606064, prob01 = 0.060606064, prob00 = 0.339393936))
     expect_equal(joint.probs.2x2(prob1 = 2 / 3, prob2 = 1 / 3, rho = 0.4141414, verbose = 0),
                  list(parms = list(prob1 = 2 / 3, prob2 = 1 / 3, rho = 0.4141414, verbose = 0),
+                      rho.min = -1, rho.max = 0.5,
                       prob11 = 0.314253644, prob10 = 0.352413022, prob01 = 0.019079689, prob00 = 0.314253644))
     expect_equal(joint.probs.2x2(prob1 = 0.90, prob2 = 0.10, rho = 0.1, verbose = 0),
                  list(parms = list(prob1 = 0.90, prob2 = 0.10, rho = 0.1, verbose = 0),
+                      rho.min = -1, rho.max = 1 / 9,
                       prob11 = 0.0990, prob10 = 0.8010, prob01 = 0.0010, prob00 = 0.0990))
     expect_equal(capture.output(joint.probs.2x2(prob1 = 0.51, prob2 = 0.49, rho = 0.4141414)),
                  c("   rho.min    rho.max     prob11     prob10     prob01     prob00 ",
