@@ -32,7 +32,7 @@ power.z.poisson(
   rate.ratio = NULL,
   beta0 = NULL,
   beta1 = NULL,
-  req.sign = NULL,
+  req.sign = "+",
   n = NULL,
   power = NULL,
   r.squared.predictor = 0,

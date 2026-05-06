@@ -17,17 +17,17 @@ library(pwrss)
 
 If you find the package and related material useful please cite as:
 
-Bulus, M., & Jentschke, S. (2025). pwrss: Statistical Power and Sample
-Size Calculation Tools. R package version 1.0.0.
+Bulus, M., & Jentschke, S. (2026). pwrss: Statistical Power and Sample
+Size Calculation Tools. R package version 1.2.0.
 <https://doi.org/10.32614/CRAN.package.pwrss>
 
 **Acknowledgments**
 
 This open-source project has benefited from users who have taken the
-time to report typos and identify bugs. I would like to acknowledge
+time to report typos and identify bugs. We would like to acknowledge
 those who have helped improve the accuracy and quality of the project by
-reporting these issues. If I have missed anyone who has provided similar
-feedback, please let me know.
+reporting these issues. If we have missed anyone who has provided
+similar feedback, please let me know.
 
 Error reports from (alphabetic order):  
 Adrian Olszewski (bug report); Catherine (Kate) Crespi (bug report);
@@ -920,6 +920,7 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = -0.200 (vs. null.d = 0)
 #>   Sample Size          = 310 and 310  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -973,6 +974,7 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 518 and 259  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1025,6 +1027,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 412 and 412  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1086,6 +1089,7 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 199 and 199  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1118,6 +1122,7 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 238 and 119  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1149,6 +1154,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 208 and 208  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1206,6 +1212,7 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 552 and 552  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1238,6 +1245,7 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 662 and 331  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1269,6 +1277,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 578 and 578  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1321,6 +1330,7 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 1714 and 1714  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1355,6 +1365,7 @@ power.t.welch(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 2056 and 1028  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1388,6 +1399,7 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 1795 and 1795  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1443,6 +1455,7 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 700 and 700  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1477,6 +1490,7 @@ power.t.welch(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 842 and 421  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1510,6 +1524,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 733 and 733  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1578,6 +1593,7 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 199  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.198
@@ -1635,6 +1651,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 208  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -1700,6 +1717,7 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 619  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1734,6 +1752,7 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 648  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1804,6 +1823,7 @@ power.t.student(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 627  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1838,6 +1858,7 @@ power.np.wilcoxon(d = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.200 (vs. null.d = 0)
 #>   Sample Size          = 657  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1908,6 +1929,7 @@ power.t.student(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 858  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -1944,6 +1966,7 @@ power.np.wilcoxon(d = 0,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 898  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -2004,6 +2027,7 @@ power.t.student(d = -0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = -0.200 (vs. null.d = 0)
 #>   Sample Size          = 797  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -2040,6 +2064,7 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = -0.200 (vs. null.d = 0)
 #>   Sample Size          = 370  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -2105,6 +2130,7 @@ power.t.student(d = 0.40,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.400 (vs. null.d = 0)
 #>   Sample Size          = 52  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.192
@@ -2157,6 +2183,7 @@ power.np.wilcoxon(d = -0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = -0.200 (vs. null.d = 0)
 #>   Sample Size          = 208  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -2205,6 +2232,7 @@ power.t.student(d = 0.40,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.400 (vs. null.d = 0)
 #>   Sample Size          = 72  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -2235,6 +2263,7 @@ power.np.wilcoxon(d = 0.40,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.400 (vs. null.d = 0)
 #>   Sample Size          = 76  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
@@ -2293,6 +2322,7 @@ power.t.student(d = d,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 14  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.174
@@ -2325,6 +2355,7 @@ power.np.wilcoxon(d = d,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0 (vs. null.d = 0)
 #>   Sample Size          = 14  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
@@ -2383,6 +2414,7 @@ power.t.student(d = d,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 1.250 (vs. null.d = 0)
 #>   Sample Size          = 74  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.198
@@ -2415,6 +2447,7 @@ power.np.wilcoxon(d = d,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 1.250 (vs. null.d = 0)
 #>   Sample Size          = 78  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
@@ -2738,6 +2771,7 @@ power.t.student(d = 0.2013579, power = 0.80)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.201 (vs. null.d = 0)
 #>   Sample Size          = 389 and 389  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.199
@@ -3282,6 +3316,97 @@ power.z.twoprops(prob1 = 0.50,
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
 #>   Statistical Power    = 0.804
+#> $parms
+#> $parms$prob10
+#> [1] 0.1775255
+#> 
+#> $parms$prob01
+#> [1] 0.07752551
+#> 
+#> $parms$req.sign
+#> [1] "+"
+#> 
+#> $parms$n.paired
+#> NULL
+#> 
+#> $parms$power
+#> [1] 0.8
+#> 
+#> $parms$alpha
+#> [1] 0.05
+#> 
+#> $parms$alternative
+#> [1] "two.sided"
+#> 
+#> $parms$method
+#> [1] "approximate"
+#> 
+#> $parms$ceil.n
+#> [1] TRUE
+#> 
+#> $parms$verbose
+#> [1] 1
+#> 
+#> $parms$utf
+#> [1] FALSE
+#> 
+#> 
+#> $test
+#> [1] "z"
+#> 
+#> $prob10
+#> [1] 0.1775255
+#> 
+#> $prob01
+#> [1] 0.07752551
+#> 
+#> $delta
+#> [1] 0.1
+#> 
+#> $odds.ratio
+#> [1] 2.289898
+#> 
+#> $size
+#> [1] 52
+#> 
+#> $prob
+#> [1] 0.6960392
+#> 
+#> $null.prob
+#> [1] 0.5
+#> 
+#> $binom.alpha
+#> [1] 18 33
+#> 
+#> $mean
+#> [1] 2.817254
+#> 
+#> $sd
+#> [1] 1
+#> 
+#> $null.mean
+#> [1] 0
+#> 
+#> $null.sd
+#> [1] 1
+#> 
+#> $z.alpha
+#> [1] -1.959964  1.959964
+#> 
+#> $alpha
+#> [1] 0.05
+#> 
+#> $power
+#> [1] 0.8043578
+#> 
+#> $n.paired
+#> [1] 200
+#> 
+#> $prob1
+#> [1] 0.5
+#> 
+#> $prob2
+#> [1] 0.4
 ```
 
 **Report**: We conducted a power analysis to estimate the minimum
@@ -3457,6 +3582,7 @@ power.t.student(d = 0.1023972, power = 0.80)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.102 (vs. null.d = 0)
 #>   Sample Size          = 1499 and 1499  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -3543,6 +3669,7 @@ power.t.student(d = 0.1003353,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (d)      = 0.100 (vs. null.d = 0)
 #>   Sample Size          = 1229 and 1229  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -3814,10 +3941,11 @@ power.f.regression(r.squared = 0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 103  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (R-squared) = 0.100
+#>   Sample Size             = 103  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.196
+#>   Statistical Power       = 0.804
 ```
 
 **Report**: We conducted a power analysis to determine the minimum
@@ -3859,10 +3987,11 @@ power.f.regression(r.squared = 0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 612  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.100
+#>   Sample Size             = 612  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
 **Report**: We conducted a power analysis to determine the minimum
@@ -3912,10 +4041,11 @@ power.f.regression(r.squared.change = 0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 90  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (R-squared) = 0.100
+#>   Sample Size             = 90  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.199
+#>   Statistical Power       = 0.801
 ```
 
 **Report**: We conducted a power analysis to determine the minimum
@@ -3964,10 +4094,11 @@ power.f.regression(r.squared.change = 0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 606  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (R-squared) = 0.100
+#>   Sample Size             = 606  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.199
+#>   Statistical Power       = 0.801
 ```
 
 **Report**: We conducted a power analysis to determine the minimum
@@ -4026,10 +4157,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 140  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 140  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.198
+#>   Statistical Power       = 0.802
 ```
 
 ### Unstandardized Input
@@ -4065,10 +4197,11 @@ power.t.regression(beta = 0.60,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 140  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 140  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.198
+#>   Statistical Power       = 0.802
 ```
 
 If the main predictor is binary (e.g. treatment / control), the
@@ -4107,10 +4240,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 552  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 552  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
 ### Non-inferiority
@@ -4156,10 +4290,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 770  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 770  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
 ### Superiority
@@ -4205,10 +4340,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 6934  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 6934  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
 ### Equivalence
@@ -4250,10 +4386,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 9593  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 9593  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
 ### Minimum Effect
@@ -4293,10 +4430,11 @@ power.t.regression(beta = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 981  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (R-squared) = 0.300
+#>   Sample Size             = 981  <<
+#>   Type 1 Error (alpha)    = 0.050
+#>   Type 2 Error (beta)     = 0.200
+#>   Statistical Power       = 0.800
 ```
 
   
@@ -5158,7 +5296,7 @@ power.f.ancova(eta.squared = 0.059,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Variance (F-Test)
+#> One-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5169,10 +5307,11 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.197
+#>   Statistical Power         = 0.803
 ```
 
 ### Two-way
@@ -5192,7 +5331,7 @@ power.f.ancova(eta.squared = 0.03,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Variance (F-Test)
+#> Two-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5203,10 +5342,11 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 256  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (eta.squared) = 0.030
+#>   Total Sample Size         = 256  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.200
+#>   Statistical Power         = 0.800
 ```
 
 ### Three-way
@@ -5227,7 +5367,7 @@ power.f.ancova(eta.squared = 0.02,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Three-way Analysis of Variance (F-Test)
+#> Three-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5238,10 +5378,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 480  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 480  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.196
+#>   Statistical Power         = 0.804
 ```
 
 ### Practical Effects
@@ -5263,7 +5404,7 @@ power.f.ancova(eta.squared = 0.02,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Three-way Analysis of Variance (F-Test)
+#> Three-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5274,10 +5415,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 3516  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 3516  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ## Means and SDs as Input
@@ -5299,7 +5441,7 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # vector of means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Variance (F-Test)
+#> One-Way Analysis of Variance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5310,10 +5452,11 @@ power.f.ancova.keppel(mu.vector = c(0.50, 0), # vector of means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 NOTE: Keppel procedure allows only one-way ANOVA.
@@ -5376,10 +5519,11 @@ power.f.mixed.anova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 128  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (eta.squared) = 0.059
+#>   Total Sample Size         = 128  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.197
+#>   Statistical Power         = 0.803
 ```
 
 ## Time Effect (Within)
@@ -5416,10 +5560,11 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 90  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (eta.squared) = 0.022
+#>   Total Sample Size         = 90  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.196
+#>   Statistical Power         = 0.804
 ```
 
 ## Group x Time Interaction
@@ -5457,10 +5602,11 @@ power.f.mixed.anova(eta.squared = 0.038,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 152  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.197
-#>   Statistical Power    = 0.803
+#>   Effect Size (eta.squared) = 0.038
+#>   Total Sample Size         = 152  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.197
+#>   Statistical Power         = 0.803
 ```
 
 A researcher is expecting a difference of Cohen’s *d* = 0.30 between
@@ -5493,10 +5639,11 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 90  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (eta.squared) = 0.022
+#>   Total Sample Size         = 90  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.196
+#>   Statistical Power         = 0.804
 ```
 
 The rationale for inspecting the interaction is that the benefit of the
@@ -5531,10 +5678,11 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 198  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.196
-#>   Statistical Power    = 0.804
+#>   Effect Size (eta.squared) = 0.010
+#>   Total Sample Size         = 198  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.196
+#>   Statistical Power         = 0.804
 ```
 
 ## Adjusted Eta-squared
@@ -5566,10 +5714,11 @@ power.f.mixed.anova(eta.squared = 0.05,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 152  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (eta.squared) = 0.050
+#>   Total Sample Size         = 152  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.198
+#>   Statistical Power         = 0.802
 ```
 
 ## Practical Effects
@@ -5604,10 +5753,11 @@ power.f.mixed.anova(eta.squared = 0.05,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 380  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.050
+#>   Total Sample Size         = 380  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
   
@@ -5637,7 +5787,7 @@ power.f.ancova(eta.squared = 0.048,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5648,10 +5798,11 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 158  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 158  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 `k.covariates` argument has trivial effect on the results. The
@@ -5675,7 +5826,7 @@ power.f.ancova(eta.squared = 0.02,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Covariance (F-Test)
+#> Two-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5686,10 +5837,11 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 388  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 388  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ### Three-way
@@ -5710,7 +5862,7 @@ power.f.ancova(eta.squared = 0.01,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Three-way Analysis of Covariance (F-Test)
+#> Three-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5721,10 +5873,11 @@ power.f.ancova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 960  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.010
+#>   Total Sample Size         = 960  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ### Practical Effects
@@ -5747,7 +5900,7 @@ power.f.ancova(eta.squared = 0.048,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5758,10 +5911,11 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 410  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 410  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 ```
 
 ## Means and SDs as Input
@@ -5787,7 +5941,7 @@ power.f.ancova.keppel(mu.vector = c(0.318, 0), # vector of adjusted means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5798,10 +5952,11 @@ power.f.ancova.keppel(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 158  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 158  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.198
+#>   Statistical Power         = 0.802
 ```
 
 NOTE: Keppel procedure allows only one-way ANOVA.
@@ -5829,7 +5984,7 @@ power.f.ancova.shieh(mu.vector = c(0.318, 0), # vector of adjusted means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5840,10 +5995,11 @@ power.f.ancova.shieh(mu.vector = c(0.318, 0), # vector of adjusted means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 160  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.195
-#>   Statistical Power    = 0.805
+#>   Effect Size (eta.squared) = 0.048
+#>   Total Sample Size         = 160  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.195
+#>   Statistical Power         = 0.805
 ```
 
 ### Two-way
@@ -5870,7 +6026,7 @@ power.f.ancova.shieh(mu.vector = c(0.30, 0.09, 0.05, 0.245), # vector of adjuste
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> Two-way Analysis of Covariance (F-Test)
+#> Two-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5881,10 +6037,11 @@ power.f.ancova.shieh(mu.vector = c(0.30, 0.09, 0.05, 0.245), # vector of adjuste
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 388  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.198
-#>   Statistical Power    = 0.802
+#>   Effect Size (eta.squared) = 0.020
+#>   Total Sample Size         = 388  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.198
+#>   Statistical Power         = 0.802
 ```
 
 # Planned Contrasts (T-Test)
@@ -5917,7 +6074,7 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5928,10 +6085,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of planned contrasts, adjusted for alpha level
 power.t.contrasts(design, adjust.alpha = "fdr")
@@ -5981,7 +6139,7 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -5992,10 +6150,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of planned contrasts
 power.t.contrasts(design)
@@ -6045,7 +6204,7 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -6056,10 +6215,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of the planned contrasts
 power.t.contrasts(design)
@@ -6108,7 +6268,7 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-way Analysis of Covariance (F-Test)
+#> One-Way Analysis of Covariance (F-Test)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -6119,10 +6279,11 @@ design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Total Sample Size    = 1245  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (eta.squared) = 0.008
+#>   Total Sample Size         = 1245  <<
+#>   Type 1 Error (alpha)      = 0.050
+#>   Type 2 Error (beta)       = 0.199
+#>   Statistical Power         = 0.801
 
 # power of the planned contrasts
 power.t.contrasts(design)
@@ -6194,6 +6355,7 @@ power.chisq.gof(w = 0.44,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.440
 #>   Sample Size          = 41  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.196
@@ -6247,6 +6409,7 @@ power.chisq.gof(w = 0.1302134,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.130
 #>   Sample Size          = 463  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200
@@ -6300,6 +6463,7 @@ power.chisq.gof(w = 0.03022008,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (w)      = 0.030
 #>   Sample Size          = 13069  <<
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.200

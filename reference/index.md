@@ -25,8 +25,6 @@
 - [`marginal.probs.2x2()`](https://metinbulus.github.io/pwrss/reference/marginal.probs.2x2.md)
   : Helper function to converts marginal probabilities to joint
   probabilities for the McNemar test applied to paired binary data.
-- [`mean(`*`<z.test>`*`)`](https://metinbulus.github.io/pwrss/reference/mean.z.test.md)
-  : Finds the Mean (Non-centrality Parameter) for the Generic z-Test
 - [`means.to.d()`](https://metinbulus.github.io/pwrss/reference/means.to.d.md)
   : Conversion from Means and Standard Deviations to Cohen's d
 - [`means.to.etasq()`](https://metinbulus.github.io/pwrss/reference/means.to.etasq.md)
@@ -41,6 +39,8 @@
   Distribution
 - [`ncp.t.test()`](https://metinbulus.github.io/pwrss/reference/ncp.t.test.md)
   : Find Non-Centrality Parameter for the Generic t-Test
+- [`ncp.z.test()`](https://metinbulus.github.io/pwrss/reference/ncp.z.test.md)
+  : Finds the Non-centrality Parameter (Mean) for the Generic z-Test
 - [`power.binom.test()`](https://metinbulus.github.io/pwrss/reference/power.binom.test.md)
   : Power Analysis for the Generic Binomial Test
 - [`power.chisq.gof()`](https://metinbulus.github.io/pwrss/reference/power.chisq.gof.md)
