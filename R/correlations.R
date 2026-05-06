@@ -19,7 +19,7 @@ rho.limits <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
 
     i <- 1
     if (is.null(rho12)) {
-      cor.mat[1, 3] <- cor.mat[3, 1] <- rho13  
+      cor.mat[1, 3] <- cor.mat[3, 1] <- rho13
       j <- 2
     } else if (is.null(rho13)) {
       cor.mat[1, 2] <- cor.mat[2, 1] <- rho12
@@ -42,7 +42,7 @@ rho.limits <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
       i <- 3
       j <- 4
     }
-  
+
   }
 
   fill.mat <- function(rho) {
@@ -68,14 +68,14 @@ rho.limits <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
       idx <- which(diff(eigs >= -tol) == 1)   # transitions FALSE -> TRUE
       if (length(idx) == 0) return(min(feasible))
       tryCatch(
-        uniroot(min.eig, interval = c(grid[idx[1]], grid[idx[1] + 1]))$root,
+        stats::uniroot(min.eig, interval = c(grid[idx[1]], grid[idx[1] + 1]))$root,
         error = function(e) min(feasible)
       )
     } else {
       idx <- which(diff(eigs >= -tol) == -1)   # transitions TRUE -> FALSE
       if (length(idx) == 0) return(max(feasible))
       tryCatch(
-        uniroot(min.eig, interval = c(grid[idx[length(idx)]], grid[idx[length(idx)] + 1]))$root,
+        stats::uniroot(min.eig, interval = c(grid[idx[length(idx)]], grid[idx[length(idx)] + 1]))$root,
         error = function(e) max(feasible)
       )
     }
@@ -376,7 +376,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
     pwr.obj
 
   } # pwr.steiger()
-  
+
   min.pwr.steiger <- function(rho12 = NULL, rho13 = NULL, rho34 = NULL, n = NULL) {
 
     power - pwr.steiger(rho12 = rho12, rho13 = rho13, rho23 = rho23, rho14 = rho14, rho24 = rho24, rho34 = rho34,
@@ -1162,17 +1162,17 @@ power.exact.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0,
     target <- function(crit) {
       FR.exact(-crit, rho = 0, n = n) + (1 - FR.exact(crit, rho = 0, n = n)) - alpha
     }
-    uniroot(target, lower = 1e-10, upper = 1 - 1e-10)$root
+    stats::uniroot(target, lower = 1e-10, upper = 1 - 1e-10)$root
   }
 
   crit.r.one.sided.upper <- function(n, alpha = 0.05) {
     target <- function(crit) (1 - FR.exact(crit, rho = 0, n = n)) - alpha
-    uniroot(target, lower = 1e-10, upper = 1 - 1e-10)$root
+    stats::uniroot(target, lower = 1e-10, upper = 1 - 1e-10)$root
   }
 
   crit.r.one.sided.lower <- function(n, alpha = 0.05) {
     target <- function(crit) FR.exact(crit, rho = 0, n = n) - alpha
-    uniroot(target, lower = -1 + 1e-10, upper = -1e-10)$root
+    stats::uniroot(target, lower = -1 + 1e-10, upper = -1e-10)$root
   }
 
   # power

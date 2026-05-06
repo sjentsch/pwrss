@@ -93,21 +93,21 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     z.alpha <- c(stats::qnorm(alpha / 2,  mean = null.mean,      sd = null.sd, lower.tail = TRUE),
                  stats::qnorm(alpha / 2,  mean = null.mean,      sd = null.sd, lower.tail = FALSE))
     power   <-   stats::pnorm(z.alpha[1], mean = mean,           sd = sd,      lower.tail = TRUE) +
-      stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
+                 stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
 
     # z.alpha.s <- qnorm(p = 1 - alpha / 2, mean = null.mean, sd = null.sd)
-    # type.s <- pnorm(q = -z.alpha.s, mean = mean, sd = sd) /
-    #  (pnorm(q = -z.alpha.s, mean = mean, sd = sd) +
-    #     (1 - pnorm(q = z.alpha.s, mean = mean, sd = sd)))
+    # type.s <- stats::pnorm(q = -z.alpha.s, mean = mean, sd = sd) /
+    #  (stats::pnorm(q = -z.alpha.s, mean = mean, sd = sd) +
+    #     (1 - stats::pnorm(q = z.alpha.s, mean = mean, sd = sd)))
 
-    Phi.p <- pnorm(q = max(z.alpha), mean = mean, sd = sd)
-    Phi.m <- pnorm(q = min(z.alpha), mean = mean, sd = sd)
+    Phi.p <- stats::pnorm(q = max(z.alpha), mean = mean, sd = sd)
+    Phi.m <- stats::pnorm(q = min(z.alpha), mean = mean, sd = sd)
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
 
-    phi.p <- dnorm(x = max(z.alpha), mean = mean, sd = sd)
-    phi.m <- dnorm(x = min(z.alpha), mean = mean, sd = sd)
-    Phi.p <- pnorm(q = max(z.alpha), mean = mean, sd = sd)
-    Phi.m <- pnorm(q = min(z.alpha), mean = mean, sd = sd)
+    phi.p <- stats::dnorm(x = max(z.alpha), mean = mean, sd = sd)
+    phi.m <- stats::dnorm(x = min(z.alpha), mean = mean, sd = sd)
+    Phi.p <- stats::pnorm(q = max(z.alpha), mean = mean, sd = sd)
+    Phi.m <- stats::pnorm(q = min(z.alpha), mean = mean, sd = sd)
     type.m <- (sd ^ 2 * (phi.p + phi.m) + mean * (1 - Phi.p - Phi.m)) / (abs(mean) * (1 - Phi.p + Phi.m))
 
   } else if (alternative == "one.sided") {
@@ -135,7 +135,7 @@ power.z.test <- function(mean = NULL, sd = 1, null.mean = 0, null.sd = 1,
     z.alpha <- c(stats::qnorm(alpha / 2,  mean = min(null.mean), sd = null.sd, lower.tail = TRUE),
                  stats::qnorm(alpha / 2,  mean = max(null.mean), sd = null.sd, lower.tail = FALSE))
     power   <-   stats::pnorm(z.alpha[1], mean = mean,           sd = sd,      lower.tail = TRUE) +
-      stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
+                 stats::pnorm(z.alpha[2], mean = mean,           sd = sd,      lower.tail = FALSE)
 
     type.s <- NA
     type.m <- NA
@@ -176,13 +176,13 @@ power.z <- power.z.test
 
 
 
-#' Finds the Mean (Non-centrality Parameter) for the Generic z-Test
+#' Finds the Non-centrality Parameter (Mean) for the Generic z-Test
 #'
 #' @description
-#' Finds the mean (non-centrality parameter) for the generic z-Test with (optional) Type 1 and Type 2
-#' error plots.
+#' Finds the non-centrality parameter (mean) for the generic z-Test with
+#' (optional) Type 1 and Type 2 error plots.
 #'
-#' @aliases mean.z
+#' @aliases ncp.z
 #'
 #' @param power       statistical power \eqn{(1-\beta)}.
 #' @param mean        mean of the alternative.
@@ -231,32 +231,31 @@ power.z <- power.z.test
 #' # two-sided
 #' # power defined as the probability of observing test statistics greater than
 #' # the positive critical value OR less than the negative critical value
-#' mean.z.test(mean = NULL, alpha = 0.05, alternative = "two.sided")
+#' ncp.z.test(mean = NULL, alpha = 0.05, alternative = "two.sided")
 #'
 #' # one-sided
 #' # power is defined as the probability of observing a test statistic greater
 #' # than the critical value
-#' mean.z.test(mean = NULL, alpha = 0.05, alternative = "one.sided")
+#' ncp.z.test(mean = NULL, alpha = 0.05, alternative = "one.sided")
 #'
 #' # equivalence
 #' # power is defined as the probability of observing a test statistic greater
 #' # than the upper critical value (for the lower bound) AND less than the
 #' # lower critical value (for the upper bound)
-#' mean.z.test(mean = NULL, null.mean = c(-2, 2), alpha = 0.05,
+#' ncp.z.test(mean = NULL, null.mean = c(-2, 2), alpha = 0.05,
 #'              alternative = "two.one.sided")
 #'
 #' # minimal effect testing
 #' # power is defined as the probability of observing a test statistic greater
 #' # than the upper critical value (for the upper bound) OR less than the lower
 #' # critical value (for the lower bound).
-#' mean.z.test(mean = NULL, null.mean = c(-1, 1), alpha = 0.05,
+#' ncp.z.test(mean = NULL, null.mean = c(-1, 1), alpha = 0.05,
 #'              alternative = "two.one.sided")
 #'
-#' @export mean.z.test
-mean.z.test <- function(power = 0.80, mean = NULL, req.sign = "+",
-                        sd = 1, null.mean = 0, null.sd = 1,
-                        alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
-                        plot = TRUE, verbose = 1, utf = FALSE) {
+#' @export ncp.z.test
+ncp.z.test <- function(power = 0.80, mean = NULL, req.sign = "+", sd = 1, null.mean = 0, null.sd = 1,
+                       alpha = 0.05, alternative = c("two.sided", "one.sided", "two.one.sided"),
+                       plot = TRUE, verbose = 1, utf = FALSE) {
 
   alternative <- tolower(match.arg(alternative))
   check.power(power)
@@ -286,6 +285,6 @@ mean.z.test <- function(power = 0.80, mean = NULL, req.sign = "+",
   power.z.test(mean = mean, sd = sd, null.mean = null.mean, null.sd = null.sd, alpha = alpha,
                alternative = alternative, plot = plot, verbose = verbose, utf = utf)
 
-} # mean.z.test
+} # ncp.z.test
 
-mean.z <- mean.z.test
+ncp.z <- ncp.z.test

@@ -125,7 +125,7 @@ ncp.chisq.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df = NULL,
 
     if (df < 1) stop("Degrees of freedom cannot be smaller than 1.", call. = FALSE)
 
-    max.thresh <- qchisq(1 - 1e-10, ncp = null.ncp, df = df)
+    max.thresh <- stats::qchisq(1 - 1e-10, ncp = null.ncp, df = df)
     while (power.chisq.test(ncp = max.thresh, null.ncp = null.ncp, df = df, alpha = alpha,
                             plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
       max.thresh <- max.thresh * 1.10

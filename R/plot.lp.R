@@ -247,8 +247,8 @@
     }
 
     # type S
-    Phi.p <- pt(q = max(t.alpha), df = df, ncp = ncp)
-    Phi.m <- pt(q = min(t.alpha), df = df, ncp = ncp)
+    Phi.p <- stats::pt(q = max(t.alpha), df = df, ncp = ncp)
+    Phi.m <- stats::pt(q = min(t.alpha), df = df, ncp = ncp)
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
     type.s <- round(type.s, digits)
 
@@ -256,9 +256,10 @@
     type.m <- suppressWarnings({
       bounds <- sadists::qlambdap(c(1e-10, 1 - 1e-10), df = df, t = ncp)
       integrand <- function(t) abs(t) * sadists::dlambdap(t, df = df, t = ncp)
-      numerator <- integrate(integrand, min(bounds), min(t.alpha))$value +
-        integrate(integrand, max(t.alpha), max(bounds))$value
-      denominator  <- abs(ncp) * (pt(min(t.alpha), df = df, ncp = ncp) + pt(max(t.alpha), df = df, ncp = ncp, lower.tail = FALSE))
+      numerator <- stats::integrate(integrand, min(bounds), min(t.alpha))$value +
+                   stats::integrate(integrand, max(t.alpha), max(bounds))$value
+      denominator  <- abs(ncp) * (stats::pt(min(t.alpha), df = df, ncp = ncp, lower.tail = TRUE) +
+                                  stats::pt(max(t.alpha), df = df, ncp = ncp, lower.tail = FALSE))
       numerator / denominator
     })
     type.m <- round(type.m, digits)

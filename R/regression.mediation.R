@@ -2,7 +2,8 @@
 # mediation z test #
 ####################
 # 'cp = 0' by default, implying complete mediation (it increases explanatory power of the covariate)
-# use `r.squared.mediator` and `r.squared.outcome` to adjust standard error for other predictors in mediation and outcome model
+# use `r.squared.mediator` and `r.squared.outcome` to adjust standard error for other predictors in
+# mediation and outcome model
 
 #' Power Analysis for Indirect Effects in a Mediation Model (Z, Joint, and
 #' Monte Carlo Tests)
@@ -186,8 +187,7 @@
 #' @export power.z.mediation
 power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.sign = "+", beta.cp = 0,
                                sd.predictor = 1, sd.mediator = 1, sd.outcome = 1,
-                               r.squared.mediator = NULL,
-                               r.squared.outcome = NULL,
+                               r.squared.mediator = NULL, r.squared.outcome = NULL,
                                n = NULL, power = NULL, alpha = 0.05,
                                alternative = c("two.sided", "one.sided"),
                                method = c("sobel", "aroian", "goodman", "joint", "monte.carlo"),
@@ -200,16 +200,16 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
 
   if (!is.null(beta.a)) check.numeric(beta.a)
   if (!is.null(beta.b)) check.numeric(beta.b)
-  if (!is.null(n)) check.sample.size(n)
-  if (!is.null(power)) check.proportion(power)
-
+  check.numeric(ab.ratio)
+  beta.cp <- ifelse(is.null(beta.cp), 0, beta.cp)
+  check.numeric(beta.cp)
+  check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
   if (!is.null(r.squared.mediator)) {
     check.proportion(r.squared.mediator)
     if (!is.null(beta.a))
       if (r.squared.mediator < beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2)
         warning("Specified `r.squared.mediator` is smaller than the base `r.squared.mediator`.", call. = FALSE)
   }
-
   if (!is.null(r.squared.outcome)) {
     check.proportion(r.squared.outcome)
     if (r.squared.outcome == 0 && "beta.cp" %in% names(match.call()))
@@ -218,32 +218,13 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
       if (r.squared.outcome < (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2)
         warning("Specified `r.squared.outcome` is smaller than the base `r.squared.outcome`.", call. = FALSE)
   }
-
-  check.numeric(beta.cp)
-  beta.cp <- ifelse(is.null(beta.cp), 0, beta.cp)
+  if (!is.null(n)) check.sample.size(n)
+  if (!is.null(power)) check.power(power)
   check.proportion(alpha)
   check.sample.size(n.simulation, n.draws)
-  check.nonnegative(sd.predictor, sd.mediator, sd.outcome)
   check.logical(ceil.n, utf)
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = list(beta.a, beta.b), n = n, power = power)
-
-  if (is.null(r.squared.mediator)) {
-    if (any(check.null(beta.a, sd.predictor, sd.mediator)))
-      stop(paste("If `r.squared.mediator` is not given as a parameter, neither of `beta.a`, `sd.predictor` or",
-                 "`sd.mediator` can be NULL"), call. = FALSE)
-    r.squared.mediator <- beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2
-  }
-
-  if (is.null(r.squared.outcome)) {
-    if (any(check.null(beta.b, beta.cp, sd.mediator, sd.predictor)))
-      stop(paste("If `r.squared.outcome` is not given as a parameter, neither of `beta.b`, `beta.cp`, `sd.mediator` or",
-                 "`sd.predictor` can be NULL"), call. = FALSE)
-    r.squared.outcome <- (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2)  / sd.outcome ^ 2
-  }
-
-  beta.cp <- ifelse(is.null(beta.cp), 0, beta.cp)
-  check.numeric(beta.cp)
 
   se.a <- function(sd.mediator, sd.predictor, r.squared.mediator, n) {
     var.beta.a <- (1 / n) * (sd.mediator ^ 2) * (1 - r.squared.mediator) / (sd.predictor ^ 2)
@@ -317,65 +298,33 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
     pwr.obj
 
   } # pwr()
+  
+  min.pwr <- function(beta.a, beta.b, n, power) {
 
-  ss.med <- function(beta.a, beta.b,
-                     sd.predictor, sd.mediator, sd.outcome,
-                     r.squared.mediator, r.squared.outcome,
-                     power, method = c("sobel", "aroian", "goodman")) {
+    if (is.null(r.squared.mediator)) r.squared.mediator <- beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2
+    if (is.null(r.squared.outcome))  r.squared.outcome  <- (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2
+    
+    power - pwr(beta.a = beta.a, beta.b = beta.b,
+                sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
+                r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
+                n = n, method = method)$power
 
-    method <- tolower(match.arg(method))
+  } # min.pwr (for uniroot and optimize)
 
-    if (method == "sobel") {
+  if (requested == "n") {
 
-      n <- stats::uniroot(function(n) {
-        se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,
-                          r.squared.outcome = r.squared.outcome,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        sobel.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2)
-        lambda.sobel <- (beta.a * beta.b) / sobel.se
-        power - power.z.test(mean = lambda.sobel, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = 0)$power
-      }, interval = c(10, 1e10))$root
-    } else if (method == "aroian") {
-      n <- stats::uniroot(function(n) {
-        se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,
-                          r.squared.outcome = r.squared.outcome,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        aroian.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2 + se.beta.a ^ 2 * se.beta.b ^ 2)
-        lambda.aroian <- (beta.a * beta.b) / aroian.se
-        power - power.z.test(mean = lambda.aroian, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = 0)$power
-      }, interval = c(10, 1e10))$root
-    } else if (method == "goodman") {
-      n <- stats::uniroot(function(n) {
-        se.beta.a <- se.a(sd.mediator = sd.mediator, sd.predictor = sd.predictor,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        se.beta.b <- se.b(sd.outcome = sd.outcome, sd.mediator = sd.mediator,
-                          r.squared.outcome = r.squared.outcome,
-                          r.squared.mediator = r.squared.mediator, n = n)
-        if (beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2 < se.beta.a ^ 2 * se.beta.b ^ 2) {
-          goodman.se <- 1
-        } else {
-          goodman.se <- sqrt(beta.a ^ 2 * se.beta.b ^ 2  + beta.b ^ 2 * se.beta.a ^ 2 - se.beta.a ^ 2 * se.beta.b ^ 2)
-        }
-        lambda.goodman <- (beta.a * beta.b) / goodman.se
-        power - power.z.test(mean = lambda.goodman, alpha = alpha, alternative = alternative,
-                             plot = FALSE, verbose = 0)$power
-      }, interval = c(10, 1e10))$root
-    }
+    if (method %in% c("joint", "monte.carlo"))
+      stop("Sample size calculation not supported by this method.", call. = FALSE)
 
-    n
+    n <- stats::uniroot(function(n) min.pwr(beta.a, beta.b, n, power), interval = c(10, 1e10))$root
 
-  } # ss.med()
+  } else if (requested == "es") {
 
-  es.med <- function(beta.a, beta.b, ab.ratio, beta.cp,
-                     sd.predictor, sd.mediator, sd.outcome,
-                     r.squared.mediator, r.squared.outcome,
-                     n, power, method) {
+    if (method %in% c("joint", "monte.carlo"))
+      stop("Minimum detectable effect calculation not supported by this method.", call. = FALSE)
+
+# ----------------------------------------------------------------------------------------------------------------------
+# was a separate function es.med before
 
     # lim.a <- sqrt(1 - r.squared.mediator) * (sd.mediator / sd.predictor)
     # lim.b <- sqrt(1 - r.squared.outcome) * (sd.outcome / sd.mediator)
@@ -387,7 +336,7 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
       if (check.pos_sign(req.sign)) {
         ifelse(sign(beta.b) == 1, bounds <- c(0, lim.a), bounds <- c(-lim.a, 0))
 
-        beta.a <-  try({
+        beta.a <- try({
           stats::optimize(f = function(beta.a) {
             if (is.null(r.squared.mediator)) r.squared.mediator <- beta.a ^ 2 * sd.predictor ^ 2 / sd.mediator ^ 2
             if (is.null(r.squared.outcome)) r.squared.outcome <- (beta.b ^ 2 * sd.mediator ^ 2 + beta.cp ^ 2 * sd.predictor ^ 2) / sd.outcome ^ 2
@@ -397,7 +346,6 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
                              n = n, method = method)$power) ^ 2
           }, interval = bounds, maximum = FALSE)$minimum
         })
-
         if (inherits(beta.a, "try-error"))
           stop("Design is not feasible. Try `req.sign` = '-'", call. = FALSE)
 
@@ -413,7 +361,6 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
                              n = n, method = method)$power) ^ 2
           }, interval = bounds, maximum = FALSE)$minimum
         })
-
         if (inherits(beta.a, "try-error"))
           stop("Design is not feasible. Try `req.sign` = '+'", call. = FALSE)
 
@@ -506,35 +453,9 @@ power.z.mediation  <- function(beta.a = NULL, beta.b = NULL, ab.ratio = 1, req.s
 
       } # req.sign: positive or negative
 
-
     } # beta.a and beta.b
 
-    list(beta.a = beta.a, beta.b = beta.b)
-
-  } # es.med()
-
-  if (requested == "n") {
-
-    if (method %in% c("joint", "monte.carlo"))
-      stop("Sample size calculation not supported by this method.", call. = FALSE)
-
-    n <- ss.med(beta.a = beta.a, beta.b = beta.b,
-                sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
-                power = power, method = method)
-
-  } else if (requested == "es") {
-
-    if (method %in% c("joint", "monte.carlo"))
-      stop("Minimum detectable effect calculation not supported by this method.", call. = FALSE)
-
-    es.obj <- es.med(beta.a = beta.a, beta.b = beta.b, ab.ratio = ab.ratio, beta.cp = beta.cp,
-                     sd.predictor = sd.predictor, sd.mediator = sd.mediator, sd.outcome = sd.outcome,
-                     r.squared.mediator = r.squared.mediator, r.squared.outcome = r.squared.outcome,
-                     n = n, power = power, method = method)
-
-    beta.a <- es.obj$beta.a
-    beta.b <- es.obj$beta.b
+# ----------------------------------------------------------------------------------------------------------------------
 
   } # sample size or effect size
 

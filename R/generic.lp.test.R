@@ -83,7 +83,8 @@ power.lp.test <- function(ncp, null.ncp = 0,
   check.logical(plot, utf)
   verbose <- ensure.verbose(verbose)
 
-  if (ncp > 35 || any(null.ncp > 35)) warning("Consider using a z-test. Lambda-prime distribution with large non-centrality parameter can be unreliable.", call. = FALSE)
+  if (ncp > 35 || any(null.ncp > 35))
+    warning("Consider using a z-test. Lambda-prime distribution with large non-centrality parameter can be unreliable.", call. = FALSE)
 
   # calculate statistical power
   if (alternative == "two.sided") {
@@ -91,20 +92,20 @@ power.lp.test <- function(ncp, null.ncp = 0,
       t.alpha <- sadists::qlambdap(p = alpha / 2, df = df, t = 0, lower.tail = FALSE)
       power <- 1 - sadists::plambdap(q = t.alpha, df = df, t = abs(ncp)) + sadists::plambdap(q = -t.alpha, df = df, t = abs(ncp))
 
-    # t.alpha.s <- qt(p = 1 - alpha / 2, df = df, ncp = null.ncp)
-    # type.s <- pt(q = -t.alpha.s, df = df, ncp = ncp) /
-    #  (pt(q = -t.alpha.s, df = df, ncp = ncp) +
-    #     (1 - pt(q = t.alpha.s, df = df, ncp = ncp)))
+    # t.alpha.s <- stats::qt(p = 1 - alpha / 2, df = df, ncp = null.ncp)
+    # type.s <- stats::pt(q = -t.alpha.s, df = df, ncp = ncp) /
+    #  (stats::pt(q = -t.alpha.s, df = df, ncp = ncp) +
+    #     (1 - stats::pt(q = t.alpha.s, df = df, ncp = ncp)))
 
-    Phi.p <- pt(q = max(t.alpha), df = df, ncp = ncp)
-    Phi.m <- pt(q = min(t.alpha), df = df, ncp = ncp)
+    Phi.p <- stats::pt(q = max(t.alpha), df = df, ncp = ncp)
+    Phi.m <- stats::pt(q = min(t.alpha), df = df, ncp = ncp)
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
 
     type.m <- suppressWarnings({
       bounds <- sadists::qlambdap(c(1e-10, 1 - 1e-10), df = df, t = ncp)
       integrand <- function(t) abs(t) * sadists::dlambdap(t, df = df, t = ncp)
-      numerator <- integrate(integrand, min(bounds), min(t.alpha))$value +
-        integrate(integrand, max(t.alpha), max(bounds))$value
+      numerator <- stats::integrate(integrand, min(bounds), min(t.alpha))$value +
+                   stats::integrate(integrand, max(t.alpha), max(bounds))$value
       denominator  <- abs(ncp) * (sadists::plambdap(min(t.alpha), df = df, t = ncp) +
                                   sadists::plambdap(max(t.alpha), df = df, t = ncp, lower.tail = FALSE))
       numerator / denominator

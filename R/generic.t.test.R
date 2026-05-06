@@ -91,13 +91,13 @@ power.t.test <- function(ncp, null.ncp = 0,
     power   <-   stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = TRUE) +
                  stats::pt(t.alpha[2], df = df, ncp = ncp,           lower.tail = FALSE)
 
-    # t.alpha.s <- qt(p = 1 - alpha / 2, df = df, ncp = null.ncp)
-    # type.s <- pt(q = -t.alpha.s, df = df, ncp = ncp) /
-    #  (pt(q = -t.alpha.s, df = df, ncp = ncp) +
-    #     (1 - pt(q = t.alpha.s, df = df, ncp = ncp)))
+    # t.alpha.s <- stats::qt(p = 1 - alpha / 2, df = df, ncp = null.ncp)
+    # type.s <- stats::pt(q = -t.alpha.s, df = df, ncp = ncp) /
+    #  (stats::pt(q = -t.alpha.s, df = df, ncp = ncp) +
+    #     (1 - stats::pt(q = t.alpha.s, df = df, ncp = ncp)))
 
-    Phi.p <- suppressWarnings(pt(q = max(t.alpha), df = df, ncp = ncp))
-    Phi.m <-                  pt(q = min(t.alpha), df = df, ncp = ncp)
+    Phi.p <- suppressWarnings(stats::pt(q = max(t.alpha), df = df, ncp = ncp))
+    Phi.m <-                  stats::pt(q = min(t.alpha), df = df, ncp = ncp)
     type.s <- min(Phi.m, 1 - Phi.p) / (Phi.m + 1 - Phi.p)
 
     type.m <- try(suppressWarnings({
@@ -135,7 +135,7 @@ power.t.test <- function(ncp, null.ncp = 0,
 
     t.alpha <- suppressWarnings(c(stats::qt(alpha / 2,  df = df, ncp = min(null.ncp), lower.tail = TRUE),
                                   stats::qt(alpha / 2,  df = df, ncp = max(null.ncp), lower.tail = FALSE)))
-    power   <- suppressWarnings(  stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = TRUE) +
+    power   <-   suppressWarnings(stats::pt(t.alpha[1], df = df, ncp = ncp,           lower.tail = TRUE) +
                                   stats::pt(t.alpha[2], df = df, ncp = ncp,           lower.tail = FALSE))
 
     type.s <- NA

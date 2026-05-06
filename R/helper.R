@@ -13,7 +13,7 @@ ensure.verbose <- function(verbose = NULL) {
 # check the input parameters n, power and es, and return which calculation is requested
 get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
-  es_vars <- gsub("list", "", deparse(substitute(es), n = 1))
+  es_vars <- gsub("list", "", deparse(substitute(es), nlines = 1))
   if (is.list(es)) {
     if        (sum(unlist(lapply(es, is.null))) == 2) {
       stop(sprintf("Exactly one of `%s` can be NULL, not both.",
@@ -26,8 +26,8 @@ get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
   if (sum(check.not_null(n, power, es)) != 2) {
     parms <- ifelse(is.null(es) || !is.na(es),
-                    sprintf("two of the parameters `%s`, `%s`, or `power`", es_vars, deparse(substitute(n), n = 1)),
-                    sprintf("one of the parameters `%s` or `power`", deparse(substitute(n), n = 1)))
+                    sprintf("two of the parameters `%s`, `%s`, or `power`", es_vars, deparse(substitute(n), nlines = 1)),
+                    sprintf("one of the parameters `%s` or `power`", deparse(substitute(n), nlines = 1)))
     stop(sprintf("Exactly %s must be given, one has to be NULL.", parms), call. = FALSE)
   }
 

@@ -50,7 +50,7 @@ power.f.test <- function(ncp, null.ncp = 0, df1, df2, alpha = 0.05,
     stop("`ncp` should be greater than or equal to `null.ncp`.", call. = FALSE)
 
   f.alpha <- stats::qf(alpha, df1 = df1, df2 = df2, ncp = null.ncp, lower.tail = FALSE)
-  power <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = ncp, lower.tail = FALSE)
+  power   <- stats::pf(f.alpha, df1 = df1, df2 = df2, ncp = ncp, lower.tail = FALSE)
 
   if (plot)
     suppressWarnings(.plot.f.t1t2(ncp = ncp, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha))
@@ -118,7 +118,7 @@ ncp.f.test <- function(power = 0.80, ncp = NULL, null.ncp = 0, df1 = NULL, df2 =
   if (is.null(df1) || df1 < 1) stop("'df1' cannot be NULL, and need to be at least 1.", call. = FALSE)
   if (is.null(df2) || df2 < 3) stop("'df2' cannot be NULL, and need to be at least 2.", call. = FALSE)
 
-  max.thresh <- qf(1 - 1e-10, ncp = null.ncp, df1 = df1, df2 = df2)
+  max.thresh <- stats::qf(1 - 1e-10, ncp = null.ncp, df1 = df1, df2 = df2)
   while (power.f.test(ncp = max.thresh, null.ncp = null.ncp, df1 = df1, df2 = df2, alpha = alpha,
                       plot = FALSE, verbose = 0, utf = FALSE)$power <= power) {
     max.thresh <- max.thresh * 1.10

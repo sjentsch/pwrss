@@ -486,8 +486,8 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
 
       # reasonable bounds for logistics
       var.obj <- var.beta(beta0 = beta0, beta1 = beta0, distribution = distribution)
-      bound.values <- c((qlogis(0.0001) - beta0) / c(var.obj$min, var.obj$max),
-                        (qlogis(0.9999) - beta0) / c(var.obj$min, var.obj$max))
+      bound.values <- c((stats::qlogis(0.0001) - beta0) / c(var.obj$min, var.obj$max),
+                        (stats::qlogis(0.9999) - beta0) / c(var.obj$min, var.obj$max))
       val.rng <- c(min(bound.values), 0, max(bound.values))[ifelse(check.pos_sign(req.sign), -1, -3)]
 
       beta1 <- try(stats::uniroot(function(beta1) min.pwr.demidenko(beta1, n, power), interval = val.rng)$root)

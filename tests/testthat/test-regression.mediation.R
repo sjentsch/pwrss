@@ -38,6 +38,9 @@ test_that("regression.mediation.R works", {
                       std.beta.cp = 0.1, std.beta.indirect = 0.0625, mean = 2.80172572, sd = 1, null.mean = 0,
                       null.sd = 1, z.alpha = c(-1.959964, 1.959964), power = 0.80004029, n = 242))
 
+
+
+
     crrRes <- power.z.mediation(beta.a = 0.25, beta.b = 0.25, beta.cp = 0.10, n = 500, method = "sobel", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "z", "mediation"))
     expect_equal(names(crrRes), c("parms", "test", "beta.a", "beta.b", "beta.indirect", "beta.cp", "r.squared.mediator",
