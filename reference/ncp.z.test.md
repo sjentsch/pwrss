@@ -131,50 +131,10 @@ ncp.z.test(
 # the positive critical value OR less than the negative critical value
 ncp.z.test(mean = NULL, alpha = 0.05, alternative = "two.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic z-Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : mean  = null.mean
-#>   H1 (Alternative) : mean != null.mean
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
-
 # one-sided
 # power is defined as the probability of observing a test statistic greater
 # than the critical value
 ncp.z.test(mean = NULL, alpha = 0.05, alternative = "one.sided")
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic z-Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : mean <= null.mean
-#>   H1 (Alternative) : mean  > null.mean
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 
 # equivalence
 # power is defined as the probability of observing a test statistic greater
@@ -183,54 +143,10 @@ ncp.z.test(mean = NULL, alpha = 0.05, alternative = "one.sided")
 ncp.z.test(mean = NULL, null.mean = c(-2, 2), alpha = 0.05,
              alternative = "two.one.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic z-Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : mean >= min(null.mean) and
-#>                      mean <= max(null.mean)
-#>   H1 (Alternative) : mean  < min(null.mean) or
-#>                      mean  > max(null.mean)
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
-
 # minimal effect testing
 # power is defined as the probability of observing a test statistic greater
 # than the upper critical value (for the upper bound) OR less than the lower
 # critical value (for the lower bound).
 ncp.z.test(mean = NULL, null.mean = c(-1, 1), alpha = 0.05,
              alternative = "two.one.sided")
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic z-Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : mean >= min(null.mean) and
-#>                      mean <= max(null.mean)
-#>   H1 (Alternative) : mean  < min(null.mean) or
-#>                      mean  > max(null.mean)
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 ```

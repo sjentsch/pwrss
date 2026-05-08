@@ -143,76 +143,14 @@ default.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># one-sided</span></span></span>
 <span class="r-in"><span><span class="fu">prob.binom.test</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">200</span>, prob <span class="op">=</span> <span class="cn">NULL</span>, req.sign <span class="op">=</span> <span class="st">"+"</span>, power <span class="op">=</span> <span class="fl">0.80</span>, null.prob <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
 <span class="r-in"><span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>, alternative <span class="op">=</span> <span class="st">"one.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="prob.binom.test-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic Binomial Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob &lt;= null.prob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob  &gt; null.prob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># two-sided</span></span></span>
 <span class="r-in"><span><span class="fu">prob.binom.test</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">200</span>, prob <span class="op">=</span> <span class="cn">NULL</span>, req.sign <span class="op">=</span> <span class="st">"+"</span>, power <span class="op">=</span> <span class="fl">0.80</span>, null.prob <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
 <span class="r-in"><span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="prob.binom.test-2.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic Binomial Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob  = null.prob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob != null.prob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.040</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># equivalence</span></span></span>
 <span class="r-in"><span><span class="fu">prob.binom.test</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">200</span>, prob <span class="op">=</span> <span class="cn">NULL</span>, req.sign <span class="op">=</span> <span class="st">"0"</span>, power <span class="op">=</span> <span class="fl">0.80</span>, null.prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                 alpha <span class="op">=</span> <span class="fl">0.05</span>, alternative <span class="op">=</span> <span class="st">"two.one.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="prob.binom.test-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic Binomial Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : prob &lt;= min(null.prob) or</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      prob &gt;= max(null.prob)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : prob  &gt; min(null.prob) and</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      prob  &lt; max(null.prob)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.771  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

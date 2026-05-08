@@ -94,24 +94,4 @@ ncp.f.test(
 # power is defined as the probability of observing a test statistics greater
 # than the critical value
 ncp.f.test(ncp = NULL, power = 0.80, df1 = 4, df2 = 100, alpha = 0.05)
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic F-Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp = 0
-#>   H1 (Alternative) : ncp > 0
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 ```

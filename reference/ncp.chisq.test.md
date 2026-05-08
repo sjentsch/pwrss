@@ -90,24 +90,4 @@ ncp.chisq.test(
 # power is defined as the probability of observing a test statistics greater
 # than the critical value
 ncp.chisq.test(ncp = NULL, power = 0.80, df = 100, alpha = 0.05)
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Chi-square Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp = ncp.null
-#>   H1 (Alternative) : ncp > ncp.null
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 ```

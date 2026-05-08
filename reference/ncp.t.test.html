@@ -159,51 +159,11 @@ default.</p></dd>
 <span class="r-in"><span><span class="co"># power defined as the probability of observing test statistics greater</span></span></span>
 <span class="r-in"><span><span class="co"># than the positive critical value OR less than the negative critical value</span></span></span>
 <span class="r-in"><span><span class="fu">ncp.t.test</span><span class="op">(</span>power <span class="op">=</span> <span class="fl">0.80</span>, df <span class="op">=</span> <span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ncp.t.test-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp  = null.ncp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp != null.ncp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># one-sided</span></span></span>
 <span class="r-in"><span><span class="co"># power is defined as the probability of observing a test statistic greater</span></span></span>
 <span class="r-in"><span><span class="co"># than the critical value</span></span></span>
 <span class="r-in"><span><span class="fu">ncp.t.test</span><span class="op">(</span>power <span class="op">=</span> <span class="fl">0.80</span>,, df <span class="op">=</span> <span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, alternative <span class="op">=</span> <span class="st">"one.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ncp.t.test-2.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &lt;= null.ncp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &gt; null.ncp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># equivalence</span></span></span>
 <span class="r-in"><span><span class="co"># power is defined as the probability of observing a test statistic greater</span></span></span>
@@ -212,28 +172,6 @@ default.</p></dd>
 <span class="r-in"><span><span class="fu">ncp.t.test</span><span class="op">(</span>power <span class="op">=</span> <span class="fl">0.80</span>, req.sign <span class="op">=</span> <span class="st">"0"</span>,</span></span>
 <span class="r-in"><span>           null.ncp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, df <span class="op">=</span> <span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
 <span class="r-in"><span>           alternative <span class="op">=</span> <span class="st">"two.one.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ncp.t.test-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &lt;= min(null.ncp) or</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp &gt;= max(null.ncp)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &gt; min(null.ncp) and</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp  &lt; max(null.ncp)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.277  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># minimal effect testing</span></span></span>
 <span class="r-in"><span><span class="co"># power is defined as the probability of observing a test statistic greater</span></span></span>
@@ -242,28 +180,6 @@ default.</p></dd>
 <span class="r-in"><span><span class="fu">ncp.t.test</span><span class="op">(</span>power <span class="op">=</span> <span class="fl">0.80</span>, req.sign <span class="op">=</span> <span class="st">"+"</span>,</span></span>
 <span class="r-in"><span>           null.ncp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, df <span class="op">=</span> <span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
 <span class="r-in"><span>           alternative <span class="op">=</span> <span class="st">"two.one.sided"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ncp.t.test-4.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |                POWER CALCULATION                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +--------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generic t-Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hypotheses</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H0 (Null)        : ncp &gt;= min(null.ncp) and</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp &lt;= max(null.ncp)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   H1 (Alternative) : ncp  &lt; min(null.ncp) or</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      ncp  &gt; max(null.ncp)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 1 Error (alpha) = 0.050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type 2 Error (beta)  = 0.200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Statistical Power    = 0.800  &lt;&lt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

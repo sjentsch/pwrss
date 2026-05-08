@@ -107,8 +107,6 @@ power.lp.test(
 # power defined as the probability of observing test statistics greater
 # than the positive critical value OR less than the negative critical value
 power.lp.test(ncp = 1.96, df = 100, alpha = 0.05, alternative = "two.sided")
-#> large z may result in inaccurate quantiles
-#> large z may result in inaccurate quantiles
 
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |

@@ -100,73 +100,11 @@ prob.binom.test(
 prob.binom.test(size = 200, prob = NULL, req.sign = "+", power = 0.80, null.prob = 0.5,
                  alpha = 0.05, alternative = "one.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Binomial Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : prob <= null.prob
-#>   H1 (Alternative) : prob  > null.prob
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.038
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
-
 # two-sided
 prob.binom.test(size = 200, prob = NULL, req.sign = "+", power = 0.80, null.prob = 0.5,
                  alpha = 0.05, alternative = "two.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Binomial Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : prob  = null.prob
-#>   H1 (Alternative) : prob != null.prob
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.040
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
-
 # equivalence
 prob.binom.test(size = 200, prob = NULL, req.sign = "0", power = 0.80, null.prob = c(0.4, 0.6),
                  alpha = 0.05, alternative = "two.one.sided")
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Binomial Test
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : prob <= min(null.prob) or
-#>                      prob >= max(null.prob)
-#>   H1 (Alternative) : prob  > min(null.prob) and
-#>                      prob  < max(null.prob)
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.049
-#>   Type 2 Error (beta)  = 0.229
-#>   Statistical Power    = 0.771  <<
-#> 
 ```

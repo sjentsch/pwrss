@@ -119,50 +119,10 @@ ncp.lp.test(
 # than the positive critical value OR less than the negative critical value
 ncp.lp.test(power = 0.80, df = 100, alpha = 0.05, alternative = "two.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Lambda-Prime Distribution
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp  = null.ncp
-#>   H1 (Alternative) : ncp != null.ncp
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
-
 # one-sided
 # power is defined as the probability of observing a test statistic greater
 # than the critical value
 ncp.lp.test(power = 0.80,, df = 100, alpha = 0.05, alternative = "one.sided")
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Lambda-Prime Distribution
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp <= null.ncp
-#>   H1 (Alternative) : ncp  > null.ncp
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 
 # equivalence
 # power is defined as the probability of observing a test statistic greater
@@ -172,28 +132,6 @@ ncp.lp.test(power = 0.80, req.sign = "0",
            null.ncp = c(-2, 2), df = 100, alpha = 0.05,
            alternative = "two.one.sided")
 
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Lambda-Prime Distribution
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp <= min(null.ncp) or
-#>                      ncp >= max(null.ncp)
-#>   H1 (Alternative) : ncp  > min(null.ncp) and
-#>                      ncp  < max(null.ncp)
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.738
-#>   Statistical Power    = 0.262  <<
-#> 
-
 # minimal effect testing
 # power is defined as the probability of observing a test statistic greater
 # than the upper critical value (for the upper bound) OR less than the lower
@@ -201,26 +139,4 @@ ncp.lp.test(power = 0.80, req.sign = "0",
 ncp.lp.test(power = 0.80, req.sign = "+",
            null.ncp = c(-1, 1), df = 100, alpha = 0.05,
            alternative = "two.one.sided")
-
-#> +--------------------------------------------------+
-#> |                POWER CALCULATION                 |
-#> +--------------------------------------------------+
-#> 
-#> Generic Lambda-Prime Distribution
-#> 
-#> ----------------------------------------------------
-#> Hypotheses
-#> ----------------------------------------------------
-#>   H0 (Null)        : ncp >= min(null.ncp) and
-#>                      ncp <= max(null.ncp)
-#>   H1 (Alternative) : ncp  < min(null.ncp) or
-#>                      ncp  > max(null.ncp)
-#> 
-#> ----------------------------------------------------
-#> Results
-#> ----------------------------------------------------
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800  <<
-#> 
 ```
