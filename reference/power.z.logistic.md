@@ -225,10 +225,11 @@ power.z.logistic(base.prob = 0.15, prob = 0.20,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 511  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 511  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.199
+#>   Statistical Power        = 0.801
 #> 
 
 ## odds ratio specification
@@ -253,10 +254,11 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 511  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 511  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.199
+#>   Statistical Power        = 0.801
 #> 
 
 ## regression coefficient specification
@@ -281,10 +283,11 @@ power.z.logistic(beta0 = -1.734601, beta1 = 0.3483067,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 511  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 511  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.199
+#>   Statistical Power        = 0.801
 #> 
 
 ## change parameters associated with predictor X
@@ -310,10 +313,11 @@ power.z.logistic(base.prob = 0.15, beta1 = 0.3483067,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 134  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 134  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.199
+#>   Statistical Power        = 0.801
 #> 
 
 
@@ -344,10 +348,11 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 1816  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 1816  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ## change parameters associated with predictor X
@@ -373,10 +378,11 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 2114  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 2114  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ####################################
@@ -428,9 +434,10 @@ power.z.logistic(base.prob = 0.15, odds.ratio = 1.416667,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 3550  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Odds Ratio) = 1.417
+#>   Sample Size              = 3550  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 ```

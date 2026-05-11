@@ -121,7 +121,7 @@ power.z.mediation(
 - method:
 
   character; "sobel", "aroian", "goodman", "joint" or "monte.carlo".
-  "joint" and "monte.carlo" methods cannot be used for sample size
+  "joint" and "monte.carlo" methods can not be used for sample size
   calculation.
 
 - n.simulation:

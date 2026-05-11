@@ -177,6 +177,7 @@ power.exact.fisher(prob1 = 0.60, prob2 = 0.40, n2 = 50)
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (prob1)  = 0.600 (vs. prob2 = 0.400)
 #>   Sample Size          = 50 and 50
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.538

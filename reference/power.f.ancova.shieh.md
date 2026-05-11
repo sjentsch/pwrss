@@ -185,7 +185,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.020
+#>   Effect Size (eta-squared) = 0.020
 #>   Total Sample Size         = 300
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.316
@@ -216,7 +216,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.020
+#>   Effect Size (eta-squared) = 0.020
 #>   Total Sample Size         = 396  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
@@ -253,7 +253,7 @@ power.f.ancova.shieh(mu.vector = c(0.20, 0.25, 0.15, 0.05), # marginal means
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.003
+#>   Effect Size (eta-squared) = 0.003
 #>   Total Sample Size         = 2796  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.200
@@ -303,7 +303,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.008
+#>   Effect Size (eta-squared) = 0.008
 #>   Total Sample Size         = 1245  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
@@ -369,7 +369,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.008
+#>   Effect Size (eta-squared) = 0.008
 #>   Total Sample Size         = 1245  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
@@ -435,7 +435,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.008
+#>   Effect Size (eta-squared) = 0.008
 #>   Total Sample Size         = 1245  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
@@ -500,7 +500,7 @@ ancova.design <- power.f.ancova.shieh(mu.vector = c(0.15, 0.30, 0.20), # margina
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.008
+#>   Effect Size (eta-squared) = 0.008
 #>   Total Sample Size         = 1245  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199

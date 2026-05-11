@@ -183,7 +183,7 @@ power.f.mixed.anova(eta.squared = 0.022,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.022
+#>   Effect Size (eta-squared) = 0.022
 #>   Total Sample Size         = 90  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.196
@@ -213,7 +213,7 @@ power.f.mixed.anova(eta.squared = 0.08255,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.083
+#>   Effect Size (eta-squared) = 0.083
 #>   Total Sample Size         = 90  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.196
@@ -246,7 +246,7 @@ power.f.mixed.anova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.059
+#>   Effect Size (eta-squared) = 0.059
 #>   Total Sample Size         = 128  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.197
@@ -282,7 +282,7 @@ power.f.mixed.anova(eta.squared = 0.038,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.038
+#>   Effect Size (eta-squared) = 0.038
 #>   Total Sample Size         = 152  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.197
@@ -311,7 +311,7 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.010
+#>   Effect Size (eta-squared) = 0.010
 #>   Total Sample Size         = 198  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.196
@@ -340,7 +340,7 @@ power.f.mixed.anova(eta.squared = 0.01,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.010
+#>   Effect Size (eta-squared) = 0.010
 #>   Total Sample Size         = 198  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.196

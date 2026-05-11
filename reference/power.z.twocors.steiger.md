@@ -201,6 +201,7 @@ power.z.twocors.steiger(rho12 = 0.35, rho13 = 0.45, rho23 = 0.05,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (rho12)  = 0.350 (vs. rho13 = 0.450)
 #>   Sample Size          = 1000
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.253
@@ -248,6 +249,7 @@ power.z.twocors.steiger(rho12 = 0.45, rho13 = 0.45, rho23 = 0.50,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
+#>   Effect Size (rho12)  = 0.450 (vs. rho34 = 0.550)
 #>   Sample Size          = 1000
 #>   Type 1 Error (alpha) = 0.050
 #>   Type 2 Error (beta)  = 0.062

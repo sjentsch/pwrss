@@ -213,10 +213,11 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 474  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 474  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ## rate ratio specification
@@ -242,10 +243,11 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 474  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 474  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ## change parameters associated with predictor X
@@ -272,10 +274,11 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 318  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.199
-#>   Statistical Power    = 0.801
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 318  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.199
+#>   Statistical Power        = 0.801
 #> 
 
 
@@ -303,10 +306,11 @@ power.z.poisson(beta0 = 0.50, beta1 = -0.10,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 2003  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 2003  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ## rate ratio specification
@@ -332,10 +336,11 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 2003  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 2003  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 
 ## change parameters associatied with predictor X
@@ -362,9 +367,10 @@ power.z.poisson(base.rate = exp(0.50),
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Sample Size          = 2404  <<
-#>   Type 1 Error (alpha) = 0.050
-#>   Type 2 Error (beta)  = 0.200
-#>   Statistical Power    = 0.800
+#>   Effect Size (Rate Ratio) = 0.905
+#>   Sample Size              = 2404  <<
+#>   Type 1 Error (alpha)     = 0.050
+#>   Type 2 Error (beta)      = 0.200
+#>   Statistical Power        = 0.800
 #> 
 ```

@@ -173,7 +173,7 @@ power.f.ancova(eta.squared = 0.059,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.059
+#>   Effect Size (eta-squared) = 0.059
 #>   Total Sample Size         = 128  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.197
@@ -284,7 +284,7 @@ power.f.ancova(eta.squared = 0.03,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.030
+#>   Effect Size (eta-squared) = 0.030
 #>   Total Sample Size         = 256  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.200
@@ -348,7 +348,7 @@ power.f.ancova(eta.squared = 0.048,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.048
+#>   Effect Size (eta-squared) = 0.048
 #>   Total Sample Size         = 158  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
@@ -382,7 +382,7 @@ power.f.ancova(eta.squared = 0.02,
 #> ----------------------------------------------------
 #> Results
 #> ----------------------------------------------------
-#>   Effect Size (eta.squared) = 0.020
+#>   Effect Size (eta-squared) = 0.020
 #>   Total Sample Size         = 388  <<
 #>   Type 1 Error (alpha)      = 0.050
 #>   Type 2 Error (beta)       = 0.199
