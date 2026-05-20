@@ -135,7 +135,7 @@ power.exact.mcnemar(
 ## References
 
 Bennett, B. M., & Underwood, R. E. (1970). 283. Note: On McNemar's Test
-for the 2 \* 2 Table and Its Power Function. \*Biometrics, 26(2),
+for the 2 \* 2 Table and Its Power Function. *Biometrics, 26*(2),
 339-343. https://doi.org/10.2307/2529083
 
 Connor, R. J. (1987). Sample size for testing differences in proportions
@@ -258,9 +258,9 @@ power.exact.mcnemar(prob10 = 0.20, prob01 = 0.10,
 # we may not have 2 x 2 joint probs
 # convert marginal probs to joint probs
 joint.probs.2x2(prob1 = 0.55, # mean of case group (or after)
-                    prob2 = 0.45, # mean of matched control group (or before)
-                    # correlation between matched case-control or before-after
-                    rho = 0.4141414
+                prob2 = 0.45, # mean of matched control group (or before)
+                # correlation between matched case-control or before-after
+                rho = 0.4141414
 )
 #>    rho.min    rho.max     prob11     prob10     prob01     prob00 
 #> -1.0000000  0.8181818  0.3500000  0.2000000  0.1000000  0.3500000 

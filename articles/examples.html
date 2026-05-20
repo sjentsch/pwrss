@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Practical Power Analysis in R • pwrss</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Practical Power Analysis in R">
 </head>
@@ -60,7 +60,7 @@
                         <h4 data-toc-skip class="author">Metin Bulus
 &amp; Sebastian Jentschke</h4>
             
-            <h4 data-toc-skip class="date">2026-05-11</h4>
+            <h4 data-toc-skip class="date">2026-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/metinbulus/pwrss/blob/main/vignettes/examples.Rmd" class="external-link"><code>vignettes/examples.Rmd</code></a></small>
       <div class="d-none name"><code>examples.Rmd</code></div>
@@ -3321,98 +3321,7 @@ sample size for the newly recruited group.</p>
 <span><span class="co">#&gt;   Paired Sample Size   = 200  &lt;&lt;</span></span>
 <span><span class="co">#&gt;   Type 1 Error (alpha) = 0.050</span></span>
 <span><span class="co">#&gt;   Type 2 Error (beta)  = 0.196</span></span>
-<span><span class="co">#&gt;   Statistical Power    = 0.804</span></span>
-<span><span class="co">#&gt; $parms</span></span>
-<span><span class="co">#&gt; $parms$prob10</span></span>
-<span><span class="co">#&gt; [1] 0.1775255</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$prob01</span></span>
-<span><span class="co">#&gt; [1] 0.07752551</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$req.sign</span></span>
-<span><span class="co">#&gt; [1] "+"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$n.paired</span></span>
-<span><span class="co">#&gt; NULL</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$power</span></span>
-<span><span class="co">#&gt; [1] 0.8</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$alpha</span></span>
-<span><span class="co">#&gt; [1] 0.05</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$alternative</span></span>
-<span><span class="co">#&gt; [1] "two.sided"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$method</span></span>
-<span><span class="co">#&gt; [1] "approximate"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$ceil.n</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$verbose</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $parms$utf</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $test</span></span>
-<span><span class="co">#&gt; [1] "z"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $prob10</span></span>
-<span><span class="co">#&gt; [1] 0.1775255</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $prob01</span></span>
-<span><span class="co">#&gt; [1] 0.07752551</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $delta</span></span>
-<span><span class="co">#&gt; [1] 0.1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $odds.ratio</span></span>
-<span><span class="co">#&gt; [1] 2.289898</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $size</span></span>
-<span><span class="co">#&gt; [1] 52</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $prob</span></span>
-<span><span class="co">#&gt; [1] 0.6960392</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $null.prob</span></span>
-<span><span class="co">#&gt; [1] 0.5</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $binom.alpha</span></span>
-<span><span class="co">#&gt; [1] 18 33</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $mean</span></span>
-<span><span class="co">#&gt; [1] 2.817254</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $sd</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $null.mean</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $null.sd</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $z.alpha</span></span>
-<span><span class="co">#&gt; [1] -1.959964  1.959964</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $alpha</span></span>
-<span><span class="co">#&gt; [1] 0.05</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $power</span></span>
-<span><span class="co">#&gt; [1] 0.8043578</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $n.paired</span></span>
-<span><span class="co">#&gt; [1] 200</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $prob1</span></span>
-<span><span class="co">#&gt; [1] 0.5</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $prob2</span></span>
-<span><span class="co">#&gt; [1] 0.4</span></span></code></pre></div>
+<span><span class="co">#&gt;   Statistical Power    = 0.804</span></span></code></pre></div>
 <p><strong>Report</strong>: We conducted a power analysis to estimate
 the minimum required sample size to evaluate whether a new at-home
 screening strategy improves colorectal cancer screening completion among

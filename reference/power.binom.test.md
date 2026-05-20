@@ -8,7 +8,7 @@ binomial test with (optional) Type 1 and Type 2 error plots.
 ``` r
 power.binom.test(
   power = NULL,
-  size,
+  size = NULL,
   prob = NULL,
   null.prob = 0.5,
   req.sign = "+",
