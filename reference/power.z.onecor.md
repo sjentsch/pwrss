@@ -136,7 +136,7 @@ power.z.onecor(rho = 0.20,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-Sample Correlation
+#> One-Sample Correlation (Approximate)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
@@ -163,7 +163,7 @@ power.z.onecor(rho = 0.20, null.rho = 0.10,
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
 #> 
-#> One-Sample Correlation
+#> One-Sample Correlation (Approximate)
 #> 
 #> ----------------------------------------------------
 #> Hypotheses
