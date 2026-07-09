@@ -168,6 +168,9 @@ test_that("get.interval works", {
     expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "-", distribution = "t", alternative = "two.one.sided", df = 3), c(-16810.206, -2))
     expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "+", distribution = "t", alternative = "two.one.sided", df = 3e4), c(2, 10.0120826))
     expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "-", distribution = "t", alternative = "two.one.sided", df = 3e4), c(-10.01208226, -2))
-    expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "+", distribution = "lp", alternative = "two.one.sided", df = 3e4), c(2, 10.0069042))
-    expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "-", distribution = "lp", alternative = "two.one.sided", df = 3e4), c(-10.0069042, -2))
+    test_that("Skip on macOS (issues with sadists)", {
+        skip_on_os("mac")
+        expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "+", distribution = "lp", alternative = "two.one.sided", df = 3e4), c(2, 10.0069042))
+        expect_equal(get.interval(null.ncp = c(-2, 2), req.sign = "-", distribution = "lp", alternative = "two.one.sided", df = 3e4), c(-10.0069042, -2))
+    })
 })
