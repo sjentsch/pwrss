@@ -415,16 +415,6 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
       d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.student(d, n2, power), interval = d.int, tol = 1e-12))$root
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
-      # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-      # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
-      # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
-      # for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      #   d  <- try(stats::uniroot(function(d) min.pwr.student(d, n2, power + 10 ^ o), interval = d.int, tol = 1e-12)$root, silent = TRUE)
-      #   # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-      #   if (uniroot_break(d)) break
-      # } # for (o ...)
-      # if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-
     } # two.one.sided?
 
   } # ss or es?
@@ -688,17 +678,6 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.welch(d, n2, power), interval = d.int, tol = 1e-12))$root
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-
-      # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-      # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
-      # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
-      # for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-      #   d  <- try(stats::uniroot(function(d) min.pwr.welch(d, n2, power + 10 ^ o), interval = d.int, tol = 1e-12)$root, silent = TRUE)
-      #   # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-      #   if (uniroot_break(d)) break
-      # } # for (o ...)
-      # if (inherits(d, "try-error"))
-      #   stop("Design is not feasible.", call. = FALSE)
 
     } # two.one.sided?
 

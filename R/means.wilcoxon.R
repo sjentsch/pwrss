@@ -343,17 +343,6 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
     } # two.one.sided?
 
-    # a bit complicated because uniroot may fail with large N's because no local minimum can be found
-    # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
-    # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
-    # for (o in c(-Inf, seq(-12, -6 + log10(n2), 1 / 3))) {
-    #   d  <- try(stats::uniroot(function(d) min.pwr(d, n2, power + 10 ^ o), interval = c(0, 10), tol = 1e-12)$root, silent = TRUE)
-    #   # exit the loop, if there is no error, or another error than that indicating that no local minimum can be found
-    #   if (uniroot_break(d)) break
-    # } # for (o ...)
-    # if (inherits(d, "try-error"))
-    #   stop("Design is not feasible.", call. = FALSE)
-
   } # ss or es
 
   pwr.obj <- pwr.wilcox(d = d, null.d = null.d, margin = margin,
