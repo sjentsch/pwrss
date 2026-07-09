@@ -423,7 +423,7 @@ q.to.cors <- function(q, rho1 = NULL, rho2 = NULL, verbose = 1) {
 d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.numeric(d)
-  design <- tolower(match.arg(design))
+  design <- match.arg(design)
   verbose <- ensure.verbose(verbose)
 
   prob <- stats::pnorm(d / sqrt(ifelse(design == "independent", 2, 1)))
@@ -440,7 +440,7 @@ d.to.cles <- function(d, design = c("independent", "paired", "one.sample"), verb
 cles.to.d <- function(cles, design = c("independent", "paired", "one.sample"), verbose = 1) {
 
   check.proportion(cles)
-  design <- tolower(match.arg(design))
+  design <- match.arg(design)
   verbose <- ensure.verbose(verbose)
 
   d <- sqrt(ifelse(design == "independent", 2, 1)) * stats::qnorm(cles)

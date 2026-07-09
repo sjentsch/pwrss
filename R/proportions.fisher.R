@@ -102,8 +102,8 @@ power.exact.fisher <- function(prob1 = NULL, prob2 = NULL, req.sign = "+",
                                method = c("exact", "approximate"),
                                ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
   func.parms <- as.list(environment())
 
   if (!is.null(prob1)) check.proportion(prob1)

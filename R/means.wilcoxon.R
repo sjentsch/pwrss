@@ -199,10 +199,10 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
                               method = c("guenther", "noether"),
                               ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  distribution <- tolower(match.arg(distribution))
-  method <- tolower(match.arg(method))
-  design <- tolower(match.arg(design))
+  alternative <- match.arg(alternative)
+  distribution <- match.arg(distribution)
+  method <- match.arg(method)
+  design <- match.arg(design)
   func.parms <- as.list(environment())
 
   if (!is.null(d)) check.numeric(d)
@@ -278,8 +278,8 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
   }
 
   min.pwr.wilcox <- function(d, n2, power) {
-    power - suppressWarnings(pwr.wilcox(d = d, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                                        design = design, alternative = alternative, method = method))$power
+    power - pwr.wilcox(d = d, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
+                       design = design, alternative = alternative, method = method)$power
   } # min.pwr (for stats::uniroot)
 
   # calculate sample size
@@ -307,17 +307,15 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
-      d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
-      d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
+      d.lower <- stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12)$minimum
+      d.upper <- stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12)$minimum
 
       d <- mean(c(d.lower, d.upper))
 
-      pwr.lower <- suppressWarnings(pwr.wilcox(d = d.lower, null.d = null.d, margin = margin,
-                                               n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                                               design = design, alternative = alternative, method = method))$power
-      pwr.upper <- suppressWarnings(pwr.wilcox(d = d.upper, null.d = null.d, margin = margin,
-                                               n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
-                                               design = design, alternative = alternative, method = method))$power
+      pwr.lower <- pwr.wilcox(d = d.lower, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
+                              design = design, alternative = alternative, method = method)$power
+      pwr.upper <- pwr.wilcox(d = d.upper, null.d = null.d, margin = margin, n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
+                              design = design, alternative = alternative, method = method)$power
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
@@ -338,7 +336,7 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
         d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
       }
 
-      d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.wilcox(d, n2, power), interval = d.int, tol = 1e-12))$root
+      d <- try(stats::uniroot(f = function(d) min.pwr.wilcox(d, n2, power), interval = d.int, tol = 1e-12)$root, silent = TRUE)
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     } # two.one.sided?
@@ -408,9 +406,9 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
                              method = c("guenther", "noether"),
                              verbose = TRUE) {
 
-  method <- tolower(match.arg(method))
-  alternative <- tolower(match.arg(alternative))
-  distribution <- tolower(match.arg(distribution))
+  method <- match.arg(method)
+  alternative <- match.arg(alternative)
+  distribution <- match.arg(distribution)
   verbose <- ensure.verbose(verbose)
 
   null.d <- 0

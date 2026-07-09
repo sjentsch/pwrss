@@ -326,9 +326,9 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
                             claim.basis = c("md.pval", "smd.ci"),
                             ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  design <- tolower(match.arg(design))
-  claim.basis <- tolower(match.arg(claim.basis))
+  alternative <- match.arg(alternative)
+  design <- match.arg(design)
+  claim.basis <- match.arg(claim.basis)
   func.parms <- as.list(environment())
 
   if (!is.null(d)) check.numeric(d)
@@ -359,15 +359,14 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
     lambda <- (d - null.d) / se.d
     null.lambda <- margin / se.d
 
-    power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
-                 plot = FALSE, verbose = 0)[c("power", "t.alpha", "ncp", "null.ncp", "df")]
+    suppressWarnings(power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
+                                  plot = FALSE, verbose = 0))[c("power", "t.alpha", "ncp", "null.ncp", "df")]
 
   } # pwr.student()
 
   min.pwr.student <- function(d, n2, power) {
-    pwr.est <- pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                           alternative = alternative, design = design, claim.basis = claim.basis)$power
-    power - pwr.est
+    power - pwr.student(d = d, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                        alternative = alternative, design = design, claim.basis = claim.basis)$power
   } # min.pwr.student (for uniroot)
 
   if (requested == "n") {
@@ -383,15 +382,15 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
-      d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
-      d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
+      d.lower <- stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12)$minimum
+      d.upper <- stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12)$minimum
 
       d <- mean(c(d.lower, d.upper))
 
-      pwr.lower <- suppressWarnings(pwr.student(d = d.lower, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                               alternative = alternative, design = design, claim.basis = claim.basis))$power
-      pwr.upper <- suppressWarnings(pwr.student(d = d.upper, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                               alternative = alternative, design = design, claim.basis = claim.basis))$power
+      pwr.lower <- pwr.student(d = d.lower, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                               alternative = alternative, design = design, claim.basis = claim.basis)$power
+      pwr.upper <- pwr.student(d = d.upper, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
+                               alternative = alternative, design = design, claim.basis = claim.basis)$power
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
@@ -412,7 +411,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
         d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
       }
 
-      d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.student(d, n2, power), interval = d.int, tol = 1e-12))$root
+      d <- try(stats::uniroot(f = function(d) min.pwr.student(d, n2, power), interval = d.int, tol = 1e-12)$root, silent = TRUE)
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     } # two.one.sided?
@@ -582,8 +581,8 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
                           claim.basis = c("md.pval", "smd.ci"),
                           ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  claim.basis <- tolower(match.arg(claim.basis))
+  alternative <- match.arg(alternative)
+  claim.basis <- match.arg(claim.basis)
   func.parms <- as.list(environment())
 
   if (!is.null(d)) check.numeric(d)
@@ -622,14 +621,14 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
     lambda <- (d - null.d) / se.d
     null.lambda <- margin / se.d
 
-    power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
-                 plot = FALSE, verbose = 0)[c("power", "t.alpha", "ncp", "null.ncp", "df")]
+    suppressWarnings(power.t.test(ncp = lambda, null.ncp = null.lambda, df = df, alpha = alpha, alternative = alternative,
+                                  plot = FALSE, verbose = 0))[c("power", "t.alpha", "ncp", "null.ncp", "df")]
 
   } # pwr.welch()
 
   min.pwr.welch <- function(d, n2, power) {
-    power - suppressWarnings(pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
-                                       alpha = alpha, alternative = alternative, claim.basis = claim.basis))$power
+    power - pwr.welch(d = d, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                      alpha = alpha, alternative = alternative, claim.basis = claim.basis)$power
   } # min.pwr.welch (for uniroot)
 
   if (requested == "n") {
@@ -645,17 +644,15 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
-      d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
-      d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
+      d.lower <- stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12)$minimum
+      d.upper <- stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12)$minimum
 
       d <- mean(c(d.lower, d.upper))
 
-      pwr.lower <- suppressWarnings(pwr.welch(d = d.lower, null.d = null.d, margin = margin,
-                                              var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                                              alternative = alternative, claim.basis = claim.basis))$power
-      pwr.upper <- suppressWarnings(pwr.welch(d = d.upper, null.d = null.d, margin = margin,
-                                              var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio, alpha = alpha,
-                                              alternative = alternative, claim.basis = claim.basis))$power
+      pwr.lower <- pwr.welch(d = d.lower, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                             alpha = alpha, alternative = alternative, claim.basis = claim.basis)$power
+      pwr.upper <- pwr.welch(d = d.upper, null.d = null.d, margin = margin, var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio,
+                             alpha = alpha, alternative = alternative, claim.basis = claim.basis)$power
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
@@ -676,7 +673,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
         d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
       }
 
-      d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.welch(d, n2, power), interval = d.int, tol = 1e-12))$root
+      d <- try(stats::uniroot(f = function(d) min.pwr.welch(d, n2, power), interval = d.int, tol = 1e-12)$root, silent = TRUE)
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     } # two.one.sided?
@@ -736,7 +733,7 @@ pwrss.t.mean <- function(mu, sd = 1, mu0 = 0, margin = 0, alpha = 0.05,
                                          "equivalent", "non-inferior", "superior"),
                          n = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   check.positive(sd)
@@ -790,7 +787,7 @@ pwrss.t.2means <- function(mu1, mu2 = 0, margin = 0,
                                             "equivalent", "non-inferior", "superior"),
                             n2 = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   if (isFALSE(welch.df)) warning("Forcing welch.df = TRUE.", call. = FALSE)

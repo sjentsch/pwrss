@@ -42,42 +42,43 @@ get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
 } # get.requested
 
-get.interval <- function(null.ncp, distribution = c("z", "t", "lp", "binom"), alpha = 0.05, alternative = "two.sided",
-                         req.sign = "+", sd = NULL, df = NULL) {
+get.interval <- function(null.ncp, req.sign, distribution = c("z", "t", "lp", "binom"), alpha = 0.05,
+                         alternative = c("two.sided", "one.sided", "two.one.sided"),
+                         sd = NULL, df = NULL) {
+  
+  distribution <- match.arg(distribution)
+  alternative  <- match.arg(alternative)
+  if (distribution %in% c("lp", "t")) {
+    check.positive(df)
+  } else if (distribution %in% "z") {
+    check.positive(sd)
+  }
 
-    if (distribution == "z") {
+  if (check.null_sign(req.sign, alternative)) { # req.sign is "0" (or equivalent)
 
-      min.alt <- stats::qnorm(1e-10,     mean = stats::qnorm(alpha,     mean = min(null.ncp), sd = sd), sd = sd)
-      max.alt <- stats::qnorm(1 - 1e-10, mean = stats::qnorm(1 - alpha, mean = max(null.ncp), sd = sd), sd = sd)
+    sort(null.ncp)
 
-    } else if (distribution == "t") {
+  } else if (check.pos_sign(req.sign)) { # req.sign is "+" (or equivalent)
+      
+    alpha.upr <- ifelse(alternative == "two.sided", 1 - alpha / 2, 1 - alpha)
+    alt.upr <- switch(distribution,
+                      "z" = stats::qnorm(1 - 1e-10, mean = stats::qnorm(alpha.upr, mean = max(null.ncp), sd = sd), sd = sd),
+                      "t" = suppressWarnings(stats::qt(1 - 1e-10, ncp = stats::qt(alpha.upr, ncp = max(null.ncp), df = df), df = df)),
+                      "lp" = suppressMessages(sadists::qlambdap(1 - 1e-10, t = sadists::qlambdap(alpha.upr, t = max(null.ncp), df = df), df = df)),
+                      "binom" = 1 - 1e-4)
+    c(max(null.ncp), alt.upr)
 
-      suppressWarnings({
-        min.alt <- stats::qt(1e-10,     ncp = stats::qt(alpha,     ncp = min(null.ncp), df = df), df = df)
-        max.alt <- stats::qt(1 - 1e-10, ncp = stats::qt(1 - alpha, ncp = max(null.ncp), df = df), df = df)
-      })
+  } else { # req.sign is "-" (or equivalent)
 
-    } else if (distribution == "lp") {
+    alpha.lwr <- ifelse(alternative == "two.sided", alpha / 2, alpha)
+    alt.lwr <- switch(distribution,
+                      "z" = stats::qnorm(1e-10, mean = stats::qnorm(alpha.lwr, mean = min(null.ncp), sd = sd), sd = sd),
+                      "t" = suppressWarnings(stats::qt(1e-10, ncp = stats::qt(alpha.lwr, ncp = min(null.ncp), df = df), df = df)),
+                      "lp" = suppressMessages(sadists::qlambdap(1e-10, t = sadists::qlambdap(alpha.lwr, t = min(null.ncp), df = df), df = df)),
+                      "binom" = 1e-4)
+    c(alt.lwr, min(null.ncp))
 
-      suppressMessages({
-        min.alt <- sadists::qlambdap(1e-10,     t = sadists::qlambdap(alpha,     t = min(null.ncp), df = df), df = df)
-        max.alt <- sadists::qlambdap(1 - 1e-10, t = sadists::qlambdap(1 - alpha, t = max(null.ncp), df = df), df = df)
-      })
-
-    } else if (distribution == "binom") {
-
-        min.alt <- 1e-4
-        max.alt <- 1 - 1e-4
-
-    }
-
-    if (check.null_sign(req.sign, alternative)) {
-      sort(null.ncp)
-    } else if (check.pos_sign(req.sign)) {
-      c(max(null.ncp), max.alt)
-    } else { # req.sign neither null nor positive
-      c(min.alt, min(null.ncp))
-    }
+  }
 
 } # get.interval
 

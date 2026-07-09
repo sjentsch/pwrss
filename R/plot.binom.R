@@ -111,7 +111,7 @@
                              alternative = c("two.sided", "one.sided", "two.one.sided"),
                              plot.main = NULL, plot.sub = NULL) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
 
   check.size(size)
   check.proportion(prob)

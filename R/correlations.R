@@ -219,7 +219,7 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
                             pooled = TRUE, common.index = FALSE,
                             ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(n)) check.sample.size(n)
@@ -561,7 +561,7 @@ power.z.twocors <- function(rho1 = NULL, rho2 = NULL, req.sign = "+",
                             alternative = c("two.sided", "one.sided"),
                             ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(rho1)) check.correlation(rho1)
@@ -702,7 +702,7 @@ pwrss.z.2corrs <- function(r1 = 0.50, r2 = 0.30,
                            alternative = c("not equal", "greater", "less"),
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   check.correlation(r1, r2)
@@ -807,7 +807,7 @@ power.z.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0,
                            alternative = c("two.sided", "one.sided"),
                            ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(rho)) check.correlation(rho)
@@ -924,7 +924,7 @@ pwrss.z.corr <- function(r = 0.50, r0 = 0, alpha = 0.05,
                          alternative = c("not equal", "greater", "less"),
                          n = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   check.correlation(r, r0)
@@ -1017,7 +1017,7 @@ power.exact.onecor <- function(rho = NULL, req.sign = "+", null.rho = 0, n = NUL
                                power = NULL, alpha = 0.05, alternative = c("two.sided", "one.sided"),
                                verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(rho)) check.correlation(rho)

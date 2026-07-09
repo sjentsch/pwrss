@@ -152,8 +152,8 @@ power.z.poisson <- function(base.rate = NULL, rate.ratio = NULL, beta0 = NULL, b
                             method = c("demidenko(vc)", "demidenko", "signorini"),
                             distribution = "normal", ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
   func.parms <- as.list(environment())
 
   if (!is.null(n)) check.sample.size(n)
@@ -472,8 +472,8 @@ pwrss.z.poisson <- function(exp.beta0 = 1.10, exp.beta1 = 1.16,
                             method = c("demidenko(vc)", "demidenko", "signorini"),
                             distribution = "normal", verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
   verbose <- ensure.verbose(verbose)
 
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"

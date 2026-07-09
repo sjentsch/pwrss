@@ -195,8 +195,8 @@ power.z.logistic <- function(prob = NULL, base.prob = NULL, odds.ratio = NULL,
                              distribution = "normal", ceil.n = TRUE,
                              verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
   func.parms <- as.list(environment())
 
   check.proportion(r.squared.predictor)
@@ -606,8 +606,8 @@ pwrss.z.logistic <- function(p1 = NULL, p0 = NULL, odds.ratio  = NULL,
                              method = c("demidenko(vc)", "demidenko", "hsieh"),
                              distribution = "normal", verbose = TRUE) {
 
-  method <- tolower(match.arg(method))
-  alternative <- tolower(match.arg(alternative))
+  method <- match.arg(method)
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   if (alternative %in% c("less", "greater")) alternative <- "one.sided"

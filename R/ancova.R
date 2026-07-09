@@ -1663,7 +1663,7 @@ power.t.contrasts <- function(x = NULL,
   } # if data is null
 
   rm(x)
-  adjust.alpha <- tolower(match.arg(adjust.alpha))
+  adjust.alpha <- match.arg(adjust.alpha)
   func.parms <- as.list(environment())
   verbose <- ensure.verbose(verbose)
   requested <- get.requested(es = NA, n = n.vector, power = power) # calculation of effect size not possible
@@ -1672,7 +1672,7 @@ power.t.contrasts <- function(x = NULL,
     contrast.matrix <- t(as.matrix(contrast.matrix))
   levels <- colnames(contrast.matrix)
 
-  if (tolower(adjust.alpha == "tukey")) {
+  if (adjust.alpha == "tukey") {
 
     tukey.kramer <- TRUE
 

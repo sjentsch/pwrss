@@ -145,8 +145,8 @@ power.exact.mcnemar <- function(prob10 = NULL, prob01 = NULL,
                                 method = c("exact", "approximate"),
                                 ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
   func.parms <- as.list(environment())
 
   if (!is.null(prob10)) check.proportion(prob10)

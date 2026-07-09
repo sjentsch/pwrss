@@ -403,7 +403,7 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0, req.sign 
                                alternative = c("two.sided", "one.sided", "two.one.sided"),
                                ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(beta)) check.numeric(beta)
@@ -504,7 +504,7 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0, req.sign 
         beta.int <- c(-1e10, min(margin)) + c(+1e-7, -1e-7)
       }
 
-      beta <- suppressWarnings(stats::uniroot(f = function(beta) min.pwr.t.reg(beta, n, power), interval = beta.int, tol = 1e-12))$root
+      beta <- try(stats::uniroot(f = function(beta) min.pwr.t.reg(beta, n, power), interval = beta.int, tol = 1e-12)$root, silent = TRUE)
       if (inherits(beta, "try-error")) stop("Design is not feasible.", call. = FALSE)
 
     } # two.one.sided?
@@ -579,7 +579,7 @@ pwrss.t.regression <- function(beta1 = 0.25, beta0 = 0, margin = 0,
                                verbose = TRUE) {
 
   verbose <- ensure.verbose(verbose)
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
   if (alternative == "equivalent") {

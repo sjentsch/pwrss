@@ -68,6 +68,17 @@ test_that("power.np.wilcoxon / pwrss.np.2groups work", {
                  list(test = "t", d = 0.199993547, n = c(n1 = 412, n2 = 412), power = 0.8, t.alpha = 1.9629911 * c(-1, 1),
                       ncp = 2.80501562, null.ncp = 0, df = 784.862039))
 
+    crrRes <- power.np.wilcoxon(req.sign = "-", n2 = 412, power = 0.80, alternative = "two.sided", design = "independent", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "d", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL, null.d = 0, margin = 0, req.sign = "-", n.ratio = 1, n2 = 412, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", design = "independent", distribution = "normal", method = "guenther",
+                      ceil.n = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "d", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", d = -0.199993547, n = c(n1 = 412, n2 = 412), power = 0.8, t.alpha = 1.9629911 * c(-1, 1),
+                      ncp = -2.80501562, null.ncp = 0, df = 784.862039))
+
     crrRes <- power.np.wilcoxon(d = 0.20, power = 0.80, alternative = "two.sided", design = "independent",
                                 method = "noether", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "z"))
@@ -309,6 +320,18 @@ test_that("power.np.wilcoxon / pwrss.np.2groups work", {
     expect_equal(crrRes[c("test", "d", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
                  list(test = "t", d = 0.05, n = c(n1 = 1644, n2 = 1644), power = 0.80001254, t.alpha = c(-4.7655851, 0.5592075),
                       ncp = 1.400849902, null.ncp = c(-2.801699804, -1.400849902), df = 3137.8087))
+
+    crrRes <- suppressWarnings(power.np.wilcoxon(margin = c(-0.05, 0.05), req.sign = "0", n2 = 7175, power = 0.80,
+                                                 alternative = "two.one.sided", design = "independent", verbose = 0))
+    expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
+    expect_equal(names(crrRes), c("parms", "test", "d", "n", "power", "t.alpha", "ncp", "null.ncp", "df"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL, null.d = 0, margin = 0.05 * c(-1, 1), req.sign = "0", n.ratio = 1, n2 = 7175, power = 0.80,
+                      alpha = 0.05, alternative = "two.one.sided", design = "independent", distribution = "normal",
+                      method = "guenther", ceil.n = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "d", "n", "power", "t.alpha", "ncp", "null.ncp", "df")],
+                 list(test = "t", d = 0, n = c(n1 = 7175, n2 = 7175), power = 0.80000988, t.alpha = 1.2816415 * c(-1, 1),
+                      ncp = 0, null.ncp = 2.92652104 * c(-1, 1), df = 13701.2406))
 
     crrRes <- power.np.wilcoxon(d = -0.25, power = 0.80, alternative = "two.sided", design = "paired", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "np", "wilcoxon", "t"))
@@ -742,11 +765,14 @@ test_that("power.np.wilcoxon / pwrss.np.2groups work", {
                  "Possibly incorrect value for `margin` \\(should be within -10 ... 10\\).")
     expect_error(power.np.wilcoxon(d = -0.20, power = 0.80, alternative = "two.sided", design = "paired", method = "noether", verbose = 0),
                  "Specify `method` = \"guenther\" to request Wilcoxon signed-rank test for matched pairs.")
-    # expect_error(power.np.wilcoxon(margin = c(-0.05, 0.05), n2 = 7517, power = 0.80, alternative = "two.one.sided"),
-    #              "Determining the effect size is not possible if `alternative` is \"two.one.sided\".")
     expect_error(power.np.wilcoxon(d = 0, alpha = 1e-4, power = 0.99, alternative = "two.sided"),
                  "Design is not feasible.")
-    expect_error(power.np.wilcoxon(n2 = 2, alpha = 1e-4, power = 0.99, alternative = "two.sided"),
+    expect_error(power.np.wilcoxon(n2 = 4, alpha = 1e-4, power = 0.99, alternative = "two.sided"),
+                 "Design is not feasible.")
+    expect_error(power.np.wilcoxon(d = 0.2, n2 = 2, alpha = 1e-4, alternative = "two.sided"),
                  "Degrees of freedom can not be smaller than 3.")
     expect_error(pwrss.np.2means(), "This function is no longer available. Please use `power.np.wilcoxon\\(\\)`.")
+    expect_warning(power.np.wilcoxon(margin = c(-0.05, 0.05), req.sign = "0", n2 = 20, power = 0.80,
+                                     alternative = "two.one.sided", design = "independent", verbose = 0),
+                   "The target power rate cannot be achieved within the null bounds.")
 })

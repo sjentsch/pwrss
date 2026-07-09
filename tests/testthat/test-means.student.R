@@ -168,6 +168,18 @@ test_that("power.t.student / pwrss.t.mean / pwrss.t.2means work", {
                  list(test = "t", df = 1102, ncp = 3.3205978, null.ncp = 0.830662386, t.alpha = 2.4783672,
                       d = 0.1998765, power = 0.8, n = c(n1 = 552, n2 = 552), n.total = 1104))
 
+    crrRes <- power.t.student(margin = -0.05, req.sign = "-", n2 = 552, power = 0.80, alternative = "one.sided",
+                              design = "independent", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL, null.d = 0, margin = -0.05, req.sign = "-", n2 = 552, n.ratio = 1, power = 0.80, alpha = 0.05,
+                      alternative = "one.sided", design = "independent", claim.basis = "md.pval", ceil.n = TRUE,
+                      verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total")],
+                 list(test = "t", df = 1102, ncp = -3.3205978, null.ncp = -0.830662386, t.alpha = -2.4783672,
+                      d = -0.1998765, power = 0.8, n = c(n1 = 552, n2 = 552), n.total = 1104))
+
     crrRes <- power.t.student(d = 0, margin = c(-0.05, 0.05), power = 0.80, alternative = "two.one.sided",
                               design = "independent", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "student"))
@@ -215,6 +227,18 @@ test_that("power.t.student / pwrss.t.mean / pwrss.t.2means work", {
                  list(test = "t", df = 3138, ncp = 1.400892573, null.ncp = c(-1.400892573, -2.801785145),
                       t.alpha = c(-4.76567037, 0.55916477), d = 0.05, power = 0.800036434, n = c(n1 = 1570, n2 = 1570),
                       n.total = 3140))
+
+    crrRes <- suppressWarnings(power.t.student(margin = c(-0.05, 0.05), req.sign = "0", n2 = 6852, power = 0.80,
+                                               alternative = "two.one.sided", design = "independent", verbose = 0))
+    expect_equal(class(crrRes), c("pwrss", "t", "student"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL, null.d = 0, margin = 0.05 * c(-1, 1), req.sign = "0", n2 = 6852, n.ratio = 1, power = 0.80, alpha = 0.05,
+                      alternative = "two.one.sided", design = "independent", claim.basis = "md.pval", ceil.n = TRUE,
+                      verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total")],
+                 list(test = "t", df = 13702, ncp = 0, null.ncp = 2.92660213 * c(-1, 1), t.alpha = 1.2817226 * c(-1, 1),
+                      d = 0, power = 0.800038332, n = c(n1 = 6852, n2 = 6852), n.total = 13704))
 
     crrRes <- power.t.student(d = -0.20, power = 0.80, alternative = "two.sided", design = "paired", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "student"))
@@ -549,12 +573,15 @@ test_that("power.t.student / pwrss.t.mean / pwrss.t.2means work", {
                       d = 0.10, power = 0.90016873, n = 1492, n.total = 1492))
     # the results are identical: ncp ~ 3.862642, t.crit ~ 2.579131, power ~ 0.900169, n = 1492
 
-    # expect_error(power.t.student(margin = c(-0.05, 0.05), n2 = 7517, power = 0.80, alternative = "two.one.sided"),
-    #              "Determining the effect size is not possible if `alternative` is \"two.one.sided\".")
     expect_error(power.t.student(d = 1e-6, power = 0.99, alpha = 1e-6, alternative = "two.sided", design = "independent"),
                  "Design is not feasible.")
-    expect_error(power.t.student(n2 = 2, power = 0.99, alpha = 1e-6, alternative = "two.sided", design = "independent"),
+    expect_error(power.t.student(power = 0.99, n2 = 5, alpha = 1e-6, alternative = "two.sided", design = "independent"),
+                 "Design is not feasible.")
+    expect_error(power.t.student(d = 0.2, n2 = 2, alpha = 1e-6, alternative = "two.sided", design = "independent"),
                  "Degrees of freedom can not be smaller than 3.")
+    expect_warning(power.t.student(margin = c(-0.05, 0.05), req.sign = "0", n2 = 20, power = 0.80,
+                                   alternative = "two.one.sided", design = "independent", verbose = 0),
+                   "The target power rate cannot be achieved within the null bounds.")
     expect_warning(pwrss.t.mean(mu = 0.20, margin = 0.1, sd = 1, power = 0.8, alternative = "not equal", verbose = FALSE),
                    "Margin is forced to be 0 for the 'two.sided' test.")
 })
@@ -620,6 +647,17 @@ test_that("power.t.welch works", {
     expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total")],
                  list(test = "t", df = 632.44382, ncp = 2.805844912, null.ncp = 0, t.alpha = 1.963722 * c(-1, 1),
                       d = 0.199804448, power = 0.8, n = c(n1 = 476, n2 = 238), n.total = 714))
+
+    crrRes <- power.t.welch(req.sign = "-", n.ratio = 2, var.ratio = 2, n2 = 238, power = 0.80, alternative = "two.sided",
+                            claim.basis = "smd.ci", verbose = 0)
+    expect_equal(class(crrRes), c("pwrss", "t", "welch"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL,  null.d = 0, margin = 0, req.sign = "-",  var.ratio = 2, n.ratio = 2, n2 = 238, power = 0.80, alpha = 0.05,
+                      alternative = "two.sided", claim.basis = "smd.ci", ceil.n = TRUE, verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total")],
+                 list(test = "t", df = 632.44382, ncp = -2.805844912, null.ncp = 0, t.alpha = 1.963722 * c(-1, 1),
+                      d = -0.199804448, power = 0.8, n = c(n1 = 476, n2 = 238), n.total = 714))
 
     crrRes <- power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 2, power = 0.80, alternative = "one.sided", verbose = 0)
     expect_equal(class(crrRes), c("pwrss", "t", "welch"))
@@ -765,6 +803,18 @@ test_that("power.t.welch works", {
                       t.alpha = c(-4.766751724, 0.559138526), d = 0.05, power = 0.80005932, n = c(n1 = 1884, n2 = 942),
                       n.total = 2826))
 
+    crrRes <- suppressWarnings(power.t.welch(margin = c(-0.05, 0.05), req.sign = "0", var.ratio = 2, n.ratio = 2, n2 = 4111,
+                                             power = 0.80, alternative = "two.one.sided", verbose = 0))
+    expect_equal(class(crrRes), c("pwrss", "t", "welch"))
+    expect_equal(names(crrRes), c("parms", "test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total"))
+    expect_equal(crrRes[["parms"]],
+                 list(d = NULL, null.d = 0, margin = 0.05 * c(-1, 1), req.sign = "0", var.ratio = 2, n.ratio = 2, n2 = 4111,
+                      power = 0.80, alpha = 0.05, alternative = "two.one.sided", claim.basis = "md.pval", ceil.n = TRUE,
+                      verbose = 0, utf = FALSE))
+    expect_equal(crrRes[c("test", "df", "ncp", "null.ncp", "t.alpha", "d", "power", "n", "n.total")],
+                 list(test = "t", df = 10960.44441, ncp = 0, null.ncp = 2.926554671 * c(-1, 1), t.alpha = 1.28166865 * c(-1, 1),
+                      d = 0, power = 0.800013981, n = c(n1 = 8222, n2 = 4111), n.total = 12333))
+
     expect_equal(power.t.welch(d = 0.20, n.ratio = 2, var.ratio = 1, power = 0.80, alternative = "two.sided", verbose = 0),
                  pwrss.t.2means(mu1 = 0.20, sd1 = 1, kappa = 2, power = 0.8, alternative = "not equal", verbose = FALSE))
 
@@ -787,8 +837,12 @@ test_that("power.t.welch works", {
     #              "Determining the effect size is not possible if `alternative` is \"two.one.sided\".")
     expect_error(power.t.welch(d = 1e-6, power = 0.99, alpha = 1e-6, alternative = "two.sided"),
                  "Design is not feasible.")
-    expect_error(power.t.welch(n2 = 2, power = 0.99, alpha = 1e-6, alternative = "two.sided"),
+    expect_error(power.t.welch(n2 = 5, power = 0.99, alpha = 1e-6, alternative = "two.sided"),
+                 "Design is not feasible.")
+    expect_error(power.t.welch(d = 0.2, n2 = 2, alpha = 1e-6, alternative = "two.sided"),
                  "Degrees of freedom can not be smaller than 3.")
+    expect_warning(power.t.welch(margin = c(-0.05, 0.05), req.sign = "0", n2 = 20, power = 0.80, alternative = "two.one.sided", verbose = 0),
+                   "The target power rate cannot be achieved within the null bounds.")
     expect_warning(pwrss.t.2means(mu1 = 0.20, sd1 = 1, power = 0.8, welch.df = FALSE, alternative = "not equal", verbose = FALSE),
                    "Forcing welch.df = TRUE.")
     expect_warning(pwrss.t.2means(mu1 = -0.20, sd1 = 1, margin = 0.1, power = 0.80, alternative = "not equal", verbose = FALSE),

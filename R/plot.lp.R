@@ -82,7 +82,7 @@
                          alternative = c("one.sided", "two.sided", "two.one.sided"),
                          plot.main = NULL, plot.sub = NULL, digits = 2) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
 
   check.numeric(ncp)
   null.ncp <- check.margins(null.ncp, check.numeric, alternative)

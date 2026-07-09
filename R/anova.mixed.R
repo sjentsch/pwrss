@@ -156,7 +156,7 @@ power.f.mixed.anova <- function(eta.squared = NULL,
                                 effect = c("between", "within", "interaction"),
                                 ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  effect <- tolower(match.arg(effect))
+  effect <- match.arg(effect)
   func.parms <- as.list(environment())
 
   if (!is.null(eta.squared)) check.nonnegative(eta.squared)
@@ -284,7 +284,7 @@ pwrss.f.rmanova <- function(eta2 = NULL, f2 = NULL,
                             type = c("between", "within", "interaction"),
                             n = NULL, power = NULL, verbose = TRUE) {
 
-  type <- tolower(match.arg(type))
+  type <- match.arg(type)
   verbose <- ensure.verbose(verbose)
 
   if (all(check.not_null(f2, eta2))) {

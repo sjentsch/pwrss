@@ -70,7 +70,7 @@ power.exact.oneprop <- function(prob = NULL, req.sign = "+", null.prob = 0.50,
                                 alternative = c("two.sided", "one.sided", "two.one.sided"),
                                 verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   func.parms <- as.list(environment())
 
   if (!is.null(prob)) check.proportion(prob)
@@ -249,8 +249,8 @@ power.z.oneprop <- function(prob = NULL, req.sign = "+", null.prob = 0.50,
                             arcsine = FALSE, correct = FALSE,
                             ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  std.error <- tolower(match.arg(std.error))
+  alternative <- match.arg(alternative)
+  std.error <- match.arg(std.error)
   func.parms <- as.list(environment())
 
   if (!is.null(prob)) check.proportion(prob)
@@ -519,7 +519,7 @@ pwrss.z.prop <- function(p, p0 = 0.50, margin = 0, arcsin.trans = FALSE, alpha =
                                           "equivalent", "non-inferior", "superior"),
                           n = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   if (alternative %in% c("less", "greater", "non-inferior", "superior")) alternative <- "one.sided"
@@ -648,8 +648,8 @@ power.exact.twoprops <- function(prob1 = NULL, prob2 = NULL, req.sign = "+", n.r
                                  paired = FALSE, rho.paired = 0.50, method = c("exact", "approximate"),
                                  ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  method <- tolower(match.arg(method))
+  alternative <- match.arg(alternative)
+  method <- match.arg(method)
 
   check.positive(n.ratio)
   if (!is.null(prob1)) check.proportion(prob1)
@@ -809,8 +809,8 @@ power.z.twoprops <- function(prob1 = NULL, prob2 = NULL, req.sign = "+", margin 
                              std.error = c("pooled", "unpooled"),
                              ceil.n = TRUE, verbose = 1, utf = FALSE) {
 
-  alternative <- tolower(match.arg(alternative))
-  std.error <- tolower(match.arg(std.error))
+  alternative <- match.arg(alternative)
+  std.error <- match.arg(std.error)
   func.parms <- as.list(environment())
 
   if (!is.null(prob1)) check.proportion(prob1)
@@ -1217,7 +1217,7 @@ pwrss.z.2props <- function(p1, p2, margin = 0, arcsin.trans = FALSE,
                                            "equivalent", "non-inferior", "superior"),
                            n2 = NULL, power = NULL, verbose = TRUE) {
 
-  alternative <- tolower(match.arg(alternative))
+  alternative <- match.arg(alternative)
   verbose <- ensure.verbose(verbose)
 
   check.proportion(p1, p2, alpha)
