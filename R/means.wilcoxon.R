@@ -35,6 +35,8 @@
 #' @param d            Cohen's d or Hedges' g.
 #' @param null.d       Cohen's d or Hedges' g under null, typically 0 (zero).
 #' @param margin       margin - ignorable \code{d} - \code{null.d} difference.
+#' @param req.sign     whether `d` is smaller or larger than `null.d` (when
+#'                     minimum detectable prob is of interest).
 #' @param n.ratio      \code{n1 / n2} ratio (applies to independent samples
 #'                     only)
 #' @param n2           integer; sample size in the second group (or for the
@@ -301,48 +303,46 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
   } else if (requested == "es") {
 
-    if(alternative != "two.one.sided" & req.sign %in% c(0, "0")) stop("req.sign cannot be 0 for 'one.sided' and 'two.sided' hypothesis tests.", call. = FALSE)
-    
-    if(alternative == "two.one.sided" & req.sign %in% c(0, "0")) {
-      
+    if (alternative == "two.one.sided" && check.null_sign(req.sign, alternative)) {
+
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
       d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
       d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.wilcox(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
-      
+
       d <- mean(c(d.lower, d.upper))
-      
+
       pwr.lower <- suppressWarnings(pwr.wilcox(d = d.lower, null.d = null.d, margin = margin,
                                                n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
                                                design = design, alternative = alternative, method = method))$power
       pwr.upper <- suppressWarnings(pwr.wilcox(d = d.upper, null.d = null.d, margin = margin,
                                                n2 = n2 / w, n.ratio = n.ratio, alpha = alpha,
                                                design = design, alternative = alternative, method = method))$power
-      
-      if(round(pwr.lower, 3) >= power & round(pwr.upper, 3) >= power) {
-        
+
+      if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
+
         warning(paste0("Target effect ranges from ", round(d.lower, 4),
                        " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
-        
+
       } else {
-        
+
         warning("The target power rate cannot be achieved within the null bounds.", call. = FALSE)
-        
-      } 
-      
-    } else {
-      
-      if(req.sign %in% c(-1, "-", "negative")) {
-        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
-      } else {
-        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+
       }
-      
+
+    } else {
+
+      if (check.pos_sign(req.sign)) {
+        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+      } else {
+        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
+      }
+
       d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.wilcox(d, n2, power), interval = d.int, tol = 1e-12))$root
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-      
+
     } # two.one.sided?
-    
+
     # a bit complicated because uniroot may fail with large N's because no local minimum can be found
     # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
     # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)

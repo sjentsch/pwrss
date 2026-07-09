@@ -41,8 +41,8 @@ rate.}
 in the mean event rate for one unit increase in
 the predictor.}
 
-\item{req.sign}{sign of the beta1 coefficient (when minimum
-detectable effect or beta1 is of interest).}
+\item{req.sign}{sign of the \code{beta1} coefficient (when minimum
+detectable effect or \code{beta1} is of interest).}
 
 \item{n}{integer; sample size.}
 

@@ -14,7 +14,7 @@ test_that("generic.lp.test.R works", {
                                plot = FALSE, verbose = 0),
                  structure(list(power = 0.261531695, ncp = 0, null.ncp = c(-2, 2), df = 100, alpha = 0.05,
                                 alternative = "two.one.sided", t.alpha = 0.33388239 * c(-1, 1), beta = 0.73846831,
-                                type.s = NA, type.m = NA),                                
+                                type.s = NA, type.m = NA),
                            class = c("pwrss", "generic", "lp")))
     expect_equal(power.lp.test(ncp = 2, null.ncp = c(-1, 1), df = 100, alpha = 0.05, alternative = "two.one.sided",
                                plot = FALSE, verbose = 0),

@@ -42,8 +42,10 @@
 #'   transition period.
 #'
 #' @param d           Cohen's d or Hedges' g.
-#' @param null.d      Cohen's d or Hedges' g under null, typically 0(zero).
+#' @param null.d      Cohen's d or Hedges' g under null, typically 0 (zero).
 #' @param margin      margin - ignorable \code{d} - \code{null.d} difference.
+#' @param req.sign    whether `d` is smaller or larger than `null.d` (when
+#'                    minimum detectable prob is of interest).
 #' @param n.ratio     \code{n1 / n2} ratio (applies to independent samples
 #'                    only)
 #' @param n2          integer; sample size in the second group (or for the
@@ -369,52 +371,50 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
   } # min.pwr.student (for uniroot)
 
   if (requested == "n") {
-    
+
     n2 <- try(stats::uniroot(function(n2) min.pwr.student(d, n2, power), interval = c(4, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible. Possibly very large effect size.", call. = FALSE)
 
     n2 <- ifelse(ceil.n, ceiling(n2), n2)
 
   } else if (requested == "es") {
-    
-    if(alternative != "two.one.sided" & req.sign %in% c(0, "0")) stop("req.sign cannot be 0 for 'one.sided' and 'two.sided' hypothesis tests.", call. = FALSE)
-    
-    if(alternative == "two.one.sided" & req.sign %in% c(0, "0")) {
-      
+
+    if (alternative == "two.one.sided" && check.null_sign(req.sign, alternative)) {
+
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
       d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
       d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.student(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
-      
+
       d <- mean(c(d.lower, d.upper))
-      
+
       pwr.lower <- suppressWarnings(pwr.student(d = d.lower, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
                                alternative = alternative, design = design, claim.basis = claim.basis))$power
       pwr.upper <- suppressWarnings(pwr.student(d = d.upper, null.d = null.d, margin = margin, n2 = n2, n.ratio = n.ratio, alpha = alpha,
                                alternative = alternative, design = design, claim.basis = claim.basis))$power
-      
-      if(round(pwr.lower, 3) >= power & round(pwr.upper, 3) >= power) {
-        
+
+      if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
+
         warning(paste0("Target effect ranges from ", round(d.lower, 4),
                        " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
-        
+
       } else {
-        
+
         warning("The target power rate cannot be achieved within the null bounds.", call. = FALSE)
-        
-      } 
-      
-    } else {
-      
-      if(req.sign %in% c(-1, "-", "negative")) {
-        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
-      } else {
-        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+
       }
-      
+
+    } else {
+
+      if (check.pos_sign(req.sign)) {
+        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+      } else {
+        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
+      }
+
       d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.student(d, n2, power), interval = d.int, tol = 1e-12))$root
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-      
+
       # a bit complicated because uniroot may fail with large N's because no local minimum can be found
       # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
       # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
@@ -424,7 +424,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
       #   if (uniroot_break(d)) break
       # } # for (o ...)
       # if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-      
+
     } # two.one.sided?
 
   } # ss or es?
@@ -518,8 +518,10 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 #'
 #'
 #' @param d           Cohen's d or Hedges' g.
-#' @param null.d      Cohen's d or Hedges' g under null, typically 0(zero).
+#' @param null.d      Cohen's d or Hedges' g under null, typically 0 (zero).
 #' @param margin      margin - ignorable \code{d} - \code{null.d} difference.
+#' @param req.sign    whether `d` is smaller or larger than `null.d` (when
+#'                    minimum detectable prob is of interest).
 #' @param var.ratio   variance ratio in the form of sd1 ^ 2 / sd2 ^ 2.
 #' @param n.ratio     \code{n1 / n2} ratio (applies to independent samples
 #'                    only)
@@ -583,7 +585,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 #' # see `?pwrss::power.t.student` for examples
 #'
 #' @export power.t.welch
-power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+", 
+power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
                           var.ratio = 1, n.ratio = 1, n2 = NULL,
                           power = NULL, alpha = 0.05,
                           alternative = c("two.sided", "one.sided", "two.one.sided"),
@@ -606,7 +608,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
   requested <- get.requested(es = d, n = n2, power = power)
 
   pwr.welch <- function(d, null.d, margin, var.ratio, n2, n.ratio, alpha, alternative, claim.basis) {
-    
+
     n1 <- n.ratio * n2
 
     # variance ratio constraint
@@ -641,54 +643,52 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
   } # min.pwr.welch (for uniroot)
 
   if (requested == "n") {
-    
+
     n2 <- try(stats::uniroot(function(n2) min.pwr.welch(d, n2, power), interval = c(3, 1e10))$root, silent = TRUE)
     if (inherits(n2, "try-error") || n2 == 1e10) stop("Design is not feasible. Possibly very large effect size.", call. = FALSE)
-    
+
     n2 <- ifelse(ceil.n, ceiling(n2), n2)
 
   } else if (requested == "es") {
-    
-    if(alternative != "two.one.sided" & req.sign %in% c(0, "0")) stop("req.sign cannot be 0 for 'one.sided' and 'two.sided' hypothesis tests.", call. = FALSE)
-    
-    if(alternative == "two.one.sided" & req.sign %in% c(0, "0")) {
-      
+
+    if (alternative == "two.one.sided" && check.null_sign(req.sign, alternative)) {
+
       lower.int <- c(min(margin) + null.d, mean(margin) + null.d) + c(+1e-7, 0)
       upper.int <- c(mean(margin) + null.d, max(margin) + null.d) + c(0, -1e-7)
       d.lower <- suppressWarnings(stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = lower.int, tol = 1e-12))$minimum
       d.upper <- suppressWarnings(stats::optimize(f = function(d) min.pwr.welch(d, n2, power) ^ 2, interval = upper.int, tol = 1e-12))$minimum
-      
+
       d <- mean(c(d.lower, d.upper))
-      
+
       pwr.lower <- suppressWarnings(pwr.welch(d = d.lower, null.d = null.d, margin = margin,
                                               var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio, alpha = alpha,
                                               alternative = alternative, claim.basis = claim.basis))$power
-      pwr.upper <- suppressWarnings(pwr.welch(d = d.upper, null.d = null.d, margin = margin, 
+      pwr.upper <- suppressWarnings(pwr.welch(d = d.upper, null.d = null.d, margin = margin,
                                               var.ratio = var.ratio, n2 = n2, n.ratio = n.ratio, alpha = alpha,
                                               alternative = alternative, claim.basis = claim.basis))$power
-      
-      if(round(pwr.lower, 3) >= power & round(pwr.upper, 3) >= power) {
-        
+
+      if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
+
         warning(paste0("Target effect ranges from ", round(d.lower, 4),
                        " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
-        
+
       } else {
-        
+
         warning("The target power rate cannot be achieved within the null bounds.", call. = FALSE)
-        
-      } 
-      
-    } else {
-      
-      if(req.sign %in% c(-1, "-", "negative")) {
-        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
-      } else {
-        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+
       }
-      
+
+    } else {
+
+      if (check.pos_sign(req.sign)) {
+        d.int <- c(max(margin) + null.d, 10) + c(+1e-7, -1e-7)
+      } else {
+        d.int <- c(-10, min(margin) + null.d) + c(+1e-7, -1e-7)
+      }
+
       d <- suppressWarnings(stats::uniroot(f = function(d) min.pwr.welch(d, n2, power), interval = d.int, tol = 1e-12))$root
       if (inherits(d, "try-error")) stop("Design is not feasible.", call. = FALSE)
-      
+
       # a bit complicated because uniroot may fail with large N's because no local minimum can be found
       # as a (slighly nasty) hack, we can add a minimum offset to power (increased iteratively) which may solve this problem
       # NB: 10 ^ -Inf == 0 (i.e., we start without an offset)
@@ -699,7 +699,7 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
       # } # for (o ...)
       # if (inherits(d, "try-error"))
       #   stop("Design is not feasible.", call. = FALSE)
-      
+
     } # two.one.sided?
 
   } # ss or es?

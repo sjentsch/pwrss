@@ -1030,10 +1030,10 @@
 
   tgt <- ifelse(utf, "P",       "prob")
   mrg <- ifelse(utf, "P\u2080", "null.prob")
-  if (x$method == "exact") val.alt  <- x$prob      else val.alt  <- x$mean
-  if (x$method == "exact") val.null <- x$null.prob else val.null <- x$null.mean
-  h0_text <- .h0_twoone(tgt, mrg, utf, alt = x$alternative, val.alt = x$prob, val.null = x$null.prob)
-  h1_text <- .h1_twoone(tgt, mrg, utf, alt = x$alternative, val.alt = x$prob, val.null = x$null.prob)
+  val.alt  <- ifelse(x$method == "exact", x$prob,      x$mean)
+  val.null <- ifelse(x$method == "exact", x$null.prob, x$null.mean)
+  h0_text <- .h0_twoone(tgt, mrg, utf, alt = x$alternative, val.alt = val.alt, val.null = val.null)
+  h1_text <- .h1_twoone(tgt, mrg, utf, alt = x$alternative, val.alt = val.alt, val.null = val.null)
   cat(.hypotheses(h0_text, h1_text, utf))
 
   if (verbose == 2) {

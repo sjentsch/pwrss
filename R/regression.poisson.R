@@ -42,8 +42,8 @@
 #' @param beta1               the natural logarithm of the relative increase
 #'                            in the mean event rate for one unit increase in
 #'                            the predictor.
-#' @param req.sign            sign of the beta1 coefficient (when minimum
-#'                            detectable effect or beta1 is of interest).
+#' @param req.sign            sign of the `beta1` coefficient (when minimum
+#'                            detectable effect or `beta1` is of interest).
 #' @param mean.exposure       the mean exposure time (should be > 0), usually
 #'                            it is 1.
 #' @param n                   integer; sample size.

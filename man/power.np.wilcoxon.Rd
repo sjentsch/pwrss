@@ -33,8 +33,8 @@ power.np.wilcoxon(
 
 \item{margin}{margin - ignorable \code{d} - \code{null.d} difference.}
 
-\item{req.sign}{whether estimated d is smaller or larger than the null.d
-(when minimum detectable d is of interest).}
+\item{req.sign}{whether \code{d} is smaller or larger than \code{null.d} (when
+minimum detectable prob is of interest).}
 
 \item{n.ratio}{\code{n1 / n2} ratio (applies to independent samples
 only)}
