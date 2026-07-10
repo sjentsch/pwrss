@@ -1,6 +1,6 @@
 # determine a valid range to search for correlations (when using optimize())
 get.cor.rng <- function(rho0 = 0, req.sign = "+") {
-  sort(c(rho0, ifelse(check.pos_sign(req.sign), ifelse(rho0 < 0, 0, 1), ifelse(rho0 > 0, 0, -1)))) + c(1e-8, -1e-8)
+  sort(c(rho0, ifelse(check.pos_sign(req.sign), 1 * (rho0 >= 0), -1 * (rho0 < 0)))) + c(1e-8, -1e-8)
 }
 
 #######################################################################
@@ -60,7 +60,7 @@ rho.limits <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
   min.eig <- function(rho) min(eigen(fill.mat(rho), symmetric = TRUE, only.values = TRUE)$values)
 
   grid <- seq(-1 + tol, 1 - tol, length.out = n.grid)
-  eigs <- sapply(grid, min.eig)
+  eigs <- vapply(grid, min.eig, numeric(1))
 
   feasible <- grid[eigs >= -tol]
 
@@ -233,13 +233,13 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
     requested <- get.requested(es = list(rho12, rho34), n = n, power = power)
   }
 
-  if (requested != "es" && common.index == TRUE && alternative == "two.sided" && rho12 == rho13)
+  if (requested != "es" &&  common.index && alternative == "two.sided" && rho12 == rho13)
     stop("`common.index` is TRUE and `alternative` is \"two.sided\" but `rho12` = `rho13`.", call. = FALSE)
 
-  if (requested != "es" && common.index == FALSE && alternative == "two.sided" && rho12 == rho34)
+  if (requested != "es" && !common.index && alternative == "two.sided" && rho12 == rho34)
     stop("`common.index` is FALSE and `alternative` = \"two.sided\" but `rho12` = `rho34`.", call. = FALSE)
 
-  if (common.index == TRUE && any(check.not_null(rho14, rho24, rho34)))
+  if (common.index && any(check.not_null(rho14, rho24, rho34)))
     warning("Ignoring `rho14` `rho24`, or `rho34` because `common.index` is TRUE.", call. = FALSE)
 
 
@@ -412,10 +412,10 @@ power.z.twocors.steiger <- function(rho12 = NULL, rho13 = NULL, rho23 = NULL,
     if (is.null(rho12)) {
       rho12 <- stats::optimize(function(rho12) min.pwr(rho12, rho13, rho34, n) ^ 2,
                                interval = val.rng, tol = 1e-12)$minimum
-    } else if (common.index == TRUE  && is.null(rho13)) {
+    } else if (common.index  && is.null(rho13)) {
       rho13 <- stats::optimize(function(rho13) min.pwr(rho12, rho13, rho34, n) ^ 2,
                                interval = val.rng, tol = 1e-12)$minimum
-    } else if (common.index == FALSE && is.null(rho34)) {
+    } else if (!common.index && is.null(rho34)) {
       rho34 <- stats::optimize(function(rho34) min.pwr(rho12, rho13, rho34, n) ^ 2,
                                interval = val.rng, tol = 1e-12)$minimum
     }

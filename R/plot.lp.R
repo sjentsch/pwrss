@@ -13,17 +13,13 @@
   plot.window.dim <- grDevices::dev.size("cm")
   cex.axis <- min(plot.window.dim[1] / 15, plot.window.dim[2] / 15)
 
-  ifelse(type == 1,
-         color <- grDevices::adjustcolor(2, alpha.f = 1),
-         color <- grDevices::adjustcolor(4, alpha.f = 1))
+  color <- grDevices::adjustcolor(ifelse(type == 1, 2, 4), alpha.f = 1)
 
   # non-central lambda-prime function
-  funt <- function(x) {
-    sadists::dlambdap(x, df = df, t = ncp)
-  }
+  funlp <- function(x) sadists::dlambdap(x, df = df, t = ncp)
 
   # plot central t distribution
-  graphics::plot(funt, xlim = xlim, ylim = ylim,
+  graphics::plot(funlp, xlim = xlim, ylim = ylim,
                  xaxs = "i", yaxs = "i", bty = "l",
                  col = color, lwd = 2, lty = type,
                  xlab = "", ylab = "",
@@ -57,13 +53,8 @@
                   `3` = grDevices::adjustcolor(1, alpha.f = 0.3),
                   `s` = grDevices::adjustcolor(2, alpha.f = 0.6))
 
-  # non-central lambda-prime function
-  funt <- function(x) {
-    sadists::dlambdap(x, df = df, t = ncp)
-  }
-
-  x <- seq(min(xlim), max(xlim), by = .001)
-  y <- funt(x)
+  x <- seq(min(xlim), max(xlim), by = 0.001)
+  y <- sadists::dlambdap(x, df = df, t = ncp)
   xs <- c(x, rev(x))
   ys <- c(y, rep(0, length(y)))
 
@@ -131,17 +122,13 @@
 
   } else if (alternative == "one.sided") {
 
-    ifelse(ncp > null.ncp,
-           lower.tail <- FALSE,
-           lower.tail <- TRUE)
-    t.alpha <- sadists::qlambdap(alpha, df = df, t = null.ncp, lower.tail = lower.tail) # if ncp > null.ncp
-
+    t.alpha <- sadists::qlambdap(alpha, df = df, t = null.ncp, lower.tail = ncp < null.ncp)
     yt.alpha <- sadists::dlambdap(t.alpha, df = df, t = null.ncp)
 
   } # alternative
 
   # x-axis limits
-  ifelse(df < 20, prob.extreme <- 0.001, prob.extreme <- 0.0001)
+  prob.extreme <- ifelse(df < 20, 0.001, 0.0001)
   lower <- min(min(sadists::qlambdap(prob.extreme, df = df, t = ncp, lower.tail = TRUE)),
                sadists::qlambdap(prob.extreme, df = df, t = min(null.ncp), lower.tail = TRUE),
                sadists::qlambdap(prob.extreme, df = df, t = max(null.ncp), lower.tail = TRUE))
@@ -208,9 +195,9 @@
       .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha[1], max(xlim)), type = 2)
       .paint.lp.dist(ncp = ncp, df = df, xlim = c(min(xlim), t.alpha[2]), type = 2)
 
-      ifelse(t.alpha[1] > t.alpha[2],
-             power <- .paint.lp.dist(ncp = ncp, df = df, xlim = t.alpha, type = 3),
-             power <- 0)
+      power <- ifelse(t.alpha[1] > t.alpha[2],
+                      .paint.lp.dist(ncp = ncp, df = df, xlim = t.alpha, type = 3),
+                      0)
 
     }
 
@@ -270,17 +257,19 @@
 
   } else {
 
-    ifelse(ncp < null.ncp,
-           .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 1),
-           .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 1))
+    if (ncp < null.ncp) {
 
-    ifelse(ncp < null.ncp,
-           .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 2),
-           .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 2))
+               .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 1)
+               .paint.lp.dist(ncp = ncp,      df = df, xlim = c(t.alpha, max(xlim)), type = 2)
+      power <- .paint.lp.dist(ncp = ncp,      df = df, xlim = c(t.alpha, min(xlim)), type = 3)
 
-    ifelse(ncp < null.ncp,
-           power <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, min(xlim)), type = 3),
-           power <- .paint.lp.dist(ncp = ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 3))
+    } else {
+
+               .paint.lp.dist(ncp = null.ncp, df = df, xlim = c(t.alpha, max(xlim)), type = 1)
+               .paint.lp.dist(ncp = ncp,      df = df, xlim = c(t.alpha, min(xlim)), type = 2)
+      power <- .paint.lp.dist(ncp = ncp,      df = df, xlim = c(t.alpha, max(xlim)), type = 3)
+
+    }
 
   } # end of paint regions
 

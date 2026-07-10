@@ -423,9 +423,9 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0, req.sign 
   if (!is.null(r.squared) && !is.null(beta) && r.squared > 0 && r.squared < (beta * sd.predictor / sd.outcome) ^ 2)
     warning("`r.squared` is possibly larger.", call. = FALSE)
 # if (is.null(r.squared) && k.total > 1)
-#  warning(paste("When requesting to calculate the effect size, `r.squared` is calculated assuming only one predictor.",
-#                "With several predictors, `beta` should not be calculated using the formula under Details in the help",
-#                "for this function."), call. = FALSE)
+#  warning("When requesting to calculate the effect size, `r.squared` is calculated assuming only one predictor. ",
+#          "With several predictors, `beta` should not be calculated using the formula under Details in the help ",
+#          "for this function.", call. = FALSE)
 
   # NB: Needs more careful consideration, how the different options (beta, k.total) will affect r.squared
   requested <- get.requested(es = beta, n = n, power = power)
@@ -487,8 +487,8 @@ power.t.regression <- function(beta = NULL, null.beta = 0, margin = 0, req.sign 
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
-        warning(paste0("Target effect ranges from ", round(beta.lower, 4),
-                       " to ", round(beta.upper, 4), " within the null bounds."), call. = FALSE)
+        warning("Target effect ranges from ", round(beta.lower, 4), " to ", round(beta.upper, 4), " within the null bounds.",
+                call. = FALSE)
 
       } else {
 

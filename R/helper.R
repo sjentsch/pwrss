@@ -13,13 +13,14 @@ ensure.verbose <- function(verbose = NULL) {
 # check the input parameters n, power and es, and return which calculation is requested
 get.requested <- function(es = NULL, n = NULL, power = NULL) {
 
-  es_vars <- gsub("list", "", deparse(substitute(es), nlines = 1))
+  es_vars <- gsub("list", "", deparse(substitute(es), nlines = 1), fixed = TRUE)
   n_vars <- deparse(substitute(n), nlines = 1)
 
   if (is.list(es)) {
     if        (sum(unlist(lapply(es, is.null))) == 2) {
       stop(sprintf("Exactly one element / entry of `%s` can be NULL, not both.",
-                   paste(strsplit(gsub("[() ]", "", es_vars), ",")[[1]], collapse = "` or `")), call. = FALSE)
+                   paste(strsplit(gsub("[() ]", "", es_vars, fixed = TRUE), ",", fixed = TRUE)[[1]], collapse = "` or `")),
+           call. = FALSE)
     } else if (sum(unlist(lapply(es, is.null))) == 1) {
       es <- NULL
     }
@@ -32,9 +33,9 @@ get.requested <- function(es = NULL, n = NULL, power = NULL) {
          call. = FALSE)
 
   if (sum(check.not_null(n, power, es)) != 2) {
-    n.parms <- ifelse(!any(is_na), "two", "one")
+    n.parms <- ifelse(any(is_na), "one", "two")
     s.parms <- do.call(sprintf,
-                     list(ifelse(!any(is_na), "%s`, `%s`, or `%s", "%s` or `%s"), es_vars, n_vars, "power")[c(TRUE, !is_na)])
+                     list(ifelse(any(is_na), "%s` or `%s", "%s`, `%s`, or `%s"), es_vars, n_vars, "power")[c(TRUE, !is_na)])
     stop(sprintf("Exactly %s of the parameters `%s` must be given, one has to be NULL.", n.parms, s.parms), call. = FALSE)
   }
 
@@ -45,12 +46,12 @@ get.requested <- function(es = NULL, n = NULL, power = NULL) {
 get.interval <- function(null.ncp, req.sign, distribution = c("z", "t", "lp", "binom"), alpha = 0.05,
                          alternative = c("two.sided", "one.sided", "two.one.sided"),
                          sd = NULL, df = NULL) {
-  
+
   distribution <- match.arg(distribution)
   alternative  <- match.arg(alternative)
   if (distribution %in% c("lp", "t")) {
     check.positive(df)
-  } else if (distribution %in% "z") {
+  } else if (distribution == "z") {
     check.positive(sd)
   }
 
@@ -59,7 +60,7 @@ get.interval <- function(null.ncp, req.sign, distribution = c("z", "t", "lp", "b
     sort(null.ncp)
 
   } else if (check.pos_sign(req.sign)) { # req.sign is "+" (or equivalent)
-      
+
     alpha.upr <- ifelse(alternative == "two.sided", 1 - alpha / 2, 1 - alpha)
     alt.upr <- switch(distribution,
                       "z" = stats::qnorm(1 - 1e-10, mean = stats::qnorm(alpha.upr, mean = max(null.ncp), sd = sd), sd = sd),

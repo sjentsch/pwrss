@@ -698,8 +698,8 @@ joint.probs.2x2 <- function(prob1, prob2, rho = 0.50, verbose = 1) {
   )
 
   if (rho < rho.min || rho > rho.max) {
-    stop(paste("Combination of `prob1`, `prob2` and `rho` is not feasible.\n`rho` should be between",
-               round(rho.min, 3), "and", round(rho.max, 3)), call. = FALSE)
+    stop("Combination of `prob1`, `prob2` and `rho` is not feasible.\n`rho` should be between ",
+         round(rho.min, 3), " and ", round(rho.max, 3), call. = FALSE)
   }
 
   prob11 <- rho * sqrt(prob1 * (1 - prob1) * prob2 * (1 - prob2)) + prob1 * prob2
@@ -760,7 +760,7 @@ prob.limits.paired <- function(prob1 = NULL, prob2 = NULL, rho = 0.50,
 
   # find the feasible region
   grid <- seq(grid.min, grid.max, by = step)
-  good <- sapply(grid, feasible)
+  good <- vapply(grid, feasible, logical(1))
 
   if (!any(good)) {
     stop("No feasible values found. Check that rho is achievable given the fixed probability.", call. = FALSE)

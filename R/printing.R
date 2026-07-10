@@ -71,34 +71,36 @@
 .fmt_adsc <- function(f, utf = FALSE) {
   f <- gsub("^std.", "Std. ", gsub("odds.ratio", "Odds Ratio", gsub("rate.ratio", "Rate Ratio", f)))
   if (utf) {
-    .fmt_utf(gsub("mean", "\u03BC", gsub("lambda", "\u03BB", gsub(".squared|.squared.change", "\u00b2", gsub("^r\\.", "R.", f)))))
+    .fmt_utf(gsub("mean", "\u03BC", gsub("lambda", "\u03BB", gsub(".squared|.squared.change", "\u00b2",
+               gsub("^r\\.", "R.", f)), fixed = TRUE), fixed = TRUE))
   } else {
     gsub(".squared|.squared.change", "-squared", gsub("^r\\.", "R.", f))
   }
 }
 
-.nspacer <- function(x) floor(length(gregexpr("\u2009", x)[[1]]) / 2)
+.nspacer <- function(x) floor(length(gregexpr("\u2009", x, fixed = TRUE)[[1]]) / 2)
 
 .pad <- function(dsc, maxlen) strrep(" ", maxlen + .nspacer(dsc) - nchar(dsc))
 
 .a_pad <- function(n, utf) {
-  if (any(grepl("^tgt.effect$",   n))) {
-    if (any(grepl("^rho\\d{2}",   n)) || any(grepl("^prob\\d{1}$", n))) return(ifelse(utf, 2, 1))
-    if (any(grepl("^prob\\d{2}$", n)))                                  return(ifelse(utf, 2, 2))
-    if (any(grepl("^std.beta$",   n)))                                  return(ifelse(utf, 5, 5))
-    ifelse(utf, 1, 0)
-  } else if (any(grepl("^df$",     n)) && !any(grepl("^n.total$", n))) {
-    ifelse(utf, 1, 0)
+  if (any(grepl("^tgt.effect$", n))) {
+    if (any(grepl("^rho\\d{2}",   n))) return(as.integer(utf) + 1)
+    if (any(grepl("^prob\\d{1}$", n))) return(as.integer(utf) + 1)
+    if (any(grepl("^prob\\d{2}$", n))) return(2)
+    if (any(grepl("^std.beta$",   n))) return(5)
+    as.integer(utf)
+  } else if (any(grepl("^df$", n)) && !any(grepl("^n.total$", n))) {
+    as.integer(utf)
   } else if (any(grepl("^n.pres$", n))) {
-    ifelse(utf, 1, 0)
+    as.integer(utf)
   } else if (any(grepl("^eta.squared", n))) {
-    ifelse(utf, 0, 5)
-  } else if (any(grepl("^rate.ratio",  n))) {
-    ifelse(utf, 7, 4)
-  } else if (any(grepl("^odds.ratio",  n)) && !any(grepl("^tgt.effect",  n))) {
-    ifelse(utf, 7, 4)
-  } else if (any(grepl("^r.squared",   n))) {
-    ifelse(utf, 0, 3)
+    as.integer(!utf) * 5
+  } else if (any(grepl("^rate.ratio", n))) {
+    as.integer(utf) * 3 + 4
+  } else if (any(grepl("^odds.ratio", n)) && !any(grepl("^tgt.effect",  n))) {
+    as.integer(utf) * 3 + 4
+  } else if (any(grepl("^r.squared", n))) {
+    as.integer(!utf) * 3
   } else {
     0
   }
@@ -1113,7 +1115,7 @@
   cat(.results(x, utf, digits))
 
   if (verbose == 2) {
-    mrg_def_ascii <- sprintf("Margin : Smallest %s that matters", gsub("Change", "change", rsq))
+    mrg_def_ascii <- sprintf("Margin : Smallest %s that matters", gsub("Change", "change", rsq, fixed = TRUE))
     #                     | ascii       |  utf
     defs_mtx <- t(matrix(c(mrg_def_ascii, "\u03B4\u2009 : Margin - ignorable R\u00B2 or \u0394R\u00B2",
                            "",            "\u03BB\u2009 : Non-centrality parameter under alternative",

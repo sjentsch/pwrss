@@ -212,14 +212,14 @@ power.f.ancova <- function(eta.squared = NULL,
   if (is.null(target.effect)) {
     df1 <- prod(factor.levels - 1)
   } else {
-    if (all(strsplit(target.effect, ":")[[1]] %in% fac.letters)) {
-      fac.select <- fac.letters %in% strsplit(target.effect, ":")[[1]]
+    if (all(strsplit(target.effect, ":", fixed = TRUE)[[1]] %in% fac.letters)) {
+      fac.select <- fac.letters %in% strsplit(target.effect, ":", fixed = TRUE)[[1]]
       df1 <- prod(factor.levels[fac.select] - 1)
       effect <- paste(target.effect, "from", effect)
     } else {
-      stop(paste("Invalid specification of `target.effect`. It must be either a single letter \"A\", \"B\" or \"C\"",
-                 "(depending on the length of `factor.levels`), assessing a main effect, or a combination of these",
-                 "letters separated by \":\", e.g., \"A:B\", assessing an interaction."), call. = FALSE)
+      stop("Invalid specification of `target.effect`. It must be either a single letter \"A\", \"B\" or \"C\" ",
+           "(depending on the length of `factor.levels`), assessing a main effect, or a combination of these ",
+           "letters separated by \":\", e.g., \"A:B\", assessing an interaction.", call. = FALSE)
     }
   }
 
@@ -512,7 +512,7 @@ power.f.ancova.keppel <- function(mu.vector,
 
   n.total <- sum(n.vector)
   eta.squared <- pwr.obj$f.squared / (1 + pwr.obj$f.squared)
-  effect <- paste0(c("A"), "(", factor.levels, ")")
+  effect <- paste0("A", "(", factor.levels, ")")
   n.way <- length(factor.levels)
 
   check_var.ratio(sd.vector, n.vector)
@@ -1628,7 +1628,7 @@ power.t.contrasts <- function(x = NULL,
 
   if (!is.null(x)) {
 
-    if (all(c("pwrss", "f", "ancova", "shieh") %in% class(x))) {
+    if (inherits(x, c("pwrss", "f", "ancova", "shieh"))) {
 
       # transfer pwrss.f.ancova.shieh object into the input parameters and remove the object
       mu.vector <- x$parms$mu.vector
@@ -1643,7 +1643,7 @@ power.t.contrasts <- function(x = NULL,
 
     } else {
 
-      stop("This function only works with an object of type `pwrss`, `ancova`, and `shieh`.", call. = FALSE)
+      stop("This function only works with an object of type `pwrss`, `f`, `ancova`, and `shieh`.", call. = FALSE)
 
     }
 

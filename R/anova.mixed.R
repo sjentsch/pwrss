@@ -169,9 +169,9 @@ power.f.mixed.anova <- function(eta.squared = NULL,
   requested <- get.requested(es = eta.squared, n = n.total, power = power)
 
   if (!all(c("between", "within") %in% factor.type))
-    stop(paste("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'),",
-               "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically,",
-               "which factor is treated as between-subjects and which as within-subjects."), call. = FALSE)
+    stop("The `factor.type` argument must be specified as either c('between', 'within') or c('within', 'between'), ",
+         "indicating the order in which the corresponding values in `factor.levels` are interpreted - specifically, ",
+         "which factor is treated as between-subjects and which as within-subjects.", call. = FALSE)
   if (length(factor.levels) != 2 || length(factor.type) != 2)
     stop("Exactly two factors are allowed in this procedure.", call. = FALSE)
 

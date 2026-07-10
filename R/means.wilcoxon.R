@@ -319,8 +319,8 @@ power.np.wilcoxon <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
-        warning(paste0("Target effect ranges from ", round(d.lower, 4),
-                       " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
+        warning("Target effect ranges from ", round(d.lower, 4), " to ", round(d.upper, 4), " within the null bounds.",
+                call. = FALSE)
 
       } else {
 
@@ -448,7 +448,7 @@ pwrss.np.2groups <- function(mu1 = 0.20, mu2 = 0,
   if (alternative == "equivalent") alternative <- "two.one.sided"
   if (alternative == "not equal") alternative <- "two.sided"
 
-  ifelse(paired, design <- "paired", design <- "independent")
+  design <- ifelse(paired, "paired", "independent")
 
   wilcox.obj <- power.np.wilcoxon(d = d,
                                   null.d = null.d,

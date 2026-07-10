@@ -394,8 +394,7 @@ power.t.student <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
-        warning(paste0("Target effect ranges from ", round(d.lower, 4),
-                       " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
+        warning("Target effect ranges from ", round(d.lower, 4), " to ", round(d.upper, 4), " within the null bounds.", call. = FALSE)
 
       } else {
 
@@ -656,8 +655,8 @@ power.t.welch <- function(d = NULL, null.d = 0, margin = 0, req.sign = "+",
 
       if (round(pwr.lower, 3) >= power && round(pwr.upper, 3) >= power) {
 
-        warning(paste0("Target effect ranges from ", round(d.lower, 4),
-                       " to ", round(d.upper, 4), " within the null bounds."), call. = FALSE)
+        warning("Target effect ranges from ", round(d.lower, 4), " to ", round(d.upper, 4), " within the null bounds.",
+                call. = FALSE)
 
       } else {
 
