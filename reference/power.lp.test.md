@@ -126,8 +126,8 @@ power.lp.test(
 # two-sided
 # power defined as the probability of observing test statistics greater
 # than the positive critical value OR less than the negative critical value
-power.lp.test(ncp = 1.960, df = 100, alpha = 0.05, alternative = "two.sided")
-
+power.lp.test(ncp = 1.960, df = 100, alpha = 0.05,
+              alternative = "two.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
@@ -149,8 +149,8 @@ power.lp.test(ncp = 1.960, df = 100, alpha = 0.05, alternative = "two.sided")
 #>   Type 2 Error (beta)  = 0.502
 #>   Statistical Power    = 0.498  <<
 #> 
-power.lp.test(power = 0.800, df = 100, alpha = 0.05, alternative = "two.sided")
-
+power.lp.test(power = 0.800, df = 100, alpha = 0.05,
+              alternative = "two.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |       MINIMUM DETECTABLE NCP CALCULATION         |
 #> +--------------------------------------------------+
@@ -172,11 +172,12 @@ power.lp.test(power = 0.800, df = 100, alpha = 0.05, alternative = "two.sided")
 #>   Type 2 Error (beta)  = 0.200
 #>   Statistical Power    = 0.800
 #> 
+
 # the two examples below estimate the df's based upon the first example
 # (revealing a power of 0.498; df = 94.11) and the second example (revealing
 # a ncp of 2.825; df = 101.06)
-power.lp.test(ncp = 1.960, power = 0.498, alpha = 0.05, alternative = "two.sided")
-
+power.lp.test(ncp = 1.960, power = 0.498, alpha = 0.05,
+              alternative = "two.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -198,8 +199,8 @@ power.lp.test(ncp = 1.960, power = 0.498, alpha = 0.05, alternative = "two.sided
 #>   Type 2 Error (beta)  = 0.502
 #>   Statistical Power    = 0.498
 #> 
-power.lp.test(ncp = 2.825, power = 0.800, alpha = 0.05, alternative = "two.sided")
-
+power.lp.test(ncp = 2.825, power = 0.800, alpha = 0.05,
+              alternative = "two.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -274,8 +275,8 @@ power.lp.test(power = 0.800, df = 100, alpha = 0.05, alternative = "one.sided")
 # the two examples below estimate the df's based upon the first example
 # (revealing a power of 0.6207; df = 100.323) and the second example (revealing
 # a ncp of 2.506; df = 99.12)
-power.lp.test(ncp = 1.960, power = 0.6207, alpha = 0.05, alternative = "one.sided")
-
+power.lp.test(ncp = 1.960, power = 0.6207, alpha = 0.05,
+              alternative = "one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -297,8 +298,8 @@ power.lp.test(ncp = 1.960, power = 0.6207, alpha = 0.05, alternative = "one.side
 #>   Type 2 Error (beta)  = 0.379
 #>   Statistical Power    = 0.621
 #> 
-power.lp.test(ncp = 2.506, power = 0.8000, alpha = 0.05, alternative = "one.sided")
-
+power.lp.test(ncp = 2.506, power = 0.8000, alpha = 0.05,
+              alternative = "one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -326,8 +327,7 @@ power.lp.test(ncp = 2.506, power = 0.8000, alpha = 0.05, alternative = "one.side
 # than the upper critical value (for the lower bound) AND less than the
 # lower critical value (for the upper bound)
 power.lp.test(ncp = 0, null.ncp = c(-3, 3), df = 100, alpha = 0.05,
-              alternative = "two.one.sided")
-
+              alternative = "two.one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
@@ -352,9 +352,8 @@ power.lp.test(ncp = 0, null.ncp = c(-3, 3), df = 100, alpha = 0.05,
 #>   Statistical Power    = 0.810  <<
 #> 
 power.lp.test(power = 0.80, req.sign = "0", null.ncp = c(-3, 3),
-              df = 100, alpha = 0.05, alternative = "two.one.sided")
+              df = 100, alpha = 0.05, alternative = "two.one.sided", plot = FALSE)
 #> Warning: Target NCP ranges from -0.2157 to 0.2157 within the null bounds.
-
 #> +--------------------------------------------------+
 #> |       MINIMUM DETECTABLE NCP CALCULATION         |
 #> +--------------------------------------------------+
@@ -381,8 +380,7 @@ power.lp.test(power = 0.80, req.sign = "0", null.ncp = c(-3, 3),
 # adjust the power based upon what is returned from the example above in
 # order to get a valid estimate of the df's (100.321; power = 0.8 -> 58.911)
 power.lp.test(ncp = 0, power = 0.8103, req.sign = "0", null.ncp = c(-3, 3),
-              alpha = 0.05, alternative = "two.one.sided")
-
+              alpha = 0.05, alternative = "two.one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+
@@ -412,8 +410,7 @@ power.lp.test(ncp = 0, power = 0.8103, req.sign = "0", null.ncp = c(-3, 3),
 # than the upper critical value (for the upper bound) OR less than the lower
 # critical value (for the lower bound).
 power.lp.test(ncp = 2, null.ncp = c(-1, 1), df = 100, alpha = 0.05,
-              alternative = "two.one.sided")
-
+              alternative = "two.one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |                POWER CALCULATION                 |
 #> +--------------------------------------------------+
@@ -466,8 +463,7 @@ power.lp.test(power = 0.80, req.sign = "+", null.ncp = c(-1, 1),
 # the first example (ncp = 2) reveals insufficient power (0.169), hence
 # use the ncp returned from the example above for estimating the df's
 power.lp.test(ncp = 3.844, power = 0.8, req.sign = "+", null.ncp = c(-3, 3),
-              alpha = 0.05, alternative = "two.one.sided")
-
+              alpha = 0.05, alternative = "two.one.sided", plot = FALSE)
 #> +--------------------------------------------------+
 #> |             SAMPLE SIZE CALCULATION              |
 #> +--------------------------------------------------+

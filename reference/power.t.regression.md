@@ -36,6 +36,24 @@ power.t.regression(
   verbose = 1,
   utf = FALSE
 )
+
+power.t.reg(
+  beta = NULL,
+  null.beta = 0,
+  margin = 0,
+  req.sign = "+",
+  sd.predictor = 1,
+  sd.outcome = 1,
+  r.squared = NULL,
+  k.total = 1,
+  n = NULL,
+  power = NULL,
+  alpha = 0.05,
+  alternative = c("two.sided", "one.sided", "two.one.sided"),
+  ceil.n = TRUE,
+  verbose = 1,
+  utf = FALSE
+)
 ```
 
 ## Arguments

@@ -1,4 +1,4 @@
-# Power Analysis for Testing Difference Between Two Proportions (Exact Method)
+# Power Analysis for Testing the Difference Between Two Proportions (Exact Method)
 
 Calculates power or sample size (only one can be NULL at a time) for two
 proportions using the exact method. The function is a wrapper for
@@ -11,6 +11,23 @@ Validated via G\*Power and PASS documentation.
 
 ``` r
 power.exact.twoprops(
+  prob1 = NULL,
+  prob2 = NULL,
+  req.sign = "+",
+  n.ratio = 1,
+  n2 = NULL,
+  power = NULL,
+  alpha = 0.05,
+  alternative = c("two.sided", "one.sided"),
+  paired = FALSE,
+  rho.paired = 0.5,
+  method = c("exact", "approximate"),
+  ceil.n = TRUE,
+  verbose = 1,
+  utf = FALSE
+)
+
+power.exact.twoprop(
   prob1 = NULL,
   prob2 = NULL,
   req.sign = "+",

@@ -34,6 +34,24 @@ power.np.wilcoxon(
   verbose = 1,
   utf = FALSE
 )
+
+power.np.wilcox(
+  d = NULL,
+  null.d = 0,
+  margin = 0,
+  req.sign = "+",
+  n.ratio = 1,
+  n2 = NULL,
+  power = NULL,
+  alpha = 0.05,
+  alternative = c("two.sided", "one.sided", "two.one.sided"),
+  design = c("independent", "paired", "one.sample"),
+  distribution = c("normal", "uniform", "double.exponential", "laplace", "logistic"),
+  method = c("guenther", "noether"),
+  ceil.n = TRUE,
+  verbose = 1,
+  utf = FALSE
+)
 ```
 
 ## Arguments
